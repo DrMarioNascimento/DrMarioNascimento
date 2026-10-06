@@ -146,6 +146,16 @@ img{display:block;max-width:100%}
 .rot b{font-family:var(--f-disp);font-weight:500;font-size:clamp(.92rem,1.12vw,1.14rem);letter-spacing:-.01em;color:#fff;text-shadow:0 0 14px #000,0 0 3px #000;transition:color .25s}
 .rot small{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--c);text-shadow:0 0 10px #000,0 0 2px #000}
 .rot:hover b,.rot.hover b{color:var(--c)}
+.rot b{display:inline-flex;align-items:center;gap:6px}
+.rot .nome{all:unset;cursor:pointer}
+.rot .nome:focus-visible{outline:2px solid var(--c);outline-offset:3px;border-radius:4px}
+.rot .ir{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;font-size:.72rem;text-decoration:none;color:var(--c);border:1px solid color-mix(in oklab,var(--c) 45%,transparent);background:rgba(3,5,10,.55);opacity:.75;transition:.2s}
+.rot .ir:hover{opacity:1;background:var(--c);color:#011}
+.zoom{position:fixed;right:var(--gut);bottom:90px;z-index:65;display:flex;flex-direction:column;gap:8px;opacity:0;pointer-events:none;transform:translateX(16px);transition:.4s var(--ease)}
+.explorando .zoom{opacity:1;pointer-events:auto;transform:none}
+.zoom button{width:46px;height:46px;border-radius:50%;border:1px solid var(--line2);background:rgba(6,10,16,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);cursor:pointer;font-size:1.15rem;display:grid;place-items:center}
+.zoom button:hover{background:rgba(255,255,255,.12)}
+.zoom svg{width:18px;height:18px}
 .rot small.tag{font-family:var(--f-serif);font-style:italic;font-size:.95rem;letter-spacing:0;text-transform:none}
 .rot.lua b{font-size:clamp(.78rem,.95vw,.9rem);color:color-mix(in oklab,var(--c) 30%,white)}
 .rot.lua small{font-size:.56rem}
@@ -420,6 +430,7 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
   <button class="fechar" type="button" id="fechaPainel" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
   <div id="painelCorpo"></div>
 </aside>
+<div class="zoom" aria-label="Controles do universo"><button type="button" id="zoomMais" aria-label="Aproximar">+</button><button type="button" id="zoomMenos" aria-label="Afastar">−</button><button type="button" id="zoomCentro" aria-label="Recentralizar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button></div>
 <button class="btn sair-explorar" type="button" id="sairExplorar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg><span data-lang-pt>Voltar ao início</span><span data-lang-en>Back to start</span></button>
 
 <!-- herói -->
@@ -924,8 +935,9 @@ const mundo = new THREE.Group(); scene.add(mundo);
 const plano = new THREE.Group(); mundo.add(plano);
 const TILT = MOBILE ? 1.12 : 1.0;
 plano.rotation.x = TILT;
-mundo.scale.setScalar(MOBILE ? .8 : .88);
-mundo.position.set(MOBILE ? 0 : 15, MOBILE ? 1 : 4, 0);
+const ESC = { heroi: MOBILE ? .7 : .84, explorar: MOBILE ? .82 : 1.0 };
+const POS = { heroi: MOBILE ? new THREE.Vector3(0, 1, 0) : new THREE.Vector3(15, -1, 0), explorar: new THREE.Vector3(0, -3, 0) };
+mundo.scale.setScalar(ESC.heroi); mundo.position.copy(POS.heroi);
 
 const planetaVS = `varying vec3 vN; varying vec3 vP; varying vec3 vW; void main(){ vN = normalize(normalMatrix*normal); vP = position; vec4 w = modelMatrix*vec4(position,1.); vW = w.xyz; gl_Position = projectionMatrix*viewMatrix*w; }`;
 const planetaFS = NOISE + `uniform vec3 uC; uniform float uT, uH, uSeed; varying vec3 vN; varying vec3 vP; varying vec3 vW;
@@ -941,11 +953,12 @@ const atmoFS = `uniform vec3 uC; uniform float uH; varying vec3 vN; varying vec3
     float a = pow(clamp(1. - abs(d), 0., 1.), 3.) * (.6 + uH*.8); gl_FragColor = vec4(uC, a); }`;
 
 // sistemas (coordenadas no plano: x, z). Sala de aula e Dragon Games se sobrepõem; o Eita! fica na interseção.
-const RA = 12, RD = 9, DIST = 16.5;
+const RA = 12, RD = 9, DIST = 19.5;
 const SIS = MOBILE
-  ? { aula:{ c:new THREE.Vector3(0,0,-9), R:RA }, dragon:{ c:new THREE.Vector3(0,0,-9+DIST), R:RD }, lab:{ c:new THREE.Vector3(9,0,17), R:4.6 } }
-  : { aula:{ c:new THREE.Vector3(-7,0,0), R:RA }, dragon:{ c:new THREE.Vector3(-7+DIST,0,0), R:RD }, lab:{ c:new THREE.Vector3(1.5,0,17.5), R:4.6 } };
+  ? { aula:{ c:new THREE.Vector3(0,0,-11), R:RA }, dragon:{ c:new THREE.Vector3(0,0,-11+DIST), R:RD }, lab:{ c:new THREE.Vector3(10,-6,17), R:4.6 } }
+  : { aula:{ c:new THREE.Vector3(-9,0,0), R:RA }, dragon:{ c:new THREE.Vector3(-9+DIST,0,0), R:RD }, lab:{ c:new THREE.Vector3(2,-6,15.5), R:4.6 } };
 const eixo = SIS.dragon.c.clone().sub(SIS.aula.c).normalize();
+{ const cen = SIS.aula.c.clone().add(SIS.dragon.c).add(SIS.lab.c).multiplyScalar(1/3); plano.position.copy(cen.applyQuaternion(plano.quaternion).negate()); }
 const PONTO_EITA = SIS.aula.c.clone().addScaledVector(eixo, (DIST - RD + RA) / 2);   // meio da lente de interseção
 
 function anel(R, cor, op, tracejado){
@@ -1032,11 +1045,11 @@ function linha2(n){ const L = (a,b) => U.lang === 'pt' ? a : b; const q = U.iten
   return `${q} ${q === 1 ? L('item','item') : L('itens','items')}${'pai' in n.r ? ' · ' + L('apoio','support') : ''}`; }
 function montaRotulos(){
   const L = (a,b) => U.lang === 'pt' ? a : b;
-  rotBox.innerHTML = nos.map(n => `<a class="rot${n.orb ? ' sat' : ''}" href="${n.r.online}" data-k="${n.k}" style="--c:${n.r.cor}"><b>${n.r.nome}</b><small${n.r.tag ? ' class="tag"' : ''}>${linha2(n)}</small></a>`).join('') +
+  rotBox.innerHTML = nos.map(n => `<div class="rot${n.orb ? ' sat' : ''}" data-k="${n.k}" style="--c:${n.r.cor}"><b><button type="button" class="nome">${n.r.nome}</button><a class="ir" href="${n.r.online}" target="_blank" rel="noopener" aria-label="${L('Abrir','Open')} ${n.r.nome}" title="${L('Abrir direto','Open directly')}">↗</a></b><small${n.r.tag ? ' class="tag"' : ''}>${linha2(n)}</small></div>`).join('') +
     luas.map(i => { const it = U.itens[i]; return `<a class="rot lua" href="${it[3]}" target="_blank" rel="noopener" data-i="${i}" style="--c:${nos[it[0]].r.cor}"><b>${it[1].split(/\s+[-–—]\s+/).slice(-1)[0]}</b><small>${L('jogo','game')}</small></a>`; }).join('') +
     ['aula','dragon','lab'].map(g => `<button type="button" class="rot-grupo" data-g="${g}" style="--c:#${sistemas[g].cor.getHexString()}">${U.t(U.grupos[g])}</button>`).join('');
   rotBox.querySelectorAll('.rot[data-k]').forEach(a => {
-    a.addEventListener('click', e => { e.preventDefault(); foca(+a.dataset.k); });
+    a.querySelector('.nome').addEventListener('click', () => foca(+a.dataset.k));
     a.addEventListener('pointerenter', () => hoverPlaneta = +a.dataset.k);
     a.addEventListener('pointerleave', () => hoverPlaneta = -1);
   });
@@ -1047,16 +1060,28 @@ let hoverLua = -1;
 montaRotulos(); document.addEventListener('lang', () => { montaRotulos(); if (focoK >= 0) painel(focoK); else if (focoSis) painelSistema(focoSis); });
 
 /* ---------- interação ---------- */
-let mx = 0, my = 0, arrasta = null, rotY = 0, rotX = 0, vY = 0, vX = 0, hoverPlaneta = -1, hoverItem = -1, focoK = -1, focoSis = null;
+let mx = 0, my = 0, arrasta = null, vY = 0, vX = 0, zoom = 1, zoomAlvo = 1, toques = new Map(), pinca = 0, hoverPlaneta = -1, hoverItem = -1, focoK = -1, focoSis = null;
 const ray = new THREE.Raycaster(); const ptr = new THREE.Vector2(-9,-9);
 addEventListener('pointermove', e => { mx = e.clientX/innerWidth - .5; my = e.clientY/innerHeight - .5; ptr.set(e.clientX, e.clientY);
-  if (arrasta) { const dx = e.clientX - arrasta.x, dy = e.clientY - arrasta.y; vY = dx*.0045; vX = dy*.003; rotY += vY; rotX = Math.max(-.45, Math.min(.7, rotX + vX)); arrasta.x = e.clientX; arrasta.y = e.clientY; arrasta.mov += Math.abs(dx)+Math.abs(dy); } }, { passive:true });
-canvas.addEventListener('pointerdown', e => { arrasta = { x:e.clientX, y:e.clientY, mov:0 }; canvas.setPointerCapture(e.pointerId); });
-canvas.addEventListener('pointerup', e => { const clique = arrasta && arrasta.mov < 6; arrasta = null;
+  if (toques.has(e.pointerId)) toques.set(e.pointerId, { x:e.clientX, y:e.clientY });
+  if (toques.size === 2) { const [a, b] = [...toques.values()]; const d = Math.hypot(a.x-b.x, a.y-b.y); if (pinca) zoomAlvo = Math.max(.4, Math.min(2.2, zoomAlvo * pinca / d)); pinca = d; if (arrasta) arrasta.mov += 99; return; }
+  if (arrasta) { const dx = e.clientX - arrasta.x, dy = e.clientY - arrasta.y; vY = dx*.005; vX = dy*.005; gira(vY, vX); arrasta.x = e.clientX; arrasta.y = e.clientY; arrasta.mov += Math.abs(dx)+Math.abs(dy); } }, { passive:true });
+const qA = new THREE.Quaternion(), EX = new THREE.Vector3(1,0,0), EY = new THREE.Vector3(0,1,0);
+function gira(ay, ax){ qA.setFromAxisAngle(EY, ay); mundo.quaternion.premultiply(qA); qA.setFromAxisAngle(EX, ax); mundo.quaternion.premultiply(qA); mundo.quaternion.normalize(); }
+canvas.addEventListener('pointerdown', e => { toques.set(e.pointerId, { x:e.clientX, y:e.clientY }); if (toques.size === 2) { pinca = 0; return; } arrasta = { x:e.clientX, y:e.clientY, mov:0 }; canvas.setPointerCapture(e.pointerId); });
+const solta = e => { toques.delete(e.pointerId); if (toques.size < 2) pinca = 0; };
+canvas.addEventListener('pointerup', e => { solta(e); const clique = arrasta && arrasta.mov < 6; arrasta = null;
   if (clique) { if (hoverItem >= 0) window.open(U.itens[hoverItem][3], '_blank', 'noopener'); else if (hoverPlaneta >= 0) foca(hoverPlaneta); else if (focoK >= 0 || focoSis) desfoca(); } });
+canvas.addEventListener('dblclick', () => { if (hoverPlaneta >= 0) window.open(U.repos[hoverPlaneta].online, '_blank', 'noopener'); });
+canvas.addEventListener('wheel', e => { if (!U.explorar) return; e.preventDefault(); zoomAlvo = Math.max(.4, Math.min(2.2, zoomAlvo * Math.exp(e.deltaY * .0012))); }, { passive:false });
+$('#zoomMais').addEventListener('click', () => zoomAlvo = Math.max(.4, zoomAlvo * .78));
+$('#zoomMenos').addEventListener('click', () => zoomAlvo = Math.min(2.2, zoomAlvo / .78));
+$('#zoomCentro').addEventListener('click', () => { desfoca(); zoomAlvo = 1; recentra = true; });
+let recentra = false; const qInicial = new THREE.Quaternion();
 canvas.addEventListener('pointerleave', () => { ptr.set(-9999,-9999); });
-canvas.addEventListener('pointercancel', () => { arrasta = null; });
+canvas.addEventListener('pointercancel', e => { solta(e); arrasta = null; });
 document.addEventListener('fecha-foco', desfoca);
+$('#sairExplorar').addEventListener('click', () => { zoomAlvo = 1; recentra = true; });
 document.addEventListener('foca', e => foca(e.detail));
 $('#fechaPainel').addEventListener('click', desfoca);
 
@@ -1102,12 +1127,13 @@ function laco(now){
   fpsN++; if (now - fpsT > 1000) { $('#hudFps').textContent = fpsN; fpsN = 0; fpsT = now; }
   const sp = U.scrollP || 0, heroP = Math.min(1, sp);
 
-  // o plano orbital gira em torno do próprio eixo (arraste com inércia + leve oscilação)
-  if (!arrasta) { vY *= .94; vX *= .9; rotY += vY; }
+  // rotação livre em qualquer direção (arraste com inércia; giro lento quando ocioso)
   const foco = focoK >= 0 || focoSis;
-  const oscila = REDUZ || foco ? 0 : Math.sin(t*.06)*.22;
-  plano.rotation.x += ((TILT + rotX + my*.08) - plano.rotation.x) * .06;
-  plano.rotation.y += ((rotY + oscila + mx*.22) - plano.rotation.y) * .06;
+  if (!arrasta) { vY *= .95; vX *= .95; if (Math.abs(vY) + Math.abs(vX) > 1e-5) gira(vY, vX); else if (!REDUZ && !foco && !recentra) gira(dt*.03, 0); }
+  if (recentra) { mundo.quaternion.slerp(qInicial, .08); if (mundo.quaternion.angleTo(qInicial) < .002) recentra = false; }
+  zoom += (zoomAlvo - zoom) * .1;
+  const modo = U.explorar ? 'explorar' : 'heroi';
+  mundo.position.lerp(POS[modo], .05); mundo.scale.setScalar(mundo.scale.x + (ESC[modo] - mundo.scale.x) * .05);
 
   // posições no plano
   nos.forEach(n => { if (n.fixo) n.g.position.copy(n.fixo);
@@ -1134,7 +1160,7 @@ function laco(now){
   else if (focoSis) { const S = sistemas[focoSis]; const wp = mundoDe(S.c).clone(); const s = mundo.scale.x, d = (S.R*2.1 + 4)*s;
     const lado = MOBILE ? 0 : S.R*.55*s;
     alvoCam.set(wp.x + lado, wp.y + S.R*.35*s - (MOBILE ? S.R*.7*s : 0), wp.z + d); olhar.set(wp.x + lado, wp.y - (MOBILE ? S.R*.6*s : 0), wp.z); }
-  else { const z = (MOBILE ? 50 : 46) + heroP*16 + Math.min(1, Math.max(0, sp-1))*10; alvoCam.set(mx*3, 4 - heroP*6 - my*2, z); olhar.set(0, -heroP*3 - (MOBILE && !U.explorar ? 6 : 0), 0); }
+  else { const z = (MOBILE ? 50 : 46) + heroP*16 + Math.min(1, Math.max(0, sp-1))*10; alvoCam.set(mx*3, 4 - heroP*6 - my*2, z * (U.explorar ? zoom : 1)); olhar.set(0, -heroP*3 - (MOBILE && !U.explorar ? 6 : 0), 0); }
   camera.position.lerp(alvoCam, foco ? .05 : .06); olharAtual.lerp(olhar, .06); camera.lookAt(olharAtual);
   estrelas.rotation.y = t*.004 + mx*.05; poeira.rotation.y = -t*.01;
   nebula.material.uniforms.uT.value = t; estrelas.material.uniforms.uT.value = t; poeira.material.uniforms.uT.value = t; itMat.uniforms.uT.value = t;
@@ -1172,7 +1198,7 @@ function laco(now){
     const wp = n.g.getWorldPosition(new THREE.Vector3()); const s = projeta(wp); const topo = projeta(wp.clone().add(new THREE.Vector3(0, n.raio*mundo.scale.x*1.15, 0)));
     const pr = Math.abs(s.y - topo.y); if (s.z > 1) { el.style.opacity = 0; return; } el.style.opacity = 1;
     coloca(el, s.x, s.y + pr + 4, s.y - pr - 4); el.classList.toggle('hover', n.k === hp); });
-  luas.forEach(i => { const el = rotBox.querySelector(`.rot.lua[data-i="${i}"]`); if (!el) return; const s = projeta(mundoDe(orbItens[i].p)); if (s.z > 1) { el.style.opacity = 0; return; } el.style.opacity = 1; coloca(el, s.x, s.y + 9, s.y - 9); });
+  luas.forEach(i => { const el = rotBox.querySelector(`.rot.lua[data-i="${i}"]`); if (!el) return; const s = projeta(mundoDe(orbItens[i].p)); const mostra = focoSis === 'dragon' || (focoK >= 0 && nos[focoK] === centrais.dragon) || zoom < .75 || hoverLua === i || hoverItem === i; el.style.pointerEvents = mostra ? '' : 'none'; if (s.z > 1 || !mostra) { el.style.opacity = 0; return; } el.style.opacity = 1; coloca(el, s.x, s.y + 9, s.y - 9); });
   rotBox.querySelectorAll('.rot-grupo').forEach(el => { const S = sistemas[el.dataset.g];
     const pts = [0,1,2,3,4,5,6,7].map(j => { const a = j/8*Math.PI*2; return projeta(mundoDe(new THREE.Vector3(S.c.x + Math.cos(a)*S.R, 0, S.c.z + Math.sin(a)*S.R))); });
     const c = projeta(mundoDe(S.c)); const topo = Math.min(...pts.map(p => p.y));
