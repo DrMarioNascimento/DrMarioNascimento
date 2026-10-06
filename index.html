@@ -243,8 +243,8 @@ main{position:relative;z-index:5}
 .legenda span::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--c)}
 
 /* mundos (galeria) */
-.mundos{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(260px,30vw,400px);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 28px;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
-.mundo{--rx:0deg;--ry:0deg;scroll-snap-align:start;position:relative;aspect-ratio:4/5;border-radius:26px;overflow:hidden;border:1px solid var(--line);isolation:isolate;display:flex;flex-direction:column;justify-content:end;padding:24px;text-decoration:none;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .5s var(--ease),box-shadow .5s,border-color .4s}
+.mundos{display:grid;grid-template-columns:repeat(auto-fit,minmax(0,min(100%,clamp(260px,30vw,400px))));gap:24px 16px;padding:4px 2px 28px}
+.mundo{--rx:0deg;--ry:0deg;min-width:0;position:relative;aspect-ratio:4/5;border-radius:26px;overflow:hidden;border:1px solid var(--line);isolation:isolate;display:flex;flex-direction:column;justify-content:end;padding:24px;text-decoration:none;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .5s var(--ease),box-shadow .5s,border-color .4s}
 .mundo img{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;z-index:-2;transform:translate(calc(var(--ry) * -.6),calc(var(--rx) * .6)) scale(1.02);transition:transform .5s var(--ease),filter .5s;filter:saturate(.9) brightness(.85)}
 .mundo::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 30%,rgba(3,5,10,.94) 82%)}
 .mundo:hover{border-color:color-mix(in oklab,var(--c) 60%,transparent);box-shadow:0 40px 80px -40px var(--c)}
@@ -337,6 +337,7 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
 }
 @media (max-width:640px){
   body{font-size:15px}
+  .mundos{grid-template-columns:minmax(0,1fr)}
   .topo{height:62px;gap:10px}
   .marca small,.btn .txt,.btn kbd{display:none}
   .marca b{font-size:.84rem}
@@ -475,7 +476,7 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
   <!-- mundos -->
   <section class="sec" id="mundos"><div class="wrap">
     <div class="titulo rv"><div><span class="mono">03 · <span data-lang-pt>Portais</span><span data-lang-en>Portals</span></span><h2><span data-lang-pt>Mundos para<br><span class="serif">entrar agora.</span></span><span data-lang-en>Worlds to<br><span class="serif">step into now.</span></span></h2></div>
-      <p><span data-lang-pt>Arraste para o lado. Cada cartão abre a experiência publicada.</span><span data-lang-en>Swipe sideways. Each card opens the live experience.</span></p></div>
+      <p><span data-lang-pt>Escolha um cartão para abrir a experiência publicada.</span><span data-lang-en>Choose a card to open the live experience.</span></p></div>
     <div class="mundos rv" id="mundosGrid"></div>
   </div></section>
 
