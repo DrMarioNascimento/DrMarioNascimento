@@ -142,16 +142,15 @@ img{display:block;max-width:100%}
 
 /* rótulos flutuantes */
 .rotulos{position:fixed;inset:0;z-index:4;pointer-events:none;transition:opacity .4s}
-.rot{position:absolute;left:0;top:0;display:flex;align-items:center;gap:9px;padding:6px 12px 6px 8px;border-radius:999px;border:1px solid color-mix(in oklab,var(--c) 40%,transparent);background:rgba(6,10,16,.5);backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);text-decoration:none;white-space:nowrap;cursor:pointer;pointer-events:auto;will-change:transform;transition:border-color .25s,background .25s,box-shadow .25s,opacity .3s;font-size:.8rem}
-.rot i{width:9px;height:9px;border-radius:50%;background:var(--c);box-shadow:0 0 12px var(--c);flex:none}
-.rot b{font-family:var(--f-disp);font-weight:500;letter-spacing:-.005em}
-.rot small{font-family:var(--f-mono);font-size:.6rem;color:var(--c);letter-spacing:.08em}
-.rot::before{content:"";position:absolute;left:12px;top:-16px;width:1px;height:16px;background:linear-gradient(transparent,color-mix(in oklab,var(--c) 70%,transparent))}
-.rot:hover,.rot.hover{border-color:var(--c);background:color-mix(in oklab,var(--c) 18%,rgba(6,10,16,.6));box-shadow:0 0 30px -6px var(--c)}
-.rot.sat{font-size:.72rem;padding:4px 10px 4px 7px}
-.rot.sat i{width:7px;height:7px}
-.rot-grupo{position:absolute;left:0;top:0;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--c);white-space:nowrap;text-shadow:0 0 16px #000;will-change:transform}
-.rot-grupo::before{content:"⟢ "}
+.rot{position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px;padding:2px 8px;text-decoration:none;white-space:nowrap;cursor:pointer;pointer-events:auto;will-change:transform;transition:opacity .3s}
+.rot b{font-family:var(--f-disp);font-weight:500;font-size:clamp(.92rem,1.12vw,1.14rem);letter-spacing:-.01em;color:#fff;text-shadow:0 0 14px #000,0 0 3px #000;transition:color .25s}
+.rot small{font-family:var(--f-mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--c);text-shadow:0 0 10px #000,0 0 2px #000}
+.rot:hover b,.rot.hover b{color:var(--c)}
+.rot small.tag{font-family:var(--f-serif);font-style:italic;font-size:.95rem;letter-spacing:0;text-transform:none}
+.rot.lua b{font-size:clamp(.78rem,.95vw,.9rem);color:color-mix(in oklab,var(--c) 30%,white)}
+.rot.lua small{font-size:.56rem}
+.rot-grupo{position:absolute;left:0;top:0;padding:6px 10px;border:0;background:none;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--c);white-space:nowrap;text-shadow:0 0 16px #000;will-change:transform;cursor:pointer;pointer-events:auto;transition:opacity .3s,letter-spacing .3s}
+.rot-grupo:hover{letter-spacing:.4em}
 .dica-item{position:fixed;z-index:80;left:0;top:0;pointer-events:none;padding:10px 13px;border-radius:12px;border:1px solid color-mix(in oklab,var(--c,#fff) 50%,transparent);background:rgba(6,10,16,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);max-width:260px;opacity:0;transform:translate(14px,14px) scale(.96);transition:opacity .15s,transform .15s}
 .dica-item.on{opacity:1;transform:translate(14px,14px)}
 .dica-item small{display:block;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--c,var(--acc))}
@@ -274,10 +273,13 @@ main{position:relative;z-index:5}
 .retrato .aneis i{position:absolute;inset:calc(var(--k) * 7%);border-radius:50%;border:1px solid color-mix(in oklab,var(--c) 50%,transparent);animation:orbita calc(14s + var(--k)*6s) linear infinite;animation-direction:var(--dir,normal)}
 .retrato .aneis i::after{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 14px var(--c)}
 @keyframes orbita{to{transform:rotate(360deg)}}
-.retrato .foto{position:absolute;inset:22%;border-radius:50%;overflow:hidden;border:1px solid var(--line2);box-shadow:0 0 80px -10px #38e1c655,inset 0 0 40px #000}
-.retrato .foto img{width:100%;height:100%;object-fit:cover}
-.retrato .foto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 0 48%,rgba(56,225,198,.18) 50%,transparent 52%);background-size:100% 300%;animation:varre 4s linear infinite;mix-blend-mode:screen}
-@keyframes varre{from{background-position:0 100%}to{background-position:0 -200%}}
+.retrato{container-type:inline-size}
+.retrato .disco{position:absolute;inset:22%;border-radius:50%;background:radial-gradient(circle at 50% 38%,#16403a 0,#0a1a22 45%,#04070d 75%);border:1px solid color-mix(in oklab,var(--acc) 35%,transparent);box-shadow:0 0 90px -10px #38e1c655,inset 0 -30px 60px #000}
+.retrato .pop{position:absolute;left:10%;right:10%;bottom:22%;height:88cqw;
+  -webkit-mask:linear-gradient(#000 0 0) top/100% calc(100% - 28cqw) no-repeat,radial-gradient(circle 28cqw at 50% calc(100% - 28cqw),#000 99.5%,transparent 100%);
+  mask:linear-gradient(#000 0 0) top/100% calc(100% - 28cqw) no-repeat,radial-gradient(circle 28cqw at 50% calc(100% - 28cqw),#000 99.5%,transparent 100%)}
+.retrato .pop img{position:absolute;left:50%;bottom:-14cqw;height:calc(100% + 14cqw);width:auto;max-width:none;transform:translateX(-50%);filter:drop-shadow(0 18px 30px rgba(0,0,0,.55));transition:transform .6s var(--ease)}
+.retrato:hover .pop img{transform:translateX(-50%) translateY(-2cqw)}
 .sobre h2{margin:0 0 18px;font-family:var(--f-disp);font-weight:500;font-size:clamp(2.2rem,4.6vw,4rem);letter-spacing:-.045em;line-height:.95}
 .sobre .bio{color:var(--ink2);font-size:clamp(1rem,1.25vw,1.12rem);max-width:58ch;margin:0 0 26px}
 .principios{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 30px}
@@ -335,11 +337,11 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
   .lead{font-size:1rem}
   .hud-e,.hud-d{display:none}
   .cantos{inset:74px 12px 60px}
-  .rot{font-size:.7rem;padding:4px 9px 4px 6px}
-  .rot small{display:none}
-  .rot.sat{display:none}
-  .explorando .rot.sat{display:flex}
-  .rot-grupo{display:none}
+  .rot b{font-size:.8rem}
+  .rot small{font-size:.54rem}
+  .rot.lua{display:none}
+  .explorando .rot.lua{display:flex}
+  .rot-grupo{font-size:.6rem;letter-spacing:.24em}
   .manifesto{height:200vh}
   .tile{grid-column:span 12;min-height:0}
   .principios{grid-template-columns:1fr}
@@ -379,7 +381,7 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
 <!-- topo -->
 <header class="topo" id="topo">
   <a class="marca" href="#inicio" aria-label="Início">
-    <span class="marca-av"><img src="https://drmarionascimento.github.io/fisiologia-interativa/assets/avatar-prof-mario.webp" alt="" width="40" height="40"></span>
+    <span class="marca-av"><img src="assets/avatar-rosto.webp" alt="" width="40" height="40"></span>
     <span><b>Mário César Nascimento</b><small>PhD · Professor</small></span>
   </a>
   <nav class="nav" id="nav" aria-label="Seções">
@@ -408,7 +410,7 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
 </div>
 <div class="hud hud-d" id="hudD" aria-hidden="true">
   <div><i></i><b>ONLINE</b> · FLORIANÓPOLIS · <b id="hudHora">--:--</b></div>
-  <div><b id="hudCont">8</b> <span data-lang-pt>REPOSITÓRIOS</span><span data-lang-en>REPOSITORIES</span> · <b id="hudItens">99</b> <span data-lang-pt>EXPERIÊNCIAS</span><span data-lang-en>EXPERIENCES</span></div>
+  <div><b id="hudCont">9</b> <span data-lang-pt>REPOSITÓRIOS</span><span data-lang-en>REPOSITORIES</span> · <b id="hudItens">100</b> <span data-lang-pt>EXPERIÊNCIAS</span><span data-lang-en>EXPERIENCES</span></div>
 </div>
 <div class="rotulos" id="rotulos" aria-hidden="true"></div>
 <div class="dica-item" id="dicaItem" aria-hidden="true"></div>
@@ -480,7 +482,8 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
   <section class="sec" id="sobre"><div class="wrap sobre">
     <div class="retrato rv">
       <div class="aneis"><i style="--k:0;--c:#38e1c6"></i><i style="--k:1;--c:#a58cff;--dir:reverse"></i><i style="--k:2;--c:#ff5a2c"></i></div>
-      <div class="foto"><img src="https://drmarionascimento.github.io/fisiologia-interativa/assets/avatar-prof-mario.webp" alt="Retrato do Prof. Mário César Nascimento" loading="lazy"></div>
+      <div class="disco"></div>
+      <div class="pop"><img src="assets/avatar-corpo.webp" alt="Ilustração do Prof. Mário César Nascimento segurando livros" loading="lazy"></div>
     </div>
     <div class="rv" style="--d:.1s">
       <span class="mono" style="color:var(--acc)">05 · <span data-lang-pt>Sobre</span><span data-lang-en>About</span></span>
@@ -556,7 +559,12 @@ window.U = {
       area:{pt:'Realidade aumentada e técnicas em teste',en:'Augmented reality & techniques under test'},
       lema:{pt:'Onde as ideias são testadas antes da aula e do jogo.',en:'Where ideas are tested before class and before the game.'},
       desc:{pt:'Bancadas de realidade aumentada: do músculo ao sarcômero, forças de Starling, espaço pleural e as peças físicas do MOSAICO.',en:'Augmented-reality benches: from muscle to sarcomere, Starling forces, the pleural space and MOSAICO\'s physical pieces.'},
-      online:'https://drmarionascimento.github.io/lab-ra/', github:'https://github.com/DrMarioNascimento/lab-ra', capa:'https://drmarionascimento.github.io/lab-ra/atlas_frente.png' }
+      online:'https://drmarionascimento.github.io/lab-ra/', github:'https://github.com/DrMarioNascimento/lab-ra', capa:'https://drmarionascimento.github.io/lab-ra/atlas_frente.png' },
+    { id:'eita-quiz', nome:'Eita!', cor:'#ff8ad8', grupo:'aula', grupos:['aula','dragon'], tag:'An alliance-based quiz', total:1,
+      area:{pt:'Quiz em aliança',en:'Alliance quiz'},
+      lema:{pt:'Jogar junto, responder junto.',en:'Play together, answer together.'},
+      desc:{pt:'Eita! — um quiz em aliança: a turma se junta para responder, rodada a rodada.',en:'Eita! — a quiz played in alliance: the group teams up to answer, round by round.'},
+      online:'https://eita-quiz.web.app/', github:'https://github.com/DrMarioNascimento/eita-quiz' }
   ],
   grupos: {
     aula:{pt:'Sala de aula',en:'Classroom',sub:{pt:'Fisiologia (EF e Fisioterapia) com seus apoios, Ética e formação em pesquisa.',en:'Physiology (PE & Physiotherapy) and its companions, Ethics and research training.'}},
@@ -564,8 +572,8 @@ window.U = {
     lab:{pt:'Bancada de testes',en:'Test bench',sub:{pt:'A porta de entrada de técnicas e tecnologias que depois vão para as aulas e para os jogos.',en:'The gateway for techniques and technologies that later reach classes and games.'}}
   },
   tipos:{simulador:['Simulador','Simulator'],aprofundamento:['Aprofundamento','Deep dive'],tutor:['Tutor com IA','AI tutor'],escape:['Sala de escape','Escape room'],operacao:['Operação de sala','Class operation'],experiencia:['Experiência','Experience'],laboratorio:['Laboratório','Lab'],bancada:['Bancada RA','AR bench'],jogo:['Jogo','Game']},
-  itens: [[0,"Osmose e equilíbrio hidroeletrolítico","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/osmose-equilibrio-hidroeletrolitico.html","simulador","ef"],[0,"Homeostase integrada tricompartimentada","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/homeostase-integrada-tricompartimental.html","simulador","ef"],[0,"Potencial de ação na membrana","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/potencial-acao-membrana.html","simulador","ef"],[0,"Potencial de ação do neurônio","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/neuronio-interativo.html","simulador","ef"],[0,"Transporte ativo secundário — SGLT","Transporte","https://drmarionascimento.github.io/fisiologia-interativa/transporte-ativo-secundario-sglt.html","simulador","ef"],[0,"Potencial de ação cardíaco","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/potencial-acao-cardiaco.html","simulador","ef"],[0,"Contração muscular esquelética","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/contracao-muscular-esqueletica.html","simulador","ef"],[0,"Acoplamento excitação–contração","Placa motora","https://drmarionascimento.github.io/fisiologia-interativa/acoplamento-excitacao-contracao.html","simulador","ef"],[0,"Contração muscular e sarcômero","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/contracao-muscular-sarcomero.html","simulador","ef"],[0,"Contrações musculares interativas","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/contracoes-musculares-interativas.html","simulador","ef"],[0,"Hill × Isocinético","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/modelos-hill-isocinetico.html","simulador","ef"],[0,"Recrutamento de unidades motoras","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/recrutamento-unidades-motoras.html","simulador","ef"],[0,"Da intenção ao movimento","Módulo de aprofundamento","https://drmarionascimento.github.io/fisiologia-interativa/da-intencao-ao-movimento.html","aprofundamento","ef"],[0,"Homeostase do cálcio","Osteoarticular","https://drmarionascimento.github.io/fisiologia-interativa/homeostase-do-calcio.html","simulador","ef"],[0,"Mecanotransdução Óssea e Lei de Wolff","Osteoarticular","https://drmarionascimento.github.io/fisiologia-interativa/mecanotransducao-lei-de-wolff.html","simulador","ef"],[0,"Pressão arterial, DC e RPT","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/hemodinamica-pa-dc-rpt.html","simulador","ef"],[0,"Retorno venoso","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/retorno-venoso.html","simulador","ef"],[0,"Loop cardíaco funcional","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/loop-cardiaco-funcional.html","simulador","ef"],[0,"Lei de Poiseuille","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/lei-de-poiseuille.html","simulador","ef"],[0,"Sangue","Módulo de aprofundamento","https://drmarionascimento.github.io/fisiologia-interativa/sangue.html","aprofundamento","ef"],[0,"Mecânica ventilatória","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/ventilacao-pulmonar.html","simulador","ef"],[0,"Biofeedback respiratório — PC","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/biofeedback-respiratorio.html","simulador","ef"],[0,"Biofeedback respiratório — Smartphone","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/biofeedback-respiratorio-smartphone.html","simulador","ef"],[0,"Curva de dissociação da hemoglobina","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/curva-dissociacao-hemoglobina.html","simulador","ef"],[0,"Cardiopulmonar integrado","Integração","https://drmarionascimento.github.io/fisiologia-interativa/cardiopulmonar-integrado.html","simulador","ef"],[0,"Fick integrado","Integração","https://drmarionascimento.github.io/fisiologia-interativa/fick-integrado-cardiorrespiratorio.html","simulador","ef"],[0,"Consumo de O₂ e diferença a–vO₂","Integração","https://drmarionascimento.github.io/fisiologia-interativa/consumo-o2-debito-cardiaco-diferenca-av.html","simulador","ef"],[0,"Box do Atleta","Desafio de fechamento","https://drmarionascimento.github.io/fisiologia-interativa/atleta-box.html?percurso=educacao-fisica","aprofundamento","ef"],[0,"Tutor de Fisiologia — Educação Física","Tutor com IA","https://drmarionascimento.github.io/fisiologia-interativa/tutor-ef.html","tutor","ef"],[0,"Osmose e equilíbrio hidroeletrolítico","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/osmose-equilibrio-hidroeletrolitico.html?percurso=fisioterapia","simulador","fisio"],[0,"Homeostase integrada tricompartimentada","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/homeostase-integrada-tricompartimental.html?percurso=fisioterapia","simulador","fisio"],[0,"Potencial de ação na membrana","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/potencial-acao-membrana.html?percurso=fisioterapia","simulador","fisio"],[0,"Potencial de ação do neurônio","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/neuronio-interativo.html?percurso=fisioterapia","simulador","fisio"],[0,"Transporte ativo secundário — SGLT","Transporte","https://drmarionascimento.github.io/fisiologia-interativa/transporte-ativo-secundario-sglt.html?percurso=fisioterapia","simulador","fisio"],[0,"Potencial de ação cardíaco","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/potencial-acao-cardiaco.html?percurso=fisioterapia","simulador","fisio"],[0,"Contração muscular esquelética","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/contracao-muscular-esqueletica.html?percurso=fisioterapia","simulador","fisio"],[0,"Acoplamento excitação–contração","Placa motora","https://drmarionascimento.github.io/fisiologia-interativa/acoplamento-excitacao-contracao.html?percurso=fisioterapia","simulador","fisio"],[0,"Contração muscular e sarcômero","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/contracao-muscular-sarcomero.html?percurso=fisioterapia","simulador","fisio"],[0,"Contrações musculares interativas","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/contracoes-musculares-interativas.html?percurso=fisioterapia","simulador","fisio"],[0,"Hill × Isocinético","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/modelos-hill-isocinetico.html?percurso=fisioterapia","simulador","fisio"],[0,"Recrutamento de unidades motoras","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/recrutamento-unidades-motoras.html?percurso=fisioterapia","simulador","fisio"],[0,"Da intenção ao movimento","Módulo de aprofundamento","https://drmarionascimento.github.io/fisiologia-interativa/da-intencao-ao-movimento.html?percurso=fisioterapia","aprofundamento","fisio"],[0,"Pressão arterial, DC e RPT","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/hemodinamica-pa-dc-rpt.html?percurso=fisioterapia","simulador","fisio"],[0,"Retorno venoso","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/retorno-venoso.html?percurso=fisioterapia","simulador","fisio"],[0,"Loop cardíaco funcional","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/loop-cardiaco-funcional.html?percurso=fisioterapia","simulador","fisio"],[0,"Lei de Poiseuille","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/lei-de-poiseuille.html?percurso=fisioterapia","simulador","fisio"],[0,"Sangue","Módulo de aprofundamento","https://drmarionascimento.github.io/fisiologia-interativa/sangue.html?percurso=fisioterapia","aprofundamento","fisio"],[0,"Mecânica ventilatória","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/ventilacao-pulmonar.html?percurso=fisioterapia","simulador","fisio"],[0,"Biofeedback respiratório — PC","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/biofeedback-respiratorio.html?percurso=fisioterapia","simulador","fisio"],[0,"Biofeedback respiratório — Smartphone","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/biofeedback-respiratorio-smartphone.html?percurso=fisioterapia","simulador","fisio"],[0,"Curva de dissociação da hemoglobina","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/curva-dissociacao-hemoglobina.html?percurso=fisioterapia","simulador","fisio"],[0,"Ventilação Pulmonar Neonatal","Módulo de aprofundamento","https://drmarionascimento.github.io/fisiologia-interativa/ventilacao-pulmonar-neonatal.html?percurso=fisioterapia","aprofundamento","fisio"],[0,"Cardiopulmonar integrado","Integração","https://drmarionascimento.github.io/fisiologia-interativa/cardiopulmonar-integrado.html?percurso=fisioterapia","simulador","fisio"],[0,"Fick integrado","Integração","https://drmarionascimento.github.io/fisiologia-interativa/fick-integrado-cardiorrespiratorio.html?percurso=fisioterapia","simulador","fisio"],[0,"Consumo de O₂ e diferença a–vO₂","Integração","https://drmarionascimento.github.io/fisiologia-interativa/consumo-o2-debito-cardiaco-diferenca-av.html?percurso=fisioterapia","simulador","fisio"],[0,"UTI fisiológica","Desafio de fechamento","https://drmarionascimento.github.io/fisiologia-interativa/fisioterapia/uti-fisiologica.html?percurso=fisioterapia","aprofundamento","fisio"],[0,"Tutor de Fisiologia — Fisioterapia","Tutor com IA","https://drmarionascimento.github.io/fisiologia-interativa/tutor-fisio.html","tutor","fisio"],[1,"A Célula Sitiada","Fisiologia celular, transporte de substâncias e potenciais de ação","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/celular","escape","ef"],[1,"O Músculo em Silêncio","Excitabilidade e sistema muscular","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/muscular","escape","ef"],[1,"O Osso que Se Reconstrói","Sistema osteoarticular","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/osteoarticular","escape","ef"],[1,"A Prova do Débito","Sistema cardiovascular","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/cardiovascular","escape","ef"],[1,"O Fôlego Perdido","Sistema respiratório","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/respiratorio","escape","ef"],[1,"A Marcha do Oxigênio","Integração cardiorrespiratória","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/integracao","escape","ef"],[1,"Operação Protocolo Eferente","Revisão livre","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/protocolo-eferente","escape","ef"],[1,"A Célula Sitiada","Fisiologia celular, transporte de substâncias e potenciais de ação","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/celular","escape","fisio"],[1,"O Músculo em Silêncio","Excitabilidade e sistema muscular","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/muscular","escape","fisio"],[1,"O Desafio da Mudança Postural","Sistema cardiovascular","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/cardiovascular","escape","fisio"],[1,"O Fôlego Perdido","Sistema respiratório","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/respiratorio","escape","fisio"],[1,"A Marcha do Oxigênio","Integração cardiorrespiratória","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/integracao","escape","fisio"],[1,"Operação Protocolo Eferente","Revisão livre","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/protocolo-eferente","escape","fisio"],[2,"Fisiologia Celular · Fase 1","Laboratório","https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Fisiologia-Celular-Fase-1.html","operacao",""],[2,"Fisiologia Celular · Fase 2","Laboratório","https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Fisiologia-Celular-Fase-2.html","operacao",""],[2,"Unidade Motora","Laboratório","https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Sistema-Muscular.html","operacao",""],[2,"Matriz Óssea","Laboratório","https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Matriz-Ossea-Lab.html","operacao",""],[2,"Circuito Fechado","Laboratório","https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Circuito-Fechado-Lab.html","operacao",""],[2,"Alvéolo Seguro","Laboratório","https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Alveolo-Seguro-Lab.html","operacao",""],[2,"Fick em Campo","Laboratório","https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Fick-em-Campo-Lab.html","operacao",""],[3,"Casos Éticos","Drama ético investigativo","https://drmarionascimento.github.io/Etica/casos-eticos/index.html","experiencia",""],[3,"Dilema do Bonde","Dilemas morais","https://drmarionascimento.github.io/Etica/dilema-bonde/index.html","experiencia",""],[3,"Dilema do Bonde — Smartphone","Versão para celular","https://drmarionascimento.github.io/Etica/dilema-bonde-mobile/index.html","experiencia",""],[4,"Delineamentos","Projeto de pesquisa","https://drmarionascimento.github.io/Learning-lab/delineamentos/","laboratorio",""],[4,"Instrumentos de Coleta","Produção dos dados","https://drmarionascimento.github.io/Learning-lab/instrumentos-de-coleta/","laboratorio",""],[5,"MOSAICO - A Casa da Costa","Dedução · festa","https://drmarionascimento.github.io/Dragon/v1/MOSAICO-mesa.html","jogo",""],[5,"MOSAICO - A Casa da Costa: O Impostor","Dedução · impostor","https://drmarionascimento.github.io/Dragon/o-impostor/mesa.html","jogo",""],[5,"MOSAICO - A manhã do Carro-forte","Dedução · manhã","https://drmarionascimento.github.io/Dragon/carro-forte/celular.html","jogo",""],[6,"Mosaico Card","","https://drmarionascimento.github.io/Mosaico-Card/","jogo",""],[7,"Escala e imprecisão","Câmera · comparação","https://drmarionascimento.github.io/lab-ra/comparacao.html","bancada",""],[7,"Escrivaninha circulável","3D · ambiente","https://drmarionascimento.github.io/lab-ra/laboratorio-ra.html","bancada",""],[7,"Gaveta e papel","3D · interação","https://drmarionascimento.github.io/lab-ra/gaveta-e-papel.html","bancada",""],[7,"A marca partida","Espaço · sem câmera","https://drmarionascimento.github.io/lab-ra/a-marca-partida.html?s=LAB&dev=1","bancada",""],[7,"A hora, o grau e o farol","Cadeia · três telas","https://drmarionascimento.github.io/lab-ra/cadeia-escrivaninha.html?s=LAB","bancada",""],[7,"Do músculo ao sarcômero","Fisiologia · cinco escalas","https://drmarionascimento.github.io/lab-ra/musculo-sarcomero/","bancada",""],[7,"A película de carga","Fisiologia · Unidade I","https://drmarionascimento.github.io/lab-ra/potencial-membrana/","bancada",""],[7,"A coluna de sangue","Fisiologia · Unidade IV","https://drmarionascimento.github.io/lab-ra/retorno-venoso/","bancada",""],[7,"Forças de Starling","Fisiologia · Unidade IV","https://drmarionascimento.github.io/lab-ra/starling/","bancada",""],[7,"O espaço pleural","Fisiologia · Unidade V","https://drmarionascimento.github.io/lab-ra/pleura/","bancada",""],[7,"Coração em ação","Fisiologia · Unidade IV","https://drmarionascimento.github.io/lab-ra/bancadas/11-coracao/prototipo/duas-pecas.html","bancada",""],[7,"Corpo em ação","Integração · protótipo experimental","https://drmarionascimento.github.io/lab-ra/integracao/","bancada",""],[7,"As peças de RA do Impostor","MOSAICO · A Casa da Costa: O Impostor","https://drmarionascimento.github.io/lab-ra/o-impostor/maquete/?demo=solo","bancada",""]],
-  commits: [[0,"2026-10-05T04:57:26.000Z","Atualização 2 de RA Iphone"],[1,"2026-09-25T22:17:08.000Z","Atualiza LICENSE.md"],[2,"2026-09-25T22:17:03.000Z","Atualiza README.md"],[3,"2026-10-02T20:54:32.000Z","Atualização Readme e License"],[4,"2026-10-02T20:55:54.000Z","Atualização Readme e License"],[5,"2026-10-05T01:54:13.000Z","Ajuste da maquete"],[6,"2026-09-25T00:57:10.000Z","Atualiza LICENSE.md: repositório público não é código aberto e restringe uso para treino de IA."],[7,"2026-10-04T04:46:32.000Z","Merge pull request #73 from DrMarioNascimento/feat/corpo-em-acao"]]
+  itens: [[0, "Osmose e equilíbrio hidroeletrolítico", "Fisiologia celular", "https://drmarionascimento.github.io/fisiologia-interativa/osmose-equilibrio-hidroeletrolitico.html", "simulador", "ef"], [0, "Homeostase integrada tricompartimentada", "Fisiologia celular", "https://drmarionascimento.github.io/fisiologia-interativa/homeostase-integrada-tricompartimental.html", "simulador", "ef"], [0, "Potencial de ação na membrana", "Fisiologia celular", "https://drmarionascimento.github.io/fisiologia-interativa/potencial-acao-membrana.html", "simulador", "ef"], [0, "Potencial de ação do neurônio", "Fisiologia celular", "https://drmarionascimento.github.io/fisiologia-interativa/neuronio-interativo.html", "simulador", "ef"], [0, "Transporte ativo secundário — SGLT", "Transporte", "https://drmarionascimento.github.io/fisiologia-interativa/transporte-ativo-secundario-sglt.html", "simulador", "ef"], [0, "Potencial de ação cardíaco", "Fisiologia celular", "https://drmarionascimento.github.io/fisiologia-interativa/potencial-acao-cardiaco.html", "simulador", "ef"], [0, "Contração muscular esquelética", "Músculo", "https://drmarionascimento.github.io/fisiologia-interativa/contracao-muscular-esqueletica.html", "simulador", "ef"], [0, "Acoplamento excitação–contração", "Placa motora", "https://drmarionascimento.github.io/fisiologia-interativa/acoplamento-excitacao-contracao.html", "simulador", "ef"], [0, "Contração muscular e sarcômero", "Músculo", "https://drmarionascimento.github.io/fisiologia-interativa/contracao-muscular-sarcomero.html", "simulador", "ef"], [0, "Contrações musculares interativas", "Músculo", "https://drmarionascimento.github.io/fisiologia-interativa/contracoes-musculares-interativas.html", "simulador", "ef"], [0, "Hill × Isocinético", "Músculo", "https://drmarionascimento.github.io/fisiologia-interativa/modelos-hill-isocinetico.html", "simulador", "ef"], [0, "Recrutamento de unidades motoras", "Músculo", "https://drmarionascimento.github.io/fisiologia-interativa/recrutamento-unidades-motoras.html", "simulador", "ef"], [0, "Da intenção ao movimento", "Módulo de aprofundamento", "https://drmarionascimento.github.io/fisiologia-interativa/da-intencao-ao-movimento.html", "aprofundamento", "ef"], [0, "Homeostase do cálcio", "Osteoarticular", "https://drmarionascimento.github.io/fisiologia-interativa/homeostase-do-calcio.html", "simulador", "ef"], [0, "Mecanotransdução Óssea e Lei de Wolff", "Osteoarticular", "https://drmarionascimento.github.io/fisiologia-interativa/mecanotransducao-lei-de-wolff.html", "simulador", "ef"], [0, "Pressão arterial, DC e RPT", "Cardiovascular", "https://drmarionascimento.github.io/fisiologia-interativa/hemodinamica-pa-dc-rpt.html", "simulador", "ef"], [0, "Retorno venoso", "Cardiovascular", "https://drmarionascimento.github.io/fisiologia-interativa/retorno-venoso.html", "simulador", "ef"], [0, "Loop cardíaco funcional", "Cardiovascular", "https://drmarionascimento.github.io/fisiologia-interativa/loop-cardiaco-funcional.html", "simulador", "ef"], [0, "Lei de Poiseuille", "Cardiovascular", "https://drmarionascimento.github.io/fisiologia-interativa/lei-de-poiseuille.html", "simulador", "ef"], [0, "Sangue", "Módulo de aprofundamento", "https://drmarionascimento.github.io/fisiologia-interativa/sangue.html", "aprofundamento", "ef"], [0, "Mecânica ventilatória", "Respiratório", "https://drmarionascimento.github.io/fisiologia-interativa/ventilacao-pulmonar.html", "simulador", "ef"], [0, "Biofeedback respiratório — PC", "Respiratório", "https://drmarionascimento.github.io/fisiologia-interativa/biofeedback-respiratorio.html", "simulador", "ef"], [0, "Biofeedback respiratório — Smartphone", "Respiratório", "https://drmarionascimento.github.io/fisiologia-interativa/biofeedback-respiratorio-smartphone.html", "simulador", "ef"], [0, "Curva de dissociação da hemoglobina", "Respiratório", "https://drmarionascimento.github.io/fisiologia-interativa/curva-dissociacao-hemoglobina.html", "simulador", "ef"], [0, "Cardiopulmonar integrado", "Integração", "https://drmarionascimento.github.io/fisiologia-interativa/cardiopulmonar-integrado.html", "simulador", "ef"], [0, "Fick integrado", "Integração", "https://drmarionascimento.github.io/fisiologia-interativa/fick-integrado-cardiorrespiratorio.html", "simulador", "ef"], [0, "Consumo de O₂ e diferença a–vO₂", "Integração", "https://drmarionascimento.github.io/fisiologia-interativa/consumo-o2-debito-cardiaco-diferenca-av.html", "simulador", "ef"], [0, "Box do Atleta", "Desafio de fechamento", "https://drmarionascimento.github.io/fisiologia-interativa/atleta-box.html?percurso=educacao-fisica", "aprofundamento", "ef"], [0, "Tutor de Fisiologia — Educação Física", "Tutor com IA", "https://drmarionascimento.github.io/fisiologia-interativa/tutor-ef.html", "tutor", "ef"], [0, "Osmose e equilíbrio hidroeletrolítico", "Fisiologia celular", "https://drmarionascimento.github.io/fisiologia-interativa/osmose-equilibrio-hidroeletrolitico.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Homeostase integrada tricompartimentada", "Fisiologia celular", "https://drmarionascimento.github.io/fisiologia-interativa/homeostase-integrada-tricompartimental.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Potencial de ação na membrana", "Fisiologia celular", "https://drmarionascimento.github.io/fisiologia-interativa/potencial-acao-membrana.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Potencial de ação do neurônio", "Fisiologia celular", "https://drmarionascimento.github.io/fisiologia-interativa/neuronio-interativo.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Transporte ativo secundário — SGLT", "Transporte", "https://drmarionascimento.github.io/fisiologia-interativa/transporte-ativo-secundario-sglt.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Potencial de ação cardíaco", "Fisiologia celular", "https://drmarionascimento.github.io/fisiologia-interativa/potencial-acao-cardiaco.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Contração muscular esquelética", "Músculo", "https://drmarionascimento.github.io/fisiologia-interativa/contracao-muscular-esqueletica.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Acoplamento excitação–contração", "Placa motora", "https://drmarionascimento.github.io/fisiologia-interativa/acoplamento-excitacao-contracao.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Contração muscular e sarcômero", "Músculo", "https://drmarionascimento.github.io/fisiologia-interativa/contracao-muscular-sarcomero.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Contrações musculares interativas", "Músculo", "https://drmarionascimento.github.io/fisiologia-interativa/contracoes-musculares-interativas.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Hill × Isocinético", "Músculo", "https://drmarionascimento.github.io/fisiologia-interativa/modelos-hill-isocinetico.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Recrutamento de unidades motoras", "Músculo", "https://drmarionascimento.github.io/fisiologia-interativa/recrutamento-unidades-motoras.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Da intenção ao movimento", "Módulo de aprofundamento", "https://drmarionascimento.github.io/fisiologia-interativa/da-intencao-ao-movimento.html?percurso=fisioterapia", "aprofundamento", "fisio"], [0, "Pressão arterial, DC e RPT", "Cardiovascular", "https://drmarionascimento.github.io/fisiologia-interativa/hemodinamica-pa-dc-rpt.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Retorno venoso", "Cardiovascular", "https://drmarionascimento.github.io/fisiologia-interativa/retorno-venoso.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Loop cardíaco funcional", "Cardiovascular", "https://drmarionascimento.github.io/fisiologia-interativa/loop-cardiaco-funcional.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Lei de Poiseuille", "Cardiovascular", "https://drmarionascimento.github.io/fisiologia-interativa/lei-de-poiseuille.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Sangue", "Módulo de aprofundamento", "https://drmarionascimento.github.io/fisiologia-interativa/sangue.html?percurso=fisioterapia", "aprofundamento", "fisio"], [0, "Mecânica ventilatória", "Respiratório", "https://drmarionascimento.github.io/fisiologia-interativa/ventilacao-pulmonar.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Biofeedback respiratório — PC", "Respiratório", "https://drmarionascimento.github.io/fisiologia-interativa/biofeedback-respiratorio.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Biofeedback respiratório — Smartphone", "Respiratório", "https://drmarionascimento.github.io/fisiologia-interativa/biofeedback-respiratorio-smartphone.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Curva de dissociação da hemoglobina", "Respiratório", "https://drmarionascimento.github.io/fisiologia-interativa/curva-dissociacao-hemoglobina.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Ventilação Pulmonar Neonatal", "Módulo de aprofundamento", "https://drmarionascimento.github.io/fisiologia-interativa/ventilacao-pulmonar-neonatal.html?percurso=fisioterapia", "aprofundamento", "fisio"], [0, "Cardiopulmonar integrado", "Integração", "https://drmarionascimento.github.io/fisiologia-interativa/cardiopulmonar-integrado.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Fick integrado", "Integração", "https://drmarionascimento.github.io/fisiologia-interativa/fick-integrado-cardiorrespiratorio.html?percurso=fisioterapia", "simulador", "fisio"], [0, "Consumo de O₂ e diferença a–vO₂", "Integração", "https://drmarionascimento.github.io/fisiologia-interativa/consumo-o2-debito-cardiaco-diferenca-av.html?percurso=fisioterapia", "simulador", "fisio"], [0, "UTI fisiológica", "Desafio de fechamento", "https://drmarionascimento.github.io/fisiologia-interativa/fisioterapia/uti-fisiologica.html?percurso=fisioterapia", "aprofundamento", "fisio"], [0, "Tutor de Fisiologia — Fisioterapia", "Tutor com IA", "https://drmarionascimento.github.io/fisiologia-interativa/tutor-fisio.html", "tutor", "fisio"], [1, "A Célula Sitiada", "Fisiologia celular, transporte de substâncias e potenciais de ação", "https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/celular", "escape", "ef"], [1, "O Músculo em Silêncio", "Excitabilidade e sistema muscular", "https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/muscular", "escape", "ef"], [1, "O Osso que Se Reconstrói", "Sistema osteoarticular", "https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/osteoarticular", "escape", "ef"], [1, "A Prova do Débito", "Sistema cardiovascular", "https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/cardiovascular", "escape", "ef"], [1, "O Fôlego Perdido", "Sistema respiratório", "https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/respiratorio", "escape", "ef"], [1, "A Marcha do Oxigênio", "Integração cardiorrespiratória", "https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/integracao", "escape", "ef"], [1, "Operação Protocolo Eferente", "Revisão livre", "https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/protocolo-eferente", "escape", "ef"], [1, "A Célula Sitiada", "Fisiologia celular, transporte de substâncias e potenciais de ação", "https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/celular", "escape", "fisio"], [1, "O Músculo em Silêncio", "Excitabilidade e sistema muscular", "https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/muscular", "escape", "fisio"], [1, "O Desafio da Mudança Postural", "Sistema cardiovascular", "https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/cardiovascular", "escape", "fisio"], [1, "O Fôlego Perdido", "Sistema respiratório", "https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/respiratorio", "escape", "fisio"], [1, "A Marcha do Oxigênio", "Integração cardiorrespiratória", "https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/integracao", "escape", "fisio"], [1, "Operação Protocolo Eferente", "Revisão livre", "https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/protocolo-eferente", "escape", "fisio"], [2, "Fisiologia Celular · Fase 1", "Laboratório", "https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Fisiologia-Celular-Fase-1.html", "operacao", ""], [2, "Fisiologia Celular · Fase 2", "Laboratório", "https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Fisiologia-Celular-Fase-2.html", "operacao", ""], [2, "Unidade Motora", "Laboratório", "https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Sistema-Muscular.html", "operacao", ""], [2, "Matriz Óssea", "Laboratório", "https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Matriz-Ossea-Lab.html", "operacao", ""], [2, "Circuito Fechado", "Laboratório", "https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Circuito-Fechado-Lab.html", "operacao", ""], [2, "Alvéolo Seguro", "Laboratório", "https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Alveolo-Seguro-Lab.html", "operacao", ""], [2, "Fick em Campo", "Laboratório", "https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Fick-em-Campo-Lab.html", "operacao", ""], [3, "Casos Éticos", "Drama ético investigativo", "https://drmarionascimento.github.io/Etica/casos-eticos/index.html", "experiencia", ""], [3, "Dilema do Bonde", "Dilemas morais", "https://drmarionascimento.github.io/Etica/dilema-bonde/index.html", "experiencia", ""], [3, "Dilema do Bonde — Smartphone", "Versão para celular", "https://drmarionascimento.github.io/Etica/dilema-bonde-mobile/index.html", "experiencia", ""], [4, "Delineamentos", "Projeto de pesquisa", "https://drmarionascimento.github.io/Learning-lab/delineamentos/", "laboratorio", ""], [4, "Instrumentos de Coleta", "Produção dos dados", "https://drmarionascimento.github.io/Learning-lab/instrumentos-de-coleta/", "laboratorio", ""], [5, "MOSAICO - A Casa da Costa", "Dedução · festa", "https://drmarionascimento.github.io/Dragon/v1/MOSAICO-mesa.html", "jogo", ""], [5, "MOSAICO - A Casa da Costa: O Impostor", "Dedução · impostor", "https://drmarionascimento.github.io/Dragon/o-impostor/mesa.html", "jogo", ""], [5, "MOSAICO - A manhã do Carro-forte", "Dedução · manhã", "https://drmarionascimento.github.io/Dragon/carro-forte/celular.html", "jogo", ""], [6, "Mosaico Card", "", "https://drmarionascimento.github.io/Mosaico-Card/", "jogo", ""], [7, "Escala e imprecisão", "Câmera · comparação", "https://drmarionascimento.github.io/lab-ra/comparacao.html", "bancada", ""], [7, "Escrivaninha circulável", "3D · ambiente", "https://drmarionascimento.github.io/lab-ra/laboratorio-ra.html", "bancada", ""], [7, "Gaveta e papel", "3D · interação", "https://drmarionascimento.github.io/lab-ra/gaveta-e-papel.html", "bancada", ""], [7, "A marca partida", "Espaço · sem câmera", "https://drmarionascimento.github.io/lab-ra/a-marca-partida.html?s=LAB&dev=1", "bancada", ""], [7, "A hora, o grau e o farol", "Cadeia · três telas", "https://drmarionascimento.github.io/lab-ra/cadeia-escrivaninha.html?s=LAB", "bancada", ""], [7, "Do músculo ao sarcômero", "Fisiologia · cinco escalas", "https://drmarionascimento.github.io/lab-ra/musculo-sarcomero/", "bancada", ""], [7, "A película de carga", "Fisiologia · Unidade I", "https://drmarionascimento.github.io/lab-ra/potencial-membrana/", "bancada", ""], [7, "A coluna de sangue", "Fisiologia · Unidade IV", "https://drmarionascimento.github.io/lab-ra/retorno-venoso/", "bancada", ""], [7, "Forças de Starling", "Fisiologia · Unidade IV", "https://drmarionascimento.github.io/lab-ra/starling/", "bancada", ""], [7, "O espaço pleural", "Fisiologia · Unidade V", "https://drmarionascimento.github.io/lab-ra/pleura/", "bancada", ""], [7, "Coração em ação", "Fisiologia · Unidade IV", "https://drmarionascimento.github.io/lab-ra/bancadas/11-coracao/prototipo/duas-pecas.html", "bancada", ""], [7, "Corpo em ação", "Integração · protótipo experimental", "https://drmarionascimento.github.io/lab-ra/integracao/", "bancada", ""], [7, "As peças de RA do Impostor", "MOSAICO · A Casa da Costa: O Impostor", "https://drmarionascimento.github.io/lab-ra/o-impostor/maquete/?demo=solo", "bancada", ""], [8, "Eita!", "Quiz em aliança", "https://eita-quiz.web.app/", "jogo", ""]],
+  commits: [[0, "2026-10-05T04:57:26.000Z", "Atualização 2 de RA Iphone"], [1, "2026-09-25T22:17:08.000Z", "Atualiza LICENSE.md"], [2, "2026-09-25T22:17:03.000Z", "Atualiza README.md"], [3, "2026-10-02T20:54:32.000Z", "Atualização Readme e License"], [4, "2026-10-02T20:55:54.000Z", "Atualização Readme e License"], [5, "2026-10-05T01:54:13.000Z", "Ajuste da maquete"], [6, "2026-09-25T00:57:10.000Z", "Atualiza LICENSE.md: repositório público não é código aberto e restringe uso para treino de IA."], [7, "2026-10-04T04:46:32.000Z", "Merge pull request #73 from DrMarioNascimento/feat/corpo-em-acao"], [8, "2026-10-05T07:53:25.000Z", "Limpa nomes e mensagem e amplia fontes sem redimensionar controles"]]
 };
 </script>
 
@@ -589,7 +597,7 @@ function aplicaLang(l){
   document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
   css.textContent = l === 'pt' ? '[data-lang-en]{display:none!important}[data-lang-pt]{display:revert}' : '[data-lang-pt]{display:none!important}[data-lang-en]{display:revert}';
   $$('[data-set-lang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.setLang === l)));
-  $('#pq').placeholder = l === 'pt' ? 'Buscar entre 99 experiências — ex.: sarcômero, Fick, escape…' : 'Search 99 experiences — e.g. sarcomere, Fick, escape…';
+  $('#pq').placeholder = l === 'pt' ? `Buscar entre ${U.itens.length} experiências — ex.: sarcômero, Fick, escape…` : `Search ${U.itens.length} experiences — e.g. sarcomere, Fick, escape…`;
   try { localStorage.setItem('mcn-lang', l); } catch(e){}
   renderDinamico();
   document.dispatchEvent(new CustomEvent('lang', { detail:l }));
@@ -616,11 +624,11 @@ function renderDinamico(){
   $('#manifestoTxt').innerHTML = fr.map(w => Array.isArray(w) ? `<span class="w ${w[0]}">${esc(w[1])}</span>` : `<span class="w">${esc(w)}</span>`).join(' ');
   // frentes
   $('#frentesGrid').innerHTML = ['aula','dragon','lab'].map((g,k) => {
-    const rs = U.repos.map((r,i)=>({...r,i})).filter(r => r.grupo === g);
+    const rs = U.repos.map((r,i)=>({...r,i})).filter(r => (r.grupos || [r.grupo]).includes(g));
     const tot = rs.reduce((s,r)=>s+porRepo[r.i].length,0);
     return `<article class="holo rv" style="--c:${rs[0].cor};--d:${k*.1}s"><div class="holo-in"><span class="n">${tot}</span><span class="mono">${['I','II','III'][k]} · ${esc(t(U.grupos[g]))}</span>
       <h3>${esc(t(U.grupos[g]))}</h3><p>${esc(t(U.grupos[g].sub))}</p>
-      <ul>${rs.map(r => `<li><a href="${esc(r.online)}" target="_blank" rel="noopener" style="--rc:${r.cor}" data-foco="${r.i}"><i></i><span><b>${esc(r.nome)}</b><small>${esc(t(r.area))}</small></span><em>${porRepo[r.i].length}</em></a></li>`).join('')}</ul></div></article>`;
+      <ul>${rs.map(r => `<li><a href="${esc(r.online)}" target="_blank" rel="noopener" style="--rc:${r.cor}" data-foco="${r.i}"><i></i><span><b>${esc(r.nome)}</b><small>${esc(r.tag || t(r.area))}</small></span><em>${porRepo[r.i].length}</em></a></li>`).join('')}</ul></div></article>`;
   }).join('');
   // bento
   const L = (pt,en) => lang === 'pt' ? pt : en;
@@ -639,10 +647,11 @@ function renderDinamico(){
     { r:7, img:'https://drmarionascimento.github.io/lab-ra/atlas_frente.png', k:L('Realidade aumentada','Augmented reality'), h:'Lab RA', p:L('Do músculo ao sarcômero, na palma da mão.','From muscle to sarcomere, in the palm of your hand.'), url:'https://drmarionascimento.github.io/lab-ra/' },
     { r:6, img:'https://drmarionascimento.github.io/Mosaico-Card/assets/abertura/peca-dourada-frontal-v2.png', k:L('Jogo de cartas','Card game'), h:'Mosaico Card', p:L('Mercado de Pistas: casos do Novo Testamento.','Clue Market: New Testament cases.'), url:'https://drmarionascimento.github.io/Mosaico-Card/' },
     { r:5, img:'https://drmarionascimento.github.io/Dragon/solo/tiles/carta-costa.jpg', k:L('Dedução · festa','Deduction · party'), h:'A Casa da Costa', p:L('Quem estava onde, e quando? Monte o mosaico.','Who was where, and when? Build the mosaic.'), url:'https://drmarionascimento.github.io/Dragon/v1/MOSAICO-mesa.html' },
+    { r:8, img:null, k:L('Quiz em aliança','Alliance quiz'), h:'Eita!', p:L('Jogar junto, responder junto — a turma inteira na mesma rodada.','Play together, answer together — the whole group in the same round.'), url:'https://eita-quiz.web.app/' },
     { r:0, img:null, k:L('Simulador','Simulator'), h:L('Cardiopulmonar integrado','Integrated cardiopulmonary'), p:L('Coração e pulmão no mesmo modelo, variável por variável.','Heart and lungs in one model, variable by variable.'), url:'https://drmarionascimento.github.io/fisiologia-interativa/cardiopulmonar-integrado.html' }
   ];
   $('#mundosGrid').innerHTML = M.map(m => { const r = U.repos[m.r]; return `<a class="mundo" href="${esc(m.url)}" target="_blank" rel="noopener" style="--c:${r.cor}">
-    ${m.img ? `<img src="${esc(m.img)}" alt="" loading="lazy" decoding="async">` : `<img alt="" src="data:image/svg+xml;utf8,${encodeURIComponent(capaSVG(r.cor))}">`}
+    ${m.img ? `<img src="${esc(m.img)}" alt="" loading="lazy" decoding="async">` : `<img alt="" src="data:image/svg+xml;utf8,${encodeURIComponent(m.r === 8 ? capaQuiz(r.cor) : capaSVG(r.cor))}">`}
     <span class="vai">${SETA}</span><span class="mono">${esc(m.k)} · ${esc(r.nome)}</span><h4>${esc(m.h)}</h4><p>${esc(m.p)}</p></a>`; }).join('');
   // sinais
   $('#sinais').innerHTML = [...U.commits].sort((a,b)=> b[1].localeCompare(a[1])).map(([k,d,msg],j) => { const r = U.repos[k];
@@ -654,6 +663,10 @@ function renderDinamico(){
 function capaSVG(c){ // capa gerada: traçado de pulso
   let p = 'M0 260'; for (let x=0;x<=400;x+=8){ const u=(x%100)/100; const y = 260 - (u>.42&&u<.46?-90:u>.46&&u<.5?150:u>.5&&u<.54?-40:0) + Math.sin(x*.05)*6; p += ` L${x} ${y.toFixed(1)}`; }
   return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'><defs><radialGradient id='g' cx='.5' cy='.45' r='.7'><stop offset='0' stop-color='${c}' stop-opacity='.45'/><stop offset='1' stop-color='#03050a'/></radialGradient></defs><rect width='400' height='500' fill='url(#g)'/><g stroke='${c}' stroke-opacity='.12'>${Array.from({length:20},(_,i)=>`<path d='M${i*20} 0V500'/>`).join('')}${Array.from({length:25},(_,i)=>`<path d='M0 ${i*20}H400'/>`).join('')}</g><path d='${p}' fill='none' stroke='${c}' stroke-width='3'/></svg>`;
+}
+function capaQuiz(c){ // capa gerada: chuva de perguntas e um "!" central
+  let g=''; for (let i=0;i<34;i++){ const x=(i*97)%400, y=(i*61)%500, sz=18+(i*13)%34, o=(.08+((i*7)%10)/60).toFixed(2); g+=`<text x='${x}' y='${y}' font-size='${sz}' fill='${c}' fill-opacity='${o}' font-family='Arial Black,Arial,sans-serif' font-weight='900'>${i%3?'?':'!'}</text>`; }
+  return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'><defs><radialGradient id='g' cx='.5' cy='.42' r='.7'><stop offset='0' stop-color='${c}' stop-opacity='.5'/><stop offset='1' stop-color='#03050a'/></radialGradient></defs><rect width='400' height='500' fill='url(#g)'/>${g}<circle cx='200' cy='200' r='92' fill='none' stroke='${c}' stroke-opacity='.5' stroke-width='2'/><circle cx='200' cy='200' r='120' fill='none' stroke='${c}' stroke-opacity='.2' stroke-dasharray='4 8'/><text x='200' y='252' text-anchor='middle' font-size='160' font-family='Arial Black,Arial,sans-serif' font-weight='900' fill='#fff'>!</text></svg>`;
 }
 function ecg(k){ const o = (k*7)%20; return `M0 12 L${10+o/3} 12 L${13+o/3} 6 L${16+o/3} 18 L${19+o/3} 2 L${22+o/3} 15 L${25+o/3} 12 L54 12`; }
 function relativo(iso){
@@ -785,10 +798,10 @@ $('#sairExplorar').addEventListener('click', () => { document.body.classList.rem
 /* ---------- boot ---------- */
 (function(){
   const linhas = lang === 'pt' ? [
-    ['inicializando núcleo', 'ok'], ['carregando constelações · 8 repositórios', 'ok'], ['mapeando 99 experiências', 'ok'],
+    ['inicializando núcleo', 'ok'], [`carregando constelações · ${U.repos.length} repositórios`, 'ok'], [`mapeando ${U.itens.length} experiências`, 'ok'],
     ['compilando shaders GLSL', 'ok'], ['calibrando órbitas', 'ok'], ['universo online', 'pronto']
   ] : [
-    ['initializing core', 'ok'], ['loading constellations · 8 repositories', 'ok'], ['mapping 99 experiences', 'ok'],
+    ['initializing core', 'ok'], [`loading constellations · ${U.repos.length} repositories`, 'ok'], [`mapping ${U.itens.length} experiences`, 'ok'],
     ['compiling GLSL shaders', 'ok'], ['calibrating orbits', 'ok'], ['universe online', 'ready']
   ];
   const log = $('#bootLog'), anel = $('#bootAnel'), pct = $('#bootPct'); let k = 0, feito = false, p = 0;
@@ -906,13 +919,13 @@ function campoEstrelas(n, rMin, rMax, tam){
 const estrelas = campoEstrelas(MOBILE ? 3500 : 7000, 70, 260, 1.6); scene.add(estrelas);
 const poeira = campoEstrelas(MOBILE ? 600 : 1400, 18, 60, .9); scene.add(poeira);
 
-/* ---------- universo dos repositórios ---------- */
+/* ---------- universo: três sistemas num plano orbital ---------- */
 const mundo = new THREE.Group(); scene.add(mundo);
-const CENTROS = MOBILE
-  ? { aula:new THREE.Vector3(0, 7, 0), dragon:new THREE.Vector3(3, -7, -4), lab:new THREE.Vector3(-4.5, -1.5, 4) }
-  : { aula:new THREE.Vector3(-4, 1.2, 0), dragon:new THREE.Vector3(13, 4.5, -6), lab:new THREE.Vector3(6, -6.5, 5) };
-const OFFSET_DESK = MOBILE ? new THREE.Vector3(0,0,0) : new THREE.Vector3(8,0,0);
-mundo.position.copy(OFFSET_DESK);
+const plano = new THREE.Group(); mundo.add(plano);
+const TILT = MOBILE ? 1.12 : 1.0;
+plano.rotation.x = TILT;
+mundo.scale.setScalar(MOBILE ? .8 : .88);
+mundo.position.set(MOBILE ? 0 : 15, MOBILE ? 1 : 4, 0);
 
 const planetaVS = `varying vec3 vN; varying vec3 vP; varying vec3 vW; void main(){ vN = normalize(normalMatrix*normal); vP = position; vec4 w = modelMatrix*vec4(position,1.); vW = w.xyz; gl_Position = projectionMatrix*viewMatrix*w; }`;
 const planetaFS = NOISE + `uniform vec3 uC; uniform float uT, uH, uSeed; varying vec3 vN; varying vec3 vP; varying vec3 vW;
@@ -927,83 +940,120 @@ const atmoFS = `uniform vec3 uC; uniform float uH; varying vec3 vN; varying vec3
   void main(){ vec3 V = normalize(cameraPosition - vW); float d = dot(normalize(vN), normalize((viewMatrix*vec4(V,0.)).xyz));
     float a = pow(clamp(1. - abs(d), 0., 1.), 3.) * (.6 + uH*.8); gl_FragColor = vec4(uC, a); }`;
 
+// sistemas (coordenadas no plano: x, z). Sala de aula e Dragon Games se sobrepõem; o Eita! fica na interseção.
+const RA = 12, RD = 9, DIST = 16.5;
+const SIS = MOBILE
+  ? { aula:{ c:new THREE.Vector3(0,0,-9), R:RA }, dragon:{ c:new THREE.Vector3(0,0,-9+DIST), R:RD }, lab:{ c:new THREE.Vector3(9,0,17), R:4.6 } }
+  : { aula:{ c:new THREE.Vector3(-7,0,0), R:RA }, dragon:{ c:new THREE.Vector3(-7+DIST,0,0), R:RD }, lab:{ c:new THREE.Vector3(1.5,0,17.5), R:4.6 } };
+const eixo = SIS.dragon.c.clone().sub(SIS.aula.c).normalize();
+const PONTO_EITA = SIS.aula.c.clone().addScaledVector(eixo, (DIST - RD + RA) / 2);   // meio da lente de interseção
+
+function anel(R, cor, op, tracejado){
+  const pts = []; for (let i = 0; i <= 160; i++){ const a = i/160*Math.PI*2; pts.push(new THREE.Vector3(Math.cos(a)*R, 0, Math.sin(a)*R)); }
+  const g = new THREE.BufferGeometry().setFromPoints(pts);
+  const m = tracejado ? new THREE.LineDashedMaterial({ color:cor, dashSize:.28, gapSize:.55, transparent:true, opacity:op, depthWrite:false })
+                      : new THREE.LineBasicMaterial({ color:cor, transparent:true, opacity:op, depthWrite:false, blending:THREE.AdditiveBlending });
+  const l = new THREE.Line(g, m); if (tracejado) l.computeLineDistances(); return l;
+}
+const sistemas = {};
+['aula','dragon','lab'].forEach(gid => {
+  const S = SIS[gid], cor = new THREE.Color(U.repos.find(r => r.grupo === gid).cor);
+  const fronteira = anel(S.R, cor, .55, true); fronteira.position.copy(S.c); plano.add(fronteira);
+  const disco = new THREE.Mesh(new THREE.CircleGeometry(S.R, 96), new THREE.ShaderMaterial({ transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, side:THREE.DoubleSide,
+    uniforms:{ uC:{ value:cor } }, vertexShader:`varying vec2 vU; void main(){ vU = uv; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+    fragmentShader:`uniform vec3 uC; varying vec2 vU; void main(){ float d = length(vU-.5)*2.; gl_FragColor = vec4(uC, (1.-smoothstep(.0,1.,d))*.05 + smoothstep(.9,1.,d)*(1.-smoothstep(1.,1.01,d))*.04); }` }));
+  disco.rotation.x = -Math.PI/2; disco.position.copy(S.c); plano.add(disco);
+  sistemas[gid] = { ...S, cor, fronteira };
+});
+
+const NOS_EXTRA_ORB = { aula:[4.9, 6.0, 7.1, 8.2], dragon:[5.2], lab:[] };
 const nos = U.repos.map((r, k) => {
-  const total = r.total, raio = .55 + Math.sqrt(total) * .33;
+  const total = r.total, raio = .45 + Math.sqrt(total) * .24;
   const cor = new THREE.Color(r.cor);
   const mat = new THREE.ShaderMaterial({ uniforms:{ uC:{value:cor}, uT:{value:0}, uH:{value:0}, uSeed:{value:k*3.7} }, vertexShader:planetaVS, fragmentShader:planetaFS });
   const malha = new THREE.Mesh(new THREE.SphereGeometry(raio, 64, 48), mat);
   const atmo = new THREE.Mesh(new THREE.SphereGeometry(raio*1.35, 48, 32), new THREE.ShaderMaterial({ uniforms:{ uC:{value:cor}, uH:{value:0} }, vertexShader:planetaVS, fragmentShader:atmoFS, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, side:THREE.BackSide }));
-  const g = new THREE.Group(); g.add(malha); g.add(atmo); mundo.add(g);
-  // anel orbital (para os principais)
-  if (!('pai' in r) && total >= 3) {
-    const ring = new THREE.Mesh(new THREE.RingGeometry(raio*1.7, raio*1.74, 128), new THREE.MeshBasicMaterial({ color:cor, transparent:true, opacity:.35, side:THREE.DoubleSide, blending:THREE.AdditiveBlending, depthWrite:false }));
-    ring.rotation.x = Math.PI/2.3; ring.rotation.y = k*.4; g.add(ring);
-  }
-  return { r, k, g, malha, mat, atmo, raio, cor, pos:new THREE.Vector3(), hover:0, alvoHover:0 };
+  const g = new THREE.Group(); g.add(malha); g.add(atmo); plano.add(g);
+  return { r, k, g, malha, mat, atmo, raio, cor, hover:0, alvoHover:0 };
 });
-// posições-base
-const satelites = [];
-['aula','dragon','lab'].forEach(gid => {
-  const ns = nos.filter(n => n.r.grupo === gid && !('pai' in n.r));
-  const c = CENTROS[gid];
-  ns.forEach((n, j) => {
-    if (j === 0) { n.base = c.clone(); return; }
-    const a = (j / (ns.length)) * Math.PI * 2 + (gid === 'aula' ? 2.4 : .5), R = MOBILE ? 4.4 : 6.2;
-    n.base = c.clone().add(new THREE.Vector3(Math.cos(a)*R, Math.sin(a)*R*.55, Math.sin(a)*R*.5));
-  });
+// papéis: estrela central de cada sistema, planetas em órbita, e o Eita! na interseção
+const centrais = {};
+['aula','dragon','lab'].forEach(gid => { const n = nos.find(n => n.r.grupo === gid && !n.r.grupos && !('pai' in n.r)); centrais[gid] = n; n.fixo = sistemas[gid].c.clone(); });
+['aula','dragon'].forEach(gid => {
+  const orbitantes = nos.filter(n => n.r.grupo === gid && !n.r.grupos && n !== centrais[gid]);
+  orbitantes.forEach((n, j) => { const R = NOS_EXTRA_ORB[gid][j] || (6 + j); n.orb = { c:sistemas[gid].c, R, vel:.16 / Math.sqrt(R) , fase:j*1.9 + (gid === 'dragon' ? 2.2 : .4) };
+    const o = anel(R, n.cor, .16, false); o.position.copy(sistemas[gid].c); plano.add(o); });
 });
-nos.filter(n => 'pai' in n.r).forEach((n, j) => { n.orb = { pai:nos[n.r.pai], R: nos[n.r.pai].raio*2.7 + j*.9, vel:.12 - j*.02, fase:j*2.2, incl:.35 + j*.25 }; satelites.push(n); });
+const eitaN = nos.find(n => n.r.grupos); if (eitaN) eitaN.fixo = PONTO_EITA.clone();
 
-/* ---------- experiências como estrelas orbitais ---------- */
+/* ---------- experiências como estrelas (e luas para os jogos do Dragon) ---------- */
 const NI = U.itens.length;
 const itG = new THREE.BufferGeometry(); const itPos = new Float32Array(NI*3), itCor = new Float32Array(NI*3), itS = new Float32Array(NI);
-const orbItens = U.itens.map((it, i) => { const n = nos[it[0]]; const c = n.cor; itCor.set([c.r,c.g,c.b], i*3); itS[i] = it[4]==='aprofundamento'||it[4]==='jogo' ? 1.6 : it[4]==='tutor' ? 1.9 : 1;
-  return { n, R: n.raio*1.9 + Math.random()*n.raio*1.9 + .5, fase: Math.random()*Math.PI*2, vel:(.06 + Math.random()*.14)*(Math.random()<.15?-1:1), incl:(Math.random()-.5)*.9 + n.k*.3, rot:Math.random()*Math.PI, p:new THREE.Vector3() }; });
+let jLua = 0;
+const orbItens = U.itens.map((it, i) => { const n = nos[it[0]]; const c = n.cor; itCor.set([c.r,c.g,c.b], i*3);
+  const lua = n === centrais.dragon && it[4] === 'jogo';
+  itS[i] = lua ? 3.2 : it[4]==='aprofundamento'||it[4]==='jogo' ? 1.6 : it[4]==='tutor' ? 1.9 : 1;
+  if (lua) { const o = { n, lua:true, R:2.7, fase:(jLua++)*Math.PI*2/3 + .5, vel:.09, incl:0, rot:0, p:new THREE.Vector3() }; return o; }
+  const larg = n === centrais.aula ? [1.35, .7] : [1.7, 1.1];
+  return { n, R: n.raio*larg[0] + Math.random()*n.raio*larg[1] + .25, fase: Math.random()*Math.PI*2, vel:(.06 + Math.random()*.14)*(Math.random()<.15?-1:1), incl:(Math.random()-.5)*1.1, rot:Math.random()*Math.PI, p:new THREE.Vector3() }; });
 itG.setAttribute('position', new THREE.BufferAttribute(itPos,3)); itG.setAttribute('aC', new THREE.BufferAttribute(itCor,3)); itG.setAttribute('aS', new THREE.BufferAttribute(itS,1));
 const itH = new Float32Array(NI); itG.setAttribute('aH', new THREE.BufferAttribute(itH,1));
 const itMat = new THREE.ShaderMaterial({ transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, uniforms:{ uPx:{value:renderer.getPixelRatio()}, uT:{value:0} },
-  vertexShader:`attribute vec3 aC; attribute float aS, aH; uniform float uPx,uT; varying vec3 vC; varying float vH;
-    void main(){ vec4 mv = modelViewMatrix*vec4(position,1.); gl_Position = projectionMatrix*mv; vC = aC; vH = aH;
+  vertexShader:`attribute vec3 aC; attribute float aS, aH; uniform float uPx,uT; varying vec3 vC; varying float vH; varying float vS;
+    void main(){ vec4 mv = modelViewMatrix*vec4(position,1.); gl_Position = projectionMatrix*mv; vC = aC; vH = aH; vS = aS;
       gl_PointSize = (7. + aS*3.5 + aH*12.)*uPx*(40./-mv.z)*(1. + .15*sin(uT*3. + position.x)); }`,
-  fragmentShader:`varying vec3 vC; varying float vH; void main(){ vec2 q = gl_PointCoord-.5; float d = length(q);
+  fragmentShader:`varying vec3 vC; varying float vH; varying float vS; void main(){ vec2 q = gl_PointCoord-.5; float d = length(q);
     float core = smoothstep(.12,.0,d); float halo = smoothstep(.5,.0,d)*.55; float cruz = (smoothstep(.04,0.,abs(q.x))+smoothstep(.04,0.,abs(q.y)))*smoothstep(.5,.1,d)*.35;
-    vec3 c = mix(vC, vec3(1.), core*.7); gl_FragColor = vec4(c*(1.2+vH), (core+halo*halo+cruz)*(.85+vH*.4)); }` });
-const itPts = new THREE.Points(itG, itMat); mundo.add(itPts);
+    float aro = vS > 3. ? smoothstep(.03,.0,abs(d-.3))*.9 : 0.;
+    vec3 c = mix(vC, vec3(1.), core*.7 + aro); gl_FragColor = vec4(c*(1.2+vH), (core+halo*halo+cruz+aro)*(.85+vH*.4)); }` });
+const itPts = new THREE.Points(itG, itMat); plano.add(itPts);
+const luas = orbItens.map((o, i) => o.lua ? i : -1).filter(i => i >= 0);
 
 /* ---------- ligações (curvas) e pulsos ---------- */
 const ligas = [];
 function liga(a, b, tipo){ const N = 48; const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N*3),3));
-  const cs = new Float32Array(N*3); for (let i=0;i<N;i++){ const u=i/(N-1); const c = a.cor.clone().lerp(b.cor,u); cs.set([c.r,c.g,c.b], i*3); } g.setAttribute('color', new THREE.BufferAttribute(cs,3));
-  const m = new THREE.LineBasicMaterial({ vertexColors:true, transparent:true, opacity: tipo==='ponte' ? .32 : .45, blending:THREE.AdditiveBlending, depthWrite:false });
-  const ln = new THREE.Line(g, m); mundo.add(ln); const L = { a, b, tipo, ln, N, curva:new THREE.QuadraticBezierCurve3(new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()), pulsos:[] };
-  if (tipo === 'ponte') for (let f=0; f<3; f++){ const s = new THREE.Sprite(new THREE.SpriteMaterial({ map:brilho(), color:a.cor, transparent:true, blending:THREE.AdditiveBlending, depthWrite:false })); s.scale.setScalar(.9); mundo.add(s); L.pulsos.push({ s, f:f/3 }); }
+  const ca = a.cor || a.n.cor, cb = b.cor || b.n.cor;
+  const cs = new Float32Array(N*3); for (let i=0;i<N;i++){ const u=i/(N-1); const c = ca.clone().lerp(cb,u); cs.set([c.r,c.g,c.b], i*3); } g.setAttribute('color', new THREE.BufferAttribute(cs,3));
+  const m = tipo === 'ponte' ? new THREE.LineDashedMaterial({ vertexColors:true, dashSize:.35, gapSize:.6, transparent:true, opacity:.45, depthWrite:false }) : new THREE.LineBasicMaterial({ vertexColors:true, transparent:true, opacity: tipo === 'lua' ? .35 : .5, blending:THREE.AdditiveBlending, depthWrite:false });
+  const ln = new THREE.Line(g, m); plano.add(ln); const L = { a, b, ca, cb, tipo, ln, N, curva:new THREE.QuadraticBezierCurve3(new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()), pulsos:[] };
+  if (tipo === 'ponte' || tipo === 'alianca') for (let f=0; f<(tipo === 'ponte' ? 3 : 2); f++){ const s = new THREE.Sprite(new THREE.SpriteMaterial({ map:brilho(), color:ca, transparent:true, blending:THREE.AdditiveBlending, depthWrite:false })); s.scale.setScalar(.8); plano.add(s); L.pulsos.push({ s, f:f/3 }); }
   ligas.push(L); }
 let _tex; function brilho(){ if (_tex) return _tex; const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'); const gr = g.createRadialGradient(32,32,0,32,32,32); gr.addColorStop(0,'rgba(255,255,255,1)'); gr.addColorStop(.25,'rgba(255,255,255,.6)'); gr.addColorStop(1,'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0,0,64,64); return (_tex = new THREE.CanvasTexture(c)); }
-['aula','dragon','lab'].forEach(gid => { const ns = nos.filter(n => n.r.grupo === gid && !('pai' in n.r)); for (let i=1;i<ns.length;i++) liga(ns[0], ns[i], 'frente'); });
-satelites.forEach(s => liga(s.orb.pai, s, 'apoio'));
-const labN = nos.find(n => n.r.grupo === 'lab'); liga(labN, nos[0], 'ponte'); liga(labN, nos[5], 'ponte');
+['aula','dragon'].forEach(gid => nos.filter(n => n.orb && n.orb.c === sistemas[gid].c).forEach(n => liga(centrais[gid], n, 'sistema')));
+luas.forEach(i => liga(centrais.dragon, { pos:orbItens[i].p, n:centrais.dragon }, 'lua'));
+if (eitaN) { liga(centrais.aula, eitaN, 'alianca'); liga(centrais.dragon, eitaN, 'alianca'); }
+liga(centrais.lab, centrais.aula, 'ponte'); liga(centrais.lab, centrais.dragon, 'ponte');
+const posDe = x => x.pos || x.g.position;
 
 /* ---------- rótulos HTML flutuantes ---------- */
 const rotBox = $('#rotulos');
+function linha2(n){ const L = (a,b) => U.lang === 'pt' ? a : b; const q = U.itens.filter(i => i[0] === n.k).length;
+  if (n.r.tag) return n.r.tag;
+  return `${q} ${q === 1 ? L('item','item') : L('itens','items')}${'pai' in n.r ? ' · ' + L('apoio','support') : ''}`; }
 function montaRotulos(){
-  rotBox.innerHTML = nos.map(n => `<a class="rot${'pai' in n.r ? ' sat' : ''}" href="${n.r.online}" data-k="${n.k}" style="--c:${n.r.cor}"><i></i><b>${n.r.nome}</b><small>${U.itens.filter(i=>i[0]===n.k).length}</small></a>`).join('') +
-    ['aula','dragon','lab'].map(g => `<div class="rot-grupo" data-g="${g}" style="--c:${nos.find(n=>n.r.grupo===g).r.cor}">${U.t(U.grupos[g])}</div>`).join('');
-  rotBox.querySelectorAll('.rot').forEach(a => {
+  const L = (a,b) => U.lang === 'pt' ? a : b;
+  rotBox.innerHTML = nos.map(n => `<a class="rot${n.orb ? ' sat' : ''}" href="${n.r.online}" data-k="${n.k}" style="--c:${n.r.cor}"><b>${n.r.nome}</b><small${n.r.tag ? ' class="tag"' : ''}>${linha2(n)}</small></a>`).join('') +
+    luas.map(i => { const it = U.itens[i]; return `<a class="rot lua" href="${it[3]}" target="_blank" rel="noopener" data-i="${i}" style="--c:${nos[it[0]].r.cor}"><b>${it[1].split(/\s+[-–—]\s+/).slice(-1)[0]}</b><small>${L('jogo','game')}</small></a>`; }).join('') +
+    ['aula','dragon','lab'].map(g => `<button type="button" class="rot-grupo" data-g="${g}" style="--c:#${sistemas[g].cor.getHexString()}">${U.t(U.grupos[g])}</button>`).join('');
+  rotBox.querySelectorAll('.rot[data-k]').forEach(a => {
     a.addEventListener('click', e => { e.preventDefault(); foca(+a.dataset.k); });
     a.addEventListener('pointerenter', () => hoverPlaneta = +a.dataset.k);
     a.addEventListener('pointerleave', () => hoverPlaneta = -1);
   });
+  rotBox.querySelectorAll('.rot.lua').forEach(a => { a.addEventListener('pointerenter', () => hoverLua = +a.dataset.i); a.addEventListener('pointerleave', () => hoverLua = -1); });
+  rotBox.querySelectorAll('.rot-grupo').forEach(b => b.addEventListener('click', () => focaSistema(b.dataset.g)));
 }
-montaRotulos(); document.addEventListener('lang', () => { montaRotulos(); if (focoK >= 0) painel(focoK); });
+let hoverLua = -1;
+montaRotulos(); document.addEventListener('lang', () => { montaRotulos(); if (focoK >= 0) painel(focoK); else if (focoSis) painelSistema(focoSis); });
 
 /* ---------- interação ---------- */
-let mx = 0, my = 0, arrasta = null, rotY = 0, rotX = 0, vY = 0, vX = 0, hoverPlaneta = -1, hoverItem = -1, focoK = -1;
+let mx = 0, my = 0, arrasta = null, rotY = 0, rotX = 0, vY = 0, vX = 0, hoverPlaneta = -1, hoverItem = -1, focoK = -1, focoSis = null;
 const ray = new THREE.Raycaster(); const ptr = new THREE.Vector2(-9,-9);
 addEventListener('pointermove', e => { mx = e.clientX/innerWidth - .5; my = e.clientY/innerHeight - .5; ptr.set(e.clientX, e.clientY);
-  if (arrasta) { const dx = e.clientX - arrasta.x, dy = e.clientY - arrasta.y; vY = dx*.0045; vX = dy*.003; rotY += vY; rotX = Math.max(-.6, Math.min(.6, rotX + vX)); arrasta.x = e.clientX; arrasta.y = e.clientY; arrasta.mov += Math.abs(dx)+Math.abs(dy); } }, { passive:true });
+  if (arrasta) { const dx = e.clientX - arrasta.x, dy = e.clientY - arrasta.y; vY = dx*.0045; vX = dy*.003; rotY += vY; rotX = Math.max(-.45, Math.min(.7, rotX + vX)); arrasta.x = e.clientX; arrasta.y = e.clientY; arrasta.mov += Math.abs(dx)+Math.abs(dy); } }, { passive:true });
 canvas.addEventListener('pointerdown', e => { arrasta = { x:e.clientX, y:e.clientY, mov:0 }; canvas.setPointerCapture(e.pointerId); });
 canvas.addEventListener('pointerup', e => { const clique = arrasta && arrasta.mov < 6; arrasta = null;
-  if (clique) { if (hoverItem >= 0) window.open(U.itens[hoverItem][3], '_blank', 'noopener'); else if (hoverPlaneta >= 0) foca(hoverPlaneta); else if (focoK >= 0) desfoca(); } });
+  if (clique) { if (hoverItem >= 0) window.open(U.itens[hoverItem][3], '_blank', 'noopener'); else if (hoverPlaneta >= 0) foca(hoverPlaneta); else if (focoK >= 0 || focoSis) desfoca(); } });
 canvas.addEventListener('pointerleave', () => { ptr.set(-9999,-9999); });
 canvas.addEventListener('pointercancel', () => { arrasta = null; });
 document.addEventListener('fecha-foco', desfoca);
@@ -1011,28 +1061,40 @@ document.addEventListener('foca', e => foca(e.detail));
 $('#fechaPainel').addEventListener('click', desfoca);
 
 const painelEl = $('#painel'), painelCorpo = $('#painelCorpo');
+const L_ = (a,b) => U.lang === 'pt' ? a : b;
+const gruposDe = r => r.grupos || [r.grupo];
 function painel(k){
-  const r = U.repos[k], its = U.itens.filter(i => i[0] === k), L = (a,b) => U.lang === 'pt' ? a : b;
+  const r = U.repos[k], its = U.itens.filter(i => i[0] === k);
   const c = U.commits.find(c => c[0] === k);
   const tipos = {}; its.forEach(i => tipos[i[4]] = (tipos[i[4]]||0)+1);
   painelEl.style.setProperty('--c', r.cor);
-  painelCorpo.innerHTML = `<span class="mono">${U.t(U.grupos[r.grupo])} · ${U.t(r.area)}</span><h3>${r.nome}</h3><p class="lema">${U.t(r.lema)}</p><p>${U.t(r.desc)}</p>
-    <div class="stats"><div><b>${its.length}</b><small>${L('experiências','experiences')}</small></div><div><b>${Object.keys(tipos).length}</b><small>${L('formatos','formats')}</small></div></div>
+  painelCorpo.innerHTML = `<span class="mono">${gruposDe(r).map(g => U.t(U.grupos[g])).join(' + ')} · ${U.t(r.area)}</span><h3>${r.nome}</h3><p class="lema">${r.tag || U.t(r.lema)}</p><p>${U.t(r.desc)}</p>
+    <div class="stats"><div><b>${its.length}</b><small>${L_('experiências','experiences')}</small></div><div><b>${Object.keys(tipos).length}</b><small>${L_('formatos','formats')}</small></div></div>
     <ul class="lst">${its.slice(0,40).map(i => `<li><a href="${i[3]}" target="_blank" rel="noopener">${i[1]}<span>${i[5]==='fisio'?'Fisio':i[5]==='ef'?'EF':U.tipos[i[4]][U.lang==='pt'?0:1]}</span></a></li>`).join('')}</ul>
-    ${c ? `<p class="mono" style="color:var(--ink3);font-size:.6rem">${L('último commit','last commit')} · ${new Date(c[1]).toLocaleDateString(U.lang==='pt'?'pt-BR':'en')}</p>` : ''}
-    <div class="bts"><a class="btn cheio" href="${r.online}" target="_blank" rel="noopener">${L('Abrir site','Open site')} ↗</a><a class="btn" href="${r.github}" target="_blank" rel="noopener">GitHub</a></div>`;
+    ${c ? `<p class="mono" style="color:var(--ink3);font-size:.6rem">${L_('último commit','last commit')} · ${new Date(c[1]).toLocaleDateString(U.lang==='pt'?'pt-BR':'en')}</p>` : ''}
+    <div class="bts"><a class="btn cheio" href="${r.online}" target="_blank" rel="noopener">${L_('Abrir site','Open site')} ↗</a><a class="btn" href="${r.github}" target="_blank" rel="noopener">GitHub</a></div>`;
 }
-function foca(k){ focoK = k; painel(k); painelEl.classList.add('aberto'); painelEl.setAttribute('aria-hidden','false'); document.body.classList.add('explorando'); U.explorar = true; }
-function desfoca(){ focoK = -1; painelEl.classList.remove('aberto'); painelEl.setAttribute('aria-hidden','true'); }
+function painelSistema(gid){
+  const rs = U.repos.map((r,k) => ({ r, k })).filter(x => gruposDe(x.r).includes(gid));
+  const tot = rs.reduce((s,x) => s + U.itens.filter(i => i[0] === x.k).length, 0);
+  painelEl.style.setProperty('--c', '#' + sistemas[gid].cor.getHexString());
+  painelCorpo.innerHTML = `<span class="mono">${L_('Sistema','System')} · ${rs.length} ${L_('mundos','worlds')}</span><h3>${U.t(U.grupos[gid])}</h3><p>${U.t(U.grupos[gid].sub)}</p>
+    <div class="stats"><div><b>${tot}</b><small>${L_('experiências','experiences')}</small></div><div><b>${rs.length}</b><small>${L_('mundos','worlds')}</small></div></div>
+    <ul class="lst">${rs.map(x => `<li><a href="#" data-mundo="${x.k}" style="--c:${x.r.cor}">${x.r.nome}<span>${x.r.tag || U.itens.filter(i => i[0] === x.k).length}</span></a></li>`).join('')}</ul>`;
+  painelCorpo.querySelectorAll('[data-mundo]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); foca(+a.dataset.mundo); }));
+}
+function abre(){ painelEl.classList.add('aberto'); painelEl.setAttribute('aria-hidden','false'); document.body.classList.add('explorando'); U.explorar = true; }
+function foca(k){ focoSis = null; focoK = k; painel(k); abre(); }
+function focaSistema(g){ focoK = -1; focoSis = g; painelSistema(g); abre(); }
+function desfoca(){ focoK = -1; focoSis = null; painelEl.classList.remove('aberto'); painelEl.setAttribute('aria-hidden','true'); }
 
 /* ---------- laço ---------- */
-const dica = $('#dicaItem'), v3 = new THREE.Vector3(), alvoCam = new THREE.Vector3(), olhar = new THREE.Vector3(), olharAtual = new THREE.Vector3(0,0,0);
-const rots = () => rotBox.querySelectorAll('.rot'), grs = () => rotBox.querySelectorAll('.rot-grupo');
+const dica = $('#dicaItem'), v3 = new THREE.Vector3(), v4 = new THREE.Vector3(), alvoCam = new THREE.Vector3(), olhar = new THREE.Vector3(), olharAtual = new THREE.Vector3(0,0,0);
 let t0 = performance.now(), ultimo = t0, fpsN = 0, fpsT = t0, visivel = true, tempo = 0;
 document.addEventListener('visibilitychange', () => { visivel = !document.hidden; if (visivel) { ultimo = performance.now(); requestAnimationFrame(laco); } });
 addEventListener('resize', () => { camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight, false); composer.setSize(innerWidth, innerHeight); bloom.setSize(innerWidth, innerHeight); });
-
 function projeta(p){ v3.copy(p).project(camera); return { x:(v3.x*.5+.5)*innerWidth, y:(-v3.y*.5+.5)*innerHeight, z:v3.z }; }
+const mundoDe = p => plano.localToWorld(v4.copy(p));
 
 function laco(now){
   if (!visivel) return;
@@ -1040,46 +1102,55 @@ function laco(now){
   fpsN++; if (now - fpsT > 1000) { $('#hudFps').textContent = fpsN; fpsN = 0; fpsT = now; }
   const sp = U.scrollP || 0, heroP = Math.min(1, sp);
 
-  // rotação: automática + arraste com inércia + parallax
-  if (!arrasta) { vY *= .94; vX *= .9; rotY += vY + (REDUZ || focoK >= 0 ? 0 : dt*.035); }
-  mundo.rotation.y += ((rotY + mx*.25) - mundo.rotation.y) * .06;
-  mundo.rotation.x += ((rotX + my*.12 + .12) - mundo.rotation.x) * .06;
+  // o plano orbital gira em torno do próprio eixo (arraste com inércia + leve oscilação)
+  if (!arrasta) { vY *= .94; vX *= .9; rotY += vY; }
+  const foco = focoK >= 0 || focoSis;
+  const oscila = REDUZ || foco ? 0 : Math.sin(t*.06)*.22;
+  plano.rotation.x += ((TILT + rotX + my*.08) - plano.rotation.x) * .06;
+  plano.rotation.y += ((rotY + oscila + mx*.22) - plano.rotation.y) * .06;
 
-  // posições
-  nos.forEach(n => { if (n.base) n.g.position.copy(n.base); });
-  satelites.forEach(n => { const o = n.orb, a = o.fase + t*o.vel; n.g.position.set(o.pai.g.position.x + Math.cos(a)*o.R, o.pai.g.position.y + Math.sin(a)*o.R*Math.sin(o.incl)*.8, o.pai.g.position.z + Math.sin(a)*o.R*Math.cos(o.incl)); });
-  nos.forEach(n => { n.malha.rotation.y = t*.15 + n.k; n.mat.uniforms.uT.value = t; n.hover += (n.alvoHover - n.hover)*.15; n.mat.uniforms.uH.value = n.hover; n.atmo.material.uniforms.uH.value = n.hover; const s = 1 + n.hover*.12; n.g.scale.setScalar(s); });
-  orbItens.forEach((o, i) => { const a = o.fase + t*o.vel; const x = Math.cos(a)*o.R, z = Math.sin(a)*o.R; const y = z*Math.sin(o.incl); const zz = z*Math.cos(o.incl);
-    const cr = Math.cos(o.rot), sr = Math.sin(o.rot);
-    o.p.set(o.n.g.position.x + x*cr - zz*sr*.3, o.n.g.position.y + y, o.n.g.position.z + zz*cr + x*sr*.3); itPos[i*3] = o.p.x; itPos[i*3+1] = o.p.y; itPos[i*3+2] = o.p.z; itH[i] += ((i === hoverItem ? 1 : 0) - itH[i])*.2; });
+  // posições no plano
+  nos.forEach(n => { if (n.fixo) n.g.position.copy(n.fixo);
+    else if (n.orb) { const a = n.orb.fase + t*n.orb.vel; n.g.position.set(n.orb.c.x + Math.cos(a)*n.orb.R, 0, n.orb.c.z + Math.sin(a)*n.orb.R); }
+    if (n === eitaN) n.g.position.y = Math.sin(t*.8)*.25;
+    n.malha.rotation.y = t*.15 + n.k; n.mat.uniforms.uT.value = t; n.hover += (n.alvoHover - n.hover)*.15; n.mat.uniforms.uH.value = n.hover; n.atmo.material.uniforms.uH.value = n.hover; n.g.scale.setScalar(1 + n.hover*.12); });
+  orbItens.forEach((o, i) => { const a = o.fase + t*o.vel; const P = o.n.g.position;
+    if (o.lua) o.p.set(P.x + Math.cos(a)*o.R, P.y, P.z + Math.sin(a)*o.R);
+    else { const x = Math.cos(a)*o.R, z = Math.sin(a)*o.R, y = z*Math.sin(o.incl), zz = z*Math.cos(o.incl), cr = Math.cos(o.rot), sr = Math.sin(o.rot);
+      o.p.set(P.x + x*cr - zz*sr, P.y + y, P.z + zz*cr + x*sr); }
+    itPos[i*3] = o.p.x; itPos[i*3+1] = o.p.y; itPos[i*3+2] = o.p.z; itH[i] += ((i === hoverItem || i === hoverLua ? 1 : 0) - itH[i])*.2; });
   itG.attributes.position.needsUpdate = true; itG.attributes.aH.needsUpdate = true;
-  ligas.forEach(L => { const A = L.a.g.position, B = L.b.g.position; const M = A.clone().add(B).multiplyScalar(.5); M.y += A.distanceTo(B)*.18;
+  ligas.forEach(L => { const A = posDe(L.a), B = posDe(L.b); const M = A.clone().add(B).multiplyScalar(.5); M.y += A.distanceTo(B)*(L.tipo === 'ponte' ? .22 : L.tipo === 'lua' ? 0 : .08);
     L.curva.v0.copy(A); L.curva.v1.copy(M); L.curva.v2.copy(B); const arr = L.ln.geometry.attributes.position.array;
     for (let i=0;i<L.N;i++){ L.curva.getPoint(i/(L.N-1), v3); arr[i*3]=v3.x; arr[i*3+1]=v3.y; arr[i*3+2]=v3.z; } L.ln.geometry.attributes.position.needsUpdate = true;
-    L.pulsos.forEach(p => { const u = (p.f + t*.12) % 1; L.curva.getPoint(u, p.s.position); p.s.material.opacity = Math.sin(u*Math.PI); p.s.material.color.copy(L.a.cor).lerp(L.b.cor, u); }); });
+    if (L.tipo === 'ponte') L.ln.computeLineDistances();
+    L.pulsos.forEach(p => { const u = (p.f + t*.12) % 1; L.curva.getPoint(u, p.s.position); p.s.material.opacity = Math.sin(u*Math.PI); p.s.material.color.copy(L.ca).lerp(L.cb, u); }); });
 
-  // câmera: herói → fundo, ou foco num planeta
-  if (focoK >= 0) { const n = nos[focoK]; mundo.updateMatrixWorld(); const wp = n.g.getWorldPosition(new THREE.Vector3());
-    const dir = wp.clone().sub(new THREE.Vector3(0,0,0)).setY(0).normalize(); const d = n.raio*5 + 6;
-    alvoCam.set(wp.x + (MOBILE ? 0 : n.raio*1.6) , wp.y + n.raio*1.2 + (MOBILE ? -n.raio*2.2 : 0), wp.z + d); olhar.copy(wp).add(new THREE.Vector3(MOBILE ? 0 : n.raio*1.6, MOBILE ? -n.raio*1.8 : 0, 0)); }
-  else { const z = (MOBILE ? 50 : 42) + heroP*16 + Math.min(1, Math.max(0, sp-1))*10; alvoCam.set(mx*3, 4 - heroP*6 - my*2, z); olhar.set(0, -heroP*3 - (MOBILE && !U.explorar ? 9 : 0), 0); }
-  camera.position.lerp(alvoCam, focoK >= 0 ? .045 : .06); olharAtual.lerp(olhar, .06); camera.lookAt(olharAtual);
+  // câmera
+  mundo.updateMatrixWorld();
+  if (focoK >= 0) { const n = nos[focoK]; const wp = n.g.getWorldPosition(new THREE.Vector3()); const s = mundo.scale.x, d = (n.raio*5 + 5)*s;
+    const lado = MOBILE ? 0 : n.raio*1.7*s;
+    alvoCam.set(wp.x + lado, wp.y + n.raio*1.2*s - (MOBILE ? n.raio*2.4*s : 0), wp.z + d); olhar.set(wp.x + lado, wp.y - (MOBILE ? n.raio*2*s : 0), wp.z); }
+  else if (focoSis) { const S = sistemas[focoSis]; const wp = mundoDe(S.c).clone(); const s = mundo.scale.x, d = (S.R*2.1 + 4)*s;
+    const lado = MOBILE ? 0 : S.R*.55*s;
+    alvoCam.set(wp.x + lado, wp.y + S.R*.35*s - (MOBILE ? S.R*.7*s : 0), wp.z + d); olhar.set(wp.x + lado, wp.y - (MOBILE ? S.R*.6*s : 0), wp.z); }
+  else { const z = (MOBILE ? 50 : 46) + heroP*16 + Math.min(1, Math.max(0, sp-1))*10; alvoCam.set(mx*3, 4 - heroP*6 - my*2, z); olhar.set(0, -heroP*3 - (MOBILE && !U.explorar ? 6 : 0), 0); }
+  camera.position.lerp(alvoCam, foco ? .05 : .06); olharAtual.lerp(olhar, .06); camera.lookAt(olharAtual);
   estrelas.rotation.y = t*.004 + mx*.05; poeira.rotation.y = -t*.01;
   nebula.material.uniforms.uT.value = t; estrelas.material.uniforms.uT.value = t; poeira.material.uniforms.uT.value = t; itMat.uniforms.uT.value = t;
 
-  // opacidade do canvas ao rolar (vira fundo)
   const op = U.explorar ? 1 : Math.max(.32, 1 - Math.max(0, sp - .35)*.9);
   canvas.style.opacity = op;
   bloom.strength = (MOBILE ? .7 : .8) * (U.explorar ? 1.1 : 1);
 
-  // hover: planetas (raycast) e estrelas (distância de tela)
+  // hover
   mundo.updateMatrixWorld();
-  const rotEls = rots(), labelVis = U.explorar || sp < .5; rotBox.style.opacity = labelVis ? 1 : 0; rotBox.style.pointerEvents = labelVis ? '' : 'none';
+  const labelVis = U.explorar || sp < .5; rotBox.style.opacity = labelVis ? 1 : 0; rotBox.style.pointerEvents = labelVis ? '' : 'none';
   let hp = -1, hi = -1;
   if (ptr.x > -999 && !arrasta && labelVis) {
     ray.setFromCamera(new THREE.Vector2(ptr.x/innerWidth*2-1, -(ptr.y/innerHeight)*2+1), camera);
     const hit = ray.intersectObjects(nos.map(n => n.malha), false)[0]; if (hit) hp = nos.findIndex(n => n.malha === hit.object);
-    if (hp < 0) { let best = 16; orbItens.forEach((o,i) => { const s = projeta(mundo.localToWorld(v3.copy(o.p))); if (s.z > 1) return; const d = Math.hypot(s.x-ptr.x, s.y-ptr.y); if (d < best) { best = d; hi = i; } }); }
+    if (hp < 0) { let best = 16; orbItens.forEach((o,i) => { const s = projeta(mundoDe(o.p)); if (s.z > 1) return; const d = Math.hypot(s.x-ptr.x, s.y-ptr.y); if (d < best) { best = d; hi = i; } }); }
   }
   if (hoverPlaneta >= 0 && hp < 0) hp = hoverPlaneta;
   hoverItem = hi; nos.forEach(n => n.alvoHover = (n.k === hp || n.k === focoK) ? 1 : 0);
@@ -1089,14 +1160,23 @@ function laco(now){
     if (dica._k !== hi) { dica.innerHTML = html; dica._k = hi; } dica.style.left = Math.min(ptr.x, innerWidth-290)+'px'; dica.style.top = ptr.y+'px'; dica.classList.add('on'); }
   else { dica.classList.remove('on'); dica._k = -1; }
 
-  // rótulos projetados
+  // rótulos centralizados (nome + linha de apoio), sem sobreposição
   const ocup = [];
-  nos.forEach((n, i) => { const wp = n.g.getWorldPosition(new THREE.Vector3()); const s = projeta(wp.add(new THREE.Vector3(0, -n.raio*1.15, 0)));
-    const el = rotEls[i]; if (!el) return; const atras = s.z > 1;
-    let x = s.x - 12, y = s.y + 14; for (const o of ocup) if (Math.abs(o.x - x) < 130 && Math.abs(o.y - y) < 30) y = o.y + 32;
-    ocup.push({ x, y }); el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`; el.style.opacity = atras ? 0 : 1; el.classList.toggle('hover', n.k === hp); });
-  grs().forEach(el => { const ns = nos.filter(n => n.r.grupo === el.dataset.g && !('pai' in n.r)); const c = new THREE.Vector3(); ns.forEach(n => c.add(n.g.getWorldPosition(new THREE.Vector3()))); c.multiplyScalar(1/ns.length);
-    const top = Math.max(...ns.map(n => n.raio)); const s = projeta(c.add(new THREE.Vector3(0, top*3.6 + (ns.length > 1 ? 2.5 : 0), 0))); el.style.transform = `translate(${(s.x - 60).toFixed(1)}px,${Math.max(80, s.y).toFixed(1)}px)`; el.style.opacity = s.z > 1 ? 0 : .9; });
+  const livre = (X, Y, w, h) => !ocup.some(o => X < o.x + o.w + 6 && o.x < X + w + 6 && Y < o.y + o.h && o.y < Y + h);
+  const coloca = (el, x, y, cima) => { const w = el.offsetWidth || 120, h = el.offsetHeight || 36; const X = x - w/2;
+    const cands = [y, cima - h, y + h*.6, cima - h*1.6, y + h*1.2, cima - h*2.2, y + h*1.8];
+    let Y = cands.find(c => livre(X, c, w, h)); if (Y === undefined) Y = y;
+    ocup.push({ x:X, y:Y, w, h }); el.style.transform = `translate(${X.toFixed(1)}px,${Y.toFixed(1)}px)`; };
+  const ordem = [...nos].sort((a,b) => (a.orb ? 1 : 0) - (b.orb ? 1 : 0));
+  ordem.forEach(n => { const el = rotBox.querySelector(`.rot[data-k="${n.k}"]`); if (!el) return;
+    const wp = n.g.getWorldPosition(new THREE.Vector3()); const s = projeta(wp); const topo = projeta(wp.clone().add(new THREE.Vector3(0, n.raio*mundo.scale.x*1.15, 0)));
+    const pr = Math.abs(s.y - topo.y); if (s.z > 1) { el.style.opacity = 0; return; } el.style.opacity = 1;
+    coloca(el, s.x, s.y + pr + 4, s.y - pr - 4); el.classList.toggle('hover', n.k === hp); });
+  luas.forEach(i => { const el = rotBox.querySelector(`.rot.lua[data-i="${i}"]`); if (!el) return; const s = projeta(mundoDe(orbItens[i].p)); if (s.z > 1) { el.style.opacity = 0; return; } el.style.opacity = 1; coloca(el, s.x, s.y + 9, s.y - 9); });
+  rotBox.querySelectorAll('.rot-grupo').forEach(el => { const S = sistemas[el.dataset.g];
+    const pts = [0,1,2,3,4,5,6,7].map(j => { const a = j/8*Math.PI*2; return projeta(mundoDe(new THREE.Vector3(S.c.x + Math.cos(a)*S.R, 0, S.c.z + Math.sin(a)*S.R))); });
+    const c = projeta(mundoDe(S.c)); const topo = Math.min(...pts.map(p => p.y));
+    const w = el.offsetWidth || 120; el.style.transform = `translate(${(c.x - w/2).toFixed(1)}px,${Math.max(78, topo - 30).toFixed(1)}px)`; el.style.opacity = c.z > 1 ? 0 : 1; });
 
   $('#hudCam').textContent = `x ${camera.position.x.toFixed(1)} · y ${camera.position.y.toFixed(1)} · z ${camera.position.z.toFixed(1)}`;
   composer.render();
