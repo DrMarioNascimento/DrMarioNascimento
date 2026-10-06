@@ -1,0 +1,1110 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#03050a">
+<title>Mário César Nascimento, PhD — Universo</title>
+<meta name="description" content="Universo interativo do Prof. Mário César Nascimento, PhD: simuladores de fisiologia, ética, pesquisa, realidade aumentada e os jogos do Dragon Games.">
+<meta property="og:title" content="Mário César Nascimento, PhD — Universo">
+<meta property="og:description" content="Ciência que você pode tocar. Simuladores, escape rooms, realidade aumentada e jogos de dedução.">
+<meta property="og:image" content="https://drmarionascimento.github.io/fisiologia-interativa/assets/avatar-prof-mario.webp">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.35' stop-color='%2338e1c6'/%3E%3Cstop offset='1' stop-color='%2338e1c6' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='%2303050a'/%3E%3Ccircle cx='16' cy='16' r='11' fill='url(%23g)'/%3E%3Cellipse cx='16' cy='16' rx='14' ry='5' fill='none' stroke='%23a58cff' stroke-width='1.2' transform='rotate(-24 16 16)'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+<style>
+:root{
+  --bg:#03050a; --ink:#eef3f8; --ink2:#a9b5c2; --ink3:#66727f;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.15);
+  --acc:#38e1c6; --vio:#a58cff; --fogo:#ff5a2c; --azul:#4ea9ff; --ouro:#f5b544;
+  --glass:rgba(10,15,24,.52);
+  --f-disp:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-serif:"Instrument Serif",ui-serif,Georgia,serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+  --gut:clamp(16px,4vw,56px); --max:1320px; --ease:cubic-bezier(.2,.7,.1,1);
+}
+@property --ang{syntax:"<angle>";inherits:false;initial-value:0deg}
+*{box-sizing:border-box}
+html{background:var(--bg);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.carregando{overflow:hidden}
+a{color:inherit}
+button,input{font:inherit;color:inherit}
+img{display:block;max-width:100%}
+::selection{background:var(--acc);color:#001}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:8px}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.mono{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase}
+.serif{font-family:var(--f-serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
+.wrap{width:min(100% - 2*var(--gut),var(--max));margin-inline:auto}
+[data-lang-en]{display:none}
+
+/* ============ camadas de fundo ============ */
+#universo{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block;touch-action:pan-y;transition:opacity .2s linear}
+.fallback-ceu{position:fixed;inset:0;z-index:0;pointer-events:none;display:none;
+  background:radial-gradient(40vw 40vh at 70% 35%,#38e1c622,transparent 70%),radial-gradient(40vw 40vh at 85% 70%,#ff5a2c1c,transparent 70%),radial-gradient(50vw 50vh at 20% 80%,#a58cff18,transparent 70%),var(--bg)}
+.sem-webgl .fallback-ceu{display:block}
+.sem-webgl #universo{display:none}
+.grao{position:fixed;inset:-50%;z-index:2;pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");animation:grao 1.2s steps(6) infinite}
+@keyframes grao{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}50%{transform:translate(2%,-4%)}75%{transform:translate(-4%,-2%)}100%{transform:translate(0,0)}}
+.scan{position:fixed;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px);mix-blend-mode:overlay}
+.vinheta{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 45%,transparent 55%,rgba(0,0,0,.65))}
+
+/* ============ boot ============ */
+.boot{position:fixed;inset:0;z-index:200;background:#020307;display:grid;place-items:center;transition:opacity .9s var(--ease),visibility .9s}
+.boot.fim{opacity:0;visibility:hidden}
+.boot-caixa{width:min(560px,88vw)}
+.boot-anel{width:92px;height:92px;margin:0 0 30px;border-radius:50%;background:conic-gradient(var(--acc) calc(var(--pct,0)*1%),rgba(255,255,255,.07) 0);display:grid;place-items:center;position:relative;transition:--pct .3s}
+.boot-anel::after{content:"";position:absolute;inset:3px;border-radius:50%;background:#020307}
+.boot-anel b{position:relative;z-index:1;font-family:var(--f-mono);font-weight:500;font-size:.95rem;font-variant-numeric:tabular-nums}
+.boot-log{font-family:var(--f-mono);font-size:.74rem;line-height:1.9;color:var(--ink3);min-height:12em;white-space:pre-wrap}
+.boot-log .ok{color:var(--acc)}
+.boot-log .ln:last-child::after{content:"▍";color:var(--acc);animation:pisca 1s steps(2) infinite}
+@keyframes pisca{50%{opacity:0}}
+.boot-pular{margin-top:22px;background:none;border:1px solid var(--line2);border-radius:999px;padding:8px 16px;color:var(--ink2);cursor:pointer;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase}
+
+/* ============ cursor ============ */
+.cursor,.cursor-pt{position:fixed;left:0;top:0;z-index:300;pointer-events:none;border-radius:50%;mix-blend-mode:difference;display:none}
+.cursor{width:38px;height:38px;margin:-19px 0 0 -19px;border:1px solid rgba(255,255,255,.85);transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),background .25s}
+.cursor-pt{width:5px;height:5px;margin:-2.5px 0 0 -2.5px;background:#fff}
+.cursor.alvo{width:64px;height:64px;margin:-32px 0 0 -32px;background:rgba(255,255,255,.12)}
+@media (hover:hover) and (pointer:fine){ .tem-cursor .cursor,.tem-cursor .cursor-pt{display:block} .tem-cursor, .tem-cursor a, .tem-cursor button{cursor:none} }
+
+/* ============ topo ============ */
+.topo{position:fixed;inset:0 0 auto;z-index:60;height:70px;display:flex;align-items:center;gap:16px;padding:0 var(--gut);transition:background .4s,border-color .4s;border-bottom:1px solid transparent}
+.topo.solida{background:rgba(3,5,10,.55);backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);border-color:var(--line)}
+.marca{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+.marca-av{position:relative;width:40px;height:40px;border-radius:50%;flex:none;padding:2px;background:conic-gradient(from var(--ang),#38e1c6,#4ea9ff,#a58cff,#ff5a2c,#f5b544,#38e1c6);animation:gira 6s linear infinite}
+.marca-av img{width:100%;height:100%;border-radius:50%;object-fit:cover;background:#0b1018;border:2px solid var(--bg)}
+@keyframes gira{to{--ang:360deg}}
+.marca b{display:block;font-family:var(--f-disp);font-weight:600;font-size:.92rem;letter-spacing:.02em;white-space:nowrap}
+.marca small{display:block;font-family:var(--f-mono);font-size:.6rem;letter-spacing:.16em;color:var(--ink3);text-transform:uppercase}
+.nav{flex:1;display:flex;justify-content:center;gap:4px}
+.nav a{position:relative;padding:8px 13px;border-radius:999px;text-decoration:none;font-size:.84rem;color:var(--ink2);transition:color .2s,background .2s}
+.nav a:hover{color:var(--ink);background:rgba(255,255,255,.05)}
+.nav a.ativo{color:var(--ink)}
+.nav a.ativo::after{content:"";position:absolute;left:50%;bottom:2px;width:4px;height:4px;border-radius:50%;background:var(--acc);box-shadow:0 0 10px var(--acc);transform:translateX(-50%)}
+.acoes{display:flex;gap:8px;align-items:center;margin-left:auto}
+.btn{--h:44px;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:var(--h);padding:0 18px;border-radius:999px;border:1px solid var(--line2);background:rgba(255,255,255,.04);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);text-decoration:none;font-weight:550;font-size:.88rem;cursor:pointer;white-space:nowrap;transition:background .25s,border-color .25s,transform .25s var(--ease),box-shadow .25s}
+.btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3)}
+.btn.cheio{background:var(--acc);color:#011;border-color:transparent;box-shadow:0 10px 40px -10px var(--acc)}
+.btn.cheio:hover{box-shadow:0 16px 54px -8px var(--acc)}
+.btn svg{width:17px;height:17px;flex:none}
+.btn kbd{font-family:var(--f-mono);font-size:.64rem;padding:2px 6px;border-radius:6px;border:1px solid var(--line2);color:var(--ink2)}
+.idioma{display:flex;padding:3px;border-radius:999px;border:1px solid var(--line2);background:rgba(255,255,255,.03)}
+.idioma button{min-height:36px;min-width:42px;padding:0 10px;border:0;border-radius:999px;background:transparent;cursor:pointer;font-family:var(--f-mono);font-size:.7rem;letter-spacing:.1em;color:var(--ink2)}
+.idioma button[aria-pressed="true"]{background:rgba(255,255,255,.13);color:var(--ink)}
+.progresso{position:fixed;top:0;left:0;height:2px;z-index:70;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--acc),var(--vio),var(--fogo))}
+
+/* ============ herói ============ */
+.heroi{position:relative;z-index:5;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:110px var(--gut) 90px;pointer-events:none}
+.heroi>*{pointer-events:auto}
+.heroi-txt{max-width:min(720px,100%);transition:opacity .6s var(--ease),transform .6s var(--ease),filter .6s}
+.explorando .heroi-txt{opacity:0;transform:translateX(-30px);filter:blur(8px);pointer-events:none}
+.kicker{display:flex;align-items:center;gap:12px;color:var(--ink2);flex-wrap:wrap}
+.kicker em{font-style:normal;color:var(--acc)}
+.pulsar{width:8px;height:8px;border-radius:50%;background:#43f08e;box-shadow:0 0 0 0 #43f08e88;animation:pulsar 2s infinite}
+@keyframes pulsar{70%{box-shadow:0 0 0 12px #43f08e00}100%{box-shadow:0 0 0 0 #43f08e00}}
+.heroi h1{margin:.32em 0 .3em;font-family:var(--f-disp);font-weight:500;font-size:clamp(3rem,8.4vw,8.4rem);line-height:.9;letter-spacing:-.05em}
+.heroi h1 .l{display:block;overflow:hidden;padding-bottom:.06em}
+.heroi h1 .l>span{display:inline-block;transform:translateY(110%);transition:transform 1.3s var(--ease);transition-delay:var(--d,0s)}
+.pronto .heroi h1 .l>span{transform:none}
+.heroi h1 .serif{background:linear-gradient(95deg,#fff 5%,var(--acc) 45%,var(--vio) 75%,var(--fogo));-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.06em}
+.lead{max-width:44ch;color:var(--ink2);font-size:clamp(1rem,1.35vw,1.18rem);margin:0 0 30px}
+.surge{opacity:0;transform:translateY(16px);filter:blur(6px);transition:opacity 1.2s var(--ease),transform 1.2s var(--ease),filter 1.2s;transition-delay:var(--d,0s)}
+.pronto .surge{opacity:1;transform:none;filter:none}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+.dica-arraste{margin-top:26px;color:var(--ink3);display:flex;align-items:center;gap:10px}
+.dica-arraste i{width:26px;height:26px;border:1px solid var(--line2);border-radius:50%;position:relative}
+.dica-arraste i::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:var(--acc);top:50%;left:50%;margin:-3px;animation:arrasta 2.6s var(--ease) infinite}
+@keyframes arrasta{0%,100%{transform:translateX(-6px)}50%{transform:translateX(6px)}}
+.sair-explorar{position:fixed;left:50%;bottom:28px;z-index:65;transform:translate(-50%,20px);opacity:0;pointer-events:none;transition:.4s var(--ease)}
+.explorando .sair-explorar{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+
+/* HUD do herói */
+.hud{position:fixed;z-index:6;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);pointer-events:none;line-height:1.8;transition:opacity .4s}
+.hud b{color:var(--ink2);font-weight:500}
+.hud-e{left:var(--gut);bottom:26px}
+.hud-d{right:var(--gut);bottom:26px;text-align:right}
+.hud-d i{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--acc);box-shadow:0 0 8px var(--acc);margin-right:6px;vertical-align:1px}
+.cantos{position:fixed;inset:84px var(--gut) 70px;z-index:3;pointer-events:none;transition:opacity .4s}
+.cantos i{position:absolute;width:18px;height:18px;border-color:rgba(255,255,255,.22);border-style:solid;border-width:0}
+.cantos i:nth-child(1){left:0;top:0;border-left-width:1px;border-top-width:1px}
+.cantos i:nth-child(2){right:0;top:0;border-right-width:1px;border-top-width:1px}
+.cantos i:nth-child(3){left:0;bottom:0;border-left-width:1px;border-bottom-width:1px}
+.cantos i:nth-child(4){right:0;bottom:0;border-right-width:1px;border-bottom-width:1px}
+
+/* rótulos flutuantes */
+.rotulos{position:fixed;inset:0;z-index:4;pointer-events:none;transition:opacity .4s}
+.rot{position:absolute;left:0;top:0;display:flex;align-items:center;gap:9px;padding:6px 12px 6px 8px;border-radius:999px;border:1px solid color-mix(in oklab,var(--c) 40%,transparent);background:rgba(6,10,16,.5);backdrop-filter:blur(10px) saturate(140%);-webkit-backdrop-filter:blur(10px) saturate(140%);text-decoration:none;white-space:nowrap;cursor:pointer;pointer-events:auto;will-change:transform;transition:border-color .25s,background .25s,box-shadow .25s,opacity .3s;font-size:.8rem}
+.rot i{width:9px;height:9px;border-radius:50%;background:var(--c);box-shadow:0 0 12px var(--c);flex:none}
+.rot b{font-family:var(--f-disp);font-weight:500;letter-spacing:-.005em}
+.rot small{font-family:var(--f-mono);font-size:.6rem;color:var(--c);letter-spacing:.08em}
+.rot::before{content:"";position:absolute;left:12px;top:-16px;width:1px;height:16px;background:linear-gradient(transparent,color-mix(in oklab,var(--c) 70%,transparent))}
+.rot:hover,.rot.hover{border-color:var(--c);background:color-mix(in oklab,var(--c) 18%,rgba(6,10,16,.6));box-shadow:0 0 30px -6px var(--c)}
+.rot.sat{font-size:.72rem;padding:4px 10px 4px 7px}
+.rot.sat i{width:7px;height:7px}
+.rot-grupo{position:absolute;left:0;top:0;font-family:var(--f-mono);font-size:.62rem;letter-spacing:.3em;text-transform:uppercase;color:var(--c);white-space:nowrap;text-shadow:0 0 16px #000;will-change:transform}
+.rot-grupo::before{content:"⟢ "}
+.dica-item{position:fixed;z-index:80;left:0;top:0;pointer-events:none;padding:10px 13px;border-radius:12px;border:1px solid color-mix(in oklab,var(--c,#fff) 50%,transparent);background:rgba(6,10,16,.82);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);max-width:260px;opacity:0;transform:translate(14px,14px) scale(.96);transition:opacity .15s,transform .15s}
+.dica-item.on{opacity:1;transform:translate(14px,14px)}
+.dica-item small{display:block;font-family:var(--f-mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--c,var(--acc))}
+.dica-item b{display:block;font-family:var(--f-disp);font-weight:500;font-size:.95rem;line-height:1.2;margin:3px 0 2px}
+.dica-item span{font-size:.72rem;color:var(--ink3)}
+
+/* painel de foco */
+.painel{position:fixed;z-index:70;right:var(--gut);top:96px;width:min(400px,calc(100vw - 2*var(--gut)));max-height:calc(100vh - 130px);overflow:auto;padding:26px;border-radius:26px;border:1px solid color-mix(in oklab,var(--c,#fff) 40%,transparent);background:linear-gradient(160deg,color-mix(in oklab,var(--c,#fff) 14%,transparent),rgba(6,10,16,.72) 50%);backdrop-filter:blur(22px) saturate(150%);-webkit-backdrop-filter:blur(22px) saturate(150%);box-shadow:0 40px 100px -40px var(--c,#000);transform:translateX(30px);opacity:0;visibility:hidden;transition:transform .5s var(--ease),opacity .5s,visibility .5s}
+.painel.aberto{transform:none;opacity:1;visibility:visible}
+.painel .mono{color:var(--c)}
+.painel h3{margin:10px 0 6px;font-family:var(--f-disp);font-weight:500;font-size:2rem;line-height:1;letter-spacing:-.03em}
+.painel .lema{font-family:var(--f-serif);font-style:italic;font-size:1.2rem;color:var(--c);margin:0 0 12px}
+.painel p{margin:0 0 16px;color:var(--ink2);font-size:.9rem}
+.painel .stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 18px}
+.painel .stats div{padding:12px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.25)}
+.painel .stats b{display:block;font-family:var(--f-disp);font-size:1.6rem;font-weight:500;line-height:1}
+.painel .stats small{font-family:var(--f-mono);font-size:.58rem;letter-spacing:.12em;color:var(--ink3);text-transform:uppercase}
+.painel .lst{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:4px;max-height:220px;overflow:auto}
+.painel .lst a{display:flex;justify-content:space-between;gap:10px;padding:8px 10px;border-radius:10px;text-decoration:none;font-size:.82rem;border:1px solid transparent}
+.painel .lst a:hover{border-color:var(--line2);background:rgba(255,255,255,.04)}
+.painel .lst a span{color:var(--ink3);font-size:.7rem;white-space:nowrap}
+.painel .bts{display:flex;gap:8px;flex-wrap:wrap}
+.painel .btn.cheio{background:var(--c);box-shadow:0 10px 40px -10px var(--c)}
+.painel .fechar{position:absolute;right:14px;top:14px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line2);background:rgba(0,0,0,.3);cursor:pointer;display:grid;place-items:center}
+.painel .fechar svg{width:16px;height:16px}
+
+/* ============ seções ============ */
+main{position:relative;z-index:5}
+.sec{position:relative;padding:18vh 0 10vh}
+.titulo{display:flex;align-items:end;justify-content:space-between;gap:28px;flex-wrap:wrap;margin-bottom:46px}
+.titulo .mono{color:var(--acc);display:block;margin-bottom:16px}
+.titulo h2{margin:0;font-family:var(--f-disp);font-weight:500;font-size:clamp(2.4rem,5.6vw,5rem);letter-spacing:-.045em;line-height:.92}
+.titulo p{margin:0;color:var(--ink2);max-width:44ch}
+.rv{opacity:0;transform:translateY(34px);filter:blur(8px);transition:opacity 1s var(--ease),transform 1.1s var(--ease),filter 1s;transition-delay:var(--d,0s)}
+.rv.vis{opacity:1;transform:none;filter:none}
+
+/* manifesto */
+.manifesto{height:240vh;position:relative}
+.manifesto .palco{position:sticky;top:0;height:100vh;height:100svh;display:grid;place-items:center;padding:0 var(--gut)}
+.manifesto p{margin:0;max-width:20ch;font-family:var(--f-disp);font-weight:500;font-size:clamp(2.1rem,5.6vw,5.4rem);line-height:1.02;letter-spacing:-.04em}
+.manifesto .w{opacity:.1;transition:opacity .3s,color .3s,text-shadow .3s}
+.manifesto .w.on{opacity:1}
+.manifesto .w.n.on{color:var(--acc);text-shadow:0 0 40px color-mix(in oklab,var(--acc) 60%,transparent)}
+.manifesto .w.s{font-family:var(--f-serif);font-style:italic;font-weight:400}
+
+/* frentes holográficas */
+.frentes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;perspective:1400px}
+.holo{--rx:0deg;--ry:0deg;--mx:50%;--my:50%;position:relative;border-radius:28px;padding:1px;background:conic-gradient(from var(--ang),color-mix(in oklab,var(--c) 80%,transparent),transparent 25%,transparent 50%,color-mix(in oklab,var(--c) 60%,transparent) 75%,transparent);animation:gira 8s linear infinite;transform:rotateX(var(--rx)) rotateY(var(--ry));transform-style:preserve-3d;transition:transform .5s var(--ease)}
+.holo-in{position:relative;height:100%;border-radius:27px;padding:28px;background:radial-gradient(500px 300px at var(--mx) var(--my),color-mix(in oklab,var(--c) 20%,transparent),transparent 60%),linear-gradient(180deg,rgba(14,19,28,.9),rgba(6,9,14,.92));overflow:hidden;isolation:isolate}
+.holo-in::after{content:"";position:absolute;inset:0;z-index:-1;opacity:.5;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.07) 45%,transparent 55%);background-size:250% 100%;background-position:calc(var(--mx) * -1.5) 0;mix-blend-mode:screen}
+.holo .mono{color:var(--c)}
+.holo .n{float:right;font-family:var(--f-disp);font-size:2.8rem;font-weight:500;line-height:.8;letter-spacing:-.05em}
+.holo h3{margin:22px 0 8px;font-family:var(--f-disp);font-weight:500;font-size:1.8rem;letter-spacing:-.03em;line-height:1}
+.holo>.holo-in>p{margin:0 0 22px;color:var(--ink2);font-size:.9rem}
+.holo ul{list-style:none;margin:0;padding:0;display:grid;gap:7px}
+.holo li a{display:grid;grid-template-columns:10px 1fr auto;gap:12px;align-items:center;min-height:54px;padding:8px 14px;border-radius:15px;border:1px solid var(--line);background:rgba(0,0,0,.3);text-decoration:none;transition:.25s var(--ease)}
+.holo li a:hover{border-color:color-mix(in oklab,var(--rc) 70%,transparent);background:color-mix(in oklab,var(--rc) 12%,transparent);transform:translateX(4px)}
+.holo li a>i{width:10px;height:10px;border-radius:50%;background:var(--rc);box-shadow:0 0 10px var(--rc)}
+.holo li b{display:block;font-weight:600;font-size:.93rem}
+.holo li small{display:block;color:var(--ink3);font-size:.74rem;line-height:1.3}
+.holo li em{font-style:normal;font-family:var(--f-disp);font-size:1.15rem;color:var(--rc)}
+
+/* números */
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.tile{position:relative;grid-column:span 4;min-height:220px;padding:26px;border-radius:24px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);overflow:hidden;isolation:isolate}
+.tile::after{content:"";position:absolute;width:280px;height:280px;right:-100px;top:-120px;border-radius:50%;background:radial-gradient(color-mix(in oklab,var(--c,var(--acc)) 32%,transparent),transparent 70%);z-index:-1}
+.tile .mono{color:var(--ink3)}
+.tile .n{font-family:var(--f-disp);font-weight:500;font-size:clamp(3.4rem,6.4vw,6rem);line-height:.9;letter-spacing:-.06em;margin:20px 0 10px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.tile .n span{color:var(--c,var(--acc))}
+.tile p{margin:0;color:var(--ink2);font-size:.9rem;max-width:34ch}
+.tile.largo{grid-column:span 8}
+.espectro{display:flex;height:14px;border-radius:99px;overflow:hidden;gap:2px;margin:24px 0 14px}
+.espectro i{display:block;height:100%;background:var(--c);transform-origin:0 50%;transform:scaleX(0);transition:transform 1.4s var(--ease) var(--d,0s)}
+.vis .espectro i{transform:none}
+.legenda{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.76rem;color:var(--ink2)}
+.legenda span{display:inline-flex;align-items:center;gap:7px}
+.legenda span::before{content:"";width:8px;height:8px;border-radius:3px;background:var(--c)}
+
+/* mundos (galeria) */
+.mundos{display:grid;grid-auto-flow:column;grid-auto-columns:clamp(260px,30vw,400px);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 28px;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.mundo{--rx:0deg;--ry:0deg;scroll-snap-align:start;position:relative;aspect-ratio:4/5;border-radius:26px;overflow:hidden;border:1px solid var(--line);isolation:isolate;display:flex;flex-direction:column;justify-content:end;padding:24px;text-decoration:none;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .5s var(--ease),box-shadow .5s,border-color .4s}
+.mundo img{position:absolute;inset:-6%;width:112%;height:112%;object-fit:cover;z-index:-2;transform:translate(calc(var(--ry) * -.6),calc(var(--rx) * .6)) scale(1.02);transition:transform .5s var(--ease),filter .5s;filter:saturate(.9) brightness(.85)}
+.mundo::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 30%,rgba(3,5,10,.94) 82%)}
+.mundo:hover{border-color:color-mix(in oklab,var(--c) 60%,transparent);box-shadow:0 40px 80px -40px var(--c)}
+.mundo:hover img{filter:saturate(1.05) brightness(1)}
+.mundo .mono{color:var(--c)}
+.mundo h4{margin:10px 0 6px;font-family:var(--f-disp);font-weight:500;font-size:1.7rem;line-height:1;letter-spacing:-.03em}
+.mundo p{margin:0;color:var(--ink2);font-size:.86rem}
+.mundo .vai{position:absolute;top:18px;right:18px;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.4);border:1px solid var(--line2);backdrop-filter:blur(8px);transition:.3s var(--ease)}
+.mundo:hover .vai{background:var(--c);color:#011;transform:rotate(-45deg)}
+.mundo .vai svg{width:16px;height:16px}
+
+/* telemetria */
+.tele{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
+.terminal{border-radius:24px;border:1px solid var(--line2);background:rgba(3,6,10,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow:hidden;font-family:var(--f-mono);font-size:.78rem}
+.terminal header{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--line);color:var(--ink3);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase}
+.terminal header i{width:10px;height:10px;border-radius:50%;background:#ff5f57}
+.terminal header i:nth-child(2){background:#febc2e}.terminal header i:nth-child(3){background:#28c840}
+.terminal header span{margin-left:auto;display:flex;align-items:center;gap:8px}
+.terminal .corpo{padding:16px 18px;min-height:340px;max-height:440px;overflow:auto;line-height:1.75}
+.terminal .ln{display:grid;grid-template-columns:auto auto 1fr;gap:12px;opacity:0;transform:translateY(6px);transition:.4s var(--ease)}
+.terminal .ln.on{opacity:1;transform:none}
+.terminal .ln time{color:var(--ink3)}
+.terminal .ln b{color:var(--c);font-weight:500}
+.terminal .ln span{color:var(--ink2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sinais{display:grid;gap:8px}
+.sinal{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:14px 16px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.025);text-decoration:none;transition:.25s var(--ease)}
+.sinal:hover{border-color:color-mix(in oklab,var(--c) 60%,transparent);background:color-mix(in oklab,var(--c) 8%,transparent)}
+.sinal .onda{width:54px;height:24px}
+.sinal .onda path{fill:none;stroke:var(--c);stroke-width:1.6;stroke-dasharray:120;stroke-dashoffset:120;animation:traca 2.4s var(--ease) forwards;animation-delay:var(--d,0s);filter:drop-shadow(0 0 4px var(--c))}
+@keyframes traca{to{stroke-dashoffset:0}}
+.sinal b{display:block;font-size:.9rem;font-weight:600}
+.sinal small{display:block;color:var(--ink3);font-size:.72rem}
+.sinal time{font-family:var(--f-mono);font-size:.66rem;color:var(--ink2);letter-spacing:.06em;white-space:nowrap}
+
+/* sobre */
+.sobre{display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:clamp(30px,6vw,90px);align-items:center}
+.retrato{position:relative;aspect-ratio:1;width:100%;max-width:420px;justify-self:center}
+.retrato .aneis{position:absolute;inset:0;border-radius:50%}
+.retrato .aneis i{position:absolute;inset:calc(var(--k) * 7%);border-radius:50%;border:1px solid color-mix(in oklab,var(--c) 50%,transparent);animation:orbita calc(14s + var(--k)*6s) linear infinite;animation-direction:var(--dir,normal)}
+.retrato .aneis i::after{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 14px var(--c)}
+@keyframes orbita{to{transform:rotate(360deg)}}
+.retrato .foto{position:absolute;inset:22%;border-radius:50%;overflow:hidden;border:1px solid var(--line2);box-shadow:0 0 80px -10px #38e1c655,inset 0 0 40px #000}
+.retrato .foto img{width:100%;height:100%;object-fit:cover}
+.retrato .foto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 0 48%,rgba(56,225,198,.18) 50%,transparent 52%);background-size:100% 300%;animation:varre 4s linear infinite;mix-blend-mode:screen}
+@keyframes varre{from{background-position:0 100%}to{background-position:0 -200%}}
+.sobre h2{margin:0 0 18px;font-family:var(--f-disp);font-weight:500;font-size:clamp(2.2rem,4.6vw,4rem);letter-spacing:-.045em;line-height:.95}
+.sobre .bio{color:var(--ink2);font-size:clamp(1rem,1.25vw,1.12rem);max-width:58ch;margin:0 0 26px}
+.principios{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 30px}
+.principios div{padding:16px;border-radius:18px;border:1px solid var(--line);background:rgba(255,255,255,.025)}
+.principios b{display:block;font-family:var(--f-disp);font-weight:500;font-size:1.05rem;margin:8px 0 4px}
+.principios small{color:var(--ink3);font-size:.78rem;line-height:1.4;display:block}
+.principios .mono{color:var(--acc);font-size:.6rem}
+
+/* rodapé */
+.rodape{position:relative;z-index:5;padding:14vh 0 40px;overflow:hidden;border-top:1px solid var(--line);background:linear-gradient(180deg,transparent,rgba(3,5,10,.85) 40%)}
+.gigante{font-family:var(--f-disp);font-weight:600;font-size:clamp(3rem,14.5vw,15.5rem);line-height:.8;letter-spacing:-.07em;margin:0;white-space:nowrap;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.16);background:linear-gradient(90deg,transparent 0,rgba(56,225,198,.5) 50%,transparent 100%);background-size:40% 100%;background-repeat:no-repeat;-webkit-background-clip:text;background-clip:text;animation:luz 6s ease-in-out infinite}
+@keyframes luz{0%{background-position:-40% 0}100%{background-position:140% 0}}
+.creditos{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--ink3);font-size:.78rem;border-top:1px solid var(--line);padding-top:24px;margin-top:50px}
+.creditos a{text-decoration:none;border-bottom:1px solid var(--line2)}
+
+/* paleta */
+.paleta{position:fixed;inset:0;z-index:150;display:none;align-items:flex-start;justify-content:center;padding:12vh 16px 16px;background:rgba(2,4,8,.6);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.paleta.aberta{display:flex}
+.paleta-caixa{width:min(720px,100%);border-radius:24px;border:1px solid var(--line2);background:rgba(8,12,19,.95);box-shadow:0 50px 120px -30px #000;overflow:hidden;animation:entra .35s var(--ease)}
+@keyframes entra{from{opacity:0;transform:translateY(12px) scale(.98)}}
+.paleta-caixa input{width:100%;min-height:66px;border:0;border-bottom:1px solid var(--line);background:transparent;padding:0 22px;font-family:var(--f-disp);font-size:1.25rem;outline:none}
+.paleta-res{max-height:min(60vh,520px);overflow:auto;padding:8px}
+.paleta-res a{display:grid;grid-template-columns:10px 1fr auto;gap:14px;align-items:center;padding:12px 14px;border-radius:12px;text-decoration:none}
+.paleta-res a i{width:8px;height:8px;border-radius:50%;background:var(--c);box-shadow:0 0 8px var(--c)}
+.paleta-res a small{display:block;color:var(--ink3);font-size:.74rem}
+.paleta-res a span.mono{color:var(--ink3);font-size:.58rem}
+.paleta-res a[aria-selected="true"],.paleta-res a:hover{background:rgba(255,255,255,.07)}
+.paleta-dica{display:flex;gap:16px;padding:10px 18px;border-top:1px solid var(--line);color:var(--ink3);font-size:.7rem;font-family:var(--f-mono)}
+mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;border-radius:3px;padding:0 1px}
+
+/* transição de idioma */
+::view-transition-old(root),::view-transition-new(root){animation-duration:.5s}
+
+/* responsivo */
+@media (max-width:1020px){
+  .nav{display:none}
+  .frentes{grid-template-columns:1fr}
+  .tele{grid-template-columns:1fr}
+  .sobre{grid-template-columns:1fr}
+  .retrato{max-width:320px}
+  .tile{grid-column:span 6}.tile.largo{grid-column:span 12}
+}
+@media (max-width:640px){
+  body{font-size:15px}
+  .topo{height:62px;gap:10px}
+  .marca small,.btn .txt,.btn kbd{display:none}
+  .marca b{font-size:.84rem}
+  .btn{padding:0 14px}
+  .heroi{justify-content:flex-end;padding-bottom:70px}
+  .heroi::before{content:"";position:absolute;inset:38% 0 0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(3,5,10,.82) 40%,rgba(3,5,10,.9));transition:opacity .6s}
+  .explorando .heroi::before{opacity:0}
+  body:not(.explorando) .rotulos{opacity:0!important}
+  body:not(.explorando) .rotulos .rot{pointer-events:none}
+  .heroi h1{font-size:clamp(2.7rem,13.5vw,4.2rem)}
+  .lead{font-size:1rem}
+  .hud-e,.hud-d{display:none}
+  .cantos{inset:74px 12px 60px}
+  .rot{font-size:.7rem;padding:4px 9px 4px 6px}
+  .rot small{display:none}
+  .rot.sat{display:none}
+  .explorando .rot.sat{display:flex}
+  .rot-grupo{display:none}
+  .manifesto{height:200vh}
+  .tile{grid-column:span 12;min-height:0}
+  .principios{grid-template-columns:1fr}
+  .painel{top:auto;bottom:12px;right:12px;left:12px;width:auto;max-height:62vh;border-radius:22px;transform:translateY(30px)}
+  .terminal .ln{grid-template-columns:auto 1fr}
+  .terminal .ln time{display:none}
+}
+@media (max-width:440px){ .marca>span:last-child{display:none} }
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .rv,.surge{opacity:1;transform:none;filter:none}
+  .heroi h1 .l>span{transform:none}
+  .manifesto{height:auto}.manifesto .palco{position:relative;min-height:100vh}.manifesto .w{opacity:1}
+}
+</style>
+</head>
+<body class="carregando">
+<a class="sr" href="#frentes">Pular para o conteúdo</a>
+
+<canvas id="universo" aria-hidden="true"></canvas>
+<div class="fallback-ceu" aria-hidden="true"></div>
+<div class="vinheta" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"></div>
+<div class="grao" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"></div><div class="cursor-pt" aria-hidden="true"></div>
+<div class="progresso" id="progresso" aria-hidden="true"></div>
+
+<!-- boot -->
+<div class="boot" id="boot" role="status" aria-live="polite">
+  <div class="boot-caixa">
+    <div class="boot-anel" id="bootAnel"><b id="bootPct">00</b></div>
+    <div class="boot-log" id="bootLog"></div>
+    <button class="boot-pular" id="bootPular" type="button"><span data-lang-pt>Pular</span><span data-lang-en>Skip</span> ›</button>
+  </div>
+</div>
+
+<!-- topo -->
+<header class="topo" id="topo">
+  <a class="marca" href="#inicio" aria-label="Início">
+    <span class="marca-av"><img src="https://drmarionascimento.github.io/fisiologia-interativa/assets/avatar-prof-mario.webp" alt="" width="40" height="40"></span>
+    <span><b>Mário César Nascimento</b><small>PhD · Professor</small></span>
+  </a>
+  <nav class="nav" id="nav" aria-label="Seções">
+    <a href="#inicio" data-sec="inicio"><span data-lang-pt>Universo</span><span data-lang-en>Universe</span></a>
+    <a href="#frentes" data-sec="frentes"><span data-lang-pt>Frentes</span><span data-lang-en>Fronts</span></a>
+    <a href="#numeros" data-sec="numeros"><span data-lang-pt>Números</span><span data-lang-en>Numbers</span></a>
+    <a href="#mundos" data-sec="mundos"><span data-lang-pt>Mundos</span><span data-lang-en>Worlds</span></a>
+    <a href="#telemetria" data-sec="telemetria"><span data-lang-pt>Telemetria</span><span data-lang-en>Telemetry</span></a>
+    <a href="#sobre" data-sec="sobre"><span data-lang-pt>Sobre</span><span data-lang-en>About</span></a>
+  </nav>
+  <div class="acoes">
+    <div class="idioma" role="group" aria-label="Idioma / Language">
+      <button type="button" data-set-lang="pt" aria-pressed="true">PT</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+    </div>
+    <button class="btn" type="button" id="abrePaleta" aria-label="Buscar experiências"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="txt"><span data-lang-pt>Buscar</span><span data-lang-en>Search</span></span><kbd>Ctrl K</kbd></button>
+  </div>
+</header>
+
+<!-- HUD -->
+<div class="cantos" id="cantos" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="hud hud-e" id="hudE" aria-hidden="true">
+  <div>CAM <b id="hudCam">x 0.0 · y 0.0 · z 0.0</b></div>
+  <div>RENDER <b id="hudRender">WebGL2 · bloom · ACES</b></div>
+  <div>FPS <b id="hudFps">--</b></div>
+</div>
+<div class="hud hud-d" id="hudD" aria-hidden="true">
+  <div><i></i><b>ONLINE</b> · FLORIANÓPOLIS · <b id="hudHora">--:--</b></div>
+  <div><b id="hudCont">8</b> <span data-lang-pt>REPOSITÓRIOS</span><span data-lang-en>REPOSITORIES</span> · <b id="hudItens">99</b> <span data-lang-pt>EXPERIÊNCIAS</span><span data-lang-en>EXPERIENCES</span></div>
+</div>
+<div class="rotulos" id="rotulos" aria-hidden="true"></div>
+<div class="dica-item" id="dicaItem" aria-hidden="true"></div>
+
+<!-- painel de foco -->
+<aside class="painel" id="painel" aria-label="Detalhes do repositório" aria-hidden="true">
+  <button class="fechar" type="button" id="fechaPainel" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div id="painelCorpo"></div>
+</aside>
+<button class="btn sair-explorar" type="button" id="sairExplorar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg><span data-lang-pt>Voltar ao início</span><span data-lang-en>Back to start</span></button>
+
+<!-- herói -->
+<section class="heroi" id="inicio" aria-labelledby="h1">
+  <div class="heroi-txt">
+    <div class="kicker mono surge" style="--d:.15s"><i class="pulsar"></i><span>Prof. Mário César Nascimento, PhD</span><em>·</em><span data-lang-pt>Fisiologia · Ética · Pesquisa · Jogos</span><span data-lang-en>Physiology · Ethics · Research · Games</span></div>
+    <h1 id="h1">
+      <span data-lang-pt><span class="l"><span style="--d:.25s">Ciência que</span></span><span class="l"><span style="--d:.4s">você pode</span></span><span class="l"><span class="serif" style="--d:.6s">tocar.</span></span></span>
+      <span data-lang-en><span class="l"><span style="--d:.25s">Science you</span></span><span class="l"><span style="--d:.4s">can actually</span></span><span class="l"><span class="serif" style="--d:.6s">touch.</span></span></span>
+    </h1>
+    <p class="lead surge" style="--d:.9s">
+      <span data-lang-pt>Cada ponto de luz neste universo é uma experiência real: simuladores de fisiologia, escape rooms, laboratórios de pesquisa, realidade aumentada e jogos de dedução. Arraste, passe o mouse, clique.</span>
+      <span data-lang-en>Every point of light in this universe is a real experience: physiology simulators, escape rooms, research labs, augmented reality and deduction games. Drag, hover, click.</span>
+    </p>
+    <div class="cta surge" style="--d:1.1s">
+      <button class="btn cheio" type="button" id="explorar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg><span data-lang-pt>Explorar o universo</span><span data-lang-en>Explore the universe</span></button>
+      <a class="btn" href="#frentes"><span data-lang-pt>Ver o acervo</span><span data-lang-en>See the collection</span> ↓</a>
+      <a class="btn" href="https://github.com/DrMarioNascimento" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>GitHub</a>
+    </div>
+    <div class="dica-arraste mono surge" style="--d:1.3s"><i></i><span data-lang-pt>Arraste para girar · clique num planeta</span><span data-lang-en>Drag to rotate · click a planet</span></div>
+  </div>
+</section>
+
+<main>
+  <!-- manifesto -->
+  <section class="manifesto" id="manifesto" aria-label="Manifesto"><div class="palco"><p id="manifestoTxt"></p></div></section>
+
+  <!-- frentes -->
+  <section class="sec" id="frentes"><div class="wrap">
+    <div class="titulo rv"><div><span class="mono">01 · <span data-lang-pt>Constelações</span><span data-lang-en>Constellations</span></span><h2><span data-lang-pt>Três frentes,<br><span class="serif">um só universo.</span></span><span data-lang-en>Three fronts,<br><span class="serif">one universe.</span></span></h2></div>
+      <p><span data-lang-pt>A sala de aula é o centro. Os jogos são paixão e futuro. A bancada de testes é onde as técnicas nascem antes de chegar às duas.</span><span data-lang-en>The classroom is the core. Games are passion and future. The test bench is where techniques are born before reaching both.</span></p></div>
+    <div class="frentes" id="frentesGrid"></div>
+  </div></section>
+
+  <!-- números -->
+  <section class="sec" id="numeros"><div class="wrap">
+    <div class="titulo rv"><div><span class="mono">02 · <span data-lang-pt>Massa crítica</span><span data-lang-en>Critical mass</span></span><h2><span data-lang-pt>O acervo<br><span class="serif">em números.</span></span><span data-lang-en>The collection<br><span class="serif">in numbers.</span></span></h2></div>
+      <p><span data-lang-pt>Tudo feito em HTML, CSS, JavaScript e SVG — leve o bastante para rodar no celular do aluno.</span><span data-lang-en>All built with HTML, CSS, JavaScript and SVG — light enough to run on a student's phone.</span></p></div>
+    <div class="bento" id="bento"></div>
+  </div></section>
+
+  <!-- mundos -->
+  <section class="sec" id="mundos"><div class="wrap">
+    <div class="titulo rv"><div><span class="mono">03 · <span data-lang-pt>Portais</span><span data-lang-en>Portals</span></span><h2><span data-lang-pt>Mundos para<br><span class="serif">entrar agora.</span></span><span data-lang-en>Worlds to<br><span class="serif">step into now.</span></span></h2></div>
+      <p><span data-lang-pt>Arraste para o lado. Cada cartão abre a experiência publicada.</span><span data-lang-en>Swipe sideways. Each card opens the live experience.</span></p></div>
+    <div class="mundos rv" id="mundosGrid"></div>
+  </div></section>
+
+  <!-- telemetria -->
+  <section class="sec" id="telemetria"><div class="wrap">
+    <div class="titulo rv"><div><span class="mono">04 · <span data-lang-pt>Sinais vitais</span><span data-lang-en>Vital signs</span></span><h2><span data-lang-pt>Telemetria<br><span class="serif">ao vivo.</span></span><span data-lang-en>Live<br><span class="serif">telemetry.</span></span></h2></div>
+      <p><span data-lang-pt>O que mudou nos repositórios, lido direto da API pública do GitHub enquanto você está aqui.</span><span data-lang-en>What changed across the repositories, read straight from GitHub's public API while you're here.</span></p></div>
+    <div class="tele">
+      <div class="terminal rv"><header><i></i><i></i><i></i>&nbsp; ~/drmarionascimento — events<span id="teleEstado"><i class="pulsar"></i> <span data-lang-pt>conectando…</span><span data-lang-en>connecting…</span></span></header><div class="corpo" id="teleLog"></div></div>
+      <div class="sinais rv" style="--d:.1s" id="sinais"></div>
+    </div>
+  </div></section>
+
+  <!-- sobre -->
+  <section class="sec" id="sobre"><div class="wrap sobre">
+    <div class="retrato rv">
+      <div class="aneis"><i style="--k:0;--c:#38e1c6"></i><i style="--k:1;--c:#a58cff;--dir:reverse"></i><i style="--k:2;--c:#ff5a2c"></i></div>
+      <div class="foto"><img src="https://drmarionascimento.github.io/fisiologia-interativa/assets/avatar-prof-mario.webp" alt="Retrato do Prof. Mário César Nascimento" loading="lazy"></div>
+    </div>
+    <div class="rv" style="--d:.1s">
+      <span class="mono" style="color:var(--acc)">05 · <span data-lang-pt>Sobre</span><span data-lang-en>About</span></span>
+      <h2><span data-lang-pt>Professor, pesquisador<br><span class="serif">e criador de mundos.</span></span><span data-lang-en>Professor, researcher<br><span class="serif">and world-builder.</span></span></h2>
+      <p class="bio"><span data-lang-pt>Sou professor universitário de Fisiologia para Educação Física e Fisioterapia, de Ética e de formação em pesquisa acadêmica. Uso código para transformar conteúdos difíceis em experiências que o aluno pode explorar, testar e errar com segurança. Fora da sala — e, espero, no futuro — crio jogos de dedução e investigação no Dragon Games.</span><span data-lang-en>I'm a university professor of Physiology for Physical Education and Physiotherapy, of Ethics, and of academic research training. I write code to turn hard concepts into experiences students can explore, test and get wrong safely. Outside class — and, I hope, in the future — I design deduction and investigation games at Dragon Games.</span></p>
+      <div class="principios">
+        <div><span class="mono">01</span><b><span data-lang-pt>Rigor primeiro</span><span data-lang-en>Rigor first</span></b><small><span data-lang-pt>Máxima fidelidade fisiológica; a didática vem a serviço dela, nunca no lugar.</span><span data-lang-en>Maximum physiological fidelity; teaching serves it, never replaces it.</span></small></div>
+        <div><span class="mono">02</span><b><span data-lang-pt>Aprender fazendo</span><span data-lang-en>Learn by doing</span></b><small><span data-lang-pt>Mexer nas variáveis, ver a consequência, entender o mecanismo.</span><span data-lang-en>Move the variables, see the consequence, grasp the mechanism.</span></small></div>
+        <div><span class="mono">03</span><b><span data-lang-pt>No bolso do aluno</span><span data-lang-en>In the student's pocket</span></b><small><span data-lang-pt>Tudo pensado para rodar no celular, sem instalar nada.</span><span data-lang-en>Built to run on a phone, nothing to install.</span></small></div>
+      </div>
+      <div class="cta">
+        <a class="btn cheio" href="mailto:mariocnascimento@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span data-lang-pt>Fale comigo</span><span data-lang-en>Get in touch</span></a>
+        <a class="btn" href="https://drmarionascimento.github.io/fisiologia-interativa/" target="_blank" rel="noopener">Fisiologia Interativa ↗</a>
+        <a class="btn" href="https://drmarionascimento.github.io/Dragon/" target="_blank" rel="noopener">Dragon Games ↗</a>
+      </div>
+    </div>
+  </div></section>
+</main>
+
+<footer class="rodape"><div class="wrap">
+  <p class="gigante" aria-hidden="true">NASCIMENTO</p>
+  <div class="creditos">
+    <span>© <span id="ano">2026</span> Prof. Mário César Nascimento, PhD</span>
+    <span><span data-lang-pt>Feito à mão com</span><span data-lang-en>Hand-built with</span> WebGL · Three.js · GLSL · View Transitions · <a href="https://github.com/DrMarioNascimento" target="_blank" rel="noopener">GitHub</a></span>
+  </div>
+</div></footer>
+
+<!-- paleta -->
+<div class="paleta" id="paleta" role="dialog" aria-modal="true" aria-label="Buscar experiências">
+  <div class="paleta-caixa"><input id="pq" type="text" autocomplete="off" aria-label="Buscar"><div class="paleta-res" id="pres" role="listbox"></div><div class="paleta-dica"><span>↑↓</span><span>Enter ↗</span><span>Esc</span></div></div>
+</div>
+
+<script>
+/* ===================== dados ===================== */
+window.U = {
+  repos: [
+    { id:'fisiologia-interativa', nome:'Fisiologia Interativa', cor:'#38e1c6', grupo:'aula', total:57,
+      area:{pt:'Fisiologia Humana · EF e Fisioterapia',en:'Human Physiology · PE & Physiotherapy'},
+      lema:{pt:'Explore mecanismos. Conecte sistemas.',en:'Explore mechanisms. Connect systems.'},
+      desc:{pt:'Simuladores educacionais para explorar mecanismos, testar cenários e integrar variáveis da Fisiologia Humana — da membrana celular à integração cardiorrespiratória.',en:'Educational simulators to explore mechanisms, test scenarios and integrate Human Physiology variables — from the cell membrane to cardiorespiratory integration.'},
+      online:'https://drmarionascimento.github.io/fisiologia-interativa/', github:'https://github.com/DrMarioNascimento/fisiologia-interativa' },
+    { id:'fisiologia-em-fuga', nome:'Fisiologia em Fuga', cor:'#f5b544', grupo:'aula', pai:0, total:13,
+      area:{pt:'Escape rooms',en:'Escape rooms'},
+      lema:{pt:'Abra os cadeados antes do tempo.',en:'Crack the locks before time runs out.'},
+      desc:{pt:'Escape rooms por unidade para Educação Física e Fisioterapia — cada sala é um sistema do corpo e cada cadeado, um mecanismo.',en:'Unit-by-unit escape rooms for Physical Education and Physiotherapy — every room is a body system, every lock a mechanism.'},
+      online:'https://drmarionascimento.github.io/fisiologia-em-fuga/', github:'https://github.com/DrMarioNascimento/fisiologia-em-fuga', capa:'https://drmarionascimento.github.io/fisiologia-em-fuga/salas/sala-base.webp' },
+    { id:'atividades-extras', nome:'Atividades Extras', cor:'#ff7a4d', grupo:'aula', pai:0, total:7,
+      area:{pt:'Operações de sala',en:'Classroom operations'},
+      lema:{pt:'Equipes, chaves e cadeados contra o relógio.',en:'Teams, keys and locks against the clock.'},
+      desc:{pt:'Operações de sala: laboratórios em equipe por unidade, com cronômetro — da fisiologia celular ao Fick em campo.',en:'Classroom operations: unit-based team labs on a countdown — from cell physiology to Fick in the field.'},
+      online:'https://drmarionascimento.github.io/Atividades-Extras/', github:'https://github.com/DrMarioNascimento/Atividades-Extras' },
+    { id:'etica', nome:'Ética Interativa', cor:'#a58cff', grupo:'aula', total:3,
+      area:{pt:'Ética',en:'Ethics'},
+      lema:{pt:'Reflexão, decisão e responsabilidade.',en:'Reflection, decision and responsibility.'},
+      desc:{pt:'Simuladores e casos para refletir sobre decisões, valores, responsabilidades e consequências — incluindo o Dilema do Bonde em 3D.',en:'Simulators and cases to reflect on decisions, values, responsibility and consequences — including a 3D Trolley Problem.'},
+      online:'https://drmarionascimento.github.io/Etica/', github:'https://github.com/DrMarioNascimento/Etica' },
+    { id:'learning-lab', nome:'Laboratório do Pesquisador', cor:'#c3f26a', grupo:'aula', total:2,
+      area:{pt:'Pesquisa acadêmica',en:'Academic research'},
+      lema:{pt:'Aprender pesquisa fazendo pesquisa.',en:'Learn research by doing research.'},
+      desc:{pt:'Laboratórios interativos de Pesquisa em Educação Física: delineamentos e instrumentos de coleta, pensados para o celular.',en:'Interactive labs for Research in Physical Education: study designs and data-collection instruments, mobile-first.'},
+      online:'https://drmarionascimento.github.io/Learning-lab/', github:'https://github.com/DrMarioNascimento/Learning-lab' },
+    { id:'dragon', nome:'Dragon Games', cor:'#ff5a2c', grupo:'dragon', total:3,
+      area:{pt:'Jogos de dedução e investigação',en:'Deduction & investigation games'},
+      lema:{pt:'Jogos de dedução. Na mesa, no celular.',en:'Deduction games. On the table, on your phone.'},
+      desc:{pt:'A casa dos jogos de dedução, investigação e também educativos. Primeiro título: MOSAICO — pistas fracionadas, telão e celulares na mesma partida.',en:'Home of deduction, investigation and educational games. First title: MOSAICO — fragmented clues, a shared screen and phones in the same match.'},
+      online:'https://drmarionascimento.github.io/Dragon/', github:'https://github.com/DrMarioNascimento/Dragon', capa:'https://drmarionascimento.github.io/Dragon/v1/img/Orizontal.jpg' },
+    { id:'mosaico-card', nome:'Mosaico Card', cor:'#f1c863', grupo:'dragon', pai:5, total:1,
+      area:{pt:'Jogo de cartas investigativo',en:'Investigative card game'},
+      lema:{pt:'Cartas, pistas e dedução.',en:'Cards, clues and deduction.'},
+      desc:{pt:'Mercado de Pistas: casos do Novo Testamento em um jogo de cartas e dedução.',en:'Clue Market: New Testament cases in a card-and-deduction game.'},
+      online:'https://drmarionascimento.github.io/Mosaico-Card/', github:'https://github.com/DrMarioNascimento/Mosaico-Card', capa:'https://drmarionascimento.github.io/Mosaico-Card/assets/abertura/peca-dourada-frontal-v2.png' },
+    { id:'lab-ra', nome:'Lab RA', cor:'#4ea9ff', grupo:'lab', total:13,
+      area:{pt:'Realidade aumentada e técnicas em teste',en:'Augmented reality & techniques under test'},
+      lema:{pt:'Onde as ideias são testadas antes da aula e do jogo.',en:'Where ideas are tested before class and before the game.'},
+      desc:{pt:'Bancadas de realidade aumentada: do músculo ao sarcômero, forças de Starling, espaço pleural e as peças físicas do MOSAICO.',en:'Augmented-reality benches: from muscle to sarcomere, Starling forces, the pleural space and MOSAICO\'s physical pieces.'},
+      online:'https://drmarionascimento.github.io/lab-ra/', github:'https://github.com/DrMarioNascimento/lab-ra', capa:'https://drmarionascimento.github.io/lab-ra/atlas_frente.png' }
+  ],
+  grupos: {
+    aula:{pt:'Sala de aula',en:'Classroom',sub:{pt:'Fisiologia (EF e Fisioterapia) com seus apoios, Ética e formação em pesquisa.',en:'Physiology (PE & Physiotherapy) and its companions, Ethics and research training.'}},
+    dragon:{pt:'Dragon Games',en:'Dragon Games',sub:{pt:'Hobby, paixão e futuro: jogos de dedução, investigação e educativos.',en:'Hobby, passion and future: deduction, investigation and educational games.'}},
+    lab:{pt:'Bancada de testes',en:'Test bench',sub:{pt:'A porta de entrada de técnicas e tecnologias que depois vão para as aulas e para os jogos.',en:'The gateway for techniques and technologies that later reach classes and games.'}}
+  },
+  tipos:{simulador:['Simulador','Simulator'],aprofundamento:['Aprofundamento','Deep dive'],tutor:['Tutor com IA','AI tutor'],escape:['Sala de escape','Escape room'],operacao:['Operação de sala','Class operation'],experiencia:['Experiência','Experience'],laboratorio:['Laboratório','Lab'],bancada:['Bancada RA','AR bench'],jogo:['Jogo','Game']},
+  itens: [[0,"Osmose e equilíbrio hidroeletrolítico","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/osmose-equilibrio-hidroeletrolitico.html","simulador","ef"],[0,"Homeostase integrada tricompartimentada","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/homeostase-integrada-tricompartimental.html","simulador","ef"],[0,"Potencial de ação na membrana","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/potencial-acao-membrana.html","simulador","ef"],[0,"Potencial de ação do neurônio","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/neuronio-interativo.html","simulador","ef"],[0,"Transporte ativo secundário — SGLT","Transporte","https://drmarionascimento.github.io/fisiologia-interativa/transporte-ativo-secundario-sglt.html","simulador","ef"],[0,"Potencial de ação cardíaco","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/potencial-acao-cardiaco.html","simulador","ef"],[0,"Contração muscular esquelética","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/contracao-muscular-esqueletica.html","simulador","ef"],[0,"Acoplamento excitação–contração","Placa motora","https://drmarionascimento.github.io/fisiologia-interativa/acoplamento-excitacao-contracao.html","simulador","ef"],[0,"Contração muscular e sarcômero","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/contracao-muscular-sarcomero.html","simulador","ef"],[0,"Contrações musculares interativas","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/contracoes-musculares-interativas.html","simulador","ef"],[0,"Hill × Isocinético","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/modelos-hill-isocinetico.html","simulador","ef"],[0,"Recrutamento de unidades motoras","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/recrutamento-unidades-motoras.html","simulador","ef"],[0,"Da intenção ao movimento","Módulo de aprofundamento","https://drmarionascimento.github.io/fisiologia-interativa/da-intencao-ao-movimento.html","aprofundamento","ef"],[0,"Homeostase do cálcio","Osteoarticular","https://drmarionascimento.github.io/fisiologia-interativa/homeostase-do-calcio.html","simulador","ef"],[0,"Mecanotransdução Óssea e Lei de Wolff","Osteoarticular","https://drmarionascimento.github.io/fisiologia-interativa/mecanotransducao-lei-de-wolff.html","simulador","ef"],[0,"Pressão arterial, DC e RPT","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/hemodinamica-pa-dc-rpt.html","simulador","ef"],[0,"Retorno venoso","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/retorno-venoso.html","simulador","ef"],[0,"Loop cardíaco funcional","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/loop-cardiaco-funcional.html","simulador","ef"],[0,"Lei de Poiseuille","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/lei-de-poiseuille.html","simulador","ef"],[0,"Sangue","Módulo de aprofundamento","https://drmarionascimento.github.io/fisiologia-interativa/sangue.html","aprofundamento","ef"],[0,"Mecânica ventilatória","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/ventilacao-pulmonar.html","simulador","ef"],[0,"Biofeedback respiratório — PC","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/biofeedback-respiratorio.html","simulador","ef"],[0,"Biofeedback respiratório — Smartphone","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/biofeedback-respiratorio-smartphone.html","simulador","ef"],[0,"Curva de dissociação da hemoglobina","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/curva-dissociacao-hemoglobina.html","simulador","ef"],[0,"Cardiopulmonar integrado","Integração","https://drmarionascimento.github.io/fisiologia-interativa/cardiopulmonar-integrado.html","simulador","ef"],[0,"Fick integrado","Integração","https://drmarionascimento.github.io/fisiologia-interativa/fick-integrado-cardiorrespiratorio.html","simulador","ef"],[0,"Consumo de O₂ e diferença a–vO₂","Integração","https://drmarionascimento.github.io/fisiologia-interativa/consumo-o2-debito-cardiaco-diferenca-av.html","simulador","ef"],[0,"Box do Atleta","Desafio de fechamento","https://drmarionascimento.github.io/fisiologia-interativa/atleta-box.html?percurso=educacao-fisica","aprofundamento","ef"],[0,"Tutor de Fisiologia — Educação Física","Tutor com IA","https://drmarionascimento.github.io/fisiologia-interativa/tutor-ef.html","tutor","ef"],[0,"Osmose e equilíbrio hidroeletrolítico","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/osmose-equilibrio-hidroeletrolitico.html?percurso=fisioterapia","simulador","fisio"],[0,"Homeostase integrada tricompartimentada","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/homeostase-integrada-tricompartimental.html?percurso=fisioterapia","simulador","fisio"],[0,"Potencial de ação na membrana","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/potencial-acao-membrana.html?percurso=fisioterapia","simulador","fisio"],[0,"Potencial de ação do neurônio","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/neuronio-interativo.html?percurso=fisioterapia","simulador","fisio"],[0,"Transporte ativo secundário — SGLT","Transporte","https://drmarionascimento.github.io/fisiologia-interativa/transporte-ativo-secundario-sglt.html?percurso=fisioterapia","simulador","fisio"],[0,"Potencial de ação cardíaco","Fisiologia celular","https://drmarionascimento.github.io/fisiologia-interativa/potencial-acao-cardiaco.html?percurso=fisioterapia","simulador","fisio"],[0,"Contração muscular esquelética","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/contracao-muscular-esqueletica.html?percurso=fisioterapia","simulador","fisio"],[0,"Acoplamento excitação–contração","Placa motora","https://drmarionascimento.github.io/fisiologia-interativa/acoplamento-excitacao-contracao.html?percurso=fisioterapia","simulador","fisio"],[0,"Contração muscular e sarcômero","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/contracao-muscular-sarcomero.html?percurso=fisioterapia","simulador","fisio"],[0,"Contrações musculares interativas","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/contracoes-musculares-interativas.html?percurso=fisioterapia","simulador","fisio"],[0,"Hill × Isocinético","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/modelos-hill-isocinetico.html?percurso=fisioterapia","simulador","fisio"],[0,"Recrutamento de unidades motoras","Músculo","https://drmarionascimento.github.io/fisiologia-interativa/recrutamento-unidades-motoras.html?percurso=fisioterapia","simulador","fisio"],[0,"Da intenção ao movimento","Módulo de aprofundamento","https://drmarionascimento.github.io/fisiologia-interativa/da-intencao-ao-movimento.html?percurso=fisioterapia","aprofundamento","fisio"],[0,"Pressão arterial, DC e RPT","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/hemodinamica-pa-dc-rpt.html?percurso=fisioterapia","simulador","fisio"],[0,"Retorno venoso","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/retorno-venoso.html?percurso=fisioterapia","simulador","fisio"],[0,"Loop cardíaco funcional","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/loop-cardiaco-funcional.html?percurso=fisioterapia","simulador","fisio"],[0,"Lei de Poiseuille","Cardiovascular","https://drmarionascimento.github.io/fisiologia-interativa/lei-de-poiseuille.html?percurso=fisioterapia","simulador","fisio"],[0,"Sangue","Módulo de aprofundamento","https://drmarionascimento.github.io/fisiologia-interativa/sangue.html?percurso=fisioterapia","aprofundamento","fisio"],[0,"Mecânica ventilatória","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/ventilacao-pulmonar.html?percurso=fisioterapia","simulador","fisio"],[0,"Biofeedback respiratório — PC","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/biofeedback-respiratorio.html?percurso=fisioterapia","simulador","fisio"],[0,"Biofeedback respiratório — Smartphone","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/biofeedback-respiratorio-smartphone.html?percurso=fisioterapia","simulador","fisio"],[0,"Curva de dissociação da hemoglobina","Respiratório","https://drmarionascimento.github.io/fisiologia-interativa/curva-dissociacao-hemoglobina.html?percurso=fisioterapia","simulador","fisio"],[0,"Ventilação Pulmonar Neonatal","Módulo de aprofundamento","https://drmarionascimento.github.io/fisiologia-interativa/ventilacao-pulmonar-neonatal.html?percurso=fisioterapia","aprofundamento","fisio"],[0,"Cardiopulmonar integrado","Integração","https://drmarionascimento.github.io/fisiologia-interativa/cardiopulmonar-integrado.html?percurso=fisioterapia","simulador","fisio"],[0,"Fick integrado","Integração","https://drmarionascimento.github.io/fisiologia-interativa/fick-integrado-cardiorrespiratorio.html?percurso=fisioterapia","simulador","fisio"],[0,"Consumo de O₂ e diferença a–vO₂","Integração","https://drmarionascimento.github.io/fisiologia-interativa/consumo-o2-debito-cardiaco-diferenca-av.html?percurso=fisioterapia","simulador","fisio"],[0,"UTI fisiológica","Desafio de fechamento","https://drmarionascimento.github.io/fisiologia-interativa/fisioterapia/uti-fisiologica.html?percurso=fisioterapia","aprofundamento","fisio"],[0,"Tutor de Fisiologia — Fisioterapia","Tutor com IA","https://drmarionascimento.github.io/fisiologia-interativa/tutor-fisio.html","tutor","fisio"],[1,"A Célula Sitiada","Fisiologia celular, transporte de substâncias e potenciais de ação","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/celular","escape","ef"],[1,"O Músculo em Silêncio","Excitabilidade e sistema muscular","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/muscular","escape","ef"],[1,"O Osso que Se Reconstrói","Sistema osteoarticular","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/osteoarticular","escape","ef"],[1,"A Prova do Débito","Sistema cardiovascular","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/cardiovascular","escape","ef"],[1,"O Fôlego Perdido","Sistema respiratório","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/respiratorio","escape","ef"],[1,"A Marcha do Oxigênio","Integração cardiorrespiratória","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/integracao","escape","ef"],[1,"Operação Protocolo Eferente","Revisão livre","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/ef/protocolo-eferente","escape","ef"],[1,"A Célula Sitiada","Fisiologia celular, transporte de substâncias e potenciais de ação","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/celular","escape","fisio"],[1,"O Músculo em Silêncio","Excitabilidade e sistema muscular","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/muscular","escape","fisio"],[1,"O Desafio da Mudança Postural","Sistema cardiovascular","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/cardiovascular","escape","fisio"],[1,"O Fôlego Perdido","Sistema respiratório","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/respiratorio","escape","fisio"],[1,"A Marcha do Oxigênio","Integração cardiorrespiratória","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/integracao","escape","fisio"],[1,"Operação Protocolo Eferente","Revisão livre","https://drmarionascimento.github.io/fisiologia-em-fuga/#/escape/fisio/protocolo-eferente","escape","fisio"],[2,"Fisiologia Celular · Fase 1","Laboratório","https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Fisiologia-Celular-Fase-1.html","operacao",""],[2,"Fisiologia Celular · Fase 2","Laboratório","https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Fisiologia-Celular-Fase-2.html","operacao",""],[2,"Unidade Motora","Laboratório","https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Sistema-Muscular.html","operacao",""],[2,"Matriz Óssea","Laboratório","https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Matriz-Ossea-Lab.html","operacao",""],[2,"Circuito Fechado","Laboratório","https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Circuito-Fechado-Lab.html","operacao",""],[2,"Alvéolo Seguro","Laboratório","https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Alveolo-Seguro-Lab.html","operacao",""],[2,"Fick em Campo","Laboratório","https://drmarionascimento.github.io/Atividades-Extras/fisiologia/Operacao-Fick-em-Campo-Lab.html","operacao",""],[3,"Casos Éticos","Drama ético investigativo","https://drmarionascimento.github.io/Etica/casos-eticos/index.html","experiencia",""],[3,"Dilema do Bonde","Dilemas morais","https://drmarionascimento.github.io/Etica/dilema-bonde/index.html","experiencia",""],[3,"Dilema do Bonde — Smartphone","Versão para celular","https://drmarionascimento.github.io/Etica/dilema-bonde-mobile/index.html","experiencia",""],[4,"Delineamentos","Projeto de pesquisa","https://drmarionascimento.github.io/Learning-lab/delineamentos/","laboratorio",""],[4,"Instrumentos de Coleta","Produção dos dados","https://drmarionascimento.github.io/Learning-lab/instrumentos-de-coleta/","laboratorio",""],[5,"MOSAICO - A Casa da Costa","Dedução · festa","https://drmarionascimento.github.io/Dragon/v1/MOSAICO-mesa.html","jogo",""],[5,"MOSAICO - A Casa da Costa: O Impostor","Dedução · impostor","https://drmarionascimento.github.io/Dragon/o-impostor/mesa.html","jogo",""],[5,"MOSAICO - A manhã do Carro-forte","Dedução · manhã","https://drmarionascimento.github.io/Dragon/carro-forte/celular.html","jogo",""],[6,"Mosaico Card","","https://drmarionascimento.github.io/Mosaico-Card/","jogo",""],[7,"Escala e imprecisão","Câmera · comparação","https://drmarionascimento.github.io/lab-ra/comparacao.html","bancada",""],[7,"Escrivaninha circulável","3D · ambiente","https://drmarionascimento.github.io/lab-ra/laboratorio-ra.html","bancada",""],[7,"Gaveta e papel","3D · interação","https://drmarionascimento.github.io/lab-ra/gaveta-e-papel.html","bancada",""],[7,"A marca partida","Espaço · sem câmera","https://drmarionascimento.github.io/lab-ra/a-marca-partida.html?s=LAB&dev=1","bancada",""],[7,"A hora, o grau e o farol","Cadeia · três telas","https://drmarionascimento.github.io/lab-ra/cadeia-escrivaninha.html?s=LAB","bancada",""],[7,"Do músculo ao sarcômero","Fisiologia · cinco escalas","https://drmarionascimento.github.io/lab-ra/musculo-sarcomero/","bancada",""],[7,"A película de carga","Fisiologia · Unidade I","https://drmarionascimento.github.io/lab-ra/potencial-membrana/","bancada",""],[7,"A coluna de sangue","Fisiologia · Unidade IV","https://drmarionascimento.github.io/lab-ra/retorno-venoso/","bancada",""],[7,"Forças de Starling","Fisiologia · Unidade IV","https://drmarionascimento.github.io/lab-ra/starling/","bancada",""],[7,"O espaço pleural","Fisiologia · Unidade V","https://drmarionascimento.github.io/lab-ra/pleura/","bancada",""],[7,"Coração em ação","Fisiologia · Unidade IV","https://drmarionascimento.github.io/lab-ra/bancadas/11-coracao/prototipo/duas-pecas.html","bancada",""],[7,"Corpo em ação","Integração · protótipo experimental","https://drmarionascimento.github.io/lab-ra/integracao/","bancada",""],[7,"As peças de RA do Impostor","MOSAICO · A Casa da Costa: O Impostor","https://drmarionascimento.github.io/lab-ra/o-impostor/maquete/?demo=solo","bancada",""]],
+  commits: [[0,"2026-10-05T04:57:26.000Z","Atualização 2 de RA Iphone"],[1,"2026-09-25T22:17:08.000Z","Atualiza LICENSE.md"],[2,"2026-09-25T22:17:03.000Z","Atualiza README.md"],[3,"2026-10-02T20:54:32.000Z","Atualização Readme e License"],[4,"2026-10-02T20:55:54.000Z","Atualização Readme e License"],[5,"2026-10-05T01:54:13.000Z","Ajuste da maquete"],[6,"2026-09-25T00:57:10.000Z","Atualiza LICENSE.md: repositório público não é código aberto e restringe uso para treino de IA."],[7,"2026-10-04T04:46:32.000Z","Merge pull request #73 from DrMarioNascimento/feat/corpo-em-acao"]]
+};
+</script>
+
+<script>
+/* ===================== interface (sem dependências) ===================== */
+(function(){
+'use strict';
+const U = window.U, $ = (s,r=document)=>r.querySelector(s), $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = s => String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const REDUZ = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const SETA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg>';
+U.REDUZ = REDUZ;
+
+/* ---------- idioma ---------- */
+let lang = 'pt';
+try { lang = localStorage.getItem('mcn-lang') || ((navigator.language||'pt').toLowerCase().startsWith('pt') ? 'pt' : 'en'); } catch(e){}
+const css = document.createElement('style'); document.head.appendChild(css);
+function aplicaLang(l){
+  lang = l; U.lang = l;
+  document.documentElement.lang = l === 'pt' ? 'pt-BR' : 'en';
+  css.textContent = l === 'pt' ? '[data-lang-en]{display:none!important}[data-lang-pt]{display:revert}' : '[data-lang-pt]{display:none!important}[data-lang-en]{display:revert}';
+  $$('[data-set-lang]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.setLang === l)));
+  $('#pq').placeholder = l === 'pt' ? 'Buscar entre 99 experiências — ex.: sarcômero, Fick, escape…' : 'Search 99 experiences — e.g. sarcomere, Fick, escape…';
+  try { localStorage.setItem('mcn-lang', l); } catch(e){}
+  renderDinamico();
+  document.dispatchEvent(new CustomEvent('lang', { detail:l }));
+}
+U.t = (o) => (o && typeof o === 'object') ? (o[lang] ?? o.pt) : o;
+$$('[data-set-lang]').forEach(b => b.addEventListener('click', () => {
+  const l = b.dataset.setLang; if (l === lang) return;
+  if (document.startViewTransition && !REDUZ) document.startViewTransition(() => aplicaLang(l)); else aplicaLang(l);
+}));
+
+/* ---------- contagens ---------- */
+const porRepo = U.repos.map((r,k) => U.itens.filter(i => i[0] === k));
+const porTipo = {}; U.itens.forEach(i => porTipo[i[4]] = (porTipo[i[4]]||0) + 1);
+const unicos = new Set(U.itens.filter(i => i[0]===0 && (i[4]==='simulador' || i[4]==='aprofundamento')).map(i => i[3].split('?')[0])).size;
+$('#hudItens').textContent = U.itens.length; $('#hudCont').textContent = U.repos.length;
+
+/* ---------- conteúdo dinâmico (re-renderizado por idioma) ---------- */
+function renderDinamico(){
+  const t = U.t;
+  // manifesto
+  const fr = lang === 'pt'
+    ? [['n',U.itens.length],'experiências.',['n',unicos],'simuladores','de','fisiologia.',['n',porTipo.escape],'salas','de','escape.',['n',porTipo.bancada],'bancadas','de','realidade','aumentada.',['s','Tudo'],['s','feito'],['s','à'],['s','mão,'],'para','caber','no','bolso','do','aluno.']
+    : [['n',U.itens.length],'experiences.',['n',unicos],'physiology','simulators.',['n',porTipo.escape],'escape','rooms.',['n',porTipo.bancada],'augmented-reality','benches.',['s','All'],['s','hand-built,'],'to','fit','in','a',"student's",'pocket.'];
+  $('#manifestoTxt').innerHTML = fr.map(w => Array.isArray(w) ? `<span class="w ${w[0]}">${esc(w[1])}</span>` : `<span class="w">${esc(w)}</span>`).join(' ');
+  // frentes
+  $('#frentesGrid').innerHTML = ['aula','dragon','lab'].map((g,k) => {
+    const rs = U.repos.map((r,i)=>({...r,i})).filter(r => r.grupo === g);
+    const tot = rs.reduce((s,r)=>s+porRepo[r.i].length,0);
+    return `<article class="holo rv" style="--c:${rs[0].cor};--d:${k*.1}s"><div class="holo-in"><span class="n">${tot}</span><span class="mono">${['I','II','III'][k]} · ${esc(t(U.grupos[g]))}</span>
+      <h3>${esc(t(U.grupos[g]))}</h3><p>${esc(t(U.grupos[g].sub))}</p>
+      <ul>${rs.map(r => `<li><a href="${esc(r.online)}" target="_blank" rel="noopener" style="--rc:${r.cor}" data-foco="${r.i}"><i></i><span><b>${esc(r.nome)}</b><small>${esc(t(r.area))}</small></span><em>${porRepo[r.i].length}</em></a></li>`).join('')}</ul></div></article>`;
+  }).join('');
+  // bento
+  const L = (pt,en) => lang === 'pt' ? pt : en;
+  $('#bento').innerHTML = `
+    <div class="tile largo rv" style="--c:var(--acc)"><span class="mono">${L('Experiências publicadas','Published experiences')}</span><div class="n" data-conta="${U.itens.length}">0</div><p>${L('Cada estrela do universo lá em cima é uma delas. Distribuição por repositório:','Each star in the universe above is one of them. Distribution by repository:')}</p>
+      <div class="espectro">${U.repos.map((r,k)=>`<i style="--c:${r.cor};--d:${k*.08}s;flex:${porRepo[k].length}" title="${esc(r.nome)}: ${porRepo[k].length}"></i>`).join('')}</div>
+      <div class="legenda">${U.repos.map((r,k)=>`<span style="--c:${r.cor}">${esc(r.nome)} <b>${porRepo[k].length}</b></span>`).join('')}</div></div>
+    <div class="tile rv" style="--c:#38e1c6;--d:.08s"><span class="mono">${L('Simuladores de fisiologia','Physiology simulators')}</span><div class="n" data-conta="${unicos}">0</div><p>${L('Distintos, em dois percursos: Educação Física e Fisioterapia.','Distinct ones, across two tracks: Physical Education and Physiotherapy.')}</p></div>
+    <div class="tile rv" style="--c:#f5b544;--d:.1s"><span class="mono">${L('Salas de escape','Escape rooms')}</span><div class="n" data-conta="${porTipo.escape}">0</div><p>${L('Fisiologia em Fuga: uma por unidade e curso.','Fisiologia em Fuga: one per unit and course.')}</p></div>
+    <div class="tile rv" style="--c:#4ea9ff;--d:.14s"><span class="mono">${L('Bancadas de RA','AR benches')}</span><div class="n" data-conta="${porTipo.bancada}">0</div><p>${L('Realidade aumentada direto do navegador, sem app.','Augmented reality straight from the browser, no app.')}</p></div>
+    <div class="tile rv" style="--c:#a58cff;--d:.18s"><span class="mono">${L('Tutores com IA','AI tutors')}</span><div class="n" data-conta="${porTipo.tutor||0}">0</div><p>${L('Acompanham o percurso de cada curso.','They guide each course track.')}</p></div>`;
+  // mundos
+  const M = [
+    { r:5, img:'https://drmarionascimento.github.io/Dragon/v1/img/Orizontal.jpg', k:L('Jogo de dedução','Deduction game'), h:'MOSAICO', p:L('Pistas fracionadas, telão e celulares: a primeira série do Dragon Games.','Fragmented clues, a shared screen and phones: Dragon Games\' first series.'), url:'https://drmarionascimento.github.io/Dragon/' },
+    { r:1, img:'https://drmarionascimento.github.io/fisiologia-em-fuga/salas/sala-base.webp', k:L('Escape room','Escape room'), h:'Fisiologia em Fuga', p:L('Treze salas. Cada cadeado é um mecanismo do corpo.','Thirteen rooms. Every lock is a body mechanism.'), url:'https://drmarionascimento.github.io/fisiologia-em-fuga/' },
+    { r:7, img:'https://drmarionascimento.github.io/lab-ra/atlas_frente.png', k:L('Realidade aumentada','Augmented reality'), h:'Lab RA', p:L('Do músculo ao sarcômero, na palma da mão.','From muscle to sarcomere, in the palm of your hand.'), url:'https://drmarionascimento.github.io/lab-ra/' },
+    { r:6, img:'https://drmarionascimento.github.io/Mosaico-Card/assets/abertura/peca-dourada-frontal-v2.png', k:L('Jogo de cartas','Card game'), h:'Mosaico Card', p:L('Mercado de Pistas: casos do Novo Testamento.','Clue Market: New Testament cases.'), url:'https://drmarionascimento.github.io/Mosaico-Card/' },
+    { r:5, img:'https://drmarionascimento.github.io/Dragon/solo/tiles/carta-costa.jpg', k:L('Dedução · festa','Deduction · party'), h:'A Casa da Costa', p:L('Quem estava onde, e quando? Monte o mosaico.','Who was where, and when? Build the mosaic.'), url:'https://drmarionascimento.github.io/Dragon/v1/MOSAICO-mesa.html' },
+    { r:0, img:null, k:L('Simulador','Simulator'), h:L('Cardiopulmonar integrado','Integrated cardiopulmonary'), p:L('Coração e pulmão no mesmo modelo, variável por variável.','Heart and lungs in one model, variable by variable.'), url:'https://drmarionascimento.github.io/fisiologia-interativa/cardiopulmonar-integrado.html' }
+  ];
+  $('#mundosGrid').innerHTML = M.map(m => { const r = U.repos[m.r]; return `<a class="mundo" href="${esc(m.url)}" target="_blank" rel="noopener" style="--c:${r.cor}">
+    ${m.img ? `<img src="${esc(m.img)}" alt="" loading="lazy" decoding="async">` : `<img alt="" src="data:image/svg+xml;utf8,${encodeURIComponent(capaSVG(r.cor))}">`}
+    <span class="vai">${SETA}</span><span class="mono">${esc(m.k)} · ${esc(r.nome)}</span><h4>${esc(m.h)}</h4><p>${esc(m.p)}</p></a>`; }).join('');
+  // sinais
+  $('#sinais').innerHTML = [...U.commits].sort((a,b)=> b[1].localeCompare(a[1])).map(([k,d,msg],j) => { const r = U.repos[k];
+    return `<a class="sinal" href="${esc(r.github)}" target="_blank" rel="noopener" style="--c:${r.cor};--d:${j*.12}s"><svg class="onda" viewBox="0 0 54 24"><path d="${ecg(k)}"/></svg><span><b>${esc(r.nome)}</b><small>${esc(msg)}</small></span><time datetime="${d}">${relativo(d)}</time></a>`; }).join('');
+  observaRv();
+  ligaHolo(); ligaMundos();
+  if (window.__teleRender) window.__teleRender();
+}
+function capaSVG(c){ // capa gerada: traçado de pulso
+  let p = 'M0 260'; for (let x=0;x<=400;x+=8){ const u=(x%100)/100; const y = 260 - (u>.42&&u<.46?-90:u>.46&&u<.5?150:u>.5&&u<.54?-40:0) + Math.sin(x*.05)*6; p += ` L${x} ${y.toFixed(1)}`; }
+  return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 500'><defs><radialGradient id='g' cx='.5' cy='.45' r='.7'><stop offset='0' stop-color='${c}' stop-opacity='.45'/><stop offset='1' stop-color='#03050a'/></radialGradient></defs><rect width='400' height='500' fill='url(#g)'/><g stroke='${c}' stroke-opacity='.12'>${Array.from({length:20},(_,i)=>`<path d='M${i*20} 0V500'/>`).join('')}${Array.from({length:25},(_,i)=>`<path d='M0 ${i*20}H400'/>`).join('')}</g><path d='${p}' fill='none' stroke='${c}' stroke-width='3'/></svg>`;
+}
+function ecg(k){ const o = (k*7)%20; return `M0 12 L${10+o/3} 12 L${13+o/3} 6 L${16+o/3} 18 L${19+o/3} 2 L${22+o/3} 15 L${25+o/3} 12 L54 12`; }
+function relativo(iso){
+  const d = (Date.now() - new Date(iso).getTime())/1000;
+  const rtf = new Intl.RelativeTimeFormat(lang === 'pt' ? 'pt-BR' : 'en', { numeric:'auto' });
+  if (d < 3600) return rtf.format(-Math.max(1,Math.round(d/60)),'minute');
+  if (d < 86400) return rtf.format(-Math.round(d/3600),'hour');
+  if (d < 86400*30) return rtf.format(-Math.round(d/86400),'day');
+  return rtf.format(-Math.round(d/86400/30),'month');
+}
+
+/* ---------- revelação e contadores ---------- */
+const io = new IntersectionObserver(es => es.forEach(e => { if (!e.isIntersecting) return; e.target.classList.add('vis'); io.unobserve(e.target);
+  $$('[data-conta]', e.target).forEach(conta); }), { threshold:.15 });
+function observaRv(){ $$('.rv:not(.vis)').forEach(el => io.observe(el)); }
+function conta(el){ const n = +el.dataset.conta; if (REDUZ) { el.textContent = n; return; } const t0 = performance.now(), dur = 1600;
+  (function f(t){ const u = Math.min(1,(t-t0)/dur), e = 1 - Math.pow(1-u,4); el.textContent = Math.round(n*e); if (u<1) requestAnimationFrame(f); })(t0); }
+
+/* ---------- cartões holográficos (tilt + luz) ---------- */
+function ligaHolo(){ $$('.holo').forEach(h => {
+  h.addEventListener('pointermove', e => { const b = h.getBoundingClientRect(), x = (e.clientX-b.left)/b.width, y = (e.clientY-b.top)/b.height;
+    h.style.setProperty('--ry', ((x-.5)*10)+'deg'); h.style.setProperty('--rx', ((.5-y)*8)+'deg');
+    const i = $('.holo-in',h); i.style.setProperty('--mx', (x*100)+'%'); i.style.setProperty('--my', (y*100)+'%'); });
+  h.addEventListener('pointerleave', () => { h.style.setProperty('--ry','0deg'); h.style.setProperty('--rx','0deg'); });
+}); }
+function ligaMundos(){ $$('.mundo').forEach(m => {
+  m.addEventListener('pointermove', e => { const b = m.getBoundingClientRect(), x = (e.clientX-b.left)/b.width-.5, y = (e.clientY-b.top)/b.height-.5;
+    m.style.setProperty('--ry', (x*12)+'deg'); m.style.setProperty('--rx', (-y*10)+'deg'); });
+  m.addEventListener('pointerleave', () => { m.style.setProperty('--ry','0deg'); m.style.setProperty('--rx','0deg'); });
+}); }
+
+/* ---------- manifesto por rolagem ---------- */
+function manifesto(){ const s = $('#manifesto'); const b = s.getBoundingClientRect(); const ws = $$('.w', s);
+  const p = Math.min(1, Math.max(0, -b.top / (b.height - innerHeight)));
+  const n = Math.round(p * ws.length * 1.08); ws.forEach((w,k) => w.classList.toggle('on', k < n)); }
+
+/* ---------- topo, progresso, nav ativa ---------- */
+const secs = ['inicio','frentes','numeros','mundos','telemetria','sobre'].map(id => document.getElementById(id));
+function rolagem(){
+  const y = scrollY, H = document.documentElement.scrollHeight - innerHeight;
+  $('#topo').classList.toggle('solida', y > 40);
+  $('#progresso').style.transform = `scaleX(${H>0 ? y/H : 0})`;
+  const fade = Math.max(0, 1 - y / (innerHeight*.55));
+  ['#hudE','#hudD','#cantos'].forEach(s => $(s).style.opacity = fade);
+  let at = 'inicio'; for (const s of secs) if (s && s.getBoundingClientRect().top < innerHeight*.45) at = s.id;
+  $$('#nav a').forEach(a => a.classList.toggle('ativo', a.dataset.sec === at));
+  manifesto();
+  U.scrollP = y / innerHeight;
+  if (U.explorar && U.scrollP > .4) { document.body.classList.remove('explorando'); U.explorar = false; document.dispatchEvent(new Event('fecha-foco')); }
+}
+addEventListener('scroll', rolagem, { passive:true }); addEventListener('resize', rolagem);
+
+/* ---------- relógio ---------- */
+function hora(){ $('#hudHora').textContent = new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit',timeZone:'America/Sao_Paulo'}).format(new Date()); }
+hora(); setInterval(hora, 1000);
+$('#ano').textContent = new Date().getFullYear();
+
+/* ---------- cursor ---------- */
+if (matchMedia('(hover:hover) and (pointer:fine)').matches && !REDUZ) {
+  document.body.classList.add('tem-cursor');
+  const c = $('.cursor'), d = $('.cursor-pt'); let x = innerWidth/2, y = innerHeight/2, cx = x, cy = y;
+  addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; d.style.transform = `translate(${x}px,${y}px)`;
+    c.classList.toggle('alvo', !!e.target.closest('a,button,.rot') || !!U.hoverAlvo); }, { passive:true });
+  (function f(){ cx += (x-cx)*.18; cy += (y-cy)*.18; c.style.transform = `translate(${cx}px,${cy}px)`; requestAnimationFrame(f); })();
+}
+
+/* ---------- paleta de busca ---------- */
+const pal = $('#paleta'), pq = $('#pq'), pres = $('#pres'); let sel = 0, lista = [];
+const indice = [
+  ...U.repos.map((r,k) => ({ t:r.nome, s:()=>U.t(r.area), tag:'REPO', url:r.online, c:r.cor, q:norm(r.nome+' '+r.area.pt+' '+r.area.en) })),
+  ...U.itens.map(i => { const r = U.repos[i[0]]; return { t:i[1], s:()=>[r.nome, i[2], i[5]==='ef'?'EF':i[5]==='fisio'?'Fisio':''].filter(Boolean).join(' · '), tag:()=>U.tipos[i[4]][lang==='pt'?0:1], url:i[3], c:r.cor, q:norm(i[1]+' '+i[2]+' '+r.nome+' '+U.tipos[i[4]].join(' ')+' '+i[5]) }; })
+];
+function realce(txt, q){ if (!q) return esc(txt); const n = norm(txt), k = n.indexOf(q); return k < 0 ? esc(txt) : esc(txt.slice(0,k)) + '<mark>' + esc(txt.slice(k,k+q.length)) + '</mark>' + esc(txt.slice(k+q.length)); }
+function busca(){ const q = norm(pq.value.trim()); const tk = q.split(/\s+/).filter(Boolean);
+  lista = indice.filter(x => tk.every(t => x.q.includes(t))).slice(0, 60); sel = 0;
+  pres.innerHTML = lista.map((x,k) => `<a href="${esc(x.url)}" target="_blank" rel="noopener" role="option" aria-selected="${k===0}" style="--c:${x.c}"><i></i><span><b>${realce(x.t, tk[0])}</b><small>${esc(x.s())}</small></span><span class="mono">${esc(typeof x.tag==='function'?x.tag():x.tag)}</span></a>`).join('') || `<div style="padding:30px;text-align:center;color:var(--ink3)">${lang==='pt'?'Nada encontrado.':'Nothing found.'}</div>`; }
+function abrePal(){ pal.classList.add('aberta'); pq.value=''; busca(); pq.focus(); }
+function fechaPal(){ pal.classList.remove('aberta'); }
+$('#abrePaleta').addEventListener('click', abrePal);
+pal.addEventListener('click', e => { if (e.target === pal) fechaPal(); });
+pq.addEventListener('input', busca);
+pq.addEventListener('keydown', e => { const as = $$('a', pres);
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); sel = (sel + (e.key==='ArrowDown'?1:-1) + as.length) % as.length; as.forEach((a,k)=>a.setAttribute('aria-selected', String(k===sel))); as[sel] && as[sel].scrollIntoView({block:'nearest'}); }
+  if (e.key === 'Enter' && as[sel]) { window.open(as[sel].href, '_blank', 'noopener'); } });
+addEventListener('keydown', e => { if ((e.ctrlKey||e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); pal.classList.contains('aberta') ? fechaPal() : abrePal(); }
+  if (e.key === 'Escape') { fechaPal(); document.dispatchEvent(new Event('fecha-foco')); } });
+
+/* ---------- explorar ---------- */
+$('#explorar').addEventListener('click', () => { scrollTo({ top:0, behavior:'smooth' }); document.body.classList.add('explorando'); U.explorar = true; });
+$('#sairExplorar').addEventListener('click', () => { document.body.classList.remove('explorando'); U.explorar = false; document.dispatchEvent(new Event('fecha-foco')); });
+
+/* ---------- telemetria (API pública do GitHub, com reserva local) ---------- */
+(function(){
+  const log = $('#teleLog'), est = $('#teleEstado'); let eventos = null, ao = false;
+  const idx = nome => U.repos.findIndex(r => r.github.toLowerCase().endsWith('/' + nome.toLowerCase()));
+  function linha(d, k, txt){ const r = U.repos[k] || { nome:'DrMarioNascimento', cor:'#a9b5c2' };
+    const dt = new Date(d); const h = dt.toLocaleString(lang==='pt'?'pt-BR':'en', { day:'2-digit', month:'2-digit', hour:'2-digit', minute:'2-digit' });
+    return `<div class="ln" style="--c:${r.cor}"><time>${h}</time><b>${esc(r.nome)}</b><span title="${esc(txt)}">${esc(txt)}</span></div>`; }
+  function render(){
+    let ls;
+    if (eventos && eventos.length) { ls = eventos; est.innerHTML = `<i class="pulsar"></i> ${lang==='pt'?'ao vivo · api.github.com':'live · api.github.com'}`; }
+    else { ls = U.commits.map(([k,d,m]) => ({ d, k, txt:m })).sort((a,b)=>b.d.localeCompare(a.d)); est.innerHTML = `<i class="pulsar" style="background:#f5b544"></i> ${lang==='pt'?'instantâneo local':'local snapshot'}`; }
+    const ag = []; for (const x of ls) { const u = ag[ag.length-1]; if (u && u.k === x.k && u.txt === x.txt) u.n++; else ag.push({ ...x, n:1 }); }
+    ls = ag.map(x => x.n > 1 ? { ...x, txt: x.txt + `  ×${x.n}` } : x);
+    log.innerHTML = `<div class="ln on" style="--c:var(--acc)"><time>$</time><b>gh</b><span>api users/DrMarioNascimento/events --public</span></div>` + ls.slice(0,40).map(x => linha(x.d, x.k, x.txt)).join('');
+    const lns = $$('.ln', log).slice(1); if (REDUZ) lns.forEach(l=>l.classList.add('on')); else lns.forEach((l,j) => setTimeout(() => l.classList.add('on'), 120 + j*90));
+  }
+  window.__teleRender = () => { if (ao) render(); };
+  async function carrega(){
+    try {
+      render();
+      const ac = new AbortController(); setTimeout(() => ac.abort(), 5000);
+      const r = await fetch('https://api.github.com/users/DrMarioNascimento/events/public?per_page=60', { headers:{ Accept:'application/vnd.github+json' }, signal:ac.signal });
+      if (!r.ok) throw 0; const js = await r.json(); eventos = [];
+      for (const ev of js) { const nome = (ev.repo && ev.repo.name || '').split('/')[1] || ''; const k = idx(nome);
+        if (ev.type === 'PushEvent' && ev.payload && ev.payload.commits && ev.payload.commits.length) ev.payload.commits.slice(-3).reverse().forEach(c => eventos.push({ d:ev.created_at, k, txt:(c.message||'').split('\n')[0] }));
+        else if (ev.type === 'PushEvent') eventos.push({ d:ev.created_at, k, txt:'push → ' + String(ev.payload && ev.payload.ref || '').replace('refs/heads/','') });
+        else if (ev.type === 'PullRequestEvent') eventos.push({ d:ev.created_at, k, txt:`PR ${ev.payload.action}: ${ev.payload.pull_request ? ev.payload.pull_request.title : ''}` });
+        else if (ev.type === 'CreateEvent') eventos.push({ d:ev.created_at, k, txt:`create ${ev.payload.ref_type} ${ev.payload.ref||''}` });
+        else if (ev.type === 'ReleaseEvent') eventos.push({ d:ev.created_at, k, txt:`release ${ev.payload.release ? ev.payload.release.name : ''}` });
+        else if (ev.type === 'WatchEvent') eventos.push({ d:ev.created_at, k, txt:'★ ' + (ev.actor ? ev.actor.login : '') });
+      }
+    } catch(e){ eventos = null; }
+    render();
+  }
+  new IntersectionObserver((es,o) => { if (es[0].isIntersecting) { ao = true; carrega(); o.disconnect(); } }, { rootMargin:'300px' }).observe(log);
+})();
+
+/* ---------- boot ---------- */
+(function(){
+  const linhas = lang === 'pt' ? [
+    ['inicializando núcleo', 'ok'], ['carregando constelações · 8 repositórios', 'ok'], ['mapeando 99 experiências', 'ok'],
+    ['compilando shaders GLSL', 'ok'], ['calibrando órbitas', 'ok'], ['universo online', 'pronto']
+  ] : [
+    ['initializing core', 'ok'], ['loading constellations · 8 repositories', 'ok'], ['mapping 99 experiences', 'ok'],
+    ['compiling GLSL shaders', 'ok'], ['calibrating orbits', 'ok'], ['universe online', 'ready']
+  ];
+  const log = $('#bootLog'), anel = $('#bootAnel'), pct = $('#bootPct'); let k = 0, feito = false, p = 0;
+  function pinta(v){ p = Math.max(p, v); anel.style.setProperty('--pct', p); pct.textContent = String(Math.round(p)).padStart(2,'0'); }
+  function passo(){
+    if (feito) return;
+    if (k < linhas.length - 1 || U.cenaPronta || U.cenaFalhou) {
+      if (k >= linhas.length) return fim();
+      const [t, s] = linhas[k++];
+      log.insertAdjacentHTML('beforeend', `<div class="ln">› ${esc(t)} <span class="ok">[${esc(s)}]</span></div>`);
+      pinta(k / linhas.length * 100);
+      setTimeout(k >= linhas.length ? fim : passo, k >= linhas.length ? 380 : 210 + Math.random()*160);
+    } else setTimeout(passo, 120);
+  }
+  function fim(){ if (feito) return; feito = true; pinta(100); $('#boot').classList.add('fim'); document.body.classList.remove('carregando'); document.body.classList.add('pronto'); rolagem(); }
+  $('#bootPular').addEventListener('click', fim);
+  U.bootFim = fim;
+  if (REDUZ) fim(); else setTimeout(passo, 250);
+  setTimeout(fim, 9000);
+})();
+
+aplicaLang(lang);
+rolagem();
+
+/* atalho: clicar num repositório das frentes com Alt foca no universo */
+document.addEventListener('click', e => { const a = e.target.closest('[data-foco]'); if (a && e.altKey) { e.preventDefault(); scrollTo({top:0,behavior:'smooth'}); document.dispatchEvent(new CustomEvent('foca', { detail:+a.dataset.foco })); } });
+})();
+</script>
+
+<script type="module">
+/* ===================== universo WebGL ===================== */
+const U = window.U;
+const falha = (m) => { console.warn('[universo]', m); document.documentElement.classList.add('sem-webgl'); U.cenaFalhou = true; };
+let THREE, EffectComposer, RenderPass, UnrealBloomPass, OutputPass;
+try {
+  if (/[?&]lite\b/.test(location.search)) throw 'modo leve';
+  const tst = document.createElement('canvas'); if (!(tst.getContext('webgl2') || tst.getContext('webgl'))) throw 'sem WebGL';
+  [THREE, { EffectComposer }, { RenderPass }, { UnrealBloomPass }, { OutputPass }] = await Promise.all([
+    import('three'), import('three/addons/postprocessing/EffectComposer.js'), import('three/addons/postprocessing/RenderPass.js'),
+    import('three/addons/postprocessing/UnrealBloomPass.js'), import('three/addons/postprocessing/OutputPass.js')]);
+} catch (e) { falha(e); }
+if (THREE) iniciar();
+
+function iniciar(){
+const $ = s => document.querySelector(s);
+const canvas = $('#universo');
+const MOBILE = matchMedia('(max-width: 640px)').matches;
+const REDUZ = U.REDUZ;
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias:false, powerPreference:'high-performance', alpha:false }); } catch(e){ return falha(e); }
+renderer.setPixelRatio(Math.min(devicePixelRatio || 1, MOBILE ? 1.5 : 1.75));
+renderer.setSize(innerWidth, innerHeight, false);
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+renderer.setClearColor(0x03050a, 1);
+$('#hudRender').textContent = (renderer.capabilities.isWebGL2 ? 'WebGL2' : 'WebGL') + ' · bloom · ACES';
+
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x03050a, 0.012);
+const camera = new THREE.PerspectiveCamera(MOBILE ? 62 : 48, innerWidth / innerHeight, 0.1, 600);
+camera.position.set(0, 4, 42);
+
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
+const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), MOBILE ? .7 : .8, .6, .2);
+composer.addPass(bloom);
+composer.addPass(new OutputPass());
+
+/* ---------- ruído GLSL (simplex 3D, Ashima Arts / Stefan Gustavson, MIT) ---------- */
+const NOISE = `
+vec3 mod289(vec3 x){return x-floor(x*(1./289.))*289.;}vec4 mod289(vec4 x){return x-floor(x*(1./289.))*289.;}
+vec4 permute(vec4 x){return mod289(((x*34.)+1.)*x);}vec4 taylorInvSqrt(vec4 r){return 1.79284291400159-.85373472095314*r;}
+float snoise(vec3 v){const vec2 C=vec2(1./6.,1./3.);const vec4 D=vec4(0.,.5,1.,2.);vec3 i=floor(v+dot(v,C.yyy));vec3 x0=v-i+dot(i,C.xxx);
+vec3 g=step(x0.yzx,x0.xyz);vec3 l=1.-g;vec3 i1=min(g.xyz,l.zxy);vec3 i2=max(g.xyz,l.zxy);vec3 x1=x0-i1+C.xxx;vec3 x2=x0-i2+C.yyy;vec3 x3=x0-D.yyy;
+i=mod289(i);vec4 p=permute(permute(permute(i.z+vec4(0.,i1.z,i2.z,1.))+i.y+vec4(0.,i1.y,i2.y,1.))+i.x+vec4(0.,i1.x,i2.x,1.));
+float n_=.142857142857;vec3 ns=n_*D.wyz-D.xzx;vec4 j=p-49.*floor(p*ns.z*ns.z);vec4 x_=floor(j*ns.z);vec4 y_=floor(j-7.*x_);
+vec4 x=x_*ns.x+ns.yyyy;vec4 y=y_*ns.x+ns.yyyy;vec4 h=1.-abs(x)-abs(y);vec4 b0=vec4(x.xy,y.xy);vec4 b1=vec4(x.zw,y.zw);
+vec4 s0=floor(b0)*2.+1.;vec4 s1=floor(b1)*2.+1.;vec4 sh=-step(h,vec4(0.));vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy;vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;
+vec3 p0=vec3(a0.xy,h.x);vec3 p1=vec3(a0.zw,h.y);vec3 p2=vec3(a1.xy,h.z);vec3 p3=vec3(a1.zw,h.w);
+vec4 norm=taylorInvSqrt(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3)));p0*=norm.x;p1*=norm.y;p2*=norm.z;p3*=norm.w;
+vec4 m=max(.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.);m=m*m;return 42.*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3)));}
+float fbm(vec3 p){float s=0.,a=.5;for(int i=0;i<5;i++){s+=a*snoise(p);p*=2.02;a*=.5;}return s;}`;
+
+/* ---------- nebulosa (esfera interna) ---------- */
+const nebula = new THREE.Mesh(new THREE.SphereGeometry(300, 48, 32), new THREE.ShaderMaterial({
+  side: THREE.BackSide, depthWrite:false, fog:false,
+  uniforms:{ uT:{ value:0 } },
+  vertexShader:`varying vec3 vP; void main(){ vP = normalize(position); gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+  fragmentShader: NOISE + `uniform float uT; varying vec3 vP;
+    void main(){ vec3 p = vP*2.2 + vec3(0., uT*.01, 0.);
+      float n1 = fbm(p + fbm(p*1.4 + uT*.02)); float n2 = fbm(p*1.7 - 3.1);
+      vec3 col = vec3(0.01,0.015,0.03);
+      col += vec3(.22,.88,.78) * smoothstep(.15,.9,n1) * .16;
+      col += vec3(.65,.55,1.) * smoothstep(.2,.95,n2) * .13;
+      col += vec3(1.,.35,.17) * smoothstep(.45,1.1,n1*n2*2.5) * .12;
+      float band = exp(-pow(vP.y*3.2 + n1*.6, 2.)); col += vec3(.5,.6,.9)*band*.05;
+      gl_FragColor = vec4(col,1.); }`
+}));
+scene.add(nebula);
+
+/* ---------- estrelas de fundo ---------- */
+function campoEstrelas(n, rMin, rMax, tam){
+  const g = new THREE.BufferGeometry(), pos = new Float32Array(n*3), s = new Float32Array(n), cor = new Float32Array(n*3);
+  const pal = [[.8,.9,1],[1,.9,.8],[.7,1,.95],[.85,.8,1]];
+  for (let i=0;i<n;i++){ const r = rMin + Math.random()*(rMax-rMin), th = Math.random()*Math.PI*2, ph = Math.acos(2*Math.random()-1);
+    pos.set([r*Math.sin(ph)*Math.cos(th), r*Math.cos(ph)*.7, r*Math.sin(ph)*Math.sin(th)], i*3); s[i] = Math.random(); cor.set(pal[i%4], i*3); }
+  g.setAttribute('position', new THREE.BufferAttribute(pos,3)); g.setAttribute('aS', new THREE.BufferAttribute(s,1)); g.setAttribute('aC', new THREE.BufferAttribute(cor,3));
+  return new THREE.Points(g, new THREE.ShaderMaterial({ transparent:true, depthWrite:false, blending:THREE.AdditiveBlending,
+    uniforms:{ uT:{value:0}, uPx:{value:renderer.getPixelRatio()}, uTam:{value:tam} },
+    vertexShader:`attribute float aS; attribute vec3 aC; uniform float uT,uPx,uTam; varying float vA; varying vec3 vC;
+      void main(){ vec4 mv = modelViewMatrix*vec4(position,1.); gl_Position = projectionMatrix*mv;
+        float tw = .55 + .45*sin(uT*(1.+aS*3.) + aS*60.); vA = tw*(.35+aS*.65); vC = aC;
+        gl_PointSize = uTam*(.6+aS*1.4)*uPx*(120./-mv.z); }`,
+    fragmentShader:`varying float vA; varying vec3 vC; void main(){ float d = length(gl_PointCoord-.5); float a = smoothstep(.5,0.,d); a = a*a; gl_FragColor = vec4(vC, a*vA); }` }));
+}
+const estrelas = campoEstrelas(MOBILE ? 3500 : 7000, 70, 260, 1.6); scene.add(estrelas);
+const poeira = campoEstrelas(MOBILE ? 600 : 1400, 18, 60, .9); scene.add(poeira);
+
+/* ---------- universo dos repositórios ---------- */
+const mundo = new THREE.Group(); scene.add(mundo);
+const CENTROS = MOBILE
+  ? { aula:new THREE.Vector3(0, 7, 0), dragon:new THREE.Vector3(3, -7, -4), lab:new THREE.Vector3(-4.5, -1.5, 4) }
+  : { aula:new THREE.Vector3(-4, 1.2, 0), dragon:new THREE.Vector3(13, 4.5, -6), lab:new THREE.Vector3(6, -6.5, 5) };
+const OFFSET_DESK = MOBILE ? new THREE.Vector3(0,0,0) : new THREE.Vector3(8,0,0);
+mundo.position.copy(OFFSET_DESK);
+
+const planetaVS = `varying vec3 vN; varying vec3 vP; varying vec3 vW; void main(){ vN = normalize(normalMatrix*normal); vP = position; vec4 w = modelMatrix*vec4(position,1.); vW = w.xyz; gl_Position = projectionMatrix*viewMatrix*w; }`;
+const planetaFS = NOISE + `uniform vec3 uC; uniform float uT, uH, uSeed; varying vec3 vN; varying vec3 vP; varying vec3 vW;
+  void main(){ vec3 p = normalize(vP)*2.4 + uSeed;
+    float n = fbm(p + vec3(uT*.05, 0., uT*.03)); float bands = sin(normalize(vP).y*14. + n*4. + uT*.2)*.5+.5;
+    vec3 base = mix(uC*.08, uC*.7, smoothstep(-.4,.8,n)); base = mix(base, uC*1.1 + .08, pow(bands,8.)*.45);
+    vec3 V = normalize(cameraPosition - vW); float fr = pow(1. - max(dot(normalize(vN), normalize((viewMatrix*vec4(V,0.)).xyz)), 0.), 2.6);
+    vec3 L = normalize(vec3(-.5,.6,.8)); float dif = .35 + .65*max(dot(normalize(vN), L), 0.);
+    vec3 col = base*dif + uC*fr*(1.05 + uH*1.6) + vec3(1.)*pow(fr,6.)*.25;
+    gl_FragColor = vec4(col, 1.); }`;
+const atmoFS = `uniform vec3 uC; uniform float uH; varying vec3 vN; varying vec3 vP; varying vec3 vW;
+  void main(){ vec3 V = normalize(cameraPosition - vW); float d = dot(normalize(vN), normalize((viewMatrix*vec4(V,0.)).xyz));
+    float a = pow(clamp(1. - abs(d), 0., 1.), 3.) * (.6 + uH*.8); gl_FragColor = vec4(uC, a); }`;
+
+const nos = U.repos.map((r, k) => {
+  const total = r.total, raio = .55 + Math.sqrt(total) * .33;
+  const cor = new THREE.Color(r.cor);
+  const mat = new THREE.ShaderMaterial({ uniforms:{ uC:{value:cor}, uT:{value:0}, uH:{value:0}, uSeed:{value:k*3.7} }, vertexShader:planetaVS, fragmentShader:planetaFS });
+  const malha = new THREE.Mesh(new THREE.SphereGeometry(raio, 64, 48), mat);
+  const atmo = new THREE.Mesh(new THREE.SphereGeometry(raio*1.35, 48, 32), new THREE.ShaderMaterial({ uniforms:{ uC:{value:cor}, uH:{value:0} }, vertexShader:planetaVS, fragmentShader:atmoFS, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, side:THREE.BackSide }));
+  const g = new THREE.Group(); g.add(malha); g.add(atmo); mundo.add(g);
+  // anel orbital (para os principais)
+  if (!('pai' in r) && total >= 3) {
+    const ring = new THREE.Mesh(new THREE.RingGeometry(raio*1.7, raio*1.74, 128), new THREE.MeshBasicMaterial({ color:cor, transparent:true, opacity:.35, side:THREE.DoubleSide, blending:THREE.AdditiveBlending, depthWrite:false }));
+    ring.rotation.x = Math.PI/2.3; ring.rotation.y = k*.4; g.add(ring);
+  }
+  return { r, k, g, malha, mat, atmo, raio, cor, pos:new THREE.Vector3(), hover:0, alvoHover:0 };
+});
+// posições-base
+const satelites = [];
+['aula','dragon','lab'].forEach(gid => {
+  const ns = nos.filter(n => n.r.grupo === gid && !('pai' in n.r));
+  const c = CENTROS[gid];
+  ns.forEach((n, j) => {
+    if (j === 0) { n.base = c.clone(); return; }
+    const a = (j / (ns.length)) * Math.PI * 2 + (gid === 'aula' ? 2.4 : .5), R = MOBILE ? 4.4 : 6.2;
+    n.base = c.clone().add(new THREE.Vector3(Math.cos(a)*R, Math.sin(a)*R*.55, Math.sin(a)*R*.5));
+  });
+});
+nos.filter(n => 'pai' in n.r).forEach((n, j) => { n.orb = { pai:nos[n.r.pai], R: nos[n.r.pai].raio*2.7 + j*.9, vel:.12 - j*.02, fase:j*2.2, incl:.35 + j*.25 }; satelites.push(n); });
+
+/* ---------- experiências como estrelas orbitais ---------- */
+const NI = U.itens.length;
+const itG = new THREE.BufferGeometry(); const itPos = new Float32Array(NI*3), itCor = new Float32Array(NI*3), itS = new Float32Array(NI);
+const orbItens = U.itens.map((it, i) => { const n = nos[it[0]]; const c = n.cor; itCor.set([c.r,c.g,c.b], i*3); itS[i] = it[4]==='aprofundamento'||it[4]==='jogo' ? 1.6 : it[4]==='tutor' ? 1.9 : 1;
+  return { n, R: n.raio*1.9 + Math.random()*n.raio*1.9 + .5, fase: Math.random()*Math.PI*2, vel:(.06 + Math.random()*.14)*(Math.random()<.15?-1:1), incl:(Math.random()-.5)*.9 + n.k*.3, rot:Math.random()*Math.PI, p:new THREE.Vector3() }; });
+itG.setAttribute('position', new THREE.BufferAttribute(itPos,3)); itG.setAttribute('aC', new THREE.BufferAttribute(itCor,3)); itG.setAttribute('aS', new THREE.BufferAttribute(itS,1));
+const itH = new Float32Array(NI); itG.setAttribute('aH', new THREE.BufferAttribute(itH,1));
+const itMat = new THREE.ShaderMaterial({ transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, uniforms:{ uPx:{value:renderer.getPixelRatio()}, uT:{value:0} },
+  vertexShader:`attribute vec3 aC; attribute float aS, aH; uniform float uPx,uT; varying vec3 vC; varying float vH;
+    void main(){ vec4 mv = modelViewMatrix*vec4(position,1.); gl_Position = projectionMatrix*mv; vC = aC; vH = aH;
+      gl_PointSize = (7. + aS*3.5 + aH*12.)*uPx*(40./-mv.z)*(1. + .15*sin(uT*3. + position.x)); }`,
+  fragmentShader:`varying vec3 vC; varying float vH; void main(){ vec2 q = gl_PointCoord-.5; float d = length(q);
+    float core = smoothstep(.12,.0,d); float halo = smoothstep(.5,.0,d)*.55; float cruz = (smoothstep(.04,0.,abs(q.x))+smoothstep(.04,0.,abs(q.y)))*smoothstep(.5,.1,d)*.35;
+    vec3 c = mix(vC, vec3(1.), core*.7); gl_FragColor = vec4(c*(1.2+vH), (core+halo*halo+cruz)*(.85+vH*.4)); }` });
+const itPts = new THREE.Points(itG, itMat); mundo.add(itPts);
+
+/* ---------- ligações (curvas) e pulsos ---------- */
+const ligas = [];
+function liga(a, b, tipo){ const N = 48; const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(new Float32Array(N*3),3));
+  const cs = new Float32Array(N*3); for (let i=0;i<N;i++){ const u=i/(N-1); const c = a.cor.clone().lerp(b.cor,u); cs.set([c.r,c.g,c.b], i*3); } g.setAttribute('color', new THREE.BufferAttribute(cs,3));
+  const m = new THREE.LineBasicMaterial({ vertexColors:true, transparent:true, opacity: tipo==='ponte' ? .32 : .45, blending:THREE.AdditiveBlending, depthWrite:false });
+  const ln = new THREE.Line(g, m); mundo.add(ln); const L = { a, b, tipo, ln, N, curva:new THREE.QuadraticBezierCurve3(new THREE.Vector3(), new THREE.Vector3(), new THREE.Vector3()), pulsos:[] };
+  if (tipo === 'ponte') for (let f=0; f<3; f++){ const s = new THREE.Sprite(new THREE.SpriteMaterial({ map:brilho(), color:a.cor, transparent:true, blending:THREE.AdditiveBlending, depthWrite:false })); s.scale.setScalar(.9); mundo.add(s); L.pulsos.push({ s, f:f/3 }); }
+  ligas.push(L); }
+let _tex; function brilho(){ if (_tex) return _tex; const c = document.createElement('canvas'); c.width = c.height = 64; const g = c.getContext('2d'); const gr = g.createRadialGradient(32,32,0,32,32,32); gr.addColorStop(0,'rgba(255,255,255,1)'); gr.addColorStop(.25,'rgba(255,255,255,.6)'); gr.addColorStop(1,'rgba(255,255,255,0)'); g.fillStyle = gr; g.fillRect(0,0,64,64); return (_tex = new THREE.CanvasTexture(c)); }
+['aula','dragon','lab'].forEach(gid => { const ns = nos.filter(n => n.r.grupo === gid && !('pai' in n.r)); for (let i=1;i<ns.length;i++) liga(ns[0], ns[i], 'frente'); });
+satelites.forEach(s => liga(s.orb.pai, s, 'apoio'));
+const labN = nos.find(n => n.r.grupo === 'lab'); liga(labN, nos[0], 'ponte'); liga(labN, nos[5], 'ponte');
+
+/* ---------- rótulos HTML flutuantes ---------- */
+const rotBox = $('#rotulos');
+function montaRotulos(){
+  rotBox.innerHTML = nos.map(n => `<a class="rot${'pai' in n.r ? ' sat' : ''}" href="${n.r.online}" data-k="${n.k}" style="--c:${n.r.cor}"><i></i><b>${n.r.nome}</b><small>${U.itens.filter(i=>i[0]===n.k).length}</small></a>`).join('') +
+    ['aula','dragon','lab'].map(g => `<div class="rot-grupo" data-g="${g}" style="--c:${nos.find(n=>n.r.grupo===g).r.cor}">${U.t(U.grupos[g])}</div>`).join('');
+  rotBox.querySelectorAll('.rot').forEach(a => {
+    a.addEventListener('click', e => { e.preventDefault(); foca(+a.dataset.k); });
+    a.addEventListener('pointerenter', () => hoverPlaneta = +a.dataset.k);
+    a.addEventListener('pointerleave', () => hoverPlaneta = -1);
+  });
+}
+montaRotulos(); document.addEventListener('lang', () => { montaRotulos(); if (focoK >= 0) painel(focoK); });
+
+/* ---------- interação ---------- */
+let mx = 0, my = 0, arrasta = null, rotY = 0, rotX = 0, vY = 0, vX = 0, hoverPlaneta = -1, hoverItem = -1, focoK = -1;
+const ray = new THREE.Raycaster(); const ptr = new THREE.Vector2(-9,-9);
+addEventListener('pointermove', e => { mx = e.clientX/innerWidth - .5; my = e.clientY/innerHeight - .5; ptr.set(e.clientX, e.clientY);
+  if (arrasta) { const dx = e.clientX - arrasta.x, dy = e.clientY - arrasta.y; vY = dx*.0045; vX = dy*.003; rotY += vY; rotX = Math.max(-.6, Math.min(.6, rotX + vX)); arrasta.x = e.clientX; arrasta.y = e.clientY; arrasta.mov += Math.abs(dx)+Math.abs(dy); } }, { passive:true });
+canvas.addEventListener('pointerdown', e => { arrasta = { x:e.clientX, y:e.clientY, mov:0 }; canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener('pointerup', e => { const clique = arrasta && arrasta.mov < 6; arrasta = null;
+  if (clique) { if (hoverItem >= 0) window.open(U.itens[hoverItem][3], '_blank', 'noopener'); else if (hoverPlaneta >= 0) foca(hoverPlaneta); else if (focoK >= 0) desfoca(); } });
+canvas.addEventListener('pointerleave', () => { ptr.set(-9999,-9999); });
+canvas.addEventListener('pointercancel', () => { arrasta = null; });
+document.addEventListener('fecha-foco', desfoca);
+document.addEventListener('foca', e => foca(e.detail));
+$('#fechaPainel').addEventListener('click', desfoca);
+
+const painelEl = $('#painel'), painelCorpo = $('#painelCorpo');
+function painel(k){
+  const r = U.repos[k], its = U.itens.filter(i => i[0] === k), L = (a,b) => U.lang === 'pt' ? a : b;
+  const c = U.commits.find(c => c[0] === k);
+  const tipos = {}; its.forEach(i => tipos[i[4]] = (tipos[i[4]]||0)+1);
+  painelEl.style.setProperty('--c', r.cor);
+  painelCorpo.innerHTML = `<span class="mono">${U.t(U.grupos[r.grupo])} · ${U.t(r.area)}</span><h3>${r.nome}</h3><p class="lema">${U.t(r.lema)}</p><p>${U.t(r.desc)}</p>
+    <div class="stats"><div><b>${its.length}</b><small>${L('experiências','experiences')}</small></div><div><b>${Object.keys(tipos).length}</b><small>${L('formatos','formats')}</small></div></div>
+    <ul class="lst">${its.slice(0,40).map(i => `<li><a href="${i[3]}" target="_blank" rel="noopener">${i[1]}<span>${i[5]==='fisio'?'Fisio':i[5]==='ef'?'EF':U.tipos[i[4]][U.lang==='pt'?0:1]}</span></a></li>`).join('')}</ul>
+    ${c ? `<p class="mono" style="color:var(--ink3);font-size:.6rem">${L('último commit','last commit')} · ${new Date(c[1]).toLocaleDateString(U.lang==='pt'?'pt-BR':'en')}</p>` : ''}
+    <div class="bts"><a class="btn cheio" href="${r.online}" target="_blank" rel="noopener">${L('Abrir site','Open site')} ↗</a><a class="btn" href="${r.github}" target="_blank" rel="noopener">GitHub</a></div>`;
+}
+function foca(k){ focoK = k; painel(k); painelEl.classList.add('aberto'); painelEl.setAttribute('aria-hidden','false'); document.body.classList.add('explorando'); U.explorar = true; }
+function desfoca(){ focoK = -1; painelEl.classList.remove('aberto'); painelEl.setAttribute('aria-hidden','true'); }
+
+/* ---------- laço ---------- */
+const dica = $('#dicaItem'), v3 = new THREE.Vector3(), alvoCam = new THREE.Vector3(), olhar = new THREE.Vector3(), olharAtual = new THREE.Vector3(0,0,0);
+const rots = () => rotBox.querySelectorAll('.rot'), grs = () => rotBox.querySelectorAll('.rot-grupo');
+let t0 = performance.now(), ultimo = t0, fpsN = 0, fpsT = t0, visivel = true, tempo = 0;
+document.addEventListener('visibilitychange', () => { visivel = !document.hidden; if (visivel) { ultimo = performance.now(); requestAnimationFrame(laco); } });
+addEventListener('resize', () => { camera.aspect = innerWidth/innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight, false); composer.setSize(innerWidth, innerHeight); bloom.setSize(innerWidth, innerHeight); });
+
+function projeta(p){ v3.copy(p).project(camera); return { x:(v3.x*.5+.5)*innerWidth, y:(-v3.y*.5+.5)*innerHeight, z:v3.z }; }
+
+function laco(now){
+  if (!visivel) return;
+  const dt = Math.min(.05, (now - ultimo)/1000); ultimo = now; tempo += REDUZ ? 0 : dt; const t = tempo;
+  fpsN++; if (now - fpsT > 1000) { $('#hudFps').textContent = fpsN; fpsN = 0; fpsT = now; }
+  const sp = U.scrollP || 0, heroP = Math.min(1, sp);
+
+  // rotação: automática + arraste com inércia + parallax
+  if (!arrasta) { vY *= .94; vX *= .9; rotY += vY + (REDUZ || focoK >= 0 ? 0 : dt*.035); }
+  mundo.rotation.y += ((rotY + mx*.25) - mundo.rotation.y) * .06;
+  mundo.rotation.x += ((rotX + my*.12 + .12) - mundo.rotation.x) * .06;
+
+  // posições
+  nos.forEach(n => { if (n.base) n.g.position.copy(n.base); });
+  satelites.forEach(n => { const o = n.orb, a = o.fase + t*o.vel; n.g.position.set(o.pai.g.position.x + Math.cos(a)*o.R, o.pai.g.position.y + Math.sin(a)*o.R*Math.sin(o.incl)*.8, o.pai.g.position.z + Math.sin(a)*o.R*Math.cos(o.incl)); });
+  nos.forEach(n => { n.malha.rotation.y = t*.15 + n.k; n.mat.uniforms.uT.value = t; n.hover += (n.alvoHover - n.hover)*.15; n.mat.uniforms.uH.value = n.hover; n.atmo.material.uniforms.uH.value = n.hover; const s = 1 + n.hover*.12; n.g.scale.setScalar(s); });
+  orbItens.forEach((o, i) => { const a = o.fase + t*o.vel; const x = Math.cos(a)*o.R, z = Math.sin(a)*o.R; const y = z*Math.sin(o.incl); const zz = z*Math.cos(o.incl);
+    const cr = Math.cos(o.rot), sr = Math.sin(o.rot);
+    o.p.set(o.n.g.position.x + x*cr - zz*sr*.3, o.n.g.position.y + y, o.n.g.position.z + zz*cr + x*sr*.3); itPos[i*3] = o.p.x; itPos[i*3+1] = o.p.y; itPos[i*3+2] = o.p.z; itH[i] += ((i === hoverItem ? 1 : 0) - itH[i])*.2; });
+  itG.attributes.position.needsUpdate = true; itG.attributes.aH.needsUpdate = true;
+  ligas.forEach(L => { const A = L.a.g.position, B = L.b.g.position; const M = A.clone().add(B).multiplyScalar(.5); M.y += A.distanceTo(B)*.18;
+    L.curva.v0.copy(A); L.curva.v1.copy(M); L.curva.v2.copy(B); const arr = L.ln.geometry.attributes.position.array;
+    for (let i=0;i<L.N;i++){ L.curva.getPoint(i/(L.N-1), v3); arr[i*3]=v3.x; arr[i*3+1]=v3.y; arr[i*3+2]=v3.z; } L.ln.geometry.attributes.position.needsUpdate = true;
+    L.pulsos.forEach(p => { const u = (p.f + t*.12) % 1; L.curva.getPoint(u, p.s.position); p.s.material.opacity = Math.sin(u*Math.PI); p.s.material.color.copy(L.a.cor).lerp(L.b.cor, u); }); });
+
+  // câmera: herói → fundo, ou foco num planeta
+  if (focoK >= 0) { const n = nos[focoK]; mundo.updateMatrixWorld(); const wp = n.g.getWorldPosition(new THREE.Vector3());
+    const dir = wp.clone().sub(new THREE.Vector3(0,0,0)).setY(0).normalize(); const d = n.raio*5 + 6;
+    alvoCam.set(wp.x + (MOBILE ? 0 : n.raio*1.6) , wp.y + n.raio*1.2 + (MOBILE ? -n.raio*2.2 : 0), wp.z + d); olhar.copy(wp).add(new THREE.Vector3(MOBILE ? 0 : n.raio*1.6, MOBILE ? -n.raio*1.8 : 0, 0)); }
+  else { const z = (MOBILE ? 50 : 42) + heroP*16 + Math.min(1, Math.max(0, sp-1))*10; alvoCam.set(mx*3, 4 - heroP*6 - my*2, z); olhar.set(0, -heroP*3 - (MOBILE && !U.explorar ? 9 : 0), 0); }
+  camera.position.lerp(alvoCam, focoK >= 0 ? .045 : .06); olharAtual.lerp(olhar, .06); camera.lookAt(olharAtual);
+  estrelas.rotation.y = t*.004 + mx*.05; poeira.rotation.y = -t*.01;
+  nebula.material.uniforms.uT.value = t; estrelas.material.uniforms.uT.value = t; poeira.material.uniforms.uT.value = t; itMat.uniforms.uT.value = t;
+
+  // opacidade do canvas ao rolar (vira fundo)
+  const op = U.explorar ? 1 : Math.max(.32, 1 - Math.max(0, sp - .35)*.9);
+  canvas.style.opacity = op;
+  bloom.strength = (MOBILE ? .7 : .8) * (U.explorar ? 1.1 : 1);
+
+  // hover: planetas (raycast) e estrelas (distância de tela)
+  mundo.updateMatrixWorld();
+  const rotEls = rots(), labelVis = U.explorar || sp < .5; rotBox.style.opacity = labelVis ? 1 : 0; rotBox.style.pointerEvents = labelVis ? '' : 'none';
+  let hp = -1, hi = -1;
+  if (ptr.x > -999 && !arrasta && labelVis) {
+    ray.setFromCamera(new THREE.Vector2(ptr.x/innerWidth*2-1, -(ptr.y/innerHeight)*2+1), camera);
+    const hit = ray.intersectObjects(nos.map(n => n.malha), false)[0]; if (hit) hp = nos.findIndex(n => n.malha === hit.object);
+    if (hp < 0) { let best = 16; orbItens.forEach((o,i) => { const s = projeta(mundo.localToWorld(v3.copy(o.p))); if (s.z > 1) return; const d = Math.hypot(s.x-ptr.x, s.y-ptr.y); if (d < best) { best = d; hi = i; } }); }
+  }
+  if (hoverPlaneta >= 0 && hp < 0) hp = hoverPlaneta;
+  hoverItem = hi; nos.forEach(n => n.alvoHover = (n.k === hp || n.k === focoK) ? 1 : 0);
+  U.hoverAlvo = hp >= 0 || hi >= 0; if (!document.body.classList.contains('tem-cursor')) canvas.style.cursor = U.hoverAlvo ? 'pointer' : (arrasta ? 'grabbing' : 'grab');
+  if (hi >= 0) { const it = U.itens[hi], r = U.repos[it[0]]; dica.style.setProperty('--c', r.cor);
+    const html = `<small>${U.tipos[it[4]][U.lang==='pt'?0:1]} · ${r.nome}</small><b>${it[1]}</b><span>${it[2]}${it[5] ? ' · ' + (it[5]==='ef'?'EF':'Fisio') : ''} — ${U.lang==='pt'?'clique para abrir':'click to open'}</span>`;
+    if (dica._k !== hi) { dica.innerHTML = html; dica._k = hi; } dica.style.left = Math.min(ptr.x, innerWidth-290)+'px'; dica.style.top = ptr.y+'px'; dica.classList.add('on'); }
+  else { dica.classList.remove('on'); dica._k = -1; }
+
+  // rótulos projetados
+  const ocup = [];
+  nos.forEach((n, i) => { const wp = n.g.getWorldPosition(new THREE.Vector3()); const s = projeta(wp.add(new THREE.Vector3(0, -n.raio*1.15, 0)));
+    const el = rotEls[i]; if (!el) return; const atras = s.z > 1;
+    let x = s.x - 12, y = s.y + 14; for (const o of ocup) if (Math.abs(o.x - x) < 130 && Math.abs(o.y - y) < 30) y = o.y + 32;
+    ocup.push({ x, y }); el.style.transform = `translate(${x.toFixed(1)}px,${y.toFixed(1)}px)`; el.style.opacity = atras ? 0 : 1; el.classList.toggle('hover', n.k === hp); });
+  grs().forEach(el => { const ns = nos.filter(n => n.r.grupo === el.dataset.g && !('pai' in n.r)); const c = new THREE.Vector3(); ns.forEach(n => c.add(n.g.getWorldPosition(new THREE.Vector3()))); c.multiplyScalar(1/ns.length);
+    const top = Math.max(...ns.map(n => n.raio)); const s = projeta(c.add(new THREE.Vector3(0, top*3.6 + (ns.length > 1 ? 2.5 : 0), 0))); el.style.transform = `translate(${(s.x - 60).toFixed(1)}px,${Math.max(80, s.y).toFixed(1)}px)`; el.style.opacity = s.z > 1 ? 0 : .9; });
+
+  $('#hudCam').textContent = `x ${camera.position.x.toFixed(1)} · y ${camera.position.y.toFixed(1)} · z ${camera.position.z.toFixed(1)}`;
+  composer.render();
+  requestAnimationFrame(laco);
+}
+U.cenaPronta = true;
+requestAnimationFrame(laco);
+}
+</script>
+</body>
+</html>
