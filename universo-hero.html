@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#03050a">
+<title>Universo — Prof. Mário César Nascimento, PhD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.184.0/build/three.module.js",
+    "three/addons/controls/OrbitControls.js": "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js",
+    "three/addons/exporters/OBJExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js",
+    "three/addons/exporters/GLTFExporter.js": "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js"
+  },
+  "integrity": {
+    "https://unpkg.com/three@0.184.0/build/three.module.js": "sha384-8FCZ1eVO6it4+pbec2aDtnTrwjWXZLJRC+MAGCIPDgsYnUrl/E0A2YlF8ioMKI/J",
+    "https://unpkg.com/three@0.184.0/build/three.core.js": "sha384-dw2ooPewaEIrAgl6oFDBmmBWCE9oW9LxRGcfwZ0hLvEprzo202wXl7vCYHRlSnOT",
+    "https://unpkg.com/three@0.184.0/examples/jsm/controls/OrbitControls.js": "sha384-4rziNxOBZKQ69i+w+f89KJ55TCYquwchVbByQwmaOeIOXdOU2PLDn3kOfXHwIJC9",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/OBJExporter.js": "sha384-nbwtoZENJD3Vq+ACK0CuGQdPMuDWHkamC2KJD70EV5nfg6jQjfppKOea07YJN+N3",
+    "https://unpkg.com/three@0.184.0/examples/jsm/exporters/GLTFExporter.js": "sha384-VofkvpG6HERhFCYbsUOHeNXBCqID2nfqkQqnVzE1jc/oPcz+qJ13ADdXH08hE+cQ"
+  }
+}
+</script>
+<style>
+:root{
+  --bg:#03050a; --ink:#eef3f8; --ink2:#a9b5c2; --ink3:#66727f;
+  --line:rgba(255,255,255,.08); --line2:rgba(255,255,255,.16);
+  --acc:#38e1c6; --gut:clamp(16px,3.6vw,44px); --ease:cubic-bezier(.2,.7,.1,1);
+  --f-disp:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;
+  --f-body:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-serif:"Instrument Serif",ui-serif,Georgia,serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow:hidden;overscroll-behavior:none}
+a{color:inherit}
+a:hover{color:#fff}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:8px}
+.mono{font-family:var(--f-mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase}
+.serif{font-family:var(--f-serif);font-style:italic;font-weight:400}
+
+#universo{position:fixed;inset:0;width:100%;height:100%;display:block;touch-action:none;cursor:grab;opacity:0;transition:opacity 1.2s ease}
+#universo.pronto{opacity:1}
+#universo.arrastando{cursor:grabbing}
+#universo.alvo{cursor:pointer}
+.vinheta{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 48%,transparent 55%,rgba(0,0,0,.62))}
+
+/* rótulos — sem caixas */
+#rotulos{position:fixed;inset:0;z-index:4;pointer-events:none;transition:opacity .4s}
+.rot{position:absolute;left:0;top:0;display:flex;flex-direction:column;align-items:center;gap:3px;padding:3px 6px;white-space:nowrap;pointer-events:auto;will-change:transform;opacity:0;transition:opacity .25s}
+.rot b{display:flex;align-items:baseline;gap:6px;font-family:var(--f-disp);font-weight:500;font-size:clamp(.9rem,1.1vw,1.12rem);letter-spacing:-.01em;color:#fff;text-shadow:0 0 14px #000,0 0 3px #000;cursor:pointer;transition:color .25s}
+.rot:hover b .nm,.rot.hover b .nm{color:var(--c)}
+.rot b .ir{font-family:var(--f-disp);font-weight:500;font-size:.85em;color:var(--ink3);text-decoration:none;transition:color .2s,transform .2s var(--ease);display:inline-block}
+.rot b .ir:hover{color:var(--c);transform:translate(1px,-1px)}
+.rot small{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.17em;text-transform:uppercase;color:var(--c);text-shadow:0 0 10px #000,0 0 2px #000}
+.rot small.tag{font-family:var(--f-serif);font-style:italic;font-size:.95rem;letter-spacing:0;text-transform:none}
+.rot.lua b{font-size:clamp(.78rem,.92vw,.9rem);color:color-mix(in oklab,var(--c) 28%,white)}
+.rot.lua small{font-size:.54rem}
+.rot-sis{position:absolute;left:0;top:0;padding:6px 10px;border:0;background:none;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--c);white-space:nowrap;text-shadow:0 0 16px #000;cursor:pointer;pointer-events:auto;will-change:transform;opacity:0;transition:opacity .25s,letter-spacing .3s}
+.rot-sis:hover{letter-spacing:.42em}
+
+/* tooltip de item */
+#dica{position:fixed;z-index:80;left:0;top:0;pointer-events:none;padding:9px 12px;border-radius:12px;border:1px solid color-mix(in oklab,var(--c,#fff) 50%,transparent);background:rgba(6,10,16,.84);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);max-width:260px;opacity:0;transform:translate(14px,14px) scale(.96);transition:opacity .15s,transform .15s;white-space:normal}
+#dica.on{opacity:1;transform:translate(14px,14px)}
+#dica small{display:block;font-family:var(--f-mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:var(--c,var(--acc))}
+#dica b{display:block;font-family:var(--f-disp);font-weight:500;font-size:.92rem;line-height:1.2;margin-top:3px}
+
+/* marca e dicas */
+.marca{position:fixed;z-index:6;left:var(--gut);top:calc(var(--gut) - 4px);display:flex;flex-direction:column;gap:4px;pointer-events:none}
+.marca b{font-family:var(--f-disp);font-weight:500;font-size:.95rem;letter-spacing:-.01em}
+.marca span{color:var(--ink3);white-space:nowrap}
+.dica-uso{position:fixed;z-index:6;left:50%;bottom:calc(var(--gut) - 2px);transform:translateX(-50%);display:flex;align-items:center;gap:10px;color:var(--ink3);pointer-events:none;transition:opacity .6s;white-space:nowrap}
+.dica-uso i{width:24px;height:24px;border:1px solid var(--line2);border-radius:50%;position:relative;flex:none}
+.dica-uso i::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:var(--acc);top:50%;left:50%;margin:-3px;animation:arrasta 2.6s var(--ease) infinite}
+@keyframes arrasta{0%,100%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
+body.mexeu .dica-uso{opacity:0}
+
+/* controles */
+.controles{position:fixed;z-index:6;right:var(--gut);bottom:var(--gut);display:flex;flex-direction:column;gap:8px}
+.controles button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line2);background:rgba(255,255,255,.04);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);cursor:pointer;display:grid;place-items:center;font-family:var(--f-disp);font-size:1.25rem;font-weight:500;line-height:1;transition:background .2s,border-color .2s}
+.controles button:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3)}
+.controles svg{width:18px;height:18px}
+
+/* painel de vidro */
+.painel{position:fixed;z-index:70;right:var(--gut);top:var(--gut);width:min(400px,calc(100vw - 2*var(--gut)));max-height:calc(100vh - 2*var(--gut));overflow:auto;padding:26px;border-radius:26px;border:1px solid color-mix(in oklab,var(--c,#fff) 40%,transparent);background:linear-gradient(160deg,color-mix(in oklab,var(--c,#fff) 14%,transparent),rgba(6,10,16,.74) 50%);backdrop-filter:blur(22px) saturate(150%);-webkit-backdrop-filter:blur(22px) saturate(150%);box-shadow:0 40px 100px -40px var(--c,#000);transform:translateX(30px);opacity:0;visibility:hidden;transition:transform .5s var(--ease),opacity .5s,visibility .5s;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.painel.aberto{transform:none;opacity:1;visibility:visible}
+.painel .mono{color:var(--c);display:block}
+.painel h3{margin:10px 0 6px;font-family:var(--f-disp);font-weight:500;font-size:2rem;line-height:1;letter-spacing:-.03em}
+.painel .lema{font-family:var(--f-serif);font-style:italic;font-size:1.2rem;color:var(--c);margin:0 0 12px;line-height:1.25}
+.painel p{margin:0 0 16px;color:var(--ink2);font-size:.9rem}
+.painel .lst{list-style:none;margin:0 0 18px;padding:0;display:grid;grid-template-columns:minmax(0,1fr);gap:3px;max-height:240px;overflow:auto;scrollbar-width:thin;scrollbar-color:var(--line2) transparent}
+.painel .lst li{min-width:0}
+.painel .lst a,.painel .lst button{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-width:0;padding:8px 10px;border-radius:10px;text-decoration:none;font-size:.82rem;border:1px solid transparent;background:none;text-align:left;cursor:pointer;color:var(--ink)}
+.painel .lst a:hover,.painel .lst button:hover{border-color:var(--line2);background:rgba(255,255,255,.04)}
+.painel .lst small{color:var(--ink3);font-size:.64rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:42%;flex:none;font-family:var(--f-mono);letter-spacing:.06em}
+.painel .lst i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--pc);box-shadow:0 0 8px var(--pc);margin-right:10px;flex:none}
+.painel .lst em{font-style:normal;font-family:var(--f-disp);color:var(--ink3);margin-left:8px}
+.painel .lst .nome{display:flex;align-items:center;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.painel .bts{display:flex;gap:8px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--line2);background:rgba(255,255,255,.04);text-decoration:none;font-weight:550;font-size:.88rem;cursor:pointer;white-space:nowrap;transition:background .25s,border-color .25s,box-shadow .25s}
+.btn:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
+.btn.cheio{background:var(--c);color:#011;border-color:transparent;box-shadow:0 10px 40px -10px var(--c)}
+.btn.cheio:hover{color:#011;box-shadow:0 16px 54px -8px var(--c)}
+.painel .fechar{position:absolute;right:14px;top:14px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line2);background:rgba(0,0,0,.3);cursor:pointer;display:grid;place-items:center}
+.painel .fechar svg{width:16px;height:16px}
+
+/* sem WebGL */
+.ceu{position:fixed;inset:0;z-index:0;display:none;background:radial-gradient(40vw 40vh at 70% 35%,#38e1c622,transparent 70%),radial-gradient(40vw 40vh at 85% 70%,#ff5a2c1c,transparent 70%),radial-gradient(50vw 50vh at 20% 80%,#a58cff18,transparent 70%),var(--bg)}
+#fallback{position:fixed;inset:0;z-index:5;display:none;overflow:auto;padding:calc(var(--gut) + 56px) var(--gut) var(--gut)}
+#fallback .grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;max-width:1100px;margin:0 auto}
+#fallback .sis{padding:22px;border-radius:22px;border:1px solid color-mix(in oklab,var(--c) 40%,transparent);background:rgba(6,10,16,.6)}
+#fallback .sis .mono{color:var(--c);display:block;margin-bottom:12px}
+#fallback .sis a{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--line);text-decoration:none;font-family:var(--f-disp);font-weight:500}
+#fallback .sis a small{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pc);align-self:center}
+#fallback h1{font-family:var(--f-disp);font-weight:500;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-.03em;margin:0 0 24px;text-align:center}
+#fallback h1 .serif{color:var(--acc)}
+html.sem-webgl .ceu,html.sem-webgl #fallback{display:block}
+html.sem-webgl #universo,html.sem-webgl #rotulos,html.sem-webgl .controles,html.sem-webgl .dica-uso,html.sem-webgl #dica{display:none}
+
+@media (max-width:640px){
+  .rot b{font-size:.8rem}.rot small{font-size:.52rem}.rot small.tag{font-size:.8rem}
+  .rot-sis{font-size:.6rem;letter-spacing:.26em}
+  .marca b{font-size:.85rem}.marca span{font-size:.58rem}
+  .dica-uso{bottom:auto;top:calc(var(--gut) + 48px);left:var(--gut);transform:none;font-size:.56rem}
+  .controles{bottom:calc(var(--gut) + env(safe-area-inset-bottom))}
+  .painel{top:auto;right:12px;left:12px;bottom:12px;width:auto;max-height:62vh;border-radius:22px;padding:22px;transform:translateY(30px)}
+  .painel.aberto{transform:none}
+  .painel h3{font-size:1.6rem}.painel .lst{max-height:160px}
+}
+@media (prefers-reduced-motion:reduce){
+  .dica-uso i::after{animation:none}
+}
+</style>
+</head>
+<body>
+<canvas id="universo" aria-label="Universo interativo: três sistemas de experiências educacionais" role="img"></canvas>
+<div class="ceu" aria-hidden="true"></div>
+<div class="vinheta" aria-hidden="true"></div>
+<div id="rotulos" aria-hidden="true"></div>
+<div id="dica" aria-hidden="true"></div>
+
+<header class="marca">
+  <b>Prof. Mário César Nascimento, PhD</b>
+  <span class="mono">Fisiologia · Ética · Pesquisa · Jogos</span>
+</header>
+
+<div class="dica-uso mono" aria-hidden="true"><i></i><span>Arraste para girar · role para aproximar · clique num planeta</span></div>
+
+<div class="controles" aria-label="Zoom">
+  <button type="button" id="zoomMais" aria-label="Aproximar">+</button>
+  <button type="button" id="zoomMenos" aria-label="Afastar">−</button>
+  <button type="button" id="recentrar" aria-label="Recentralizar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></button>
+</div>
+
+<aside class="painel" id="painel" aria-label="Detalhes" aria-hidden="true">
+  <button class="fechar" type="button" id="fechaPainel" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  <div id="painelCorpo"></div>
+</aside>
+
+<section id="fallback" aria-label="Mundos"><h1>Ciência que você pode <span class="serif">tocar.</span></h1><div class="grade" id="fallbackGrade"></div></section>
+
+<script src="universo-dados.js"></script>
+<script type="module">
+const U = window.U;
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const MOBILE = matchMedia('(max-width:640px)').matches;
+const TOQUE = matchMedia('(pointer:coarse)').matches;
+const REDUZ = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const ORDEM = ['aula','dragon','lab'];
+const centralDe = g => U.repos.find(r => r.grupo === g && !r.grupos && !('pai' in r));
+const linha2 = r => r.tag ? r.tag : `${r.total} ${r.total === 1 ? 'ITEM' : 'ITENS'}${'pai' in r ? ' · APOIO' : ''}`;
+const nomeLua = s => s.replace(/^MOSAICO - /, '').replace(/^A Casa da Costa: /, '');
+
+/* ---------- alternativa sem WebGL ---------- */
+function montaFallback(){
+  document.documentElement.classList.add('sem-webgl');
+  $('#fallbackGrade').innerHTML = ORDEM.map(g => {
+    const c = centralDe(g);
+    const mundos = U.repos.filter(r => r.grupo === g || (r.grupos && r.grupos.includes(g)));
+    return `<div class="sis" style="--c:${c.cor}"><span class="mono">${esc(U.grupos[g].pt)}</span>${mundos.map(r =>
+      `<a href="${r.online}" target="_blank" rel="noopener" style="--pc:${r.cor}">${esc(r.nome)}<small>${esc(linha2(r))}</small></a>`).join('')}</div>`;
+  }).join('');
+}
+
+let THREE;
+try {
+  const c = document.createElement('canvas');
+  if (!(c.getContext('webgl2') || c.getContext('webgl'))) throw new Error('WebGL indisponível');
+  THREE = await import('three');
+} catch (e) { console.warn('[universo]', e); montaFallback(); }
+if (THREE) iniciar();
+
+function iniciar(){
+const canvas = $('#universo');
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias:false, alpha:false, powerPreference:'high-performance' }); }
+catch (e) { console.warn('[universo]', e); return montaFallback(); }
+const PR = Math.min(devicePixelRatio || 1, TOQUE ? 1.5 : 2);
+renderer.setPixelRatio(PR);
+renderer.setClearColor(0x03050a, 1);
+const V3 = (x,y,z) => new THREE.Vector3(x,y,z);
+const tmp = V3(), tmp2 = V3();
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(MOBILE ? 60 : 46, 1, 0.1, 900);
+let W = 1, H = 1;
+
+/* ---------- pós-processamento: bloom suave (sem addons) ---------- */
+const meioFloat = renderer.capabilities.isWebGL2 && (renderer.extensions.has('EXT_color_buffer_half_float') || renderer.extensions.has('EXT_color_buffer_float'));
+const tipoRT = meioFloat ? THREE.HalfFloatType : THREE.UnsignedByteType;
+const rtCena = new THREE.WebGLRenderTarget(1, 1, { type: tipoRT, depthBuffer: true });
+const rtA = new THREE.WebGLRenderTarget(1, 1, { type: tipoRT, depthBuffer: false });
+const rtB = new THREE.WebGLRenderTarget(1, 1, { type: tipoRT, depthBuffer: false });
+const quadVS = `varying vec2 vUv; void main(){ vUv = uv; gl_Position = vec4(position.xy, 0., 1.); }`;
+const matLimiar = new THREE.ShaderMaterial({ depthTest:false, depthWrite:false, uniforms:{ t:{value:null}, uLim:{value:.62} }, vertexShader:quadVS,
+  fragmentShader:`uniform sampler2D t; uniform float uLim; varying vec2 vUv;
+  void main(){ vec3 c = texture2D(t, vUv).rgb; float l = max(max(c.r, c.g), c.b); float k = smoothstep(uLim, uLim + .45, l); gl_FragColor = vec4(c * k, 1.); }` });
+const matBlur = new THREE.ShaderMaterial({ depthTest:false, depthWrite:false, uniforms:{ t:{value:null}, uDir:{value:new THREE.Vector2(1,0)}, uRes:{value:new THREE.Vector2(1,1)} }, vertexShader:quadVS,
+  fragmentShader:`uniform sampler2D t; uniform vec2 uDir, uRes; varying vec2 vUv;
+  void main(){ vec2 px = uDir / uRes; vec3 c = texture2D(t, vUv).rgb * .227;
+    c += (texture2D(t, vUv + px * 1.385).rgb + texture2D(t, vUv - px * 1.385).rgb) * .316;
+    c += (texture2D(t, vUv + px * 3.231).rgb + texture2D(t, vUv - px * 3.231).rgb) * .07;
+    gl_FragColor = vec4(c, 1.); }` });
+const matFinal = new THREE.ShaderMaterial({ depthTest:false, depthWrite:false, uniforms:{ t:{value:null}, tB:{value:null}, uForca:{value: MOBILE ? .8 : .95} }, vertexShader:quadVS,
+  fragmentShader:`uniform sampler2D t, tB; uniform float uForca; varying vec2 vUv;
+  void main(){ vec3 c = texture2D(t, vUv).rgb + texture2D(tB, vUv).rgb * uForca; c = 1. - exp(-c * 1.25); gl_FragColor = vec4(pow(c, vec3(1. / 2.2)), 1.); }` });
+const quadCena = new THREE.Scene(), quadCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), matFinal); quad.frustumCulled = false; quadCena.add(quad);
+function passe(mat, alvo){ quad.material = mat; renderer.setRenderTarget(alvo); renderer.render(quadCena, quadCam); }
+
+/* ---------- GLSL: simplex 3D (Ashima Arts / Stefan Gustavson, MIT) ---------- */
+const NOISE = `
+vec3 mod289(vec3 x){return x-floor(x*(1./289.))*289.;} vec4 mod289(vec4 x){return x-floor(x*(1./289.))*289.;}
+vec4 permute(vec4 x){return mod289(((x*34.)+1.)*x);} vec4 taylorInvSqrt(vec4 r){return 1.79284291400159-.85373472095314*r;}
+float snoise(vec3 v){ const vec2 C=vec2(1./6.,1./3.); const vec4 D=vec4(0.,.5,1.,2.);
+  vec3 i=floor(v+dot(v,C.yyy)); vec3 x0=v-i+dot(i,C.xxx); vec3 g=step(x0.yzx,x0.xyz); vec3 l=1.-g; vec3 i1=min(g.xyz,l.zxy); vec3 i2=max(g.xyz,l.zxy);
+  vec3 x1=x0-i1+C.xxx; vec3 x2=x0-i2+C.yyy; vec3 x3=x0-D.yyy; i=mod289(i);
+  vec4 p=permute(permute(permute(i.z+vec4(0.,i1.z,i2.z,1.))+i.y+vec4(0.,i1.y,i2.y,1.))+i.x+vec4(0.,i1.x,i2.x,1.));
+  float n_=.142857142857; vec3 ns=n_*D.wyz-D.xzx; vec4 j=p-49.*floor(p*ns.z*ns.z); vec4 x_=floor(j*ns.z); vec4 y_=floor(j-7.*x_);
+  vec4 x=x_*ns.x+ns.yyyy; vec4 y=y_*ns.x+ns.yyyy; vec4 h=1.-abs(x)-abs(y); vec4 b0=vec4(x.xy,y.xy); vec4 b1=vec4(x.zw,y.zw);
+  vec4 s0=floor(b0)*2.+1.; vec4 s1=floor(b1)*2.+1.; vec4 sh=-step(h,vec4(0.)); vec4 a0=b0.xzyw+s0.xzyw*sh.xxyy; vec4 a1=b1.xzyw+s1.xzyw*sh.zzww;
+  vec3 p0=vec3(a0.xy,h.x); vec3 p1=vec3(a0.zw,h.y); vec3 p2=vec3(a1.xy,h.z); vec3 p3=vec3(a1.zw,h.w);
+  vec4 norm=taylorInvSqrt(vec4(dot(p0,p0),dot(p1,p1),dot(p2,p2),dot(p3,p3))); p0*=norm.x; p1*=norm.y; p2*=norm.z; p3*=norm.w;
+  vec4 m=max(.6-vec4(dot(x0,x0),dot(x1,x1),dot(x2,x2),dot(x3,x3)),0.); m=m*m; return 42.*dot(m*m,vec4(dot(p0,x0),dot(p1,x1),dot(p2,x2),dot(p3,x3))); }
+float fbm(vec3 p){ float f=0., a=.5; for(int i=0;i<5;i++){ f+=a*snoise(p); p*=2.02; a*=.5; } return f; }
+float fbm3(vec3 p){ float f=0., a=.5; for(int i=0;i<3;i++){ f+=a*snoise(p); p*=2.1; a*=.5; } return f; }`;
+
+/* ---------- nebulosa ---------- */
+const nebula = new THREE.Mesh(new THREE.SphereGeometry(420, 40, 24), new THREE.ShaderMaterial({ side:THREE.BackSide, depthWrite:false, uniforms:{ uT:{value:0} },
+  vertexShader:`varying vec3 vP; void main(){ vP = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.); }`,
+  fragmentShader: NOISE + `uniform float uT; varying vec3 vP;
+  void main(){ vec3 d = normalize(vP);
+    float n1 = fbm3(d * 1.6 + vec3(uT * .012, 0., 0.)); float n2 = fbm3(d * 2.4 + 7.3 - vec3(0., uT * .009, 0.)); float n3 = fbm3(d * 1.2 + 13.1);
+    vec3 c = vec3(.22, .88, .78) * smoothstep(.15, .8, n1) * .055 + vec3(1., .35, .17) * smoothstep(.22, .85, n2) * .04 + vec3(.65, .55, 1.) * smoothstep(.18, .8, n3) * .05;
+    gl_FragColor = vec4(c, 1.); }` }));
+nebula.renderOrder = -2; scene.add(nebula);
+
+/* ---------- estrelas cintilantes ---------- */
+function campoEstrelas(n, r0, r1, tam){
+  const pos = new Float32Array(n * 3), aS = new Float32Array(n), aF = new Float32Array(n), aC = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++){
+    const r = r0 + Math.pow(Math.random(), .6) * (r1 - r0), th = Math.acos(2 * Math.random() - 1), ph = Math.random() * Math.PI * 2;
+    pos.set([r * Math.sin(th) * Math.cos(ph), r * Math.cos(th), r * Math.sin(th) * Math.sin(ph)], i * 3);
+    aS[i] = tam * (.5 + Math.pow(Math.random(), 3) * 1.6); aF[i] = Math.random();
+    const q = Math.random(); const c = q < .12 ? [.6, .8, 1] : q < .22 ? [1, .8, .62] : q < .3 ? [.55, 1, .9] : [.9, .93, 1]; aC.set(c, i * 3);
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3)); g.setAttribute('aS', new THREE.BufferAttribute(aS, 1));
+  g.setAttribute('aF', new THREE.BufferAttribute(aF, 1)); g.setAttribute('aC', new THREE.BufferAttribute(aC, 3));
+  return new THREE.Points(g, new THREE.ShaderMaterial({ transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, uniforms:{ uT:{value:0}, uPx:{value:PR} },
+    vertexShader:`attribute float aS, aF; attribute vec3 aC; uniform float uT, uPx; varying float vA; varying vec3 vC;
+      void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.); float tw = .5 + .5 * sin(uT * (.8 + aF * 1.6) + aF * 40.); vA = .35 + .65 * tw * tw; vC = aC;
+        gl_PointSize = aS * uPx * clamp(240. / -mv.z, .6, 2.4); gl_Position = projectionMatrix * mv; }`,
+    fragmentShader:`varying float vA; varying vec3 vC; void main(){ float d = length(gl_PointCoord - .5); float a = smoothstep(.5, 0., d); a *= a; gl_FragColor = vec4(mix(vC, vec3(1.), .4) * 1.15, a * vA); }` }));
+}
+scene.add(campoEstrelas(MOBILE ? 2800 : 6000, 80, 320, 1.7));
+scene.add(campoEstrelas(MOBILE ? 500 : 1200, 22, 70, 1.0));
+
+/* ---------- mundo: três sistemas num plano ---------- */
+const mundo = new THREE.Group(); scene.add(mundo);
+const plano = new THREE.Group(); mundo.add(plano);
+const qInicial = new THREE.Quaternion().setFromAxisAngle(V3(1, 0, 0), MOBILE ? 1.0 : 1.05);
+mundo.quaternion.copy(qInicial);
+
+const RETRATO = innerHeight > innerWidth;
+const RA = 12, RD = 9, RL = 4.6, DIST = 24;
+const SIS = RETRATO
+  ? { aula:{ c:V3(0, 0, -14), R:RA }, dragon:{ c:V3(0, 0, -14 + DIST), R:RD }, lab:{ c:V3(12, 0, 27), R:RL } }
+  : { aula:{ c:V3(-12, 0, -1), R:RA }, dragon:{ c:V3(-12 + DIST, 0, -1), R:RD }, lab:{ c:V3(2, 0, 22), R:RL } };
+const eixo = SIS.dragon.c.clone().sub(SIS.aula.c).normalize();
+const PONTO_EITA = SIS.aula.c.clone().addScaledVector(eixo, (DIST - RD + RA) / 2);   // ponto médio da folga entre as duas fronteiras
+{ // centraliza o conjunto e mede o raio envolvente
+  let mn = V3(1e9, 0, 1e9), mx = V3(-1e9, 0, -1e9);
+  ORDEM.forEach(g => { const S = SIS[g]; mn.x = Math.min(mn.x, S.c.x - S.R); mn.z = Math.min(mn.z, S.c.z - S.R); mx.x = Math.max(mx.x, S.c.x + S.R); mx.z = Math.max(mx.z, S.c.z + S.R); });
+  plano.position.set(-(mn.x + mx.x) / 2, 0, -(mn.z + mx.z) / 2);
+}
+let RAIO_ENV = 0; ORDEM.forEach(g => { const S = SIS[g]; RAIO_ENV = Math.max(RAIO_ENV, S.c.clone().add(plano.position).length() + S.R); });
+
+function anel(R, cor, op, tracejado){
+  const pts = []; for (let i = 0; i <= 160; i++){ const a = i / 160 * Math.PI * 2; pts.push(V3(Math.cos(a) * R, 0, Math.sin(a) * R)); }
+  const g = new THREE.BufferGeometry().setFromPoints(pts);
+  const m = tracejado ? new THREE.LineDashedMaterial({ color:cor, transparent:true, opacity:op, dashSize:.5, gapSize:.38 }) : new THREE.LineBasicMaterial({ color:cor, transparent:true, opacity:op });
+  const l = new THREE.Line(g, m); if (tracejado) l.computeLineDistances(); return l;
+}
+function linha(a, b, cor, op){
+  const g = new THREE.BufferGeometry().setFromPoints([a, b]);
+  const l = new THREE.Line(g, new THREE.LineDashedMaterial({ color:cor, transparent:true, opacity:op, dashSize:.45, gapSize:.35 })); l.computeLineDistances(); return l;
+}
+const sistemas = {};
+ORDEM.forEach(g => {
+  const S = SIS[g], cor = new THREE.Color(centralDe(g).cor);
+  const fronteira = anel(S.R, cor, .55, true); fronteira.position.copy(S.c); plano.add(fronteira);
+  const borda = []; for (let i = 0; i < 36; i++){ const a = i / 36 * Math.PI * 2; borda.push(V3(S.c.x + Math.cos(a) * S.R, 0, S.c.z + Math.sin(a) * S.R)); }
+  sistemas[g] = { g, c:S.c, R:S.R, cor, corHex:centralDe(g).cor, borda };
+});
+// ligações
+plano.add(linha(PONTO_EITA, SIS.aula.c, new THREE.Color('#ff8ad8'), .5));
+plano.add(linha(PONTO_EITA, SIS.dragon.c, new THREE.Color('#ff8ad8'), .5));
+const corLab = new THREE.Color('#4ea9ff');
+const ligLab = [[SIS.lab.c, SIS.aula.c], [SIS.lab.c, SIS.dragon.c]];
+ligLab.forEach(([a, b]) => plano.add(linha(a, b, corLab, .4)));
+// pulsos de luz nas ligações da bancada
+const NP = 6, pulsoPos = new Float32Array(NP * 3), pulsoA = new Float32Array(NP);
+const pulsoG = new THREE.BufferGeometry(); pulsoG.setAttribute('position', new THREE.BufferAttribute(pulsoPos, 3)); pulsoG.setAttribute('aA', new THREE.BufferAttribute(pulsoA, 1));
+const pulsos = new THREE.Points(pulsoG, new THREE.ShaderMaterial({ transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, uniforms:{ uPx:{value:PR}, uC:{value:corLab} },
+  vertexShader:`attribute float aA; uniform float uPx; varying float vA; void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.); vA = aA; gl_PointSize = 7. * uPx * clamp(60. / -mv.z, .4, 3.); gl_Position = projectionMatrix * mv; }`,
+  fragmentShader:`uniform vec3 uC; varying float vA; void main(){ float d = length(gl_PointCoord - .5); float a = smoothstep(.5, 0., d); gl_FragColor = vec4(mix(uC, vec3(1.), .5) * 1.8, a * a * vA); }` }));
+pulsos.frustumCulled = false; plano.add(pulsos);
+
+/* ---------- planetas: ruído animado + halo fresnel ---------- */
+const planetaVS = `varying vec3 vN, vP, vW; void main(){ vN = normalize(mat3(modelMatrix) * normal); vP = position; vec4 w = modelMatrix * vec4(position, 1.); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }`;
+const planetaFS = NOISE + `uniform vec3 uC; uniform float uT, uH, uSeed; varying vec3 vN, vP, vW;
+  void main(){ vec3 p = normalize(vP) * 2.4 + uSeed;
+    float n = fbm(p + vec3(uT * .05, 0., uT * .03)); float bands = sin(normalize(vP).y * 14. + n * 4. + uT * .2) * .5 + .5;
+    vec3 escuro = uC * .13, claro = mix(uC, vec3(1.), .38);
+    vec3 base = mix(escuro, claro, smoothstep(-.3, .7, n * .8 + bands * .4));
+    vec3 N = normalize(vN); vec3 V = normalize(cameraPosition - vW); vec3 L = normalize(vec3(.35, .75, .6));
+    float dif = .3 + .7 * max(dot(N, L), 0.); float fr = pow(1. - clamp(dot(N, V), 0., 1.), 2.6);
+    vec3 col = base * mix(dif, 1.15, uH) + uC * fr * (.9 + uH * 1.5) + vec3(1.) * pow(fr, 6.) * .3;
+    gl_FragColor = vec4(col, 1.); }`;
+const haloFS = `uniform vec3 uC; uniform float uH; varying vec3 vN, vP, vW;
+  void main(){ vec3 V = normalize(cameraPosition - vW); float d = clamp(dot(normalize(vN), V), 0., 1.); float a = pow(1. - d, 3.) * (.5 + uH * 1.1); gl_FragColor = vec4(mix(uC, vec3(1.), .15) * 1.3, a); }`;
+const geoEsfera = new THREE.SphereGeometry(1, 48, 32), geoEsferaP = new THREE.SphereGeometry(1, 28, 20);
+function corpo(cor, raio, uH, seed){
+  const m = new THREE.Mesh(raio > .5 ? geoEsfera : geoEsferaP, new THREE.ShaderMaterial({ uniforms:{ uC:{value:cor}, uT:{value:0}, uH:{value:uH}, uSeed:{value:seed} }, vertexShader:planetaVS, fragmentShader:planetaFS }));
+  m.scale.setScalar(raio);
+  const halo = new THREE.Mesh(geoEsferaP, new THREE.ShaderMaterial({ uniforms:{ uC:{value:cor}, uH:{value:uH} }, vertexShader:planetaVS, fragmentShader:haloFS, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending }));
+  halo.scale.setScalar(1.22); m.add(halo); plano.add(m); return m;
+}
+
+// nós = repositórios
+const ORB = { aula:[5.0, 6.3, 7.5, 8.6], dragon:[5.2], lab:[] };
+const usoOrb = { aula:0, dragon:0, lab:0 };
+const nos = U.repos.map((r, k) => {
+  const cor = new THREE.Color(r.cor), raio = .45 + Math.sqrt(r.total) * .24;
+  const eita = !!r.grupos, central = !eita && centralDe(r.grupo) === r;
+  const n = { r, k, cor, raio, eita, central, g:r.grupo, pos:V3(), itens:[], mesh:null, orb:null, sx:0, sy:0, sr:0, vis:false, depth:1 };
+  n.mesh = corpo(cor, raio, central ? 1 : eita ? .5 : .14, k * 3.7 + 1.3);
+  n.mesh.userData.no = n;
+  if (central) n.pos.copy(SIS[r.grupo].c);
+  else if (eita) n.pos.copy(PONTO_EITA);
+  else { const R = ORB[r.grupo][usoOrb[r.grupo]++]; n.orb = { R, fase: Math.PI * 2 * (usoOrb[r.grupo] * .27 + .1), vel: (.028 + usoOrb[r.grupo] * .009) * (REDUZ ? 0 : 1) };
+    const o = anel(R, cor, .13, false); o.position.copy(SIS[r.grupo].c); plano.add(o); }
+  return n;
+});
+const centrais = {}; ORDEM.forEach(g => centrais[g] = nos.find(n => n.central && n.g === g));
+const eitaN = nos.find(n => n.eita);
+
+// itens (100): estrelinhas orbitando o seu planeta; os jogos do Dragon viram luas
+const itens = U.itens.map((it, i) => {
+  const n = nos[it[0]]; const lua = n === centrais.dragon && it[4] === 'jogo';
+  const o = { it, i, n, lua, nome: lua ? nomeLua(it[1]) : it[1], pos:V3(), sx:0, sy:0, sr:0, vis:false, depth:1, mesh:null,
+    R: lua ? n.raio * 2.3 + n.itens.filter(x => x.lua).length * .55 : n.raio * 1.3 + Math.random() * n.raio * 1.25 + .3,
+    fase: Math.random() * Math.PI * 2, vel: (lua ? .18 : .05 + Math.random() * .13) * (Math.random() < .15 ? -1 : 1) * (REDUZ ? 0 : 1),
+    incl: lua ? (Math.random() - .5) * .5 : (Math.random() - .5) * 1.2, tam: lua ? 0 : it[4] === 'aprofundamento' || it[4] === 'tutor' ? 3.4 : 2.7 };
+  if (lua){ o.mesh = corpo(new THREE.Color(n.r.cor).lerp(new THREE.Color('#ffd1a8'), .35), .3, .3, 40 + i); o.mesh.userData.item = o; }
+  n.itens.push(o); return o;
+});
+const NI = itens.length, itPos = new Float32Array(NI * 3), itC = new Float32Array(NI * 3), itS = new Float32Array(NI), itH = new Float32Array(NI), itF = new Float32Array(NI);
+itens.forEach((o, i) => { itC.set([o.n.cor.r, o.n.cor.g, o.n.cor.b], i * 3); itS[i] = o.tam; itF[i] = Math.random(); });
+const itG = new THREE.BufferGeometry();
+itG.setAttribute('position', new THREE.BufferAttribute(itPos, 3)); itG.setAttribute('aC', new THREE.BufferAttribute(itC, 3));
+itG.setAttribute('aS', new THREE.BufferAttribute(itS, 1)); itG.setAttribute('aH', new THREE.BufferAttribute(itH, 1)); itG.setAttribute('aF', new THREE.BufferAttribute(itF, 1));
+const itPontos = new THREE.Points(itG, new THREE.ShaderMaterial({ transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, uniforms:{ uPx:{value:PR}, uT:{value:0} },
+  vertexShader:`attribute vec3 aC; attribute float aS, aH, aF; uniform float uPx, uT; varying vec3 vC; varying float vA, vH;
+    void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.); float tw = .72 + .28 * sin(uT * (1.5 + aF) + aF * 50.); vA = tw; vH = aH; vC = aC;
+      gl_PointSize = aS * (1. + aH * 1.4) * uPx * clamp(95. / -mv.z, .5, 6.); gl_Position = projectionMatrix * mv; }`,
+  fragmentShader:`varying vec3 vC; varying float vA, vH; void main(){ float d = length(gl_PointCoord - .5); if (d > .5) discard; float a = smoothstep(.5, .05, d); vec3 c = mix(vC, vec3(1.), pow(max(1. - d * 2., 0.), 2.) * .75);
+      gl_FragColor = vec4(c * (1.25 + vH * .8), a * vA); }` }));
+itPontos.frustumCulled = false; plano.add(itPontos);
+
+/* ---------- rótulos HTML ---------- */
+const camadaRot = $('#rotulos');
+const rotulos = [];
+function criaRot(el, dados){ camadaRot.appendChild(el); const L = { el, w:0, h:0, ...dados }; rotulos.push(L); return L; }
+ORDEM.forEach(g => {
+  const el = document.createElement('button'); el.className = 'rot-sis'; el.type = 'button'; el.style.setProperty('--c', sistemas[g].corHex); el.textContent = U.grupos[g].pt;
+  el.addEventListener('click', () => focaSistema(g));
+  sistemas[g].rot = criaRot(el, { tipo:'sis', pri:0, g });
+});
+nos.forEach(n => {
+  const el = document.createElement('div'); el.className = 'rot'; el.style.setProperty('--c', n.r.cor);
+  el.innerHTML = `<b><span class="nm">${esc(n.r.nome)}</span><a class="ir" href="${n.r.online}" target="_blank" rel="noopener" aria-label="Abrir ${esc(n.r.nome)}">↗</a></b><small class="${n.eita ? 'tag' : ''}">${esc(linha2(n.r))}</small>`;
+  el.querySelector('.nm').addEventListener('click', () => focaNo(n));
+  n.rot = criaRot(el, { tipo:'no', pri: n.central ? 1 : n.eita ? 2 : 3, n });
+});
+itens.filter(o => o.lua).forEach(o => {
+  const el = document.createElement('div'); el.className = 'rot lua'; el.style.setProperty('--c', o.n.r.cor);
+  el.innerHTML = `<b><span class="nm">${esc(o.nome)}</span><a class="ir" href="${o.it[3]}" target="_blank" rel="noopener" aria-label="Abrir ${esc(o.nome)}">↗</a></b><small>${esc(U.tipos[o.it[4]][0])}</small>`;
+  el.querySelector('.nm').addEventListener('click', () => abre(o.it[3]));
+  o.rot = criaRot(el, { tipo:'lua', pri:4, o });
+});
+function mede(){ rotulos.forEach(L => { L.w = L.el.offsetWidth; L.h = L.el.offsetHeight; }); }
+document.fonts?.ready.then(mede);
+function intersecta(a, b){ return a.x < b.x + b.w + 4 && a.x + a.w + 4 > b.x && a.y < b.y + b.h + 2 && a.y + a.h + 2 > b.y; }
+function colocaRotulos(){
+  const ordem = rotulos.slice().sort((a, b) => a.pri - b.pri || a.depth - b.depth);
+  const colocados = [];
+  for (const L of ordem){
+    if (!L.vis || !L.w){ L.el.style.opacity = 0; L.el.style.pointerEvents = 'none'; continue; }
+    const tent = L.tipo === 'sis' ? [[L.x - L.w / 2, L.y - L.h]] : [[L.x - L.w / 2, L.y + L.off], [L.x - L.w / 2, L.y - L.off - L.h]];
+    let ok = null;
+    for (const [x, y] of tent){ const r = { x, y, w:L.w, h:L.h }; if (!colocados.some(c => intersecta(c, r))){ ok = r; break; } }
+    if (ok){ colocados.push(ok); L.el.style.transform = `translate(${ok.x.toFixed(1)}px,${ok.y.toFixed(1)}px)`; L.el.style.opacity = 1; L.el.style.pointerEvents = 'auto'; }
+    else { L.el.style.opacity = 0; L.el.style.pointerEvents = 'none'; }
+  }
+}
+
+/* ---------- câmera: alvo + distância; rotação livre no mundo ---------- */
+const cam = { alvo:V3(), dist:60 };
+let alvoDesejado = V3(), distAlvo = 60, distFit = 60, foco = null, recentrando = false;
+function calcFit(){
+  const hv = THREE.MathUtils.degToRad(camera.fov) / 2, hh = Math.atan(Math.tan(hv) * camera.aspect);
+  distFit = (RAIO_ENV * (RETRATO ? 1.0 : .9)) / Math.sin(Math.min(hv, hh)) + 2;
+}
+function limitaDist(d){ return THREE.MathUtils.clamp(d, 3.5, distFit * 1.9); }
+function zoom(f){ distAlvo = limitaDist(distAlvo * f); interagiu(); }
+
+function redimensiona(){
+  W = innerWidth; H = innerHeight; renderer.setSize(W, H, false); camera.aspect = W / H; camera.updateProjectionMatrix();
+  rtCena.setSize(Math.round(W * PR), Math.round(H * PR));
+  const bw = Math.max(1, Math.round(W * PR / 4)), bh = Math.max(1, Math.round(H * PR / 4)); rtA.setSize(bw, bh); rtB.setSize(bw, bh); matBlur.uniforms.uRes.value.set(bw, bh);
+  const antigo = distFit; calcFit(); if (!foco && Math.abs(distAlvo - antigo) < 1e-3) distAlvo = distFit; mede();
+}
+addEventListener('resize', redimensiona);
+redimensiona(); distAlvo = distFit; cam.dist = distFit * 1.35;
+
+/* ---------- interação: trackball com inércia, zoom, pinça ---------- */
+const ptrs = new Map(); let down = null, pinca0 = 0, distPinca0 = 0, ocioso = 0, arrastou = false;
+const inercia = { dx:0, dy:0 }; const qTmp = new THREE.Quaternion(), eixoTmp = V3();
+function gira(dx, dy){
+  const ang = Math.hypot(dx, dy) * .0052; if (!ang) return;
+  eixoTmp.set(dy, dx, 0).normalize().applyQuaternion(camera.quaternion);
+  qTmp.setFromAxisAngle(eixoTmp, ang); mundo.quaternion.premultiply(qTmp);
+}
+function interagiu(){ ocioso = 0; recentrando = false; document.body.classList.add('mexeu'); }
+canvas.addEventListener('pointerdown', e => {
+  canvas.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, { x:e.clientX, y:e.clientY });
+  inercia.dx = inercia.dy = 0; interagiu(); arrastou = false;
+  if (ptrs.size === 1) down = { x:e.clientX, y:e.clientY, t:performance.now(), id:e.pointerId };
+  if (ptrs.size === 2){ const [a, b] = [...ptrs.values()]; pinca0 = Math.hypot(a.x - b.x, a.y - b.y); distPinca0 = distAlvo; down = null; }
+  canvas.classList.add('arrastando');
+});
+canvas.addEventListener('pointermove', e => {
+  if (ptrs.has(e.pointerId)){
+    const p = ptrs.get(e.pointerId); const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY; interagiu();
+    if (ptrs.size === 1){ gira(dx, dy); inercia.dx = inercia.dx * .5 + dx * .5; inercia.dy = inercia.dy * .5 + dy * .5; if (Math.hypot(dx, dy) > 1) arrastou = true; }
+    else if (ptrs.size === 2){ const [a, b] = [...ptrs.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y); if (d > 0 && pinca0 > 0) distAlvo = limitaDist(distPinca0 * pinca0 / d); }
+  } else if (!TOQUE) atualizaHover(e.clientX, e.clientY);
+});
+function solta(e){
+  if (!ptrs.has(e.pointerId)) return; ptrs.delete(e.pointerId);
+  if (ptrs.size === 0) canvas.classList.remove('arrastando');
+  if (down && down.id === e.pointerId && e.type === 'pointerup' && !arrastou && performance.now() - down.t < 450 && Math.hypot(e.clientX - down.x, e.clientY - down.y) < 7) clique(e.clientX, e.clientY);
+  if (ptrs.size === 1){ const [p] = [...ptrs.values()]; down = null; inercia.dx = inercia.dy = 0; }
+  if (ptrs.size === 0) down = null;
+}
+canvas.addEventListener('pointerup', solta); canvas.addEventListener('pointercancel', solta);
+canvas.addEventListener('wheel', e => { e.preventDefault(); zoom(Math.exp(THREE.MathUtils.clamp(e.deltaY, -120, 120) * .0016)); }, { passive:false });
+canvas.addEventListener('pointerleave', () => { if (!TOQUE) atualizaHover(-1, -1); });
+$('#zoomMais').addEventListener('click', () => zoom(.78));
+$('#zoomMenos').addEventListener('click', () => zoom(1.28));
+$('#recentrar').addEventListener('click', recentra);
+addEventListener('keydown', e => { if (e.key === 'Escape') desfoca(); if (e.key === '+' || e.key === '=') zoom(.8); if (e.key === '-') zoom(1.25); });
+
+/* ---------- escolha em tela (hover / clique) ---------- */
+let hover = null; const dica = $('#dica');
+function sob(x, y){
+  let melhor = null;
+  const testa = (p, raio, extra) => { if (!p.vis) return; const d = Math.hypot(p.sx - x, p.sy - y); if (d <= Math.max(p.sr, raio) && (!melhor || p.depth < melhor.p.depth)) melhor = { p, ...extra }; };
+  itens.forEach(o => testa(o, o.lua ? 12 : TOQUE ? 16 : 10, { tipo:'item' }));
+  nos.forEach(n => testa(n, 12, { tipo:'no' }));
+  return melhor;
+}
+function atualizaHover(x, y){
+  const h = x < 0 ? null : sob(x, y);
+  if (hover && hover.p !== h?.p){ if (hover.tipo === 'item' && !hover.p.lua){ itH[hover.p.i] = 0; itG.attributes.aH.needsUpdate = true; } if (hover.tipo === 'no') hover.p.rot.el.classList.remove('hover'); if (hover.tipo === 'item' && hover.p.lua) hover.p.rot.el.classList.remove('hover'); }
+  hover = h; canvas.classList.toggle('alvo', !!h);
+  if (h && h.tipo === 'item'){
+    if (!h.p.lua){ itH[h.p.i] = 1; itG.attributes.aH.needsUpdate = true; } else h.p.rot.el.classList.add('hover');
+    const r = h.p.n.r; dica.style.setProperty('--c', r.cor);
+    dica.innerHTML = `<small>${esc(U.tipos[h.p.it[4]][0])} · ${esc(h.p.it[2])}</small><b>${esc(h.p.it[1])}</b>`;
+    dica.style.transform = ''; dica.style.left = Math.min(x, W - 290) + 'px'; dica.style.top = Math.min(y, H - 90) + 'px'; dica.classList.add('on');
+  } else dica.classList.remove('on');
+  if (h && h.tipo === 'no') h.p.rot.el.classList.add('hover');
+}
+function clique(x, y){
+  const h = sob(x, y);
+  if (!h){ if (foco) desfoca(); return; }
+  if (h.tipo === 'item') abre(h.p.it[3]); else focaNo(h.p);
+}
+function abre(url){ window.open(url, '_blank', 'noopener'); }
+
+/* ---------- foco: sistema / planeta ---------- */
+const painel = $('#painel'), corpoP = $('#painelCorpo');
+$('#fechaPainel').addEventListener('click', desfoca);
+function focaSistema(g){
+  const S = sistemas[g]; foco = { tipo:'sis', g }; interagiu();
+  distAlvo = Math.max(S.R * 2.75, 10);
+  const mundos = nos.filter(n => n.g === g || (n.eita && n.r.grupos.includes(g)));
+  mostraPainel(S.corHex, `<span class="mono">Sistema · ${mundos.length} mundos</span><h3>${esc(U.grupos[g].pt)}</h3><p class="lema">${esc(U.grupos[g].sub.pt)}</p>
+    <ul class="lst">${mundos.map(n => `<li><button type="button" data-k="${n.k}" style="--pc:${n.r.cor}"><span class="nome"><i></i>${esc(n.r.nome)}<em>${n.r.total}</em></span><small>${esc(n.central ? 'estrela' : n.eita ? 'aliança' : 'planeta')} ↗</small></button></li>`).join('')}</ul>`);
+  corpoP.querySelectorAll('button[data-k]').forEach(b => b.addEventListener('click', () => focaNo(nos[+b.dataset.k])));
+}
+function focaNo(n){
+  foco = { tipo:'no', n }; interagiu();
+  distAlvo = Math.max(n.raio * 6.5, 5);
+  const r = n.r, sis = r.grupos ? r.grupos.map(g => U.grupos[g].pt).join(' + ') : U.grupos[r.grupo].pt;
+  mostraPainel(r.cor, `<span class="mono">${esc(sis)} · ${esc(linha2(r))}</span><h3>${esc(r.nome)}</h3><p class="lema">${esc(r.lema.pt)}</p><p>${esc(r.desc.pt)}</p>
+    <ul class="lst">${n.itens.map(o => `<li><a href="${o.it[3]}" target="_blank" rel="noopener"><span class="nome">${esc(o.it[1])}</span><small>${esc(o.it[2])} ↗</small></a></li>`).join('')}</ul>
+    <div class="bts"><a class="btn cheio" href="${r.online}" target="_blank" rel="noopener">Abrir site ↗</a><a class="btn" href="${r.github}" target="_blank" rel="noopener">GitHub</a></div>`);
+}
+function mostraPainel(cor, html){ painel.style.setProperty('--c', cor); corpoP.innerHTML = html; painel.classList.add('aberto'); painel.setAttribute('aria-hidden', 'false'); painel.scrollTop = 0; }
+function desfoca(){ if (!foco) return; foco = null; painel.classList.remove('aberto'); painel.setAttribute('aria-hidden', 'true'); distAlvo = distFit; }
+function recentra(){ desfoca(); distAlvo = distFit; recentrando = true; inercia.dx = inercia.dy = 0; ocioso = 0; }
+
+/* ---------- laço ---------- */
+const relogio = new THREE.Timer(); let t = 0, pausado = false;
+document.addEventListener('visibilitychange', () => { pausado = document.hidden; if (!pausado){ relogio.reset(); requestAnimationFrame(quadro); } });
+const projeta = (local, alvo) => { tmp.copy(local).applyMatrix4(plano.matrixWorld); const dc = tmp.distanceTo(camera.position); tmp.project(camera);
+  alvo.sx = (tmp.x * .5 + .5) * W; alvo.sy = (-tmp.y * .5 + .5) * H; alvo.depth = tmp.z; alvo.vis = tmp.z < 1 && alvo.sx > -80 && alvo.sx < W + 80 && alvo.sy > -80 && alvo.sy < H + 80; return dc; };
+const fatorTela = () => (H / 2) / Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
+let primeiro = true; const pb = {};
+function quadro(){
+  if (pausado) return;
+  requestAnimationFrame(quadro);
+  relogio.update(); const dt = Math.min(relogio.getDelta(), .05); t += dt; ocioso += dt;
+  // órbitas
+  nos.forEach(n => { if (n.orb){ const a = n.orb.fase + t * n.orb.vel; n.pos.set(SIS[n.g].c.x + Math.cos(a) * n.orb.R, 0, SIS[n.g].c.z + Math.sin(a) * n.orb.R); } n.mesh.position.copy(n.pos); n.mesh.material.uniforms.uT.value = t; n.mesh.rotation.y = t * .05; });
+  itens.forEach((o, i) => { const a = o.fase + t * o.vel; const x = Math.cos(a) * o.R, s = Math.sin(a) * o.R;
+    o.pos.set(o.n.pos.x + x, s * Math.sin(o.incl), o.n.pos.z + s * Math.cos(o.incl));
+    if (o.mesh){ o.mesh.position.copy(o.pos); o.mesh.material.uniforms.uT.value = t; o.mesh.rotation.y = t * .3; } else itPos.set([o.pos.x, o.pos.y, o.pos.z], i * 3); });
+  itG.attributes.position.needsUpdate = true;
+  // pulsos
+  for (let p = 0; p < NP; p++){ const [a, b] = ligLab[p % 2]; const f = ((t * .14 + p * .37) % 1); tmp2.lerpVectors(a, b, f); pulsoPos.set([tmp2.x, tmp2.y, tmp2.z], p * 3); pulsoA[p] = Math.sin(f * Math.PI); }
+  pulsoG.attributes.position.needsUpdate = true; pulsoG.attributes.aA.needsUpdate = true;
+  nebula.material.uniforms.uT.value = t; itPontos.material.uniforms.uT.value = t;
+  scene.traverse(o => { if (o.isPoints && o.material.uniforms?.uT && o !== itPontos) o.material.uniforms.uT.value = t; });
+  // rotação: inércia e giro ocioso
+  if (ptrs.size === 0 && !REDUZ){
+    if (Math.hypot(inercia.dx, inercia.dy) > .05){ gira(inercia.dx, inercia.dy); inercia.dx *= .94; inercia.dy *= .94; }
+    else if (ocioso > 3 && !foco && !recentrando){ qTmp.setFromAxisAngle(V3(0, 1, 0), dt * .045); mundo.quaternion.multiply(qTmp); }
+  }
+  if (recentrando){ mundo.quaternion.slerp(qInicial, 1 - Math.exp(-dt * 4)); if (mundo.quaternion.angleTo(qInicial) < .002){ mundo.quaternion.copy(qInicial); recentrando = false; } }
+  mundo.updateMatrixWorld(true);
+  // câmera
+  if (foco?.tipo === 'no') alvoDesejado.copy(foco.n.pos).applyMatrix4(plano.matrixWorld);
+  else if (foco?.tipo === 'sis') alvoDesejado.copy(sistemas[foco.g].c).applyMatrix4(plano.matrixWorld);
+  else alvoDesejado.set(0, 0, 0);
+  if (foco && !MOBILE){ // desloca o alvo para a esquerda do painel
+    const larguraVista = 2 * distAlvo * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) * camera.aspect;
+    alvoDesejado.x += larguraVista * ((W - painel.getBoundingClientRect().left) / W) / 2; }
+  const k = 1 - Math.exp(-dt * 3.2);
+  cam.alvo.lerp(alvoDesejado, k); cam.dist += (distAlvo - cam.dist) * k;
+  camera.position.copy(cam.alvo); camera.position.z += cam.dist; camera.lookAt(cam.alvo); camera.updateMatrixWorld();
+  // projeções: nós, itens, sistemas
+  const ft = fatorTela();
+  nos.forEach(n => { const dc = projeta(n.pos, n); n.sr = n.raio / dc * ft; const L = n.rot; L.vis = n.vis && n.sr > 1.5; L.x = n.sx; L.y = n.sy; L.off = n.sr * 1.2 + 8; L.depth = n.depth; });
+  itens.forEach(o => { const dc = projeta(o.pos, o); o.sr = o.lua ? .3 / dc * ft : Math.max(3, o.tam * 95 / dc * .5); if (o.lua){ const L = o.rot; L.vis = o.vis && o.sr > 2.5; L.x = o.sx; L.y = o.sy; L.off = o.sr + 4; L.depth = o.depth; } });
+  ORDEM.forEach(g => { const S = sistemas[g]; let cx = 0, cy = 0, minY = 1e9, vis = 0;
+    for (const b of S.borda){ projeta(b, pb); if (pb.depth < 1){ vis++; cx += pb.sx; minY = Math.min(minY, pb.sy); } }
+    const L = S.rot; L.vis = vis > S.borda.length * .6; if (L.vis){ L.x = cx / vis; L.y = minY - 8; L.depth = .5; } });
+  colocaRotulos();
+  // render: cena → brilho → desfoque → composição
+  renderer.setRenderTarget(rtCena); renderer.render(scene, camera);
+  matLimiar.uniforms.t.value = rtCena.texture; passe(matLimiar, rtA);
+  for (let i = 0; i < 2; i++){ matBlur.uniforms.t.value = rtA.texture; matBlur.uniforms.uDir.value.set(1, 0); passe(matBlur, rtB); matBlur.uniforms.t.value = rtB.texture; matBlur.uniforms.uDir.value.set(0, 1); passe(matBlur, rtA); }
+  matFinal.uniforms.t.value = rtCena.texture; matFinal.uniforms.tB.value = rtA.texture; passe(matFinal, null);
+  if (primeiro){ primeiro = false; canvas.classList.add('pronto'); }
+}
+quadro();
+}
+</script>
+</body>
+</html>
