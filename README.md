@@ -22,6 +22,8 @@ University professor of **Physiology** (Physical Education and Physiotherapy), *
 
 ---
 
+**Estado em 7 de outubro de 2026.** Onze repositórios. As licenças são de uso restrito ou proprietárias: repositório público não é código aberto. A demo no GitHub Pages não autoriza cópia, adaptação nem uso comercial por terceiros.
+
 | | Projeto · Project | O que é · What it is |
 |---|---|---|
 | 🫀 | [**Fisiologia Interativa**](https://drmarionascimento.github.io/fisiologia-interativa/) | Simuladores de fisiologia humana · Human physiology simulators |
@@ -32,5 +34,9 @@ University professor of **Physiology** (Physical Education and Physiotherapy), *
 | 🐉 | [**Dragon Games**](https://drmarionascimento.github.io/Dragon/) | Jogos de dedução e investigação · Deduction & investigation games |
 | 🃏 | [**Mosaico Card**](https://drmarionascimento.github.io/Mosaico-Card/) | Jogo de cartas e pistas · Card-and-clue game |
 | 🥽 | [**Lab RA**](https://drmarionascimento.github.io/lab-ra/) | Realidade aumentada no navegador · Browser-based AR |
+| ⚔️ | [**Eita!**](https://eita-quiz.web.app/) | Quiz-batalha de sala · Classroom boss-battle quiz (repositório privado) |
+| 🥗 | [**NutriCiclos — manual**](https://github.com/DrMarioNascimento/NutriCiclos-manual) | Manual da clínica · Clinic manual. O sistema não está neste perfil |
 
 <sub>HTML · CSS · JavaScript · SVG · WebGL — pensado para rodar no celular do aluno · built to run on a student's phone.</sub>
+
+Página deste perfil: [drmarionascimento.github.io/DrMarioNascimento](https://drmarionascimento.github.io/DrMarioNascimento/). O visual da página é de demonstração. Todos os direitos reservados ao autor.
