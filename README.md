@@ -22,7 +22,7 @@ University professor of **Physiology** (Physical Education and Physiotherapy), *
 
 ---
 
-**Estado em 7 de outubro de 2026.** Onze repositórios. As licenças são de uso restrito ou proprietárias: repositório público não é código aberto. A demo no GitHub Pages não autoriza cópia, adaptação nem uso comercial por terceiros.
+**Inventário em 10 de outubro de 2026.** Doze repositórios: onze públicos e um privado (Eita!). As licenças são de uso restrito ou proprietárias: repositório público não é código aberto. A demo no GitHub Pages não autoriza cópia, adaptação nem uso comercial por terceiros.
 
 | | Projeto · Project | O que é · What it is |
 |---|---|---|
@@ -35,8 +35,15 @@ University professor of **Physiology** (Physical Education and Physiotherapy), *
 | 🃏 | [**Mosaico Card**](https://drmarionascimento.github.io/Mosaico-Card/) | Jogo de cartas e pistas · Card-and-clue game |
 | 🥽 | [**Lab RA**](https://drmarionascimento.github.io/lab-ra/) | Realidade aumentada no navegador · Browser-based AR |
 | ⚔️ | [**Eita!**](https://eita-quiz.web.app/) | Quiz-batalha de sala · Classroom boss-battle quiz (repositório privado) |
-| 🥗 | [**NutriCiclos — manual**](https://github.com/DrMarioNascimento/NutriCiclos-manual) | Manual da clínica · Clinic manual. O sistema não está neste perfil |
+| 🥗 | [**NutriCiclos — sistema**](https://github.com/DrMarioNascimento/NutriCiclosSistemas) | Código do sistema de consultório · Clinic application source |
+| 🥗 | [**NutriCiclos — manual**](https://github.com/DrMarioNascimento/NutriCiclos-manual) | Manual em PDF · PDF clinic manual |
 
 <sub>HTML · CSS · JavaScript · SVG · WebGL — pensado para rodar no celular do aluno · built to run on a student's phone.</sub>
 
 Página deste perfil: [drmarionascimento.github.io/DrMarioNascimento](https://drmarionascimento.github.io/DrMarioNascimento/). O visual da página é de demonstração. Todos os direitos reservados ao autor.
+
+## Estado do portfólio e direitos
+
+Fisiologia Interativa inclui Célula viva e tutores com IA opcional nos percursos de Educação Física e Fisioterapia. As condições de cada projeto estão no respectivo repositório. A autoria conjunta de Dragon/MOSAICO, Mosaico Card e NutriCiclos permanece identificada nos seus arquivos de licença; este perfil não reúne todos os direitos desses projetos sob uma autoria única.
+
+O aviso deste repositório está em [LICENSE.md](LICENSE.md). Repositórios públicos permitem consulta e os recursos previstos pelos termos do GitHub; exploração comercial e outros usos seguem os instrumentos de cada projeto.
