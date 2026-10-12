@@ -32,7 +32,7 @@ University professor of **Physiology** (Physical Education and Physiotherapy), *
 | ⚖️ | [**Ética Interativa**](https://drmarionascimento.github.io/Etica/) | Ética por cenários de decisão · Ethics through decisions |
 | 🔬 | [**Laboratório do Pesquisador**](https://drmarionascimento.github.io/Learning-lab/) | Metodologia de pesquisa, mobile-first · Research methods labs |
 | 🐉 | [**Dragon Games**](https://drmarionascimento.github.io/Dragon/) | Jogos de dedução e investigação · Deduction & investigation games |
-| 🃏 | [**Mosaico Card**](https://drmarionascimento.github.io/Mosaico-Card/) | Jogo de cartas e pistas · Card-and-clue game |
+| 🃏 | [**Mosaico Card**](https://drmarionascimento.github.io/Mosaico-Card/) | Versão bíblica: pistas do Novo Testamento · Biblical edition: New Testament clues |
 | 🥽 | [**Lab RA**](https://drmarionascimento.github.io/lab-ra/) | Realidade aumentada no navegador · Browser-based AR |
 | ⚔️ | [**Eita!**](https://eita-quiz.web.app/) | Quiz-batalha de sala · Classroom boss-battle quiz (repositório privado) |
 | 🥗 | [**NutriCiclos — sistema**](https://github.com/DrMarioNascimento/NutriCiclosSistemas) | Código do sistema de consultório · Clinic application source |
@@ -47,3 +47,12 @@ Página deste perfil: [drmarionascimento.github.io/DrMarioNascimento](https://dr
 Fisiologia Interativa inclui Célula viva e tutores com IA opcional nos percursos de Educação Física e Fisioterapia. As condições de cada projeto estão no respectivo repositório. A autoria conjunta de Dragon/MOSAICO, Mosaico Card e NutriCiclos permanece identificada nos seus arquivos de licença; este perfil não reúne todos os direitos desses projetos sob uma autoria única.
 
 O aviso deste repositório está em [LICENSE.md](LICENSE.md). Repositórios públicos permitem consulta e os recursos previstos pelos termos do GitHub; exploração comercial e outros usos seguem os instrumentos de cada projeto.
+
+## Acessos da Dragon Games
+
+O [catálogo Dragon Games](https://drmarionascimento.github.io/Dragon/) apresenta
+as histórias do MOSAICO, Mosaico Card na versão bíblica e Eita!. Mosaico Card e
+Eita! mantêm seus sites e repositórios próprios. Os acessos diretos e imagens do
+Dragon no portal usam agora `Dragon/jogos/<história>/<versão>/`; os endereços antigos
+continuam disponíveis como compatibilidade. O visual e a disposição do portal
+não foram alterados por esta atualização dos links.
