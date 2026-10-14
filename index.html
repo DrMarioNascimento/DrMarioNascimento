@@ -1258,7 +1258,8 @@ function atualizaBordas(){
   for(const g of ORDEM){
     const labels=boundaryLabels.filter(label=>label.g===g),S=SIS[g];
     const makeArc=(side,radius)=>{
-      const arc=[],a0=-Math.PI/2+side*Math.PI;
+      const titleOffset=g==='aula'?Math.PI/4:0;
+      const arc=[],a0=-Math.PI/2+titleOffset+side*Math.PI;
       for(let j=0;j<=80;j++){
         const a=a0-1.05+j*2.1/80,p={};
         projeta(V3(S.c.x+Math.cos(a)*radius,0,S.c.z+Math.sin(a)*radius),p);arc.push(p);
