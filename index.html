@@ -1071,7 +1071,7 @@ ORDEM.forEach(g => {
   const S = SIS[g], cor = new THREE.Color(centralDe(g).cor);
   const fronteira = anel(S.R, cor, .34, true); fronteira.position.copy(S.c); plano.add(fronteira);
   const borda = []; for (let i = 0; i < 36; i++){ const a = i / 36 * Math.PI * 2; borda.push(V3(S.c.x + Math.cos(a) * S.R, 0, S.c.z + Math.sin(a) * S.R)); }
-  sistemas[g] = { g, c:S.c, R:S.R, cor, corHex:centralDe(g).cor, borda };
+  sistemas[g] = { g, c:S.c, R:S.R, cor, corHex:centralDe(g).cor, borda, fronteira };
 });
 const corLab = new THREE.Color('#4ea9ff');
 const ligLab = [[SIS.lab.c, SIS.aula.c], [SIS.lab.c, SIS.dragon.c]];
@@ -1240,7 +1240,7 @@ nos.filter(n=>n.orb).forEach(n=>{
 
 const boundaryLabels=[];
 const boundaryNames={
-  aula:['Sala de Aula','Fisiologia Interativa'],
+  aula:['Fisiologia Interativa','Sala de Aula'],
   dragon:['Dragon Games','Studio de Games (Start--)'],
   etica:['Ética','Pesquisa'],
   lab:['Lab-RA','Bancada de Testes']
@@ -1261,7 +1261,8 @@ function atualizaBordas(){
       // Compensa a inclinação inicial para a diagonal aparecer a 45° na tela.
       const initialTilt=MOBILE?1.0:1.05;
       const titleOffset=g==='aula'?Math.atan(Math.sin(initialTilt)):0;
-      const arc=[],a0=-Math.PI/2+titleOffset+side*Math.PI;
+      const boundaryPhase=REDUZ?0:t*.035;
+      const arc=[],a0=-Math.PI/2+titleOffset+side*Math.PI+boundaryPhase;
       for(let j=0;j<=80;j++){
         const a=a0-1.05+j*2.1/80,p={};
         projeta(V3(S.c.x+Math.cos(a)*radius,0,S.c.z+Math.sin(a)*radius),p);arc.push(p);
@@ -1497,6 +1498,7 @@ function quadro(now){
     // Sem giro automático do conjunto: a orientação muda apenas ao arrastar.
   }
   if (recentrando){ mundo.quaternion.slerp(qInicial, 1 - Math.exp(-dt * 4)); if (mundo.quaternion.angleTo(qInicial) < .002){ mundo.quaternion.copy(qInicial); recentrando = false; } }
+  ORDEM.forEach(g=>{sistemas[g].fronteira.rotation.y=REDUZ?0:-t*.035;});
   mundo.updateMatrixWorld(true);
   // câmera: no herói o universo fica à direita do texto; no modo explorar, centralizado
   if (foco?.tipo === 'no') alvoDesejado.copy(foco.n.pos).applyMatrix4(plano.matrixWorld);
