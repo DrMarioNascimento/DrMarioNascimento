@@ -149,6 +149,7 @@ img{display:block;max-width:100%}
 .rot b .ir:hover{color:var(--c);transform:translate(1px,-1px)}
 .rot small{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.17em;text-transform:uppercase;color:var(--c);text-shadow:0 0 10px #000,0 0 2px #000}
 .rot small.tag{font-family:var(--f-serif);font-style:italic;font-size:.95rem;letter-spacing:0;text-transform:none}
+.rot.orbital{background:rgba(3,5,10,.72);border-radius:7px}
 .rot.lua b{font-size:clamp(.78rem,.92vw,.9rem);color:color-mix(in oklab,var(--c) 28%,white)}
 .rot.lua small{font-size:.54rem}
 .rot-sis{position:absolute;left:0;top:0;padding:6px 10px;border:0;background:none;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--c);white-space:nowrap;text-shadow:0 0 16px #000;cursor:pointer;pointer-events:auto;will-change:transform;opacity:0;transition:opacity .25s,letter-spacing .3s}
@@ -1038,12 +1039,12 @@ mundo.quaternion.copy(qInicial);
 
 const RETRATO = innerHeight > innerWidth;
 // Sala de Aula e Dragon Games se sobrepõem numa faixa estreita: o Eita! fica dentro das duas fronteiras
-const RA = 14, RD = 18, RL = 9;
+const RA = 14, RD = 29, RL = 9;
 const SIS = {
-  aula:{c:V3(-22,0,-18),R:RA},
-  etica:{c:V3(17,0,-20),R:11},
-  dragon:{c:V3(-20,0,20),R:RD},
-  lab:{c:V3(20,0,17),R:RL}
+  aula:{c:V3(-22,0,-25),R:RA},
+  etica:{c:V3(20,0,-25),R:11},
+  dragon:{c:V3(-28,0,30),R:RD},
+  lab:{c:V3(24,0,25),R:RL}
 };
 { let mn = V3(1e9, 0, 1e9), mx = V3(-1e9, 0, -1e9);
   ORDEM.forEach(g => { const S = SIS[g]; mn.x = Math.min(mn.x, S.c.x - S.R); mn.z = Math.min(mn.z, S.c.z - S.R); mx.x = Math.max(mx.x, S.c.x + S.R); mx.z = Math.max(mx.z, S.c.z + S.R); });
@@ -1097,7 +1098,7 @@ function corpo(cor, raio, uH, seed){
   const halo = new THREE.Mesh(geoEsferaP, new THREE.ShaderMaterial({ uniforms:{ uC:{value:cor}, uH:{value:uH} }, vertexShader:planetaVS, fragmentShader:haloFS, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending }));
   halo.scale.setScalar(1.22); m.add(halo); plano.add(m); return m;
 }
-const ORB = { aula:[7.0,10.2], etica:[5.5,8], dragon:[11,11,11,11], lab:[] };
+const ORB = { aula:[7.0,10.2], etica:[5.5,8], dragon:[6,12,18,24], lab:[] };
 const usoOrb = { aula:0, etica:0, dragon:0, lab:0 };
 const nos = U.repos.map((r, k) => {
   const cor = new THREE.Color(r.cor), raio = centralDe(r.grupo) === r ? 2.2 : (r.grupo === 'dragon' ? .85 : .45 + Math.sqrt(r.total) * .17);
@@ -1107,7 +1108,7 @@ const nos = U.repos.map((r, k) => {
   if (central) n.pos.copy(SIS[r.grupo].c);
   else if (eita) n.pos.copy(SIS[r.grupo].c);
   else { const R = ORB[r.grupo][usoOrb[r.grupo]++]; n.orb = { R, fase: r.grupo === 'dragon' ? (usoOrb[r.grupo]-1)*Math.PI/2 : Math.PI * 2 * (usoOrb[r.grupo] * .27 + .1), vel: (r.grupo === 'dragon' ? .035 : .028 + usoOrb[r.grupo] * .009) * (REDUZ ? 0 : 1) };
-    const o = anel(R, cor, .13, false); o.position.copy(SIS[r.grupo].c); plano.add(o); }
+    const o = anel(R, cor, r.grupo === 'dragon' ? .38 : .22, false); o.position.copy(SIS[r.grupo].c); plano.add(o); }
   return n;
 });
 const centrais = {}; ORDEM.forEach(g => centrais[g] = nos.find(n => n.central && n.g === g));
@@ -1149,7 +1150,7 @@ ORDEM.forEach(g => {
   sistemas[g].rot = criaRot(el, { tipo:'sis', pri:0, g });
 });
 nos.forEach(n => {
-  const el = document.createElement('div'); el.className = 'rot'; el.style.setProperty('--c', n.r.cor);
+  const el = document.createElement('div'); el.className = n.orb ? 'rot orbital' : 'rot'; el.style.setProperty('--c', n.r.cor);
   el.innerHTML = `<b><span class="nm">${esc(n.r.nome)}</span><a class="ir" href="${n.r.online}" target="_blank" rel="noopener" aria-label="${esc(n.r.nome)}">↗</a></b><small class="${n.eita ? 'tag' : ''}"></small>`;
   el.querySelector('.nm').addEventListener('click', () => focaNo(n));
   el.addEventListener('pointerenter', () => el.classList.add('hover')); el.addEventListener('pointerleave', () => el.classList.remove('hover'));
@@ -1178,9 +1179,9 @@ function colocaRotulos(){
   for (const L of ordem){
     if (!L.vis || !L.w){ L.el.style.opacity = 0; L.el.style.pointerEvents = 'none'; continue; }
     if (!L.w) mede();
-    const tent = L.tipo === 'sis' ? [[L.x - L.w / 2, L.y - L.h]] : [[L.x - L.w / 2, L.y + L.off], [L.x - L.w / 2, L.y - L.off - L.h]];
+    const tent = L.anchors?.length ? L.anchors.map(p => [p.x - L.w / 2, p.y - L.h / 2]) : L.tipo === 'sis' ? [[L.x - L.w / 2, L.y - L.h]] : [[L.x - L.w / 2, L.y + L.off], [L.x - L.w / 2, L.y - L.off - L.h]];
     let ok = null;
-    for (const [x, y] of tent){ const r = { x, y, w:L.w, h:L.h }; if (!colocados.some(c => intersecta(c, r))){ ok = r; break; } }
+    for (const [x, y] of tent){ const r = { x, y, w:L.w, h:L.h }; if (x >= 8 && x + L.w <= W - 8 && y >= 76 && y + L.h <= H - 65 && !colocados.some(c => intersecta(c, r))){ ok = r; break; } }
     if (ok){ colocados.push(ok); L.el.style.transform = `translate(${ok.x.toFixed(1)}px,${ok.y.toFixed(1)}px)`; L.el.style.opacity = 1; L.el.style.pointerEvents = 'auto'; }
     else { L.el.style.opacity = 0; L.el.style.pointerEvents = 'none'; }
   }
@@ -1357,7 +1358,21 @@ function quadro(now){
   const rotVis = exp || sp < .5; camadaRot.style.opacity = rotVis ? 1 : 0; camadaRot.style.visibility = rotVis ? '' : 'hidden';
   // projeções
   const ft = fatorTela();
-  nos.forEach(n => { const dc = projeta(n.pos, n); n.sr = n.raio / dc * ft; const L = n.rot; L.vis = n.vis && n.sr > 1.5; L.x = n.sx; L.y = n.sy; L.off = n.sr * 1.2 + 8; L.depth = n.depth; });
+  nos.forEach(n => {
+    const dc = projeta(n.pos, n); n.sr = n.raio / dc * ft;
+    const L = n.rot; L.vis = n.vis && n.sr > 1.5;
+    L.x = n.sx; L.y = n.sy; L.off = n.sr * 1.2 + 8; L.depth = n.depth; L.anchors = null;
+    if (n.orb){
+      // Âncoras sobre a própria órbita; texto horizontal, independente da rotação.
+      const anchors = [], center = SIS[n.g].c;
+      for (let j=0;j<24;j++){
+        const angle = -Math.PI/2 + (j + n.k*3)*Math.PI*2/24;
+        projeta(V3(center.x + Math.cos(angle)*n.orb.R, 0, center.z + Math.sin(angle)*n.orb.R), pb);
+        if (pb.vis) anchors.push({x:pb.sx,y:pb.sy});
+      }
+      L.anchors = anchors; L.vis = anchors.length > 0 && n.raio/dc*ft > 1.5;
+    }
+  });
   itens.forEach(o => { const dc = projeta(o.pos, o); o.sr = o.lua ? .3 / dc * ft : Math.max(3, o.tam * 95 / dc * .5); if (o.lua){ const L = o.rot; L.vis = o.vis && o.sr > 2.5 && (foco?.n === o.n || foco?.g === o.n.g || hover?.p === o || hover?.p === o.n || o.n.sr > 24); L.x = o.sx; L.y = o.sy; L.off = o.sr + 4; L.depth = o.depth; } });
   ORDEM.forEach(g => { const S = sistemas[g]; let cx = 0, minY = 1e9, vis = 0;
     for (const b of S.borda){ projeta(b, pb); if (pb.depth < 1){ vis++; cx += pb.sx; minY = Math.min(minY, pb.sy); } }
