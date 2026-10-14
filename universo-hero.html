@@ -327,6 +327,7 @@ plano.add(linha(PONTO_EITA, SIS.dragon.c, new THREE.Color('#ff8ad8'), .5));
 const corLab = new THREE.Color('#4ea9ff');
 const ligLab = [[SIS.lab.c, SIS.aula.c], [SIS.lab.c, SIS.dragon.c]];
 ligLab.forEach(([a, b]) => plano.add(linha(a, b, corLab, .4)));
+plano.add(linha(SIS.etica.c, SIS.aula.c, corLab, .4));
 // pulsos de luz nas ligações da bancada
 const NP = 6, pulsoPos = new Float32Array(NP * 3), pulsoA = new Float32Array(NP);
 const pulsoG = new THREE.BufferGeometry(); pulsoG.setAttribute('position', new THREE.BufferAttribute(pulsoPos, 3)); pulsoG.setAttribute('aA', new THREE.BufferAttribute(pulsoA, 1));
