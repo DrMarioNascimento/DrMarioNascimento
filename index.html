@@ -149,7 +149,9 @@ img{display:block;max-width:100%}
 .rot b .ir:hover{color:var(--c);transform:translate(1px,-1px)}
 .rot small{font-family:var(--f-mono);font-size:.6rem;letter-spacing:.17em;text-transform:uppercase;color:var(--c);text-shadow:0 0 10px #000,0 0 2px #000}
 .rot small.tag{font-family:var(--f-serif);font-style:italic;font-size:.95rem;letter-spacing:0;text-transform:none}
-.rot.orbital{background:rgba(3,5,10,.72);border-radius:7px}
+.orbit-text-layer{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.orbit-text-layer text{font-family:var(--f-disp);font-weight:600;letter-spacing:.5px;paint-order:stroke fill;stroke:#03050a;stroke-width:4px;stroke-linejoin:round;pointer-events:auto;cursor:pointer}
+.orbit-text-layer text:hover{fill:#fff}
 .rot.lua b{font-size:clamp(.78rem,.92vw,.9rem);color:color-mix(in oklab,var(--c) 28%,white)}
 .rot.lua small{font-size:.54rem}
 .rot-sis{position:absolute;left:0;top:0;padding:6px 10px;border:0;background:none;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--c);white-space:nowrap;text-shadow:0 0 16px #000;cursor:pointer;pointer-events:auto;will-change:transform;opacity:0;transition:opacity .25s,letter-spacing .3s}
@@ -1172,6 +1174,43 @@ function textos(){
 function mede(){ rotulos.forEach(L => { L.w = L.el.offsetWidth; L.h = L.el.offsetHeight; }); }
 document.addEventListener('lang', () => { textos(); if (foco) (foco.tipo === 'sis' ? focaSistema(foco.g, true) : focaNo(foco.n, true)); });
 textos(); document.fonts?.ready.then(mede);
+/* Texto em arco sobre a órbita projetada, como na Célula-Mapa. */
+const svgNS = 'http://www.w3.org/2000/svg';
+const orbitSvg = document.createElementNS(svgNS,'svg');
+orbitSvg.setAttribute('class','orbit-text-layer');
+camadaRot.appendChild(orbitSvg);
+nos.filter(n=>n.orb).forEach(n=>{
+  const path=document.createElementNS(svgNS,'path'), text=document.createElementNS(svgNS,'text'), tp=document.createElementNS(svgNS,'textPath');
+  path.id='orbit-name-'+n.k; path.setAttribute('fill','none'); path.setAttribute('stroke','none');
+  tp.setAttribute('href','#'+path.id); tp.setAttribute('startOffset','50%'); tp.setAttribute('text-anchor','middle');
+  tp.textContent=n.r.nome; text.appendChild(tp); text.setAttribute('fill',n.r.cor);
+  text.setAttribute('role','button'); text.setAttribute('tabindex','0'); text.setAttribute('aria-label',n.r.nome);
+  text.addEventListener('click',()=>focaNo(n));
+  text.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();focaNo(n);}});
+  orbitSvg.append(path,text); n.arcLabel={path,text};
+});
+function atualizaTextoOrbital(n){
+  const {path,text}=n.arcLabel, pts=[], count=128, center=SIS[n.g].c;
+  let top=0;
+  for(let j=0;j<count;j++){
+    const a=j/count*Math.PI*2;
+    const p={}; projeta(V3(center.x+Math.cos(a)*n.orb.R,0,center.z+Math.sin(a)*n.orb.R),p);
+    pts.push(p); if(p.sy<pts[top].sy)top=j;
+  }
+  const font=12, needed=n.r.nome.length*font*.66+24;
+  const at=i=>pts[(i+count*2)%count];
+  let start=top,end=top,back=0,front=0;
+  while(back<needed/2 && top-start<count/3){const p=at(start),q=at(start-1);back+=Math.hypot(p.sx-q.sx,p.sy-q.sy);start--;}
+  while(front<needed/2 && end-top<count/3){const p=at(end),q=at(end+1);front+=Math.hypot(p.sx-q.sx,p.sy-q.sy);end++;}
+  let arc=[];for(let j=start;j<=end;j++)arc.push(at(j));
+  const visible=back+front>=needed && arc.every(p=>p.depth<1 && p.sx>8 && p.sx<W-8 && p.sy>80 && p.sy<H-60);
+  text.style.display=visible?'':'none';
+  if(!visible)return;
+  if(arc[0].sx>arc[arc.length-1].sx)arc.reverse();
+  path.setAttribute('d',arc.map((p,j)=>(j?'L':'M')+p.sx.toFixed(2)+','+p.sy.toFixed(2)).join(' '));
+  text.setAttribute('font-size',font); text.setAttribute('dy','-5');
+}
+
 function intersecta(a, b){ return a.x < b.x + b.w + 4 && a.x + a.w + 4 > b.x && a.y < b.y + b.h + 2 && a.y + a.h + 2 > b.y; }
 function colocaRotulos(){
   const ordem = rotulos.slice().sort((a, b) => a.pri - b.pri || a.depth - b.depth);
@@ -1362,16 +1401,7 @@ function quadro(now){
     const dc = projeta(n.pos, n); n.sr = n.raio / dc * ft;
     const L = n.rot; L.vis = n.vis && n.sr > 1.5;
     L.x = n.sx; L.y = n.sy; L.off = n.sr * 1.2 + 8; L.depth = n.depth; L.anchors = null;
-    if (n.orb){
-      // Âncoras sobre a própria órbita; texto horizontal, independente da rotação.
-      const anchors = [], center = SIS[n.g].c;
-      for (let j=0;j<24;j++){
-        const angle = -Math.PI/2 + (j + n.k*3)*Math.PI*2/24;
-        projeta(V3(center.x + Math.cos(angle)*n.orb.R, 0, center.z + Math.sin(angle)*n.orb.R), pb);
-        if (pb.vis) anchors.push({x:pb.sx,y:pb.sy});
-      }
-      L.anchors = anchors; L.vis = anchors.length > 0 && n.raio/dc*ft > 1.5;
-    }
+    if(n.orb){ L.vis=false; atualizaTextoOrbital(n); }
   });
   itens.forEach(o => { const dc = projeta(o.pos, o); o.sr = o.lua ? .3 / dc * ft : Math.max(3, o.tam * 95 / dc * .5); if (o.lua){ const L = o.rot; L.vis = o.vis && o.sr > 2.5 && (foco?.n === o.n || foco?.g === o.n.g || hover?.p === o || hover?.p === o.n || o.n.sr > 24); L.x = o.sx; L.y = o.sy; L.off = o.sr + 4; L.depth = o.depth; } });
   ORDEM.forEach(g => { const S = sistemas[g]; let cx = 0, minY = 1e9, vis = 0;
