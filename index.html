@@ -1041,7 +1041,7 @@ mundo.quaternion.copy(qInicial);
 
 const RETRATO = innerHeight > innerWidth;
 // Sala de Aula e Dragon Games se sobrepõem numa faixa estreita: o Eita! fica dentro das duas fronteiras
-const RA = 17, RD = 32, RL = 11;
+const RA = 20, RD = 32, RL = 11;
 const SIS = {
   aula:{c:V3(-25,0,-30),R:RA},
   etica:{c:V3(20,0,-25),R:11},
@@ -1212,7 +1212,7 @@ itens.filter(o => o.lua).forEach(o => {
 function textos(){
   ORDEM.forEach(g => sistemas[g].rot.el.textContent = T_(U.grupos[g]));
   nos.forEach(n => n.rot.el.querySelector('small').textContent = linha2(n.r));
-  itens.filter(o => o.lua).forEach(o => o.rot.el.querySelector('small').textContent = U.tipos[o.it[4]][U.lang === 'en' ? 1 : 0]);
+  itens.filter(o => o.lua).forEach(o => o.rot.el.querySelector('small').textContent = '');
   rotulos.forEach(L => L.el.querySelectorAll('a.ir').forEach(a => a.title = L_('Abrir direto', 'Open directly')));
   mede();
 }
@@ -1255,16 +1255,16 @@ function atualizaBordas(){
   for(const label of boundaryLabels){
     const S=SIS[label.g],a0=-Math.PI/2+label.side*Math.PI,arc=[];
     for(let j=0;j<=80;j++){
-      const a=a0-.7+j*1.4/80,p={};
+      const a=a0-1.05+j*2.1/80,p={};
       projeta(V3(S.c.x+Math.cos(a)*S.R,0,S.c.z+Math.sin(a)*S.R),p);arc.push(p);
     }
     let length=0;for(let j=1;j<arc.length;j++)length+=Math.hypot(arc[j].sx-arc[j-1].sx,arc[j].sy-arc[j-1].sy);
-    const font=Math.min(15,length/(label.name.length*.7+4));
+    const font=Math.min(label.g==='aula'?28:24,length/(label.name.length*.7+4));
     const visible=font>=10 && arc.every(p=>p.depth<1) && arc.some(p=>p.sx>0&&p.sx<W&&p.sy>75&&p.sy<H-50);
     label.text.style.display=visible?'':'none';if(!visible)continue;
     if(arc[0].sx>arc[arc.length-1].sx)arc.reverse();
     label.path.setAttribute('d',arc.map((p,j)=>(j?'L':'M')+p.sx.toFixed(2)+','+p.sy.toFixed(2)).join(' '));
-    label.text.setAttribute('font-size',font.toFixed(1));label.text.setAttribute('dy','-7');
+    label.text.setAttribute('font-size',font.toFixed(1));label.text.setAttribute('dy','-10');
   }
 }
 
@@ -1484,7 +1484,7 @@ function quadro(now){
   const ft = fatorTela();
   nos.forEach(n => {
     const dc = projeta(n.pos, n); n.sr = n.raio / dc * ft;
-    const L = n.rot; L.vis = n.vis && n.sr > 1.5;
+    const L = n.rot; L.vis = !n.central && n.vis && n.sr > 1.5;
     L.x = n.sx; L.y = n.sy; L.off = n.sr * 1.2 + 8; L.depth = n.depth; L.anchors = null;
     if(n.orb){ L.vis=false; atualizaTextoOrbital(n); }
   });
