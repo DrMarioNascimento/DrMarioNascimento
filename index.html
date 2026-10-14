@@ -152,6 +152,9 @@ img{display:block;max-width:100%}
 .orbit-text-layer{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
 .orbit-text-layer text{font-family:var(--f-disp);font-weight:600;letter-spacing:.5px;paint-order:stroke fill;stroke:#03050a;stroke-width:4px;stroke-linejoin:round;pointer-events:auto;cursor:pointer}
 .orbit-text-layer text:hover{fill:#fff}
+#universo,.rotulos,.rotulos *{-webkit-user-select:none;user-select:none;-webkit-user-drag:none}
+body.universe-dragging,body.universe-dragging *{-webkit-user-select:none!important;user-select:none!important}
+.orbit-text-layer text{font-family:"Space Grotesk",ui-sans-serif,system-ui,sans-serif;font-style:normal;font-weight:600}
 .rot.lua b{font-size:clamp(.78rem,.92vw,.9rem);color:color-mix(in oklab,var(--c) 28%,white)}
 .rot.lua small{font-size:.54rem}
 .rot-sis{position:absolute;left:0;top:0;padding:6px 10px;border:0;background:none;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--c);white-space:nowrap;text-shadow:0 0 16px #000;cursor:pointer;pointer-events:auto;will-change:transform;opacity:0;transition:opacity .25s,letter-spacing .3s}
@@ -1252,19 +1255,28 @@ ORDEM.forEach(g=>boundaryNames[g].forEach((name,side)=>{
   orbitSvg.append(path,text);boundaryLabels.push({g,side,path,text,name});
 }));
 function atualizaBordas(){
-  for(const label of boundaryLabels){
-    const S=SIS[label.g],a0=-Math.PI/2+label.side*Math.PI,arc=[];
-    for(let j=0;j<=80;j++){
-      const a=a0-1.05+j*2.1/80,p={};
-      projeta(V3(S.c.x+Math.cos(a)*S.R,0,S.c.z+Math.sin(a)*S.R),p);arc.push(p);
+  for(const g of ORDEM){
+    const labels=boundaryLabels.filter(label=>label.g===g),S=SIS[g];
+    const makeArc=(side,radius)=>{
+      const arc=[],a0=-Math.PI/2+side*Math.PI;
+      for(let j=0;j<=80;j++){
+        const a=a0-1.05+j*2.1/80,p={};
+        projeta(V3(S.c.x+Math.cos(a)*radius,0,S.c.z+Math.sin(a)*radius),p);arc.push(p);
+      }
+      return arc;
+    };
+    const arcLength=arc=>arc.slice(1).reduce((len,p,j)=>len+Math.hypot(p.sx-arc[j].sx,p.sy-arc[j].sy),0);
+    // Um único tamanho para o par de títulos, sem trocar a orientação.
+    const font=Math.min(g==='aula'?28:24,...labels.map(label=>arcLength(makeArc(label.side,S.R))/(label.name.length*.7+4)));
+    const distance=projeta(S.c,{}),radius=S.R+(font*.85+7)*distance/fatorTela();
+    for(const label of labels){
+      const arc=makeArc(label.side,radius);
+      const visible=font>=10 && arc.every(p=>p.depth<1) && arc.some(p=>p.sx>0&&p.sx<W&&p.sy>75&&p.sy<H-50);
+      label.text.style.display=visible?'':'none';if(!visible)continue;
+      label.path.setAttribute('d',arc.map((p,j)=>(j?'L':'M')+p.sx.toFixed(2)+','+p.sy.toFixed(2)).join(' '));
+      label.text.setAttribute('font-size',font.toFixed(1));
+      label.text.setAttribute('dominant-baseline','middle');label.text.removeAttribute('dy');
     }
-    let length=0;for(let j=1;j<arc.length;j++)length+=Math.hypot(arc[j].sx-arc[j-1].sx,arc[j].sy-arc[j-1].sy);
-    const font=Math.min(label.g==='aula'?28:24,length/(label.name.length*.7+4));
-    const visible=font>=10 && arc.every(p=>p.depth<1) && arc.some(p=>p.sx>0&&p.sx<W&&p.sy>75&&p.sy<H-50);
-    label.text.style.display=visible?'':'none';if(!visible)continue;
-    if(arc[0].sx>arc[arc.length-1].sx)arc.reverse();
-    label.path.setAttribute('d',arc.map((p,j)=>(j?'L':'M')+p.sx.toFixed(2)+','+p.sy.toFixed(2)).join(' '));
-    label.text.setAttribute('font-size',font.toFixed(1));label.text.setAttribute('dy','-10');
   }
 }
 
@@ -1277,11 +1289,12 @@ function atualizaTextoOrbital(n){
   const moonExtent=Math.max(n.raio,...n.itens.filter(o=>o.lua).map(o=>o.R+.3));
   const gapAngle=(moonExtent+.8)/n.orb.R;
   const firstAngle=planetAngle-direction*gapAngle;
+  const radius=n.orb.R+(font*.65+3)*projeta(n.pos,{})/fatorTela();
   const arc=[]; let length=0, previous=null;
   for(let j=0;j<=256;j++){
     const angle=firstAngle-direction*j*Math.PI/256;
     const p={};
-    projeta(V3(center.x+Math.cos(angle)*n.orb.R,0,center.z+Math.sin(angle)*n.orb.R),p);
+    projeta(V3(center.x+Math.cos(angle)*radius,0,center.z+Math.sin(angle)*radius),p);
     if(previous)length+=Math.hypot(p.sx-previous.sx,p.sy-previous.sy);
     arc.push(p); previous=p;
     if(length>=needed)break;
@@ -1289,11 +1302,9 @@ function atualizaTextoOrbital(n){
   const visible=length>=needed && arc.every(p=>p.depth<1 && p.sx>8 && p.sx<W-8 && p.sy>80 && p.sy<H-60);
   text.style.display=visible?'':'none';
   if(!visible)return;
-  // Inverte apenas o sentido da escrita para manter a leitura em pé.
-  const a=arc[0], b=arc[arc.length-1];
-  if(a.sx>b.sx || (Math.abs(a.sx-b.sx)<1 && a.sy>b.sy))arc.reverse();
+  // Orientação presa à órbita: aceita texto de cabeça para baixo durante o giro.
   path.setAttribute('d',arc.map((p,j)=>(j?'L':'M')+p.sx.toFixed(2)+','+p.sy.toFixed(2)).join(' '));
-  text.setAttribute('font-size',font); text.setAttribute('dy','-5');
+  text.setAttribute('font-size',font);text.setAttribute('dominant-baseline','middle');text.removeAttribute('dy');
 }
 
 function intersecta(a, b){ return a.x < b.x + b.w + 4 && a.x + a.w + 4 > b.x && a.y < b.y + b.h + 2 && a.y + a.h + 2 > b.y; }
@@ -1344,7 +1355,22 @@ function gira(dx, dy){
   qTmp.setFromAxisAngle(eixoTmp, ang); mundo.quaternion.premultiply(qTmp);
 }
 function interagiu(){ ocioso = 0; recentrando = false; }
+function limpaSelecao(){const selection=window.getSelection?.();if(selection?.rangeCount)selection.removeAllRanges();}
+function cancelaArraste(){
+  down=null;
+  for(const id of ptrs.keys())if(canvas.hasPointerCapture?.(id))canvas.releasePointerCapture(id);
+  ptrs.clear();pinca0=0;arrastou=false;
+  inercia.dx=inercia.dy=0;
+  canvas.classList.remove('arrastando');document.body.classList.remove('universe-dragging');
+}
 canvas.addEventListener('pointerdown', e => {
+  if(e.pointerType==='mouse'&&e.button!==0)return;
+  limpaSelecao();
+  if(e.pointerType==='mouse'||U.explorar){
+    e.preventDefault();
+    canvas.setPointerCapture?.(e.pointerId);
+    document.body.classList.add('universe-dragging');
+  }
   ptrs.set(e.pointerId, { x:e.clientX, y:e.clientY });
   inercia.dx = inercia.dy = 0; interagiu(); arrastou = false;
   if (ptrs.size === 1) down = { x:e.clientX, y:e.clientY, t:performance.now(), id:e.pointerId };
@@ -1361,12 +1387,19 @@ addEventListener('pointermove', e => {
 }, { passive:true });
 function solta(e){
   if (!ptrs.has(e.pointerId)) return; ptrs.delete(e.pointerId);
-  if (ptrs.size === 0) canvas.classList.remove('arrastando');
+  if (ptrs.size === 0){ canvas.classList.remove('arrastando');document.body.classList.remove('universe-dragging'); }
   if (down && down.id === e.pointerId && e.type === 'pointerup' && !arrastou && performance.now() - down.t < 450 && Math.hypot(e.clientX - down.x, e.clientY - down.y) < 7) clique(e.clientX, e.clientY);
   if (ptrs.size === 1){ down = null; inercia.dx = inercia.dy = 0; }
-  if (ptrs.size === 0) down = null;
+  if (ptrs.size === 0){down = null;limpaSelecao();}
+  if(canvas.hasPointerCapture?.(e.pointerId))canvas.releasePointerCapture(e.pointerId);
 }
 addEventListener('pointerup', solta); addEventListener('pointercancel', solta);
+canvas.addEventListener('lostpointercapture',solta);
+addEventListener('blur',cancelaArraste);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelaArraste();});
+canvas.addEventListener('dragstart',e=>e.preventDefault());
+camadaRot.addEventListener('dragstart',e=>e.preventDefault());
+addEventListener('keydown',e=>{if(e.key==='Escape'){limpaSelecao();cancelaArraste();}});
 // a rodinha só aproxima no modo explorar; fora dele, a página rola normalmente
 canvas.addEventListener('wheel', e => { if (!U.explorar) return; e.preventDefault(); zoom(Math.exp(THREE.MathUtils.clamp(e.deltaY, -120, 120) * .0016)); }, { passive:false });
 canvas.addEventListener('dblclick', () => { if (hover && hover.tipo === 'no') abre(hover.p.r.online); });
