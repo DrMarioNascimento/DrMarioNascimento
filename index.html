@@ -631,7 +631,7 @@ U.repos[5].total=4; U.repos[eticaCentral].total=2;
 (function(){
 'use strict';
 const U = window.U, $ = (s,r=document)=>r.querySelector(s), $$ = (s,r=document)=>[...r.querySelectorAll(s)];
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[c]));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm = s => String(s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
 const REDUZ = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const SETA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M8 7h9v9"/></svg>';
@@ -907,7 +907,7 @@ document.addEventListener('click', e => { const a = e.target.closest('[data-foco
 /* ===================== universo WebGL (base: versão do designer, integrada à página) ===================== */
 const U = window.U;
 const $ = s => document.querySelector(s);
-const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[c]));
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const MOBILE = matchMedia('(max-width:640px)').matches;
 const TOQUE = matchMedia('(pointer:coarse)').matches;
 const REDUZ = matchMedia('(prefers-reduced-motion: reduce)').matches;
