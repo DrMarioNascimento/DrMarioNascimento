@@ -1041,12 +1041,12 @@ mundo.quaternion.copy(qInicial);
 
 const RETRATO = innerHeight > innerWidth;
 // Sala de Aula e Dragon Games se sobrepõem numa faixa estreita: o Eita! fica dentro das duas fronteiras
-const RA = 14, RD = 29, RL = 9;
+const RA = 17, RD = 32, RL = 11;
 const SIS = {
-  aula:{c:V3(-22,0,-25),R:RA},
+  aula:{c:V3(-25,0,-30),R:RA},
   etica:{c:V3(20,0,-25),R:11},
-  dragon:{c:V3(-28,0,30),R:RD},
-  lab:{c:V3(24,0,25),R:RL}
+  dragon:{c:V3(-30,0,32),R:RD},
+  lab:{c:V3(27,0,27),R:RL}
 };
 { let mn = V3(1e9, 0, 1e9), mx = V3(-1e9, 0, -1e9);
   ORDEM.forEach(g => { const S = SIS[g]; mn.x = Math.min(mn.x, S.c.x - S.R); mn.z = Math.min(mn.z, S.c.z - S.R); mx.x = Math.max(mx.x, S.c.x + S.R); mx.z = Math.max(mx.z, S.c.z + S.R); });
@@ -1066,7 +1066,7 @@ function linha(a, b, cor, op){
 const sistemas = {};
 ORDEM.forEach(g => {
   const S = SIS[g], cor = new THREE.Color(centralDe(g).cor);
-  const fronteira = anel(S.R, cor, .55, true); fronteira.position.copy(S.c); plano.add(fronteira);
+  const fronteira = anel(S.R, cor, .34, true); fronteira.position.copy(S.c); plano.add(fronteira);
   const borda = []; for (let i = 0; i < 36; i++){ const a = i / 36 * Math.PI * 2; borda.push(V3(S.c.x + Math.cos(a) * S.R, 0, S.c.z + Math.sin(a) * S.R)); }
   sistemas[g] = { g, c:S.c, R:S.R, cor, corHex:centralDe(g).cor, borda };
 });
@@ -1082,11 +1082,50 @@ pulsos.frustumCulled = false; plano.add(pulsos);
 
 /* ---------- planetas ---------- */
 const planetaVS = `varying vec3 vN, vP, vW; void main(){ vN = normalize(mat3(modelMatrix) * normal); vP = position; vec4 w = modelMatrix * vec4(position, 1.); vW = w.xyz; gl_Position = projectionMatrix * viewMatrix * w; }`;
-const planetaFS = NOISE + `uniform vec3 uC; uniform float uT, uH, uSeed; varying vec3 vN, vP, vW;
+
+/* Máscara geográfica estilizada, local e sem downloads de texturas. */
+function criaMapaTerra(){
+  const cv=document.createElement('canvas'); cv.width=2048;cv.height=1024;
+  const ctx=cv.getContext('2d');ctx.fillStyle='#000';ctx.fillRect(0,0,cv.width,cv.height);
+  const continents=[
+    [[-168,71],[-145,70],[-130,58],[-125,49],[-124,40],[-117,32],[-110,29],[-105,23],[-97,16],[-88,16],[-83,10],[-78,8],[-80,24],[-81,30],[-75,35],[-66,45],[-57,52],[-65,60],[-82,63],[-96,73],[-115,72],[-135,69]],
+    [[-81,12],[-70,11],[-61,8],[-51,4],[-35,-6],[-39,-18],[-48,-28],[-54,-34],[-64,-55],[-71,-52],[-75,-40],[-72,-25],[-81,-5]],
+    [[-17,36],[-5,36],[10,37],[25,32],[33,31],[35,23],[43,12],[51,11],[43,-4],[40,-15],[32,-29],[19,-35],[12,-26],[9,-12],[1,5],[-9,5],[-17,15]],
+    [[-10,36],[-9,44],[-1,49],[6,54],[5,59],[18,71],[30,70],[31,60],[45,67],[65,70],[90,76],[115,73],[142,64],[170,65],[179,55],[161,51],[145,45],[140,36],[130,40],[122,30],[120,20],[109,10],[104,1],[99,8],[96,20],[89,22],[80,7],[73,20],[66,25],[56,25],[50,13],[43,13],[35,30],[25,40],[20,40],[16,45],[12,44],[10,39],[3,43]],
+    [[113,-22],[122,-17],[130,-12],[137,-12],[142,-10],[146,-19],[153,-26],[150,-37],[140,-39],[130,-32],[116,-35]],
+    [[-73,60],[-47,59],[-22,70],[-24,82],[-49,84],[-62,76]],
+    [[47,-13],[50,-17],[48,-25],[44,-25],[43,-19]],
+    [[130,31],[138,35],[142,43],[145,45],[141,35]],
+    [[166,-34],[179,-40],[173,-46],[167,-44]],
+    [[-180,-73],[-120,-70],[-60,-74],[0,-71],[60,-70],[120,-73],[180,-73],[180,-90],[-180,-90]]
+  ];
+  ctx.fillStyle='#fff';
+  for(const poly of continents){ctx.beginPath();poly.forEach(([lon,lat],i)=>{const x=(lon+180)/360*cv.width,y=(90-lat)/180*cv.height;i?ctx.lineTo(x,y):ctx.moveTo(x,y);});ctx.closePath();ctx.fill();}
+  const texture=new THREE.CanvasTexture(cv);
+  texture.wrapS=THREE.RepeatWrapping; texture.anisotropy=Math.min(4,renderer.capabilities.getMaxAnisotropy());
+  return texture;
+}
+const mapaTerra=criaMapaTerra();
+
+const planetaFS = NOISE + `uniform vec3 uC; uniform float uT, uH, uSeed, uEarth, uLongitude; uniform sampler2D uMap; varying vec3 vN, vP, vW;
   void main(){ vec3 p = normalize(vP) * 2.4 + uSeed;
     float n = fbm(p + vec3(uT * .05, 0., uT * .03)); float bands = sin(normalize(vP).y * 14. + n * 4. + uT * .2) * .5 + .5;
     vec3 escuro = uC * .13, claro = mix(uC, vec3(1.), .38);
     vec3 base = mix(escuro, claro, smoothstep(-.3, .7, n * .8 + bands * .4));
+    if(uEarth>.5){
+      vec3 q=normalize(vP);
+      vec2 uv=vec2(fract(atan(q.z,q.x)/6.2831853+.5+uLongitude),asin(clamp(q.y,-1.,1.))/3.14159265+.5);
+      float land=texture2D(uMap,uv).r;
+      float relief=fbm(q*15.+uSeed)*.5+.5;
+      vec3 ocean=mix(vec3(.012,.06,.17),vec3(.02,.28,.43),relief);
+      vec3 ground=mix(vec3(.12,.28,.09),vec3(.55,.43,.22),smoothstep(.28,.75,relief));
+      float desert=1.-smoothstep(.08,.28,abs(q.y-.35));
+      ground=mix(ground,vec3(.66,.51,.29),desert*.55);
+      base=mix(ocean,ground,land);
+      float ice=smoothstep(.87,.98,abs(q.y)); base=mix(base,vec3(.85,.94,.97),ice);
+      float clouds=smoothstep(.28,.66,fbm(q*7.+vec3(uT*.014,uSeed,0.)));
+      base=mix(base,vec3(.9,.95,1.),clouds*.5);
+    }
     vec3 N = normalize(vN); vec3 V = normalize(cameraPosition - vW); vec3 L = normalize(vec3(.35, .75, .6));
     float dif = .3 + .7 * max(dot(N, L), 0.); float fr = pow(1. - clamp(dot(N, V), 0., 1.), 2.6);
     vec3 col = base * mix(dif, 1.15, uH) + uC * fr * (.9 + uH * 1.5) + vec3(1.) * pow(fr, 6.) * .3;
@@ -1094,8 +1133,8 @@ const planetaFS = NOISE + `uniform vec3 uC; uniform float uT, uH, uSeed; varying
 const haloFS = `uniform vec3 uC; uniform float uH; varying vec3 vN, vP, vW;
   void main(){ vec3 V = normalize(cameraPosition - vW); float d = clamp(dot(normalize(vN), V), 0., 1.); float a = pow(1. - d, 3.) * (.5 + uH * 1.1); gl_FragColor = vec4(mix(uC, vec3(1.), .15) * 1.3, a); }`;
 const geoEsfera = new THREE.SphereGeometry(1, 48, 32), geoEsferaP = new THREE.SphereGeometry(1, 28, 20);
-function corpo(cor, raio, uH, seed){
-  const m = new THREE.Mesh(raio > .5 ? geoEsfera : geoEsferaP, new THREE.ShaderMaterial({ uniforms:{ uC:{value:cor}, uT:{value:0}, uH:{value:uH}, uSeed:{value:seed} }, vertexShader:planetaVS, fragmentShader:planetaFS }));
+function corpo(cor, raio, uH, seed, earth=false, longitude=0){
+  const m = new THREE.Mesh(raio > .5 ? geoEsfera : geoEsferaP, new THREE.ShaderMaterial({ uniforms:{ uC:{value:cor}, uT:{value:0}, uH:{value:uH}, uSeed:{value:seed}, uEarth:{value:earth?1:0}, uLongitude:{value:longitude}, uMap:{value:mapaTerra} }, vertexShader:planetaVS, fragmentShader:planetaFS }));
   m.scale.setScalar(raio);
   const halo = new THREE.Mesh(geoEsferaP, new THREE.ShaderMaterial({ uniforms:{ uC:{value:cor}, uH:{value:uH} }, vertexShader:planetaVS, fragmentShader:haloFS, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending }));
   halo.scale.setScalar(1.22); m.add(halo); plano.add(m); return m;
@@ -1106,7 +1145,9 @@ const nos = U.repos.map((r, k) => {
   const cor = new THREE.Color(r.cor), raio = centralDe(r.grupo) === r ? 2.2 : (r.grupo === 'dragon' ? .85 : .45 + Math.sqrt(r.total) * .17);
   const eita = !!r.grupos, central = !eita && centralDe(r.grupo) === r;
   const n = { r, k, cor, raio, eita, central, g:r.grupo, pos:V3(), itens:[], mesh:null, orb:null, sx:0, sy:0, sr:0, vis:false, depth:1 };
-  n.mesh = corpo(cor, raio, central ? 1 : eita ? .5 : .14, k * 3.7 + 1.3);
+  const longitudeById={'mosaico-card':-.5,'eita-quiz':-.1944,'casa-da-costa':0,'carro-forte':.125};
+  const longitude=longitudeById[r.id] ?? [-.5,-.1944,0,.125][k%4];
+  n.mesh = corpo(cor, raio, central ? 1 : .14, k * 3.7 + 1.3, !central, longitude);
   if (central) n.pos.copy(SIS[r.grupo].c);
   else if (eita) n.pos.copy(SIS[r.grupo].c);
   else { const R = ORB[r.grupo][usoOrb[r.grupo]++]; n.orb = { R, fase: r.grupo === 'dragon' ? (usoOrb[r.grupo]-1)*Math.PI/2 : Math.PI * 2 * (usoOrb[r.grupo] * .27 + .1), vel: (r.grupo === 'dragon' ? .035 : .028 + usoOrb[r.grupo] * .009) * (REDUZ ? 0 : 1) };
@@ -1154,14 +1195,18 @@ ORDEM.forEach(g => {
 nos.forEach(n => {
   const el = document.createElement('div'); el.className = n.orb ? 'rot orbital' : 'rot'; el.style.setProperty('--c', n.r.cor);
   el.innerHTML = `<b><span class="nm">${esc(n.r.nome)}</span><a class="ir" href="${n.r.online}" target="_blank" rel="noopener" aria-label="${esc(n.r.nome)}">↗</a></b><small class="${n.eita ? 'tag' : ''}"></small>`;
-  el.querySelector('.nm').addEventListener('click', () => focaNo(n));
+  el.setAttribute('role','button');el.tabIndex=0;el.setAttribute('aria-label',n.r.nome);
+  el.addEventListener('click',e=>{if(!e.target.closest('a'))focaNo(n);});
+  el.addEventListener('keydown',e=>{if(e.target===el&&(e.key==='Enter'||e.key===' ')){e.preventDefault();focaNo(n);}});
   el.addEventListener('pointerenter', () => el.classList.add('hover')); el.addEventListener('pointerleave', () => el.classList.remove('hover'));
   n.rot = criaRot(el, { tipo:'no', pri: n.central ? 1 : n.eita ? 2 : 3, n });
 });
 itens.filter(o => o.lua).forEach(o => {
   const el = document.createElement('div'); el.className = 'rot lua'; el.style.setProperty('--c', o.n.r.cor);
   el.innerHTML = `<b><span class="nm">${esc(o.nome)}</span><a class="ir" href="${o.it[3]}" target="_blank" rel="noopener" aria-label="${esc(o.nome)}">↗</a></b><small></small>`;
-  el.querySelector('.nm').addEventListener('click', () => abre(o.it[3]));
+  el.setAttribute('role','link');el.tabIndex=0;el.setAttribute('aria-label',o.nome);
+  el.addEventListener('click',e=>{if(!e.target.closest('a'))abre(o.it[3]);});
+  el.addEventListener('keydown',e=>{if(e.target===el&&(e.key==='Enter'||e.key===' ')){e.preventDefault();abre(o.it[3]);}});
   o.rot = criaRot(el, { tipo:'lua', pri:4, o });
 });
 function textos(){
@@ -1189,6 +1234,40 @@ nos.filter(n=>n.orb).forEach(n=>{
   text.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();focaNo(n);}});
   orbitSvg.append(path,text); n.arcLabel={path,text};
 });
+
+const boundaryLabels=[];
+const boundaryNames={
+  aula:['Sala de Aula','Fisiologia Interativa'],
+  dragon:['Dragon Games','Studio de Games (Start--)'],
+  etica:['Ética','Pesquisa'],
+  lab:['Lab-RA','Bancada de Testes']
+};
+ORDEM.forEach(g=>boundaryNames[g].forEach((name,side)=>{
+  const path=document.createElementNS(svgNS,'path'),text=document.createElementNS(svgNS,'text'),tp=document.createElementNS(svgNS,'textPath');
+  path.id='boundary-'+g+'-'+side;path.setAttribute('fill','none');path.setAttribute('stroke','none');
+  tp.setAttribute('href','#'+path.id);tp.setAttribute('startOffset','50%');tp.setAttribute('text-anchor','middle');tp.textContent=name;
+  text.appendChild(tp);text.setAttribute('fill',sistemas[g].corHex);text.setAttribute('role','button');text.setAttribute('tabindex','0');text.setAttribute('aria-label',name);
+  text.addEventListener('click',()=>focaSistema(g));
+  text.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();focaSistema(g);}});
+  orbitSvg.append(path,text);boundaryLabels.push({g,side,path,text,name});
+}));
+function atualizaBordas(){
+  for(const label of boundaryLabels){
+    const S=SIS[label.g],a0=-Math.PI/2+label.side*Math.PI,arc=[];
+    for(let j=0;j<=80;j++){
+      const a=a0-.7+j*1.4/80,p={};
+      projeta(V3(S.c.x+Math.cos(a)*S.R,0,S.c.z+Math.sin(a)*S.R),p);arc.push(p);
+    }
+    let length=0;for(let j=1;j<arc.length;j++)length+=Math.hypot(arc[j].sx-arc[j-1].sx,arc[j].sy-arc[j-1].sy);
+    const font=Math.min(15,length/(label.name.length*.7+4));
+    const visible=font>=10 && arc.every(p=>p.depth<1) && arc.some(p=>p.sx>0&&p.sx<W&&p.sy>75&&p.sy<H-50);
+    label.text.style.display=visible?'':'none';if(!visible)continue;
+    if(arc[0].sx>arc[arc.length-1].sx)arc.reverse();
+    label.path.setAttribute('d',arc.map((p,j)=>(j?'L':'M')+p.sx.toFixed(2)+','+p.sy.toFixed(2)).join(' '));
+    label.text.setAttribute('font-size',font.toFixed(1));label.text.setAttribute('dy','-7');
+  }
+}
+
 function atualizaTextoOrbital(n){
   const {path,text}=n.arcLabel, center=SIS[n.g].c;
   const font=12, needed=n.r.nome.length*font*.66+24;
@@ -1368,7 +1447,7 @@ function quadro(now){
   now = now || performance.now(); const dt = Math.max(0, Math.min((now - ultimo) / 1000, .05)); ultimo = Math.max(ultimo, now); t += dt; ocioso += dt;
   fpsN++; if (now - fpsT > 1000){ $('#hudFps').textContent = fpsN; fpsN = 0; fpsT = now; }
   const sp = U.scrollP || 0, heroP = Math.min(1, sp), exp = !!U.explorar;
-  nos.forEach(n => { if (n.orb){ const a = n.orb.fase + t * n.orb.vel; n.pos.set(SIS[n.g].c.x + Math.cos(a) * n.orb.R, 0, SIS[n.g].c.z + Math.sin(a) * n.orb.R); } n.mesh.position.copy(n.pos); n.mesh.material.uniforms.uT.value = t; n.mesh.rotation.y = t * .05; });
+  nos.forEach(n => { if (n.orb){ const a = n.orb.fase + t * n.orb.vel; n.pos.set(SIS[n.g].c.x + Math.cos(a) * n.orb.R, 0, SIS[n.g].c.z + Math.sin(a) * n.orb.R); } n.mesh.position.copy(n.pos); n.mesh.material.uniforms.uT.value = t; n.mesh.rotation.y = t * (n.central ? .05 : .012); });
   itens.forEach((o, i) => { const a = o.fase + t * o.vel; const x = Math.cos(a) * o.R, s = Math.sin(a) * o.R;
     o.pos.set(o.n.pos.x + x, s * Math.sin(o.incl), o.n.pos.z + s * Math.cos(o.incl));
     if (o.orbita) o.orbita.position.copy(o.n.pos);
@@ -1414,6 +1493,7 @@ function quadro(now){
     for (const b of S.borda){ projeta(b, pb); if (pb.depth < 1){ vis++; cx += pb.sx; minY = Math.min(minY, pb.sy); } }
     const L = S.rot; L.vis = false; // o nome principal acompanha o astro central; evita duplicação na fronteira
      if (L.vis){ L.x = cx / vis; L.y = Math.max(78, minY - 8); L.depth = .5; } });
+  atualizaBordas();
   colocaRotulos();
   $('#hudCam').textContent = `x ${camera.position.x.toFixed(1)} · y ${camera.position.y.toFixed(1)} · z ${camera.position.z.toFixed(1)}`;
   renderer.setRenderTarget(rtCena); renderer.render(scene, camera);
