@@ -1190,23 +1190,29 @@ nos.filter(n=>n.orb).forEach(n=>{
   orbitSvg.append(path,text); n.arcLabel={path,text};
 });
 function atualizaTextoOrbital(n){
-  const {path,text}=n.arcLabel, pts=[], count=128, center=SIS[n.g].c;
-  let top=0;
-  for(let j=0;j<count;j++){
-    const a=j/count*Math.PI*2;
-    const p={}; projeta(V3(center.x+Math.cos(a)*n.orb.R,0,center.z+Math.sin(a)*n.orb.R),p);
-    pts.push(p); if(p.sy<pts[top].sy)top=j;
-  }
+  const {path,text}=n.arcLabel, center=SIS[n.g].c;
   const font=12, needed=n.r.nome.length*font*.66+24;
-  const at=i=>pts[(i+count*2)%count];
-  let start=top,end=top,back=0,front=0;
-  while(back<needed/2 && top-start<count/3){const p=at(start),q=at(start-1);back+=Math.hypot(p.sx-q.sx,p.sy-q.sy);start--;}
-  while(front<needed/2 && end-top<count/3){const p=at(end),q=at(end+1);front+=Math.hypot(p.sx-q.sx,p.sy-q.sy);end++;}
-  let arc=[];for(let j=start;j<=end;j++)arc.push(at(j));
-  const visible=back+front>=needed && arc.every(p=>p.depth<1 && p.sx>8 && p.sx<W-8 && p.sy>80 && p.sy<H-60);
+  const direction=Math.sign(n.orb.vel)||1;
+  const planetAngle=n.orb.fase+t*n.orb.vel;
+  // O texto segue atrás do planeta, depois do espaço ocupado pelas luas.
+  const moonExtent=Math.max(n.raio,...n.itens.filter(o=>o.lua).map(o=>o.R+.3));
+  const gapAngle=(moonExtent+.8)/n.orb.R;
+  const firstAngle=planetAngle-direction*gapAngle;
+  const arc=[]; let length=0, previous=null;
+  for(let j=0;j<=256;j++){
+    const angle=firstAngle-direction*j*Math.PI/256;
+    const p={};
+    projeta(V3(center.x+Math.cos(angle)*n.orb.R,0,center.z+Math.sin(angle)*n.orb.R),p);
+    if(previous)length+=Math.hypot(p.sx-previous.sx,p.sy-previous.sy);
+    arc.push(p); previous=p;
+    if(length>=needed)break;
+  }
+  const visible=length>=needed && arc.every(p=>p.depth<1 && p.sx>8 && p.sx<W-8 && p.sy>80 && p.sy<H-60);
   text.style.display=visible?'':'none';
   if(!visible)return;
-  if(arc[0].sx>arc[arc.length-1].sx)arc.reverse();
+  // Inverte apenas o sentido da escrita para manter a leitura em pé.
+  const a=arc[0], b=arc[arc.length-1];
+  if(a.sx>b.sx || (Math.abs(a.sx-b.sx)<1 && a.sy>b.sy))arc.reverse();
   path.setAttribute('d',arc.map((p,j)=>(j?'L':'M')+p.sx.toFixed(2)+','+p.sy.toFixed(2)).join(' '));
   text.setAttribute('font-size',font); text.setAttribute('dy','-5');
 }
