@@ -11,3 +11,9 @@ Componentes de terceiros conservam seus autores e instrumentos próprios. A visi
 Identificação e contato: [DrMarioNascimento](https://github.com/DrMarioNascimento).
 
 Revisão documental: 10 de outubro de 2026.
+
+## Endereço de apresentação — 14 de outubro de 2026
+
+O portal de apresentação usa o endereço abaixo. O estágio de acesso e as condições de cada projeto continuam definidos nos respectivos repositórios.
+
+https://www.drmarionascimento.com.br/
