@@ -34,7 +34,7 @@ window.U = {
     { id:'mosaico-card', nome:'Mosaico Card', cor:'#f1c863', grupo:'dragon', pai:5, total:1,
       area:{pt:'Jogo de cartas investigativo',en:'Investigative card game'},
       lema:{pt:'Cartas, pistas e dedução.',en:'Cards, clues and deduction.'},
-      desc:{pt:'Mercado de Pistas: casos do Novo Testamento em um jogo de cartas e dedução.',en:'Clue Market: New Testament cases in a card-and-deduction game.'},
+      desc:{pt:'Mercado de Pistas: casos da Bíblia e de Cinema & Séries em um jogo de cartas e dedução.',en:'Clue Market: Bible and Film & TV cases in a card-and-deduction game.'},
       online:'https://mosaico-card.dragongames.dev.br/', github:'https://github.com/DrMarioNascimento/Mosaico-Card', capa:'https://mosaico-card.dragongames.dev.br/assets/abertura/peca-dourada-frontal-v2.png' },
     { id:'lab-ra', nome:'Lab RA', cor:'#4ea9ff', grupo:'lab', total:13,
       area:{pt:'Realidade aumentada e técnicas em teste',en:'Augmented reality & techniques under test'},
