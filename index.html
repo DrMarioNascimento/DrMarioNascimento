@@ -1245,7 +1245,7 @@ itens.filter(o => o.lua).forEach(o => {
 });
 function textos(){
   ORDEM.forEach(g => sistemas[g].rot.el.textContent = T_(U.grupos[g]));
-  nos.forEach(n => n.rot.el.querySelector('small').textContent = n.central && n.g === 'etica' ? L_('Sala de Aula', 'Classroom') : linha2(n.r));
+  nos.forEach(n => n.rot.el.querySelector('small').textContent = linha2(n.r));
   itens.filter(o => o.lua).forEach(o => o.rot.el.querySelector('small').textContent = '');
   rotulos.forEach(L => L.el.querySelectorAll('a.ir').forEach(a => a.title = L_('Abrir direto', 'Open directly')));
   mede();
@@ -1553,7 +1553,7 @@ function quadro(now){
   const ft = fatorTela();
   nos.forEach(n => {
     const dc = projeta(n.pos, n); n.sr = n.raio / dc * ft;
-    const L = n.rot; L.vis = (!n.central || n.g === 'etica') && n.vis && n.sr > 1.5;
+    const L = n.rot; L.vis = !n.central && n.vis && n.sr > 1.5;
     L.x = n.sx; L.y = n.sy; L.off = n.sr * 1.2 + 8; L.depth = n.depth; L.anchors = null;
     if(n.orb){ L.vis=false; atualizaTextoOrbital(n); }
   });
