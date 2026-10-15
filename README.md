@@ -49,13 +49,13 @@ A presença nesta lista não altera o estágio de acesso indicado acima para os 
 | | Projeto · Project | O que é · What it is |
 |---|---|---|
 | 🫀 | [**Fisiologia Interativa**](https://fisiologia.drmarionascimento.com.br/) | Simuladores de fisiologia humana · Human physiology simulators |
-| 🔐 | [**Fisiologia em Fuga**](https://drmarionascimento.github.io/fisiologia-em-fuga/) | Escape rooms por unidade · Unit-by-unit escape rooms |
+| 🔐 | [**Fisiologia em Fuga**](https://fisiologia-em-fuga.drmarionascimento.com.br/) | Escape rooms por unidade · Unit-by-unit escape rooms |
 | ⏱️ | [**Atividades Extras**](https://atividades-extras.drmarionascimento.com.br/) | Operações de sala em equipe · Team classroom operations |
 | ⚖️ | [**Ética Interativa**](https://etica.drmarionascimento.com.br/) | Ética por cenários de decisão · Ethics through decisions |
-| 🔬 | [**Laboratório do Pesquisador**](https://drmarionascimento.github.io/Learning-lab/) | Metodologia de pesquisa, mobile-first · Research methods labs |
+| 🔬 | [**Laboratório do Pesquisador**](https://laboratorio-de-pesquisa.drmarionascimento.com.br/) | Metodologia de pesquisa, mobile-first · Research methods labs |
 | 🐉 | [**Dragon Games**](https://dragongames.dev.br/) | Jogos de dedução e investigação · Deduction & investigation games |
 | 🃏 | [**Mosaico Card**](https://mosaico-card.dragongames.dev.br/) | Novo Testamento e Filmes e Séries · New Testament and Movies & Series |
-| 🥽 | [**Lab RA**](https://drmarionascimento.github.io/lab-ra/) | Realidade aumentada no navegador · Browser-based AR |
+| 🥽 | [**Lab RA**](https://lab-ra.dragongames.dev.br/) | Realidade aumentada no navegador · Browser-based AR |
 | ⚔️ | [**Eita!**](https://eita.dragongames.dev.br/) | Quiz-batalha de sala · Classroom boss-battle quiz (repositório privado) |
 | 🥗 | [**NutriCiclos — sistema**](https://github.com/DrMarioNascimento/NutriCiclosSistemas) | Código do sistema de consultório · Clinic application source |
 | 🥗 | [**NutriCiclos — manual**](https://github.com/DrMarioNascimento/NutriCiclos-manual) | Manual em PDF · PDF clinic manual |
@@ -64,7 +64,7 @@ A presença nesta lista não altera o estágio de acesso indicado acima para os 
 ## Ética e Pesquisa: acessos
 
 - [Ética Interativa](https://etica.drmarionascimento.com.br/)
-- [Laboratório do Pesquisador](https://drmarionascimento.github.io/Learning-lab/)
+- [Laboratório do Pesquisador](https://laboratorio-de-pesquisa.drmarionascimento.com.br/)
 - [Fisiologia Interativa](https://fisiologia.drmarionascimento.com.br/)
 
 ## Autoria e condições de uso
