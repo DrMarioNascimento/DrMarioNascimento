@@ -26,6 +26,11 @@ Explore os projetos disponíveis e acompanhe as novidades sobre os jogos e exper
 
 **Prof. Mário César Nascimento. PhD ©**
 
+## Acessos oficiais de Fisiologia
+
+- **Educação Física (EF):** https://fisiologia.drmarionascimento.com.br/
+- **Fisioterapia:** https://fisiologia.drmarionascimento.com.br/fisioterapia/
+
 ## Endereços oficiais
 
 | Projeto | Endereço |
@@ -43,7 +48,7 @@ A presença nesta lista não altera o estágio de acesso indicado acima para os 
 
 | | Projeto · Project | O que é · What it is |
 |---|---|---|
-| 🫀 | [**Fisiologia Interativa**](https://drmarionascimento.github.io/fisiologia-interativa/) | Simuladores de fisiologia humana · Human physiology simulators |
+| 🫀 | [**Fisiologia Interativa**](https://fisiologia.drmarionascimento.com.br/) | Simuladores de fisiologia humana · Human physiology simulators |
 | 🔐 | [**Fisiologia em Fuga**](https://drmarionascimento.github.io/fisiologia-em-fuga/) | Escape rooms por unidade · Unit-by-unit escape rooms |
 | ⏱️ | [**Atividades Extras**](https://drmarionascimento.github.io/Atividades-Extras/) | Operações de sala em equipe · Team classroom operations |
 | ⚖️ | [**Ética Interativa**](https://drmarionascimento.github.io/Etica/) | Ética por cenários de decisão · Ethics through decisions |
@@ -60,7 +65,7 @@ A presença nesta lista não altera o estágio de acesso indicado acima para os 
 
 - [Ética Interativa](https://drmarionascimento.github.io/Etica/)
 - [Laboratório do Pesquisador](https://drmarionascimento.github.io/Learning-lab/)
-- [Fisiologia Interativa](https://drmarionascimento.github.io/fisiologia-interativa/)
+- [Fisiologia Interativa](https://fisiologia.drmarionascimento.com.br/)
 
 ## Autoria e condições de uso
 
