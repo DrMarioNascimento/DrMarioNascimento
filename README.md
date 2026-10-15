@@ -1,28 +1,45 @@
-<a href="https://drmarionascimento.github.io/DrMarioNascimento/">
-  <img src="./banner.svg" alt="Prof. Mário César Nascimento, PhD — entrar no universo interativo" width="100%">
-</a>
+<a href="https://www.drmarionascimento.com.br/"><img src="./banner.svg" alt="Prof. Mário César Nascimento, PhD — universo interativo" width="100%"></a>
 
-<p align="center">
-  <a href="https://drmarionascimento.github.io/DrMarioNascimento/"><b>🪐 Entrar no universo interativo · Enter the interactive universe →</b></a>
-</p>
+# Projetos educacionais e experiências interativas
 
----
+Este espaço reúne projetos educacionais, simuladores e experiências interativas desenvolvidos pelo **Prof. Mário César Nascimento, PhD**, para tornar a aprendizagem mais visual, prática e envolvente por meio de recursos digitais.
 
-### 🇧🇷 Olá, eu sou o Prof. Mário César Nascimento, PhD
+Além da minha atuação como professor universitário, estudo **Game Design e desenvolvimento de jogos**. Os projetos apresentados aqui refletem esse percurso de formação e experimentação, unindo educação, interatividade e criação de experiências digitais.
 
-Professor universitário de **Fisiologia** (Educação Física e Fisioterapia), **Ética** e **formação em pesquisa acadêmica**. Uso código para transformar conteúdos difíceis em experiências que o aluno pode explorar, testar e errar com segurança.
+**Fisiologia Interativa — aberta ao público**
 
-**Rigor científico primeiro, didática a serviço dele.** Nas horas livres (e no futuro), crio jogos de dedução e investigação no **Dragon Games**.
+As páginas e os simuladores de Fisiologia estão disponíveis gratuitamente ao público. Os recursos são voltados especialmente a estudantes, professores, profissionais da saúde e demais pessoas interessadas em compreender o funcionamento do corpo humano.
 
-### 🇺🇸 Hi, I'm Prof. Mário César Nascimento, PhD
+Os recursos têm finalidade exclusivamente educacional. Por meio de visualizações, simulações e atividades interativas, ajudam a compreender mecanismos fisiológicos e são aprimorados continuamente. Não substituem diagnóstico, prescrição nem orientação clínica individual.
 
-University professor of **Physiology** (Physical Education and Physiotherapy), **Ethics** and **research training**. I write code to turn hard concepts into experiences students can explore, test and get wrong safely.
+**Ética e Pesquisa — aberta ao público**
 
-**Scientific rigor first, teaching in its service.** On the side (and, I hope, the future), I design deduction and investigation games at **Dragon Games**.
+Esta linha reúne materiais e atividades interativas para apoiar o ensino de Ética e Metodologia da Pesquisa. Por meio de situações-problema, reflexão crítica e discussão, os recursos estimulam a construção do conhecimento.
 
----
+**Jogos e experiências — em desenvolvimento e testes**
 
-**Inventário em 10 de outubro de 2026.** Doze repositórios: onze públicos e um privado (Eita!). As licenças são de uso restrito ou proprietárias: repositório público não é código aberto. A demo no GitHub Pages não autoriza cópia, adaptação nem uso comercial por terceiros.
+Os jogos estão em diferentes etapas de desenvolvimento, teste e aperfeiçoamento e ainda não foram lançados ao público. Nesta fase, os testes são realizados internamente, sem participação externa.
+
+Enquanto os jogos estiverem em desenvolvimento, regras, interfaces e funcionalidades poderão mudar. Algumas páginas poderão apresentar demonstrações do projeto, mas isso não significa que os jogos estejam disponíveis para participação do público.
+
+Explore os projetos disponíveis e acompanhe as novidades sobre os jogos e experiências em desenvolvimento.
+
+**Prof. Mário César Nascimento. PhD ©**
+
+## Endereços oficiais
+
+| Projeto | Endereço |
+|---|---|
+| Portal do Prof. Mário | https://www.drmarionascimento.com.br/ |
+| Dragon Games | https://dragongames.dev.br/ |
+| Mosaico Card | https://mosaico-card.dragongames.dev.br/ |
+| A Casa da Costa | https://casa-da-costa.dragongames.dev.br/ |
+| A Manhã do Carro-Forte | https://carro-forte.dragongames.dev.br/ |
+| O Eco do Amanhã | https://eco-do-amanha.dragongames.dev.br/ |
+
+## Projetos do portfólio
+
+A presença nesta lista não altera o estágio de acesso indicado acima para os jogos.
 
 | | Projeto · Project | O que é · What it is |
 |---|---|---|
@@ -31,28 +48,22 @@ University professor of **Physiology** (Physical Education and Physiotherapy), *
 | ⏱️ | [**Atividades Extras**](https://drmarionascimento.github.io/Atividades-Extras/) | Operações de sala em equipe · Team classroom operations |
 | ⚖️ | [**Ética Interativa**](https://drmarionascimento.github.io/Etica/) | Ética por cenários de decisão · Ethics through decisions |
 | 🔬 | [**Laboratório do Pesquisador**](https://drmarionascimento.github.io/Learning-lab/) | Metodologia de pesquisa, mobile-first · Research methods labs |
-| 🐉 | [**Dragon Games**](https://drmarionascimento.github.io/Dragon/) | Jogos de dedução e investigação · Deduction & investigation games |
-| 🃏 | [**Mosaico Card**](https://drmarionascimento.github.io/Mosaico-Card/) | Versão bíblica: pistas do Novo Testamento · Biblical edition: New Testament clues |
+| 🐉 | [**Dragon Games**](https://dragongames.dev.br/) | Jogos de dedução e investigação · Deduction & investigation games |
+| 🃏 | [**Mosaico Card**](https://mosaico-card.dragongames.dev.br/) | Versão bíblica: pistas do Novo Testamento · Biblical edition: New Testament clues |
 | 🥽 | [**Lab RA**](https://drmarionascimento.github.io/lab-ra/) | Realidade aumentada no navegador · Browser-based AR |
 | ⚔️ | [**Eita!**](https://eita-quiz.web.app/) | Quiz-batalha de sala · Classroom boss-battle quiz (repositório privado) |
 | 🥗 | [**NutriCiclos — sistema**](https://github.com/DrMarioNascimento/NutriCiclosSistemas) | Código do sistema de consultório · Clinic application source |
 | 🥗 | [**NutriCiclos — manual**](https://github.com/DrMarioNascimento/NutriCiclos-manual) | Manual em PDF · PDF clinic manual |
 
-<sub>HTML · CSS · JavaScript · SVG · WebGL — pensado para rodar no celular do aluno · built to run on a student's phone.</sub>
 
-Página deste perfil: [drmarionascimento.github.io/DrMarioNascimento](https://drmarionascimento.github.io/DrMarioNascimento/). O visual da página é de demonstração. Todos os direitos reservados ao autor.
+## Ética e Pesquisa: acessos
 
-## Estado do portfólio e direitos
+- [Ética Interativa](https://drmarionascimento.github.io/Etica/)
+- [Laboratório do Pesquisador](https://drmarionascimento.github.io/Learning-lab/)
+- [Fisiologia Interativa](https://drmarionascimento.github.io/fisiologia-interativa/)
 
-Fisiologia Interativa inclui Célula viva e tutores com IA opcional nos percursos de Educação Física e Fisioterapia. As condições de cada projeto estão no respectivo repositório. A autoria conjunta de Dragon/MOSAICO, Mosaico Card e NutriCiclos permanece identificada nos seus arquivos de licença; este perfil não reúne todos os direitos desses projetos sob uma autoria única.
+## Autoria e condições de uso
 
-O aviso deste repositório está em [LICENSE.md](LICENSE.md). Repositórios públicos permitem consulta e os recursos previstos pelos termos do GitHub; exploração comercial e outros usos seguem os instrumentos de cada projeto.
+O texto de apresentação descreve o percurso do professor e não substitui os créditos de cada obra. Dragon/MOSAICO e Mosaico Card preservam a autoria conjunta de **Mário César Nascimento e Osana Melo Nascimento**. Componentes de terceiros conservam seus créditos e licenças.
 
-## Acessos da Dragon Games
-
-O [catálogo Dragon Games](https://drmarionascimento.github.io/Dragon/) apresenta
-as histórias do MOSAICO, Mosaico Card na versão bíblica e Eita!. Mosaico Card e
-Eita! mantêm seus sites e repositórios próprios. Os acessos diretos e imagens do
-Dragon no portal usam agora `Dragon/jogos/<história>/<versão>/`; os endereços antigos
-continuam disponíveis como compatibilidade. O visual e a disposição do portal
-não foram alterados por esta atualização dos links.
+Acesso público aos materiais educacionais não equivale a licença aberta de reutilização. Consulte [LICENSE.md](LICENSE.md) e as condições específicas de cada repositório.
