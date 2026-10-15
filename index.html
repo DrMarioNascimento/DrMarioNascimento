@@ -212,7 +212,7 @@ main{position:relative;z-index:5}
 .manifesto .w.s{font-family:var(--f-serif);font-style:italic;font-weight:400}
 
 /* frentes holográficas */
-.frentes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;perspective:1400px}
+.frentes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;perspective:1400px}
 .holo{--rx:0deg;--ry:0deg;--mx:50%;--my:50%;position:relative;border-radius:28px;padding:1px;background:conic-gradient(from var(--ang),color-mix(in oklab,var(--c) 80%,transparent),transparent 25%,transparent 50%,color-mix(in oklab,var(--c) 60%,transparent) 75%,transparent);animation:gira 8s linear infinite;transform:rotateX(var(--rx)) rotateY(var(--ry));transform-style:preserve-3d;transition:transform .5s var(--ease)}
 .holo-in{position:relative;height:100%;border-radius:27px;padding:28px;background:radial-gradient(500px 300px at var(--mx) var(--my),color-mix(in oklab,var(--c) 20%,transparent),transparent 60%),linear-gradient(180deg,rgba(14,19,28,.9),rgba(6,9,14,.92));overflow:hidden;isolation:isolate}
 .holo-in::after{content:"";position:absolute;inset:0;z-index:-1;opacity:.5;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.07) 45%,transparent 55%);background-size:250% 100%;background-position:calc(var(--mx) * -1.5) 0;mix-blend-mode:screen}
@@ -597,7 +597,7 @@ window.U = {
 (function(){ const U=window.U;
 /* Organização por família de experiências, independente do repositório. */
 U.grupos.aula = {pt:'Fisiologia Interativa',en:'Interactive Physiology',sub:{pt:'Simuladores, tutores, atividades e salas de escape de fisiologia.',en:'Physiology simulators, tutors, activities and escape rooms.'}};
-U.grupos.etica = {pt:'Ética e Pesquisa',en:'Ethics & Research',sub:{pt:'Ética, investigação e formação em pesquisa.',en:'Ethics, investigation and research training.'}};
+U.grupos.etica = {pt:'Ética e Pesquisa',en:'Ethics & Research',sub:{pt:'Recursos de Ética e Metodologia da Pesquisa para sala de aula.',en:'Ethics and Research Methodology resources for the classroom.'}};
 U.grupos.lab = {pt:'Lab-RA',en:'AR Lab',sub:U.grupos.lab.sub};
 U.repos[1].pai = 0; U.repos[2].pai = 0;
 const eticaCentral = U.repos.length;
@@ -698,7 +698,7 @@ function renderDinamico(){
       filhos.forEach(f => html += linhaF(f, 1));
     });
     aliancas.forEach(x => html += linhaF(no(x.r, x.i, g), 0));
-    return `<article class="holo rv" style="--c:${rs[0].r.cor};--d:${k*.1}s"><div class="holo-in"><span class="n">${tot}</span><span class="mono">${['I','II','III'][k]} · ${esc(t(U.grupos[g]))}</span>
+    return `<article class="holo rv" style="--c:${rs[0].r.cor};--d:${k*.1}s"><div class="holo-in"><span class="n">${tot}</span><span class="mono">${['I','II','III','IV'][k]} · ${esc(t(U.grupos[g]))}</span>
       <h3>${esc(t(U.grupos[g]))}</h3><p>${esc(t(U.grupos[g].sub))}</p><ul>${html}</ul></div></article>`;
   }).join('');
   // bento
@@ -1242,7 +1242,7 @@ const boundaryLabels=[];
 const boundaryNames={
   aula:['Fisiologia Interativa','Sala de Aula'],
   dragon:['Dragon Games','Studio de Games (Start--)'],
-  etica:['Ética','Pesquisa'],
+  etica:['Ética e Pesquisa','Sala de Aula'],
   lab:['Lab-RA','Bancada de Testes']
 };
 ORDEM.forEach(g=>boundaryNames[g].forEach((name,side)=>{
