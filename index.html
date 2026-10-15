@@ -1105,9 +1105,10 @@ ORDEM.forEach(g => {
   sistemas[g] = { g, c:S.c, R:S.R, cor, corHex:centralDe(g).cor, borda, fronteira };
 });
 const corLab = new THREE.Color('#4ea9ff');
-const ligLab = [[SIS.lab.c, SIS.aula.c], [SIS.lab.c, SIS.dragon.c]];
+// Ligações entre sistemas: Lab-RA mantém suas duas conexões; Ética e Pesquisa liga-se à Fisiologia.
+const ligLab = [[SIS.lab.c, SIS.aula.c], [SIS.lab.c, SIS.dragon.c], [SIS.etica.c, SIS.aula.c]];
 ligLab.forEach(([a, b]) => plano.add(linha(a, b, corLab, .4)));
-const NP = 6, pulsoPos = new Float32Array(NP * 3), pulsoA = new Float32Array(NP);
+const NP = ligLab.length * 3, pulsoPos = new Float32Array(NP * 3), pulsoA = new Float32Array(NP);
 const pulsoG = new THREE.BufferGeometry(); pulsoG.setAttribute('position', new THREE.BufferAttribute(pulsoPos, 3)); pulsoG.setAttribute('aA', new THREE.BufferAttribute(pulsoA, 1));
 const pulsos = new THREE.Points(pulsoG, new THREE.ShaderMaterial({ transparent:true, depthWrite:false, blending:THREE.AdditiveBlending, uniforms:{ uPx:{value:PR}, uC:{value:corLab} },
   vertexShader:`attribute float aA; uniform float uPx; varying float vA; void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.); vA = aA; gl_PointSize = 7. * uPx * clamp(60. / -mv.z, .4, 3.); gl_Position = projectionMatrix * mv; }`,
@@ -1521,7 +1522,7 @@ function quadro(now){
     if (o.orbita) o.orbita.position.copy(o.n.pos);
     if (o.mesh){ o.mesh.position.copy(o.pos); o.mesh.material.uniforms.uT.value = t; o.mesh.rotation.y = t * .3; } else itPos.set([o.pos.x, o.pos.y, o.pos.z], i * 3); });
   itG.attributes.position.needsUpdate = true;
-  for (let p = 0; p < NP; p++){ const [a, b] = ligLab[p % 2]; const f = ((t * .14 + p * .37) % 1); tmp2.lerpVectors(a, b, f); pulsoPos.set([tmp2.x, tmp2.y, tmp2.z], p * 3); pulsoA[p] = Math.sin(f * Math.PI); }
+  for (let p = 0; p < NP; p++){ const [a, b] = ligLab[p % ligLab.length]; const f = ((t * .14 + p * .37) % 1); tmp2.lerpVectors(a, b, f); pulsoPos.set([tmp2.x, tmp2.y, tmp2.z], p * 3); pulsoA[p] = Math.sin(f * Math.PI); }
   pulsoG.attributes.position.needsUpdate = true; pulsoG.attributes.aA.needsUpdate = true;
   nebula.material.uniforms.uT.value = t; itPontos.material.uniforms.uT.value = t; ceus.forEach(c => { c.material.uniforms.uT.value = t; c.rotation.y = t * .003; });
   if (ptrs.size === 0 && !REDUZ){
