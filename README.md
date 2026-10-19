@@ -2,6 +2,10 @@
 
 # Projetos educacionais e experiências interativas
 
+## Situação atual — 19 de outubro de 2026
+
+O portal [drmarionascimento.com.br](https://drmarionascimento.com.br/) apresenta os recursos educacionais e os projetos em desenvolvimento. O texto de apresentação acompanha a rolagem. A seção Novidades consulta commits dos projetos e dispõe de histórico salvo quando a consulta não responde; as datas representam atividade dos repositórios, não testes funcionais de todos os recursos.
+
 Este espaço reúne projetos educacionais, simuladores e experiências interativas desenvolvidos pelo **Prof. Mário César Nascimento, PhD**, para tornar a aprendizagem mais visual, prática e envolvente por meio de recursos digitais.
 
 Além da minha atuação como professor universitário, estudo **Game Design e desenvolvimento de jogos**. Os projetos apresentados aqui refletem esse percurso de formação e experimentação, unindo educação, interatividade e criação de experiências digitais.
@@ -56,7 +60,7 @@ A presença nesta lista não altera o estágio de acesso indicado acima para os 
 | 🐉 | [**Dragon Games**](https://dragongames.dev.br/) | Jogos de dedução e investigação · Deduction & investigation games |
 | 🃏 | [**Mosaico Card**](https://mosaico-card.dragongames.dev.br/) | Novo Testamento e Filmes e Séries · New Testament and Movies & Series |
 | 🥽 | [**Lab RA**](https://lab-ra.dragongames.dev.br/) | Realidade aumentada no navegador · Browser-based AR |
-| ⚔️ | [**Eita!**](https://eita.dragongames.dev.br/) | Quiz-batalha de sala · Classroom boss-battle quiz (repositório privado) |
+| ⚔️ | [**Eita!**](https://eita.dragongames.dev.br/) | Quiz-batalha de sala · Classroom boss-battle quiz (em testes internos) |
 | 🥗 | [**NutriCiclos — sistema**](https://github.com/DrMarioNascimento/NutriCiclosSistemas) | Código do sistema de consultório · Clinic application source |
 | 🥗 | [**NutriCiclos — manual**](https://github.com/DrMarioNascimento/NutriCiclos-manual) | Manual em PDF · PDF clinic manual |
 
