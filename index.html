@@ -204,10 +204,10 @@ main{position:relative;z-index:5}
 .rv.vis{opacity:1;transform:none;filter:none}
 
 /* manifesto */
-.manifesto{height:auto;position:relative}
-.manifesto .palco{position:relative;min-height:100vh;min-height:100svh;display:grid;place-items:center;padding:96px var(--gut) 32px}
-.manifesto p{margin:0;max-width:20ch;font-family:var(--f-disp);font-weight:500;font-size:clamp(1.55rem,min(5.6vw,7svh),5.4rem);line-height:1.02;letter-spacing:-.04em}
-.manifesto .w{opacity:.1;transition:opacity .3s,color .3s,text-shadow .3s}
+.manifesto{position:relative;height:260vh;z-index:1}
+.manifesto .palco{position:sticky;top:0;height:100vh;height:100svh;display:grid;place-items:center;padding:88px var(--gut) 24px}
+.manifesto p{margin:0;max-width:22ch;font-family:var(--f-disp);font-weight:500;font-size:clamp(1.55rem,min(5.4vw,7svh),5.2rem);line-height:1.02;letter-spacing:-.035em;text-align:left}
+.manifesto .w{opacity:.12;transition:opacity .35s,color .35s,text-shadow .35s}
 .manifesto .w.on{opacity:1}
 .manifesto .w.n.on{color:var(--acc);text-shadow:0 0 40px color-mix(in oklab,var(--acc) 60%,transparent)}
 .manifesto .w.s{font-family:var(--f-serif);font-style:italic;font-weight:400}
@@ -361,7 +361,7 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
   .cantos{inset:74px 12px 60px}
   .rot b{font-size:.8rem}.rot small{font-size:.52rem}.rot small.tag{font-size:.8rem}
   .rot-sis{font-size:.6rem;letter-spacing:.26em}
-  .manifesto{height:auto}
+  .manifesto{height:200vh}
   .tile{grid-column:span 12;min-height:0}
   .principios{grid-template-columns:1fr}
   .painel{top:auto;bottom:12px;right:12px;left:12px;width:auto;max-height:62vh;border-radius:22px;transform:translateY(30px)}
@@ -810,16 +810,14 @@ function ligaMundos(){ $$('.mundo').forEach(m => {
   m.addEventListener('pointerleave', () => { m.style.setProperty('--ry','0deg'); m.style.setProperty('--rx','0deg'); });
 }); }
 
-/* ---------- manifesto: revela ao entrar na tela, sem exigir rolagem adicional ---------- */
+/* ---------- manifesto: mesmo progresso por rolagem do catálogo local ---------- */
 function manifesto(){
-  const texto = $('#manifestoTxt'), b = texto.getBoundingClientRect();
-  if(!REDUZ && (b.top >= innerHeight * .9 || b.bottom <= 0)) return;
-  const palavras = texto.querySelectorAll('.w');
-  palavras.forEach((w,k) => {
-    if(w.classList.contains('on')) return;
-    w.style.transitionDelay = REDUZ ? '0ms' : Math.min(k * 18, 500) + 'ms';
-    w.classList.add('on');
-  });
+  const cena = $('#manifesto'), b = cena.getBoundingClientRect();
+  const alcance = Math.max(1, b.height - innerHeight);
+  const p = REDUZ ? 1 : Math.min(1, Math.max(0, -b.top / alcance));
+  const palavras = cena.querySelectorAll('.w');
+  const n = Math.floor(p * 1.25 * palavras.length);
+  palavras.forEach((w,k) => w.classList.toggle('on', k < n));
 }
 
 /* ---------- topo, progresso, nav ativa ---------- */
@@ -836,7 +834,13 @@ function rolagem(){
   U.scrollP = y / innerHeight;
   if (U.explorar && U.scrollP > .4) { document.body.classList.remove('explorando'); U.explorar = false; document.dispatchEvent(new Event('fecha-foco')); }
 }
-addEventListener('scroll', rolagem, { passive:true }); addEventListener('resize', rolagem);
+let rolagemPendente = false;
+addEventListener('scroll', () => {
+  if(rolagemPendente) return;
+  rolagemPendente = true;
+  requestAnimationFrame(() => { rolagemPendente = false; rolagem(); });
+}, { passive:true });
+addEventListener('resize', rolagem);
 
 /* ---------- relógio ---------- */
 function hora(){ $('#hudHora').textContent = new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit',timeZone:'America/Sao_Paulo'}).format(new Date()); }
