@@ -265,12 +265,12 @@ main{position:relative;z-index:5}
 
 /* telemetria */
 .tele{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
-.terminal{border-radius:24px;border:1px solid var(--line2);background:rgba(3,6,10,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow:hidden;font-family:var(--f-mono);font-size:.78rem}
+.terminal{display:flex;flex-direction:column;min-width:0;min-height:390px;border-radius:24px;border:1px solid var(--line2);background:rgba(3,6,10,.78);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);overflow:hidden;font-family:var(--f-mono);font-size:.78rem}
 .terminal header{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid var(--line);color:var(--ink3);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase}
 .terminal header i{width:10px;height:10px;border-radius:50%;background:#ff5f57}
 .terminal header i:nth-child(2){background:#febc2e}.terminal header i:nth-child(3){background:#28c840}
 .terminal header span{margin-left:auto;display:flex;align-items:center;gap:8px}
-.terminal .corpo{padding:16px 18px;min-height:340px;max-height:440px;overflow:auto;line-height:1.75}
+.terminal .corpo{flex:1 1 0;height:0;padding:16px 18px;min-height:340px;overflow:auto;line-height:1.75}
 .terminal .ln{display:grid;grid-template-columns:auto auto 1fr;gap:12px;opacity:0;transform:translateY(6px);transition:.4s var(--ease)}
 .terminal .ln.on{opacity:1;transform:none}
 .terminal .ln time{color:var(--ink3)}
@@ -916,19 +916,22 @@ $('#sairExplorar').addEventListener('click', () => { document.body.classList.rem
     });
     alvos.push({nome:'DrMarioNascimento',k:-1});total=alvos.length;
     const datas=new Map(U.commits.map(([k,d])=>[k,d]));
+    const historico=new Map(alvos.map(({k})=>[k,eventos?eventos.filter(x=>x.k===k):U.commits.filter(x=>x[0]===k).map(([k,d])=>({k,d}))]));
     await Promise.all(alvos.map(async({nome,k})=>{
       const ac=new AbortController(), timer=setTimeout(()=>ac.abort(),8000);
       try{
-        const r=await fetch('https://api.github.com/repos/DrMarioNascimento/'+encodeURIComponent(nome)+'/commits?per_page=1',{headers:{Accept:'application/vnd.github+json'},cache:'no-store',signal:ac.signal});
+        const r=await fetch('https://api.github.com/repos/DrMarioNascimento/'+encodeURIComponent(nome)+'/commits?per_page=5',{headers:{Accept:'application/vnd.github+json'},cache:'no-store',signal:ac.signal});
         if(!r.ok)throw Error('GitHub indisponível');
         const js=await r.json(),d=js[0]?.commit?.committer?.date;
         if(!d||!Number.isFinite(Date.parse(d)))throw Error('Data ausente');
-        datas.set(k,d);consultados++;
+        datas.set(k,d);
+        historico.set(k,js.filter(c=>Number.isFinite(Date.parse(c.commit?.committer?.date))).map(c=>({k,d:c.commit.committer.date})));
+        consultados++;
       }catch(e){ /* Mantém a data salva e informa que a consulta foi parcial. */ }
       finally{clearTimeout(timer);}
     }));
     U.commits=U.commits.map(([k,d,m])=>[k,datas.get(k)||d,m]);
-    eventos=[...datas].map(([k,d])=>({k,d}));
+    eventos=[...historico.values()].flat();
     carregando=false;render();
   }
   new IntersectionObserver((es,o)=>{if(es.some(e=>e.isIntersecting)){ao=true;carrega();o.disconnect();}},{rootMargin:'300px'}).observe(log);
