@@ -10,3 +10,5 @@
 - `pesquisa.webp`: avatar anterior do Laboratório do Pesquisador (`instrumentos-de-coleta/avatar-orientador-corpo.png`), substituído na página inicial por `pesquisa-investigacao.webp`.
 
 As demais imagens são as capas existentes dos respectivos projetos. Preservam-se os créditos e as condições de uso originais; a inclusão no portal não altera suas licenças.
+
+- **MOSAICO · Planejamento:** `mosaico-planejamento.webp` e `mosaico-peca.webp` reutilizam, sem geração ou alteração gráfica, os arquivos `assets/escolha/filmes-e-series.webp` e `assets/escolha/peca.webp` de https://mosaico-card.dragongames.dev.br/. A peça é sobreposta por CSS, preservando a composição do print indicado pelo autor. A capa de cartas continua reservada ao card Mosaico Card.
