@@ -43,7 +43,7 @@ html{scroll-padding-top:88px}
 .cell-challenge{display:flex;gap:13px;align-items:center;border-top:1px solid #ffffff15;margin-top:24px;padding-top:18px;color:var(--ink2);font-size:.78rem}
 .cell-challenge>span{color:var(--acc);font-size:1.6rem}.cell-challenge p{margin:0}.cell-challenge strong{color:var(--ink);font-weight:500}
 .cell-visual{margin:0;position:relative;min-height:550px;isolation:isolate}
-.cell-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:56% center}
+.cell-visual img,.cell-composition{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:56% center}
 .cell-visual::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#08131c,transparent 22%),linear-gradient(0deg,#03050a80,transparent 25%);pointer-events:none}
 .cell-visual figcaption{position:absolute;bottom:17px;right:20px;left:20px;z-index:1;font-size:.65rem;color:#d8e5ee;text-align:right;text-shadow:0 1px 5px #000}
 .sec{padding:88px 0 20px;scroll-margin-top:85px}
