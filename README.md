@@ -43,6 +43,12 @@ O catálogo Dragon Games também divulga o Eita! como teste aberto. A abertura d
 
 ## Manutenção do portal
 
+A página inicial apresenta o autor e três frentes — Fisiologia, Ética e formação em pesquisa, Dragon Games — antes do convite à Célula Viva em RA. O catálogo público usa capas e descrições da experiência; os requisitos de Google e convite permanecem identificados. A biografia completa aparece depois das experiências, seguida dos jogos em desenvolvimento e dos caminhos para parcerias.
+
+`portal.css` e `portal.js` cuidam da apresentação, menu móvel e filtros progressivos. As atividades ficam em HTML e continuam acessíveis sem JavaScript. O universo 3D é opcional: sem WebGL2, durante o carregamento ou após perda de contexto, o botão leva ao catálogo. No celular, há atalhos diretos, tolerância maior para toques, ajuste de câmera após rotação e menor custo de renderização. O canvas deixa de renderizar quando fica fora da área inicial da página.
+
+As novas ilustrações estão documentadas em [assets/cards/README.md](assets/cards/README.md). Ao revisar a página, conferir PT/EN, navegação por teclado, filtros e links para cards ocultos, menu em 360–760 px, modo `?lite=1`, rotação do celular e os controles do universo. A câmera e a RA precisam de validação em aparelhos compatíveis; uma prévia no navegador não substitui esse teste.
+
 `index.html` e `universo-hero.html` usam a mesma fonte, `universo-dados.js`. A disponibilidade está documentada em `disponibilidade.json` e `DISPONIBILIDADE.md`; os acessos principais também ficam em HTML para funcionar sem JavaScript. Ao alterar o acesso de um projeto, atualize essas apresentações juntas.
 
 A seção Novidades consulta commits e tem histórico salvo como alternativa. Datas de commits indicam atividade do repositório, não aprovação de todos os fluxos. A conferência desta revisão inspecionou rotas e controles implementados; não repetiu login Google real nem sessões entre dispositivos.

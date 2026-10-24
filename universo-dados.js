@@ -328,8 +328,8 @@ window.U = {
       "pt": "Dragon Games",
       "en": "Dragon Games",
       "sub": {
-        "pt": "Hobby, paixão e futuro: jogos de dedução, investigação e educativos.",
-        "en": "Hobby, passion and future: deduction, investigation and educational games."
+        "pt": "Design de jogos de dedução, investigação e experiências educativas.",
+        "en": "Designing deduction, investigation and educational games."
       }
     },
     "lab": {

@@ -94,6 +94,8 @@ html{scroll-padding-top:88px}
 .universe-shortcuts{position:fixed;left:50%;transform:translateX(-50%);top:88px;z-index:61;display:none;gap:8px;justify-content:center;width:max-content;max-width:calc(100% - 24px);flex-wrap:wrap}
 .universe-shortcuts .btn{background:#07121fee;min-height:44px;font-size:.76rem}
 .explorando .universe-shortcuts{display:flex}
+.sair-explorar,.zoom{visibility:hidden}
+.explorando .sair-explorar,.explorando .zoom{visibility:visible}
 .explorando .heroi{min-height:100svh}
 .explorando .heroi-txt{visibility:hidden}
 .explorando #inicio~main{visibility:hidden}

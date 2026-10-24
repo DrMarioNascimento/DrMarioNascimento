@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#03050a">
-<title>Fisiologia Humana e Ética | Prof. Mário César Nascimento</title>
-<meta name="description" content="Explore simuladores de Fisiologia Humana e atividades de Ética e Pesquisa do Prof. Mário César Nascimento. Casos Éticos 1 e 2 e Bonde disponíveis ao público; Eita! em testes abertos. Conheça também a Dragon Games.">
-<meta property="og:title" content="Fisiologia Humana e Ética | Prof. Mário César Nascimento">
-<meta property="og:description" content="Explore simuladores de Fisiologia Humana e atividades de Ética e Pesquisa do Prof. Mário César Nascimento. Conheça também a Dragon Games.">
-<meta property="og:image" content="https://fisiologia.drmarionascimento.com.br/assets/avatar-prof-mario.webp">
+<title>Fisiologia, Ética e Games | Prof. Mário César Nascimento</title>
+<meta name="description" content="Explore o corpo humano em realidade aumentada, aprenda com simuladores e tutores com IA, decida dilemas éticos e descubra os jogos de Mário César Nascimento.">
+<meta property="og:title" content="Fisiologia, Ética e Games | Prof. Mário César Nascimento">
+<meta property="og:description" content="Explore o corpo humano em realidade aumentada, aprenda com simuladores e tutores com IA, decida dilemas éticos e descubra os jogos de Mário César Nascimento.">
+<meta property="og:image" content="https://drmarionascimento.com.br/assets/cards/celula-viva-ra.webp">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.35' stop-color='%2338e1c6'/%3E%3Cstop offset='1' stop-color='%2338e1c6' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='%2303050a'/%3E%3Ccircle cx='16' cy='16' r='11' fill='url(%23g)'/%3E%3Cellipse cx='16' cy='16' rx='14' ry='5' fill='none' stroke='%23a58cff' stroke-width='1.2' transform='rotate(-24 16 16)'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -407,9 +407,12 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
 /* Public availability: readable entries on phones, using the portal's depth and palette. */
 .acesso-publico{margin-top:3rem;scroll-margin-top:6rem}.acesso-publico>h3{font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:.7rem}.acesso-publico>p{margin-bottom:1.3rem;line-height:1.7}.acessos-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}.acesso-item{min-width:0;border:1px solid rgba(165,140,255,.35);border-radius:18px;padding:1.4rem;background:linear-gradient(145deg,rgba(165,140,255,.1),rgba(15,20,34,.8));box-shadow:inset 0 1px 0 #ffffff18,0 5px 0 #080b17,0 12px 24px #0004}.acesso-item h4{font-size:1.2rem;margin:.8rem 0}.acesso-item p{line-height:1.65}.acesso-item .cta{margin-top:1rem;flex-wrap:wrap}.acesso-item .btn{white-space:normal}.acesso-reservado{margin:1.6rem 0;padding:1rem 1.2rem;border:1px solid #ffffff22;border-radius:14px;box-shadow:inset 0 1px 0 #ffffff12,0 4px 0 #080b17}.acesso-reservado summary{cursor:pointer;line-height:1.6}.acesso-reservado li{margin:.8rem 0;line-height:1.6}.acesso-reservado ul{padding-left:1.2rem}.acesso-publico a:focus-visible,.acesso-reservado summary:focus-visible{outline:3px solid #a58cff;outline-offset:4px}@media(max-width:620px){.acessos-grid{grid-template-columns:1fr}.acesso-item{padding:1.1rem}}
 </style>
+<link rel="stylesheet" href="portal.css?v=20261024-3">
+<script src="portal.js?v=20261024-2" defer></script>
+<link rel="canonical" href="https://drmarionascimento.com.br/">
 </head>
-<body class="carregando">
-<a class="sr" href="#apresentacao">Pular para o conteúdo</a>
+<body class="pronto">
+<a class="skip-link" href="#apresentacao">Pular para o conteúdo</a>
 
 <canvas id="universo" aria-hidden="true"></canvas>
 <div class="fallback-ceu" aria-hidden="true"></div>
@@ -431,18 +434,11 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
 <!-- topo -->
 <header class="topo" id="topo">
   <a class="marca" href="#inicio" aria-label="Início">
-    <span class="marca-av"><img src="data:image/webp;base64,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" alt="" width="40" height="40"></span>
+    <span class="marca-av"><img src="assets/avatar-mini.webp" alt="" width="40" height="40"></span>
     <span><b>Mário César Nascimento</b><small>PhD · Professor</small></span>
   </a>
-  <nav class="nav" id="nav" aria-label="Seções">
-    <a href="#inicio" data-sec="inicio"><span data-lang-pt>Início</span><span data-lang-en>Home</span></a>
-    <a href="#apresentacao" data-sec="apresentacao"><span data-lang-pt>Projetos</span><span data-lang-en>Projects</span></a>
-    <a href="#numeros" data-sec="numeros"><span data-lang-pt>Em números</span><span data-lang-en>In numbers</span></a>
-    <a href="#frentes" data-sec="frentes"><span data-lang-pt>O que faço</span><span data-lang-en>What I do</span></a>
-    <a href="#telemetria" data-sec="telemetria"><span data-lang-pt>Novidades</span><span data-lang-en>Updates</span></a>
-    <a href="#sobre" data-sec="sobre"><span data-lang-pt>Quem sou</span><span data-lang-en>About me</span></a>
-  </nav>
-  <div class="acoes">
+  <nav class="nav" id="nav" aria-label="Seções"><a href="#inicio" data-sec="inicio"><span data-lang-pt>Início</span><span data-lang-en>Home</span></a><a href="#acesso-publico" data-sec="acesso-publico"><span data-lang-pt>Experimente</span><span data-lang-en>Try it</span></a><a href="#sobre" data-sec="sobre"><span data-lang-pt>Quem sou</span><span data-lang-en>About</span></a><a href="#projetos" data-sec="projetos"><span data-lang-pt>Dragon Games</span><span data-lang-en>Dragon Games</span></a><a href="#parcerias" data-sec="parcerias"><span data-lang-pt>Parcerias</span><span data-lang-en>Collaborate</span></a><a href="#telemetria" data-sec="telemetria"><span data-lang-pt>Novidades</span><span data-lang-en>Updates</span></a></nav>
+  <div class="acoes"><button class="btn menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="nav"><span data-lang-pt>Menu</span><span data-lang-en>Menu</span></button>
     <div class="idioma" role="group" aria-label="Idioma / Language">
       <button type="button" data-set-lang="pt" aria-pressed="true">PT</button>
       <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
@@ -473,83 +469,105 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
 <div class="zoom" aria-label="Controles do universo"><button type="button" id="zoomMais" aria-label="Aproximar">+</button><button type="button" id="zoomMenos" aria-label="Afastar">−</button><button type="button" id="zoomCentro" aria-label="Recentralizar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button></div>
 <button class="btn sair-explorar" type="button" id="sairExplorar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg><span data-lang-pt>Voltar ao início</span><span data-lang-en>Back to start</span></button>
 
+<nav class="universe-shortcuts" aria-label="Atalhos do universo">
+ <a class="btn" href="https://fisiologia.drmarionascimento.com.br/" target="_blank" rel="noopener"><span data-lang-pt>Fisiologia</span><span data-lang-en>Physiology</span></a>
+ <a class="btn" href="https://etica.drmarionascimento.com.br/" target="_blank" rel="noopener"><span data-lang-pt>Ética</span><span data-lang-en>Ethics</span></a>
+ <a class="btn" href="https://dragongames.dev.br/" target="_blank" rel="noopener"><span data-lang-pt>Games</span><span data-lang-en>Games</span></a>
+ <a class="btn" href="https://lab-ra.dragongames.dev.br/" target="_blank" rel="noopener"><span data-lang-pt>Lab-RA</span><span data-lang-en>Lab-RA</span></a>
+</nav>
 <!-- herói -->
 <section class="heroi" id="inicio" aria-labelledby="h1">
   <div class="heroi-txt">
-    <div class="kicker mono surge" style="--d:.15s"><i class="pulsar"></i><span>Prof. Mário César Nascimento, PhD</span><em>·</em><span data-lang-pt>Professor, pesquisador e criador de mundos</span><span data-lang-en>Professor, researcher and world-builder</span></div>
-    <h1 id="h1"><span data-lang-pt><span class="l"><span style="--d:.25s">Fisiologia Humana</span></span>
-      <span class="l"><span style="--d:.4s">para explorar, simular</span></span>
-      <span class="l"><span class="serif" style="--d:.6s">e compreender</span></span></span><span data-lang-en><span class="l"><span style="--d:.25s">Human Physiology</span></span>
-      <span class="l"><span style="--d:.4s">to explore, simulate</span></span>
-      <span class="l"><span class="serif" style="--d:.6s">and understand</span></span></span></h1>
-    <p class="etica-chamada surge" style="--d:.8s"><span data-lang-pt>Ética para refletir, discutir e decidir.</span><span data-lang-en>Ethics to reflect, discuss and decide.</span></p>
-    <p class="lead surge" style="--d:.9s">
-      <span data-lang-pt>Recursos interativos para estudantes, professores e profissionais da saúde: explore os mecanismos do corpo humano e aprenda experimentando.</span>
-      <span data-lang-en>Interactive resources for students, educators and health professionals: explore how the human body works and learn through experimentation.</span>
-    </p>
-    <p class="lead surge" style="--d:1s"><span data-lang-pt>Simuladores de Fisiologia, Casos Éticos 1 e 2, Bonde e laboratórios de Pesquisa disponíveis ao público. Eita! está em testes abertos. Confira abaixo quais atividades pedem Google ou convite. <a href="#apresentacao">Conheça os projetos ↓</a></span><span data-lang-en>Physiology simulators, Ethical Cases 1 and 2, the Trolley Problem and Research Labs are publicly available. Eita! is in open testing. See which activities require Google sign-in or an invitation below. <a href="#apresentacao">See the projects ↓</a></span></p>
-    <div class="cta surge" style="--d:1.1s">
-      <button class="btn cheio" type="button" id="explorar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg><span data-lang-pt>Explorar o universo</span><span data-lang-en>Explore the universe</span></button>
-      <a class="btn" href="#acesso-publico"><span data-lang-pt>Disponíveis ao público</span><span data-lang-en>Publicly available</span> ↓</a>
-      <a class="btn" href="https://github.com/DrMarioNascimento" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.6 9.6 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.74c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>GitHub</a>
+    <div class="kicker mono"><i class="pulsar"></i> Prof. Mário César Nascimento, PhD</div>
+    <h1 id="h1"><span data-lang-pt>Fisiologia para explorar.<br>Ética para decidir.<br><span class="serif">Jogos para descobrir.</span></span><span data-lang-en>Physiology to explore.<br>Ethics to decide.<br><span class="serif">Games to discover.</span></span></h1>
+    <p class="lead"><span data-lang-pt>Sou professor e pesquisador. Crio experiências para compreender o corpo humano, refletir sobre escolhas e aprender jogando.</span><span data-lang-en>I am a professor and researcher. I create experiences to understand the human body, reflect on choices and learn through play.</span></p>
+    <div class="cta">
+      <a class="btn cheio" href="#celula-viva"><span data-lang-pt>Experimente uma célula em RA ↓</span><span data-lang-en>Try a cell in AR ↓</span></a>
+      <a class="btn" href="#acesso-publico"><span data-lang-pt>Escolher uma experiência</span><span data-lang-en>Choose an experience</span></a>
     </div>
-    <div class="dica-arraste mono surge" style="--d:1.3s"><i></i><span data-lang-pt>Arraste para girar · clique num planeta</span><span data-lang-en>Drag to rotate · click a planet</span></div>
+    <div class="hero-secondary"><button class="text-button" id="explorar" type="button"><span data-lang-pt>Explorar o universo de projetos</span><span data-lang-en>Explore the project universe</span> <span aria-hidden="true">↗</span></button><span class="universe-hint"><span data-lang-pt>Arraste e toque nos planetas</span><span data-lang-en>Drag and tap the planets</span></span></div>
   </div>
 </section>
 
 <main>
-  <!-- manifesto -->
-  <section class="manifesto" id="manifesto" aria-label="Manifesto"><div class="palco"><p id="manifestoTxt"></p></div></section>
+<section class="fronts-section" id="apresentacao" aria-labelledby="apresentacao-titulo"><div class="wrap">
+  <h2 class="sr" id="apresentacao-titulo"><span data-lang-pt>Três frentes, um convite à descoberta</span><span data-lang-en>Three fields, one invitation to discover</span></h2>
+  <div class="fronts-strip">
+    <a href="#exp-simuladores" class="front-link" style="--c:#38e1c6"><span class="front-number">01</span><span><h3><span data-lang-pt>Fisiologia</span><span data-lang-en>Physiology</span></h3><p><span data-lang-pt>Entenda o corpo experimentando.</span><span data-lang-en>Understand the body by experimenting.</span></p></span><span aria-hidden="true">↗</span></a>
+    <a href="#exp-etica" class="front-link" style="--c:#a58cff"><span class="front-number">02</span><span><h3><span data-lang-pt>Ética e formação em pesquisa</span><span data-lang-en>Ethics and research training</span></h3><p><span data-lang-pt>Investigue. Reflita. Decida.</span><span data-lang-en>Investigate. Reflect. Decide.</span></p></span><span aria-hidden="true">↗</span></a>
+    <a href="#projetos" class="front-link" style="--c:#ff9655"><span class="front-number">03</span><span><h3>Dragon Games</h3><p><span data-lang-pt>Jogos de dedução e mundos em criação.</span><span data-lang-en>Deduction games and worlds in the making.</span></p></span><span aria-hidden="true">↗</span></a>
+  </div>
+</div></section>
 
-  <!-- projetos -->
-  <section class="sec apresentacao" id="apresentacao" aria-labelledby="apresentacao-titulo"><div class="wrap">
-    <div class="titulo rv"><div><span class="mono">01 · <span data-lang-pt>Projetos</span><span data-lang-en>Projects</span></span><h2 id="apresentacao-titulo"><span data-lang-pt>Conheça<br><span class="serif">os projetos.</span></span><span data-lang-en>Explore<br><span class="serif">the projects.</span></span></h2></div>
-      <p><span data-lang-pt>Projetos educacionais, simuladores e experiências interativas do Prof. Mário César Nascimento, PhD.</span><span data-lang-en>Educational projects, simulators and interactive experiences by Prof. Mário César Nascimento, PhD.</span></p></div>
-    <div class="apresentacao-grid">
-      <article class="apresentacao-card" style="--c:#38e1c6"><span class="mono"><span data-lang-pt>Acesso público · gratuito</span><span data-lang-en>Public access · free</span></span><h3>Fisiologia Interativa</h3><div data-lang-pt><p class="publico">Para estudantes, professores, profissionais da saúde e pessoas interessadas em aprender.</p><p>Explore o funcionamento do corpo humano com simuladores e experiências em realidade aumentada (RA). Aqui você também pode:</p><ul><li>simular a interação entre variáveis fisiológicas;</li><li>fixar o conteúdo com mapas mentais;</li><li>testar seu conhecimento com questões organizadas por unidade;</li><li>pôr à prova o que aprendeu nas <em>escape rooms</em> e nos Percursos de Fisiologia, com entrada Google.</li></ul><p class="destaque"><strong>O desafio final:</strong> na integração dos sistemas, o <strong>Box do Atleta</strong> (Educação Física) e a <strong>UTI Fisiológica</strong> (Fisioterapia) colocam tudo para funcionar junto, seja para cruzar a linha de chegada, seja para salvar uma vida.</p><p>Estudantes regularmente matriculados nas disciplinas têm acesso também a cadernos de atividades complementares.</p><p class="nota">Recursos educacionais em constante aprimoramento. Não substituem diagnóstico, prescrição ou orientação clínica individual.</p></div><div data-lang-en><p class="publico">For students, educators, health professionals and anyone interested in learning.</p><p>Explore how the human body works with simulators and augmented reality (AR) experiences. Here you can also:</p><ul><li>simulate how physiological variables interact;</li><li>consolidate the content with mind maps;</li><li>test your knowledge with unit-based questions;</li><li>put what you learned to the test in the <em>escape rooms</em> and Physiology Pathways, with Google sign-in.</li></ul><p class="destaque"><strong>The final challenge:</strong> to integrate the systems, the <strong>Athlete's Box</strong> (Physical Education) and the <strong>Physiological ICU</strong> (Physiotherapy) put everything to work together, whether to cross the finish line or to save a life.</p><p>Students officially enrolled in the courses also have access to supplementary activity workbooks.</p><p class="nota">Educational resources under continuous improvement. They do not replace diagnosis, prescriptions or individual clinical guidance.</p></div><div class="cta"><a class="btn" href="https://fisiologia.drmarionascimento.com.br/"><span data-lang-pt>Educação Física</span><span data-lang-en>Physical Education</span> ↗</a><a class="btn" href="https://fisiologia.drmarionascimento.com.br/fisioterapia/"><span data-lang-pt>Fisioterapia</span><span data-lang-en>Physiotherapy</span> ↗</a></div></article>
-      <article class="apresentacao-card" style="--c:#a58cff"><span class="mono"><span data-lang-pt>Acesso público · gratuito</span><span data-lang-en>Public access · free</span></span><h3><span data-lang-pt>Ética e Pesquisa</span><span data-lang-en>Ethics and Research</span></h3><div data-lang-pt><p class="publico">Para estudantes, professores e profissionais que precisam decidir com responsabilidade e pesquisar com rigor.</p><p>Na <strong>Ética Interativa</strong>, você pode:</p><ul><li>investigar <strong>Casos Éticos 1 e 2</strong> na academia, na clínica, na escola e no esporte, analisando as pistas antes de decidir;</li><li>enfrentar o Dilema do Bonde e ver como cinco correntes éticas interpretam a mesma ação ou omissão;</li><li>revisar os fundamentos com mapas mentais.</li></ul><p>No <strong>Laboratório do Pesquisador</strong>, você assume o papel de pesquisador:</p><ul><li>monta o delineamento de um projeto em cenários da sua subárea da Educação Física;</li><li>escolhe e combina instrumentos de coleta: entrevista, observação e questionário;</li><li>recebe retorno a cada decisão e, ao final, um parecer com seus pontos fortes e o que revisar primeiro.</li></ul><p class="destaque"><strong>Em sala:</strong> o professor acompanha a turma ao vivo enquanto cada aluno constrói o seu projeto.</p></div><div data-lang-en><p class="publico">For students, educators and professionals who need to decide responsibly and research rigorously.</p><p>In <strong>Interactive Ethics</strong>, you can:</p><ul><li>investigate <strong>Ethical Cases 1 and 2</strong> in the gym, the clinic, the school and sport, analyzing the clues before deciding;</li><li>face the Trolley Problem and see how five ethical perspectives interpret the same action or omission;</li><li>review the fundamentals with mind maps.</li></ul><p>In the <strong>Research Lab</strong>, you take on the role of a researcher:</p><ul><li>build the design of a project in scenarios from your Physical Education subarea;</li><li>choose and combine data collection instruments: interviews, observation and questionnaires;</li><li>get feedback on every decision and, at the end, a report with your strengths and what to revise first.</li></ul><p class="destaque"><strong>In class:</strong> the professor follows the group live while each student builds their own project.</p></div><div class="cta"><a class="btn cheio" href="https://etica.drmarionascimento.com.br/casos-eticos/index.html"><span data-lang-pt>Abrir Casos Éticas 1</span><span data-lang-en>Open Ethical Cases 1</span> ↗</a><a class="btn" href="https://etica.drmarionascimento.com.br/"><span data-lang-pt>Ética Interativa</span><span data-lang-en>Interactive Ethics</span> ↗</a><a class="btn" href="https://laboratorio-de-pesquisa.drmarionascimento.com.br/"><span data-lang-pt>Laboratório do Pesquisador</span><span data-lang-en>Research Lab</span> ↗</a></div></article>
-      <article class="apresentacao-card" style="--c:#ff9655"><span class="mono"><span data-lang-pt>Em desenvolvimento · aberto a parcerias</span><span data-lang-en>In development · open to partnerships</span></span><h3><span data-lang-pt>Jogos e experiências</span><span data-lang-en>Games and experiences</span></h3><p class="chamada"><span data-lang-pt>Conectar pistas, interpretar e deduzir.</span><span data-lang-en>Connect clues, interpret and deduce.</span></p><div data-lang-pt><p>Na <strong>Dragon Games</strong>, meu estúdio, crio jogos de dedução para jogar em grupo. Cada pessoa recebe no celular um fragmento da verdade, e ninguém tem todos os fatos.</p><ul><li><strong>Histórias MOSAICO:</strong> o telão mostra a cena e cada celular guarda uma parte do caso. São três: A Casa da Costa, A Manhã do Carro-Forte e O Eco do Amanhã.</li><li><strong>Dois jeitos de jogar:</strong> em <em>A Mesa</em>, o grupo troca informações, negocia e deduz; em <em>O Impostor</em>, um personagem mente e o grupo precisa apontar o suspeito.</li><li><strong>Mosaico Card:</strong> de 2 a 12 jogadores reconhecem, por pistas, histórias do Novo Testamento ou filmes e séries.</li><li><strong>Eita! — testes abertos:</strong> quiz em aliança em que a resposta de cada um ajuda a turma a vencer o chefão.</li></ul><p class="destaque"><strong>Sem instalar nada:</strong> tudo abre no navegador.</p><p class="nota">Eita! está com testes abertos: participe e compartilhe suas impressões. Os demais jogos seguem em testes fechados. Aberto a parcerias com escolas, instituições, estúdios e eventos.</p></div><div data-lang-en><p>At <strong>Dragon Games</strong>, my studio, I create deduction games to play in groups. Each person gets a fragment of the truth on their phone, and nobody has all the facts.</p><ul><li><strong>MOSAICO Stories:</strong> the big screen shows the scene and each phone holds a piece of the case. There are three: A Casa da Costa, A Manhã do Carro-Forte and O Eco do Amanhã.</li><li><strong>Two ways to play:</strong> in <em>A Mesa</em>, the group trades information, negotiates and deduces; in <em>O Impostor</em>, one character lies and the group must point out the suspect.</li><li><strong>Mosaico Card:</strong> 2 to 12 players recognize, through clues, New Testament stories or films and series.</li><li><strong>Eita! — open testing:</strong> an alliance quiz where each person's answer helps the group defeat the boss.</li></ul><p class="destaque"><strong>Nothing to install:</strong> everything opens in the browser.</p><p class="nota">Eita! is open for testing: join in and share your feedback. Other games remain in closed testing. Open to partnerships with schools, institutions, studios and events.</p></div><div class="acoes-card"><a class="btn cheio" href="https://eita.dragongames.dev.br/"><span data-lang-pt>Testar Eita!</span><span data-lang-en>Try Eita!</span> ↗</a><a class="btn" href="mailto:mariocnascimento@gmail.com?subject=Parceria%20Dragon%20Games"><span data-lang-pt>Conversar sobre parceria</span><span data-lang-en>Talk about a partnership</span> →</a><a class="btn" href="https://dragongames.dev.br/"><span data-lang-pt>Conhecer a Dragon Games</span><span data-lang-en>Discover Dragon Games</span> ↗</a></div></article>
-    </div>
-<section class="acesso-publico" id="acesso-publico" aria-labelledby="acesso-titulo"><h3 id="acesso-titulo"><span data-lang-pt>Disponíveis ao público</span><span data-lang-en>Publicly available</span></h3><p><span data-lang-pt>Escolha uma atividade. Os acessos com Google e os testes abertos estão identificados.</span><span data-lang-en>Choose an activity. Google sign-in and open testing are identified below.</span></p><div class="acessos-grid"><article class="acesso-item"><span class="mono"><span data-lang-pt>Público · sem cadastro</span><span data-lang-en>Public · no registration</span></span><h4>Fisiologia Interativa</h4><p><span data-lang-pt>Simuladores, mapas, questões, tutores e realidade aumentada; percursos de EF e Fisioterapia.</span><span data-lang-en>Simulators, maps, questions, tutors and AR for Physical Education and Physiotherapy.</span></p><div class="cta"><a class="btn" href="https://fisiologia.drmarionascimento.com.br/"><span data-lang-pt>Abrir atividade</span><span data-lang-en>Open activity</span> ↗</a></div></article><article class="acesso-item"><span class="mono"><span data-lang-pt>Público · sem cadastro</span><span data-lang-en>Public · no registration</span></span><h4>Casos Éticos 1</h4><p><span data-lang-pt>56 casos para investigar decisões, responsabilidades e consequências.</span><span data-lang-en>56 cases to investigate decisions, responsibilities and consequences.</span></p><div class="cta"><a class="btn" href="https://etica.drmarionascimento.com.br/casos-eticos/"><span data-lang-pt>Abrir Casos Éticas 1</span><span data-lang-en>Open activity</span> ↗</a></div></article><article class="acesso-item"><span class="mono"><span data-lang-pt>Público · sem cadastro</span><span data-lang-en>Public · no registration</span></span><h4>Casos Éticos 2</h4><p><span data-lang-pt>13 histórias, mapas das escolhas por capítulo e desdobramentos na vida dos personagens.</span><span data-lang-en>13 stories, chapter decision maps and later developments in the characters’ lives.</span></p><div class="cta"><a class="btn" href="https://etica.drmarionascimento.com.br/historias-eticas/"><span data-lang-pt>Abrir Casos Éticas 2</span><span data-lang-en>Open activity</span> ↗</a></div></article><article class="acesso-item"><span class="mono"><span data-lang-pt>Público · sem cadastro</span><span data-lang-en>Public · no registration</span></span><h4>Dilema do Bonde</h4><p><span data-lang-pt>Versões para computador e celular abertas ao público.</span><span data-lang-en>Desktop and mobile versions available to the public.</span></p><div class="cta"><a class="btn" href="https://etica.drmarionascimento.com.br/dilema-bonde/"><span data-lang-pt>Abrir atividade</span><span data-lang-en>Open activity</span> ↗</a><a class="btn" href="https://etica.drmarionascimento.com.br/dilema-bonde-mobile/"><span data-lang-pt>Abrir no celular</span><span data-lang-en>Mobile version</span> ↗</a></div></article><article class="acesso-item"><span class="mono"><span data-lang-pt>Público · sem cadastro</span><span data-lang-en>Public · no registration</span></span><h4>Laboratório do Pesquisador</h4><p><span data-lang-pt>Delineamentos de pesquisa e instrumentos de coleta; estudo individual sem cadastro.</span><span data-lang-en>Research designs and data collection instruments; individual study without registration.</span></p><div class="cta"><a class="btn" href="https://laboratorio-de-pesquisa.drmarionascimento.com.br/"><span data-lang-pt>Abrir atividade</span><span data-lang-en>Open activity</span> ↗</a></div></article><article class="acesso-item"><span class="mono"><span data-lang-pt>Público · com Google</span><span data-lang-en>Public · Google sign-in</span></span><h4>Fisiologia em Fuga</h4><p><span data-lang-pt>Escape rooms e Percursos de Fisiologia: entrada com qualquer conta Google.</span><span data-lang-en>Escape rooms and Physiology Pathways: sign in with any Google account.</span></p><div class="cta"><a class="btn" href="https://fisiologia-em-fuga.drmarionascimento.com.br/"><span data-lang-pt>Abrir atividade</span><span data-lang-en>Open activity</span> ↗</a><a class="btn" href="https://fisiologia-em-fuga.drmarionascimento.com.br/percursos/"><span data-lang-pt>Abrir Percursos</span><span data-lang-en>Open Pathways</span> ↗</a></div></article><article class="acesso-item"><span class="mono"><span data-lang-pt>Testes abertos</span><span data-lang-en>Open testing</span></span><h4>Eita!</h4><p><span data-lang-pt>Quiz em aliança em testes abertos. Quem conduz entra com Google; participantes usam o código da sala.</span><span data-lang-en>Alliance quiz in open testing. Hosts sign in with Google; participants use the room code.</span></p><div class="cta"><a class="btn" href="https://eita.drmarionascimento.com.br/"><span data-lang-pt>Abrir atividade</span><span data-lang-en>Open activity</span> ↗</a></div></article><article class="acesso-item"><span class="mono"><span data-lang-pt>Público · com Google</span><span data-lang-en>Public · Google sign-in</span></span><h4>MOSAICO · Planejamento</h4><p><span data-lang-pt>Montagem e exportação de atividades com Google. Biblioteca e condução de salas continuam restritas.</span><span data-lang-en>Create and export activities with Google. The library and online hosting remain restricted.</span></p><div class="cta"><a class="btn" href="https://mosaico-sala.web.app/planejar.html"><span data-lang-pt>Abrir atividade</span><span data-lang-en>Open activity</span> ↗</a></div></article></div><details class="acesso-reservado"><summary><span data-lang-pt>Atividades com acesso reservado ou por convite</span><span data-lang-en>Restricted or invitation-only activities</span></summary><ul><li><a href="https://etica.drmarionascimento.com.br/percursos-eticos/">Casos Éticos 3</a> — <span data-lang-pt>Revisão do professor; conta Google autorizada.</span><span data-lang-en>Teacher review; authorized Google account.</span></li><li><a href="https://comite-etica.drmarionascimento.com.br/">Comitê de Ética Profissional</a> — <span data-lang-pt>Professor autorizado cria a sala; turma entra por código ou QR.</span><span data-lang-en>An authorized teacher creates the room; the class joins by code or QR.</span></li><li><a href="https://atividades-extras.drmarionascimento.com.br/">Atividades Extras</a> — <span data-lang-pt>Sete laboratórios de Fisiologia; condução autorizada e equipes por código de sala.</span><span data-lang-en>Seven physiology labs; authorized hosts and teams joining with a room code.</span></li><li><a href="https://mosaico-card.dragongames.dev.br/">Mosaico Card</a> — <span data-lang-pt>Novo Testamento e Filmes e Séries em testes fechados; salas criadas por contas autorizadas.</span><span data-lang-en>New Testament and Movies & Series in closed testing; rooms created by authorized accounts.</span></li><li><a href="https://dragongames.dev.br/">Histórias MOSAICO</a> — <span data-lang-pt>A Casa da Costa, A Manhã do Carro-Forte e O Eco do Amanhã permanecem em testes fechados.</span><span data-lang-en>A Casa da Costa, A Manhã do Carro-Forte and O Eco do Amanhã remain in closed testing.</span></li><li><a href="https://lab-ra.dragongames.dev.br/bancadas.html">Lab-RA</a> — <span data-lang-pt>Biblioteca de experimentação. Para Fisiologia pública, prefira o portal de origem; cópias de jogos mantêm suas restrições.</span><span data-lang-en>Experimental library. Use the original portal for public physiology resources; game copies retain their restrictions.</span></li></ul></details><p class="mono"><span data-lang-pt>Disponibilidade revisada em 24/10/2026. As licenças de cada projeto continuam válidas.</span><span data-lang-en>Availability reviewed on October 24, 2026. Each project's license continues to apply.</span></p></section>
-    <div class="experimente rv"><span class="mono"><span data-lang-pt>Experimente</span><span data-lang-en>Try it</span></span><h3><span data-lang-pt>Explore também os projetos e seus estágios de acesso.</span><span data-lang-en>Explore the projects and their access stages too.</span></h3></div>
-    <div class="mundos rv" id="mundosGrid"></div>
-  </div></section>
-
-  <!-- números -->
-  <section class="sec" id="numeros"><div class="wrap">
-    <div class="titulo rv"><div><span class="mono">02 · <span data-lang-pt>Massa crítica</span><span data-lang-en>Critical mass</span></span><h2><span data-lang-pt>O acervo<br><span class="serif">em números.</span></span><span data-lang-en>The collection<br><span class="serif">in numbers.</span></span></h2></div>
-      <p><span data-lang-pt>Tudo feito em HTML, CSS, JavaScript e SVG — leve o bastante para rodar no celular do aluno.</span><span data-lang-en>All built with HTML, CSS, JavaScript and SVG — light enough to run on a student's phone.</span></p></div>
-    <div class="bento" id="bento"></div>
-  </div></section>
-
-  <!-- frentes -->
-  <section class="sec" id="frentes"><div class="wrap">
-    <div class="titulo rv"><div><span class="mono">03 · <span data-lang-pt>Constelações</span><span data-lang-en>Constellations</span></span><h2><span data-lang-pt>Quatro sistemas,<br><span class="serif">um só universo.</span></span><span data-lang-en>Four systems,<br><span class="serif">one universe.</span></span></h2></div>
-      <p><span data-lang-pt>A sala de aula é o centro. Os jogos são paixão e futuro. A bancada de testes é onde as técnicas nascem antes de chegar às duas.</span><span data-lang-en>The classroom is the core. Games are passion and future. The test bench is where techniques are born before reaching both.</span></p></div>
-    <div class="frentes" id="frentesGrid"></div>
-  </div></section>
-
-  <!-- telemetria -->
-  <section class="sec" id="telemetria"><div class="wrap">
-    <div class="titulo rv"><div><span class="mono">04 · <span data-lang-pt>Novidades</span><span data-lang-en>Updates</span></span><h2><span data-lang-pt>Em construção<br><span class="serif">agora.</span></span><span data-lang-en>Being built<br><span class="serif">right now.</span></span></h2></div>
-      <p><span data-lang-pt>Os projetos estão vivos: veja onde houve atualização nos últimos dias, lido direto do GitHub enquanto você está aqui.</span><span data-lang-en>These projects are alive: see where updates landed in recent days, read straight from GitHub while you're here.</span></p></div>
-    <div class="tele">
-      <div class="terminal rv"><header><i></i><i></i><i></i>&nbsp; ~/drmarionascimento — novidades<span id="teleEstado"><i class="pulsar"></i> <span data-lang-pt>conectando…</span><span data-lang-en>connecting…</span></span></header><div class="corpo" id="teleLog"></div></div>
-      <div class="sinais rv" style="--d:.1s" id="sinais"></div>
-    </div>
-  </div></section>
-
-  <!-- sobre -->
+<section class="cell-section" id="celula-viva" aria-labelledby="cell-title"><div class="wrap cell-feature">
+  <div class="cell-copy">
+    <p class="eyebrow"><span data-lang-pt>Seu primeiro convite · Célula Viva</span><span data-lang-en>Your first invitation · Living Cell</span></p>
+    <h2 id="cell-title"><span data-lang-pt>Uma célula do corpo humano,<br><span class="serif">bem na sua frente.</span></span><span data-lang-en>A human cell,<br><span class="serif">right in front of you.</span></span></h2>
+    <p><span data-lang-pt>Use a câmera do seu celular para colocar um modelo de célula no ambiente ao seu redor. Aproxime-se, observe de diferentes ângulos e descubra suas estruturas em realidade aumentada.</span><span data-lang-en>Use your phone’s camera to place a cell model in the space around you. Move closer, look from different angles and discover its structures in augmented reality.</span></p>
+    <a class="btn cheio" href="https://fisiologia.drmarionascimento.com.br/ra/celula/" target="_blank" rel="noopener"><span data-lang-pt>Explorar a célula em realidade aumentada ↗</span><span data-lang-en>Explore the cell in augmented reality ↗</span></a>
+    <small class="cell-note"><span data-lang-pt>No computador, explore o modelo em 3D. A RA depende da compatibilidade do celular.</span><span data-lang-en>On a computer, explore the 3D model. AR requires a compatible phone.</span></small>
+    <div class="cell-challenge"><span aria-hidden="true">◎</span><p><span data-lang-pt><strong>Uma descoberta para começar:</strong> encontre o núcleo e observe o que existe ao redor dele.</span><span data-lang-en><strong>A first discovery:</strong> find the nucleus and look at what surrounds it.</span></p></div>
+  </div>
+  <figure class="cell-visual"><img src="assets/cards/celula-viva-ra.webp" width="1536" height="1024" alt="Ilustração de uma mão segurando um celular com um modelo de célula sobre a imagem de uma mesa" fetchpriority="high"><figcaption><span data-lang-pt>Imagem ilustrativa da experiência em RA</span><span data-lang-en>Illustration of the AR experience</span></figcaption></figure>
+</div></section>
+<section class="sec discovery" id="acesso-publico" aria-labelledby="acesso-titulo"><div class="wrap">
+  <div class="titulo"><div><span class="eyebrow"><span data-lang-pt>Experiências abertas</span><span data-lang-en>Open experiences</span></span><h2 id="acesso-titulo"><span data-lang-pt>Escolha como você<br><span class="serif">quer explorar.</span></span><span data-lang-en>Choose how you<br><span class="serif">want to explore.</span></span></h2></div><p><span data-lang-pt>Para estudar, levar à sala de aula ou conhecer o que estou criando. Comece pela experiência que desperta sua curiosidade.</span><span data-lang-en>To study, bring into the classroom or discover what I am creating. Start with the experience that sparks your curiosity.</span></p></div>
+  <div class="discovery-filters" role="group" aria-label="Filtrar experiências" hidden>
+    <button type="button" class="filter-button" data-filter="all" aria-pressed="true"><span data-lang-pt>Todas</span><span data-lang-en>All</span></button><button type="button" class="filter-button" data-filter="fisiologia" aria-pressed="false"><span data-lang-pt>Fisiologia</span><span data-lang-en>Physiology</span></button><button type="button" class="filter-button" data-filter="etica" aria-pressed="false"><span data-lang-pt>Ética e Pesquisa</span><span data-lang-en>Ethics and Research</span></button><button type="button" class="filter-button" data-filter="games" aria-pressed="false"><span data-lang-pt>Games</span><span data-lang-en>Games</span></button>
+  </div>
+  <p class="sr" id="filter-status" role="status" aria-live="polite"></p>
+  <div class="discovery-grid">
+<article class="discovery-card" id="exp-simuladores" data-category="fisiologia" style="--c:#38e1c6">
+      <div class="discovery-art"><img src="assets/cards/cardiopulmonar.webp" alt="" width="720" height="480" loading="lazy" decoding="async"></div>
+      <div class="discovery-body"><span class="eyebrow"><span data-lang-pt>Fisiologia interativa</span><span data-lang-en>Interactive physiology</span></span><h3><span data-lang-pt>E se você mudasse uma variável?</span><span data-lang-en>What if you changed a variable?</span></h3><p><span data-lang-pt>Explore o funcionamento do corpo: altere condições, observe as respostas e conecte os mecanismos. Escolha seu percurso.</span><span data-lang-en>Explore how the body works: change conditions, observe responses and connect the mechanisms. Choose your track.</span></p>
+      <span class="access-badge"><span data-lang-pt>Público · sem cadastro</span><span data-lang-en>Public · no sign-up</span></span><div class="discovery-actions"><a class="experience-link" href="https://fisiologia.drmarionascimento.com.br/" target="_blank" rel="noopener"><span data-lang-pt>Educação Física ↗</span><span data-lang-en>Physical Education ↗</span></a><a class="experience-link" href="https://fisiologia.drmarionascimento.com.br/fisioterapia/" target="_blank" rel="noopener"><span data-lang-pt>Fisioterapia ↗</span><span data-lang-en>Physiotherapy ↗</span></a></div></div>
+    </article>
+<article class="discovery-card icon-art" id="exp-tutores" data-category="fisiologia" style="--c:#38e1c6">
+      <div class="discovery-art"><img src="assets/cards/tutor.webp" alt="" width="720" height="480" loading="lazy" decoding="async"></div>
+      <div class="discovery-body"><span class="eyebrow"><span data-lang-pt>Tutores com IA integrada</span><span data-lang-en>Tutors with integrated AI</span></span><h3><span data-lang-pt>Entender vale mais que decorar.</span><span data-lang-en>Understanding goes beyond memorizing.</span></h3><p><span data-lang-pt>Estude com mapas, questões e um tutor com IA. Explore um tema, teste seu entendimento e investigue suas dúvidas.</span><span data-lang-en>Study with maps, questions and an AI tutor. Explore a topic, test your understanding and investigate your questions.</span></p>
+      <span class="access-badge"><span data-lang-pt>Público</span><span data-lang-en>Public</span></span><div class="discovery-actions"><a class="experience-link" href="https://fisiologia.drmarionascimento.com.br/tutor-ef.html" target="_blank" rel="noopener"><span data-lang-pt>Tutor · Educação Física ↗</span><span data-lang-en>Tutor · Physical Education ↗</span></a><a class="experience-link" href="https://fisiologia.drmarionascimento.com.br/tutor-fisio.html" target="_blank" rel="noopener"><span data-lang-pt>Tutor · Fisioterapia ↗</span><span data-lang-en>Tutor · Physiotherapy ↗</span></a></div></div>
+    </article>
+<article class="discovery-card" id="exp-desafios" data-category="fisiologia" style="--c:#38e1c6">
+      <div class="discovery-art"><img src="assets/cards/fisiologia-em-fuga.webp" alt="" width="720" height="480" loading="lazy" decoding="async"></div>
+      <div class="discovery-body"><span class="eyebrow"><span data-lang-pt>Escape rooms e quests</span><span data-lang-en>Escape rooms and quests</span></span><h3><span data-lang-pt>Seu conhecimento abre a saída.</span><span data-lang-en>Your knowledge unlocks the way out.</span></h3><p><span data-lang-pt>Resolva enigmas de Fisiologia para avançar nas salas de escape. Prefere testar o que sabe? Encare as questões dos Percursos.</span><span data-lang-en>Solve physiology puzzles to advance through escape rooms. Prefer testing what you know? Take on the Pathways questions.</span></p>
+      <span class="access-badge"><span data-lang-pt>Público · acesso com Google</span><span data-lang-en>Public · Google sign-in</span></span><div class="discovery-actions"><a class="experience-link" href="https://fisiologia-em-fuga.drmarionascimento.com.br/" target="_blank" rel="noopener"><span data-lang-pt>Entrar no escape ↗</span><span data-lang-en>Enter the escape ↗</span></a><a class="experience-link" href="https://fisiologia-em-fuga.drmarionascimento.com.br/percursos/" target="_blank" rel="noopener"><span data-lang-pt>Explorar os Percursos ↗</span><span data-lang-en>Explore Pathways ↗</span></a></div></div>
+    </article>
+<article class="discovery-card" id="exp-bonde" data-category="etica" style="--c:#a58cff">
+      <div class="discovery-art"><img src="assets/cards/dilema-bonde.webp" alt="" width="720" height="480" loading="lazy" decoding="async"></div>
+      <div class="discovery-body"><span class="eyebrow"><span data-lang-pt>Dilema do Bonde</span><span data-lang-en>The Trolley Problem</span></span><h3><span data-lang-pt>Você mudaria o destino do bonde?</span><span data-lang-en>Would you change the trolley’s course?</span></h3><p><span data-lang-pt>Uma decisão, consequências difíceis. Assuma uma posição e questione os princípios por trás da sua escolha.</span><span data-lang-en>One decision, difficult consequences. Take a position and question the principles behind your choice.</span></p>
+      <span class="access-badge"><span data-lang-pt>Público · sem cadastro</span><span data-lang-en>Public · no sign-up</span></span><div class="discovery-actions"><a class="experience-link" href="https://etica.drmarionascimento.com.br/dilema-bonde/" target="_blank" rel="noopener"><span data-lang-pt>Enfrentar o dilema ↗</span><span data-lang-en>Face the dilemma ↗</span></a></div></div>
+    </article>
+<article class="discovery-card icon-art" id="exp-etica" data-category="etica" style="--c:#a58cff">
+      <div class="discovery-art"><img src="assets/cards/historias-eticas.webp" alt="" width="720" height="480" loading="lazy" decoding="async"></div>
+      <div class="discovery-body"><span class="eyebrow"><span data-lang-pt>Casos Éticos 1 e 2</span><span data-lang-en>Ethical Cases 1 and 2</span></span><h3><span data-lang-pt>Toda escolha deixa uma história.</span><span data-lang-en>Every choice leaves a story.</span></h3><p><span data-lang-pt>Encontre conflitos da vida profissional, tome decisões e acompanhe seus desdobramentos. O que orienta a sua conduta?</span><span data-lang-en>Encounter professional conflicts, make decisions and follow their consequences. What guides your conduct?</span></p>
+      <span class="access-badge"><span data-lang-pt>Público · sem cadastro</span><span data-lang-en>Public · no sign-up</span></span><div class="discovery-actions"><a class="experience-link" href="https://etica.drmarionascimento.com.br/casos-eticos/" target="_blank" rel="noopener"><span data-lang-pt>Explorar os casos ↗</span><span data-lang-en>Explore the cases ↗</span></a><a class="experience-link" href="https://etica.drmarionascimento.com.br/historias-eticas/" target="_blank" rel="noopener"><span data-lang-pt>Viver as histórias ↗</span><span data-lang-en>Enter the stories ↗</span></a></div></div>
+    </article>
+<article class="discovery-card icon-art" id="exp-pesquisa" data-category="etica" style="--c:#a58cff">
+      <div class="discovery-art"><img src="assets/cards/pesquisa.webp" alt="" width="720" height="480" loading="lazy" decoding="async"></div>
+      <div class="discovery-body"><span class="eyebrow"><span data-lang-pt>Laboratório do Pesquisador</span><span data-lang-en>Researcher’s Laboratory</span></span><h3><span data-lang-pt>Sua pergunta pode virar pesquisa.</span><span data-lang-en>Your question could become research.</span></h3><p><span data-lang-pt>Explore delineamentos de estudo e instrumentos de coleta. Aprenda a transformar uma curiosidade em uma investigação.</span><span data-lang-en>Explore study designs and data collection instruments. Learn to turn curiosity into an investigation.</span></p>
+      <span class="access-badge"><span data-lang-pt>Público · sem cadastro</span><span data-lang-en>Public · no sign-up</span></span><div class="discovery-actions"><a class="experience-link" href="https://laboratorio-de-pesquisa.drmarionascimento.com.br/" target="_blank" rel="noopener"><span data-lang-pt>Explorar o laboratório ↗</span><span data-lang-en>Explore the laboratory ↗</span></a></div></div>
+    </article>
+<article class="discovery-card" id="exp-eita" data-category="games" style="--c:#ffb178">
+      <div class="discovery-art"><img src="assets/cards/eita.webp" alt="" width="720" height="480" loading="lazy" decoding="async"></div>
+      <div class="discovery-body"><span class="eyebrow"><span data-lang-pt>Eita!</span><span data-lang-en>Eita!</span></span><h3><span data-lang-pt>A turma inteira contra o chefão.</span><span data-lang-en>The whole group against the boss.</span></h3><p><span data-lang-pt>Responda em aliança e descubra como o conhecimento de cada participante ajuda o grupo a vencer.</span><span data-lang-en>Answer as an alliance and discover how each participant’s knowledge helps the group win.</span></p>
+      <span class="access-badge"><span data-lang-pt>Testes abertos · condutor com Google</span><span data-lang-en>Open testing · host signs in with Google</span></span><div class="discovery-actions"><a class="experience-link" href="https://eita.drmarionascimento.com.br/" target="_blank" rel="noopener"><span data-lang-pt>Experimentar o Eita! ↗</span><span data-lang-en>Try Eita! ↗</span></a></div></div>
+    </article>
+<article class="discovery-card" id="exp-mosaico" data-category="games" style="--c:#ffb178">
+      <div class="discovery-art"><img src="assets/cards/mosaico-card.webp" alt="" width="720" height="480" loading="lazy" decoding="async"></div>
+      <div class="discovery-body"><span class="eyebrow"><span data-lang-pt>MOSAICO · Planejamento</span><span data-lang-en>MOSAICO · Planning</span></span><h3><span data-lang-pt>Prepare uma investigação para jogar.</span><span data-lang-en>Prepare an investigation to play.</span></h3><p><span data-lang-pt>Explore o planejamento e a exportação de uma sessão. Uma porta de entrada para conhecer a proposta dos jogos MOSAICO.</span><span data-lang-en>Explore session planning and export. An introduction to the concept behind MOSAICO games.</span></p>
+      <span class="access-badge"><span data-lang-pt>Planejamento público · Google</span><span data-lang-en>Public planning · Google sign-in</span></span><div class="discovery-actions"><a class="experience-link" href="https://mosaico-sala.web.app/planejar.html" target="_blank" rel="noopener"><span data-lang-pt>Explorar o planejamento ↗</span><span data-lang-en>Explore session planning ↗</span></a></div></div>
+    </article>
+</div><div class="access-details"><details class="acesso-reservado"><summary><span data-lang-pt>Atividades com acesso reservado ou por convite</span><span data-lang-en>Restricted or invitation-only activities</span></summary><ul><li><a href="https://etica.drmarionascimento.com.br/percursos-eticos/">Casos Éticos 3</a> — <span data-lang-pt>Revisão do professor; conta Google autorizada.</span><span data-lang-en>Teacher review; authorized Google account.</span></li><li><a href="https://comite-etica.drmarionascimento.com.br/">Comitê de Ética Profissional</a> — <span data-lang-pt>Professor autorizado cria a sala; turma entra por código ou QR.</span><span data-lang-en>An authorized teacher creates the room; the class joins by code or QR.</span></li><li><a href="https://atividades-extras.drmarionascimento.com.br/">Atividades Extras</a> — <span data-lang-pt>Sete laboratórios de Fisiologia; condução autorizada e equipes por código de sala.</span><span data-lang-en>Seven physiology labs; authorized hosts and teams joining with a room code.</span></li><li><a href="https://mosaico-card.dragongames.dev.br/">Mosaico Card</a> — <span data-lang-pt>Novo Testamento e Filmes e Séries em testes fechados; salas criadas por contas autorizadas.</span><span data-lang-en>New Testament and Movies & Series in closed testing; rooms created by authorized accounts.</span></li><li><a href="https://dragongames.dev.br/">Histórias MOSAICO</a> — <span data-lang-pt>A Casa da Costa, A Manhã do Carro-Forte e O Eco do Amanhã permanecem em testes fechados.</span><span data-lang-en>A Casa da Costa, A Manhã do Carro-Forte and O Eco do Amanhã remain in closed testing.</span></li><li><a href="https://lab-ra.dragongames.dev.br/bancadas.html">Lab-RA</a> — <span data-lang-pt>Biblioteca de experimentação. Para Fisiologia pública, prefira o portal de origem; cópias de jogos mantêm suas restrições.</span><span data-lang-en>Experimental library. Use the original portal for public physiology resources; game copies retain their restrictions.</span></li></ul></details></div></div></section>  <!-- sobre -->
   <section class="sec" id="sobre"><div class="wrap sobre">
     <div class="retrato rv">
       <div class="aneis"><i style="--k:0;--c:#38e1c6"></i><i style="--k:1;--c:#a58cff;--dir:reverse"></i><i style="--k:2;--c:#ff5a2c"></i></div>
       <div class="disco"></div>
-      <div class="pop"><img src="assets/avatar-prof-mario.png" alt="Ilustração do Prof. Mário César Nascimento segurando livros" loading="lazy"></div>
+      <div class="pop"><img src="assets/avatar-prof-mario.webp" width="700" height="700" alt="Ilustração do Prof. Mário César Nascimento segurando livros" loading="lazy"></div>
     </div>
     <div class="rv" style="--d:.1s">
-      <span class="mono" style="color:var(--acc)">05 · <span data-lang-pt>Sobre</span><span data-lang-en>About</span></span>
+      <span class="mono" style="color:var(--acc)"><span data-lang-pt>Sobre</span><span data-lang-en>About</span></span>
       <h2><span data-lang-pt>Professor, pesquisador<br><span class="serif">e criador de mundos.</span></span><span data-lang-en>Professor, researcher<br><span class="serif">and world-builder.</span></span></h2>
-      <p class="bio"><span data-lang-pt>Sou professor universitário de Fisiologia Humana para Educação Física e Fisioterapia, de Ética e de formação em pesquisa acadêmica. Desenvolvo recursos digitais para tornar a aprendizagem mais visual, prática e envolvente. Uso o design de jogos para tornar visível o que os livros só descrevem. Desse trabalho nasceram mais de 100 experiências interativas e a <strong>Dragon Games</strong>, meu estúdio de jogos de dedução.</span><span data-lang-en>I am a university professor of Human Physiology for Physical Education and Physiotherapy, Ethics and academic research training. I develop digital resources to make learning more visual, practical and engaging. I use game design to make visible what textbooks can only describe. This work has produced more than 100 interactive experiences and <strong>Dragon Games</strong>, my deduction-game studio.</span></p>
+      <p class="bio"><span data-lang-pt>Sou professor universitário de Fisiologia Humana para Educação Física e Fisioterapia, de Ética e de formação em pesquisa acadêmica. Desenvolvo recursos digitais para tornar a aprendizagem mais visual, prática e envolvente. Uso o design de jogos para tornar visível o que os livros só descrevem. Desse trabalho nasceram um acervo de experiências interativas e a <strong>Dragon Games</strong>, um projeto de jogos de dedução criado com Osana Melo Nascimento.</span><span data-lang-en>I am a university professor of Human Physiology for Physical Education and Physiotherapy, Ethics and academic research training. I develop digital resources to make learning more visual, practical and engaging. I use game design to make visible what textbooks can only describe. This work has produced a collection of interactive experiences and <strong>Dragon Games</strong>, a deduction-game project created with Osana Melo Nascimento.</span></p>
       <div class="principios">
         <div><span class="mono">01</span><b><span data-lang-pt>Rigor primeiro</span><span data-lang-en>Rigor first</span></b><small><span data-lang-pt>Máxima fidelidade fisiológica; a didática vem a serviço dela, nunca no lugar.</span><span data-lang-en>Maximum physiological fidelity; teaching serves it, never replaces it.</span></small></div>
         <div><span class="mono">02</span><b><span data-lang-pt>Aprender fazendo</span><span data-lang-en>Learn by doing</span></b><small><span data-lang-pt>Mexer nas variáveis, ver a consequência, entender o mecanismo.</span><span data-lang-en>Move the variables, see the consequence, grasp the mechanism.</span></small></div>
@@ -561,7 +579,50 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
         <a class="btn" href="https://dragongames.dev.br/" target="_blank" rel="noopener">Dragon Games ↗</a>
       </div>
     </div>
+  </div></section><section class="sec" id="projetos"><div class="wrap">
+  <div class="titulo"><div><span class="eyebrow">Dragon Games · Game design</span><h2><span data-lang-pt>Mundos que estou<br><span class="serif">criando.</span></span><span data-lang-en>Worlds I am<br><span class="serif">creating.</span></span></h2></div><p><span data-lang-pt>O design de jogos é o caminho que quero aprofundar. Com Osana Melo Nascimento, desenvolvo jogos de dedução que aproximam histórias, pistas e pessoas. Conheça a proposta dos projetos em desenvolvimento.</span><span data-lang-en>Game design is the path I want to pursue further. With Osana Melo Nascimento, I develop deduction games that bring stories, clues and people together. Discover the concepts behind projects in development.</span></p></div>
+  <div class="mundos" id="mundosGrid"></div>
+  <p class="section-note"><span data-lang-pt>Estes jogos estão em testes fechados. Os links apresentam os projetos; a participação nas partidas depende de convite.</span><span data-lang-en>These games are in closed testing. The links introduce the projects; joining a game requires an invitation.</span></p>
+</div></section>
+
+<section class="sec" id="parcerias" aria-labelledby="parcerias-titulo"><div class="wrap collaboration">
+  <div><span class="eyebrow"><span data-lang-pt>Aberto a novas conexões</span><span data-lang-en>Open to new connections</span></span><h2 id="parcerias-titulo"><span data-lang-pt>O próximo projeto<br><span class="serif">pode começar com uma conversa.</span></span><span data-lang-en>The next project<br><span class="serif">could start with a conversation.</span></span></h2><p><span data-lang-pt>Quero aproximar educação, pesquisa e design de jogos. Estou aberto a parceiros para criar, testar e desenvolver novas experiências — e a conversas sobre investimento nos projetos de games.</span><span data-lang-en>I want to connect education, research and game design. I welcome partners to create, test and develop new experiences — and conversations about investment in game projects.</span></p></div>
+  <div class="collaboration-paths">
+    <a class="collaboration-link" href="mailto:mariocnascimento@gmail.com?subject=Parceria%20em%20ensino%20e%20pesquisa"><span data-lang-pt><strong>Ensino e pesquisa</strong><span>Vamos conversar sobre uma atividade ou projeto em conjunto. ↗</span></span><span data-lang-en><strong>Teaching and research</strong><span>Let’s discuss an activity or joint project. ↗</span></span></a>
+    <a class="collaboration-link" href="mailto:mariocnascimento@gmail.com?subject=Colaboracao%20com%20Dragon%20Games"><span data-lang-pt><strong>Criação de jogos</strong><span>Design, narrativa, arte, tecnologia ou testes: vamos conectar ideias. ↗</span></span><span data-lang-en><strong>Game creation</strong><span>Design, narrative, art, technology or testing: let’s connect ideas. ↗</span></span></a>
+    <a class="collaboration-link" href="mailto:mariocnascimento@gmail.com?subject=Parcerias%20e%20investimento%20em%20games"><span data-lang-pt><strong>Parcerias e investimento</strong><span>Conheça a visão e as possibilidades de desenvolvimento. ↗</span></span><span data-lang-en><strong>Partnerships and investment</strong><span>Discover the vision and development opportunities. ↗</span></span></a>
+  </div>
+</div></section>
+  <!-- números -->
+  <section class="sec" id="numeros"><div class="wrap">
+    <div class="titulo rv"><div><span class="mono"><span data-lang-pt>Massa crítica</span><span data-lang-en>Critical mass</span></span><h2><span data-lang-pt>O acervo<br><span class="serif">em números.</span></span><span data-lang-en>The collection<br><span class="serif">in numbers.</span></span></h2></div>
+      <p><span data-lang-pt>Simuladores, desafios e tutores: diferentes caminhos para investigar, compreender e aprender.</span><span data-lang-en>Simulations, challenges and tutors: different paths to investigate, understand and learn.</span></p></div>
+    <div class="bento" id="bento"></div>
   </div></section>
+
+  <!-- frentes -->
+  <section class="sec" id="frentes"><div class="wrap">
+    <div class="titulo rv"><div><span class="mono"><span data-lang-pt>Constelações</span><span data-lang-en>Constellations</span></span><h2><span data-lang-pt>Encontre seu<br><span class="serif">próximo caminho.</span></span><span data-lang-en>Find your<br><span class="serif">next path.</span></span></h2></div>
+      <p><span data-lang-pt>O catálogo completo das três frentes, com o Lab-RA como espaço de experimentação tecnológica.</span><span data-lang-en>The complete catalog across the three fields, with Lab-RA as a space for technological experimentation.</span></p></div>
+    <div class="frentes" id="frentesGrid"></div>
+  </div></section>
+
+  <!-- telemetria -->
+  <section class="sec" id="telemetria"><div class="wrap">
+    <div class="titulo rv"><div><span class="mono"><span data-lang-pt>Novidades</span><span data-lang-en>Updates</span></span><h2><span data-lang-pt>Em construção<br><span class="serif">agora.</span></span><span data-lang-en>Being built<br><span class="serif">right now.</span></span></h2></div>
+      <p><span data-lang-pt>Volte para descobrir novas experiências e acompanhar a evolução dos projetos. Abaixo, veja as novidades em destaque e o histórico de desenvolvimento.</span><span data-lang-en>Come back to discover new experiences and follow the projects as they evolve. See highlights and the development history below.</span></p></div>
+<div class="update-highlights">
+  <a href="#celula-viva"><span class="eyebrow"><span data-lang-pt>Para experimentar</span><span data-lang-en>Try it</span></span><h3><span data-lang-pt>Célula Viva em destaque</span><span data-lang-en>Living Cell in the spotlight</span></h3><p><span data-lang-pt>Do modelo 3D à realidade aumentada: um primeiro encontro com a Fisiologia.</span><span data-lang-en>From a 3D model to augmented reality: a first encounter with physiology.</span> →</p></a>
+  <a href="https://etica.drmarionascimento.com.br/historias-eticas/" target="_blank" rel="noopener"><span class="eyebrow"><span data-lang-pt>Para refletir</span><span data-lang-en>Reflect</span></span><h3><span data-lang-pt>13 histórias, muitas escolhas</span><span data-lang-en>13 stories, many choices</span></h3><p><span data-lang-pt>Explore os conflitos e os desdobramentos dos Casos Éticos 2.</span><span data-lang-en>Explore the conflicts and consequences in Ethical Cases 2.</span> ↗</p></a>
+  <a href="https://fisiologia-em-fuga.drmarionascimento.com.br/percursos/" target="_blank" rel="noopener"><span class="eyebrow"><span data-lang-pt>Para desafiar</span><span data-lang-en>Challenge yourself</span></span><h3><span data-lang-pt>Percursos de Fisiologia</span><span data-lang-en>Physiology Pathways</span></h3><p><span data-lang-pt>Questões por unidade para colocar seu conhecimento à prova. Entrada com Google.</span><span data-lang-en>Questions by unit to test your knowledge. Google sign-in.</span> ↗</p></a>
+</div><details class="development-log"><summary><span data-lang-pt>Ver histórico de desenvolvimento</span><span data-lang-en>View development history</span></summary><div class="tele">
+      <div class="terminal rv"><header><i></i><i></i><i></i>&nbsp; ~/drmarionascimento — novidades<span id="teleEstado"><i class="pulsar"></i> <span data-lang-pt>conectando…</span><span data-lang-en>connecting…</span></span></header><div class="corpo" id="teleLog"></div></div>
+      <div class="sinais rv" style="--d:.1s" id="sinais"></div>
+    </div>
+</details>
+  </div></section>
+
+
 </main>
 
 <footer class="rodape"><div class="wrap">
@@ -577,7 +638,7 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
   <div class="paleta-caixa"><input id="pq" type="text" autocomplete="off" aria-label="Buscar"><div class="paleta-res" id="pres" role="listbox"></div><div class="paleta-dica"><span>↑↓</span><span>Enter ↗</span><span>Esc</span></div></div>
 </div>
 
-<script src="universo-dados.js?v=20261024"></script>
+<script src="universo-dados.js?v=20261024-portal"></script>
 
 <script>
 /* ===================== interface (sem dependências) ===================== */
@@ -619,11 +680,6 @@ $('#hudItens').textContent = U.itens.length; $('#hudCont').textContent = U.repos
 /* ---------- conteúdo dinâmico (re-renderizado por idioma) ---------- */
 function renderDinamico(){
   const t = U.t;
-  // manifesto
-  const fr = lang === 'pt'
-    ? [['n',U.itens.length],'experiências.',['n',unicos],'simuladores','de','fisiologia.',['n',porTipo.escape],'salas','de','escape.',['n',porTipo.bancada],'bancadas','de','realidade','aumentada.',['s','Tudo'],['s','feito'],['s','à'],['s','mão,'],'para','caber','no','bolso','do','aluno.']
-    : [['n',U.itens.length],'experiences.',['n',unicos],'physiology','simulators.',['n',porTipo.escape],'escape','rooms.',['n',porTipo.bancada],'augmented-reality','benches.',['s','All'],['s','hand-built,'],'to','fit','in','a',"student's",'pocket.'];
-  $('#manifestoTxt').innerHTML = fr.map(w => Array.isArray(w) ? `<span class="w ${w[0]}">${esc(w[1])}</span>` : `<span class="w">${esc(w)}</span>`).join(' ');
   // frentes
   // hierarquia: principal → apoios (indentados), disciplinas, testes e alianças
   const Lh = (pt,en) => lang === 'pt' ? pt : en;
@@ -669,12 +725,12 @@ function renderDinamico(){
     { r:5, img:'assets/cards/mosaico.webp', k:L('Testes fechados · dedução','Closed testing · deduction'), h:'MOSAICO', p:L('Pistas fracionadas, telão e celulares: a primeira série do Dragon Games.','Fragmented clues, a shared screen and phones: Dragon Games\' first series.'), url:'https://dragongames.dev.br/' },
     { r:1, img:'assets/cards/fisiologia-em-fuga.webp', k:L('Público · entrada Google','Public · Google sign-in'), h:'Fisiologia em Fuga', p:L('Escape rooms e Percursos de Fisiologia. Entre com sua conta Google.','Escape rooms and Physiology Pathways. Sign in with your Google account.'), url:'https://fisiologia-em-fuga.drmarionascimento.com.br/' },
     { r:7, img:'assets/cards/lab-ra.webp', k:L('Biblioteca experimental','Experimental library'), h:'Lab RA', p:L('Do músculo ao sarcômero, na palma da mão.','From muscle to sarcomere, in the palm of your hand.'), url:'https://lab-ra.dragongames.dev.br/' },
-    { r:6, img:'assets/cards/mosaico-card.webp', k:L('Testes fechados · cartas','Closed testing · cards'), h:'Mosaico Card', p:L('Mercado de Pistas: casos da Bíblia e de Cinema & Séries.','Clue Market: Bible and Film & TV cases.'), url:'https://mosaico-card.dragongames.dev.br/' },
-    { r:5, img:'assets/cards/casa-da-costa.webp', k:L('Testes fechados · festa','Closed testing · party'), h:'A Casa da Costa', p:L('Quem estava onde, e quando? Monte o mosaico.','Who was where, and when? Build the mosaic.'), url:'https://casa-da-costa.dragongames.dev.br/a-mesa/MOSAICO-mesa.html' },
+    { r:6, img:'assets/cards/mosaico-card.webp', k:L('Testes fechados · cartas','Closed testing · cards'), h:'Mosaico Card', p:L('Mercado de Pistas: casos da Bíblia e de Cinema & Séries.','Clue Market: Bible and Film & TV cases.'), url:'https://dragongames.dev.br/' },
+    { r:5, img:'assets/cards/casa-da-costa.webp', k:L('Testes fechados · festa','Closed testing · party'), h:'A Casa da Costa', p:L('Quem estava onde, e quando? Monte o mosaico.','Who was where, and when? Build the mosaic.'), url:'https://dragongames.dev.br/' },
     { r:8, img:'assets/cards/eita.webp', k:L('Testes abertos · Quiz em aliança','Open testing · Alliance quiz'), h:'Eita!', p:L('Participe dos testes: responda em aliança e ajude a turma a vencer o chefão.','Join the testing: answer as an alliance and help the group defeat the boss.'), url:'https://eita.dragongames.dev.br/' },
     { r:0, img:'assets/cards/cardiopulmonar.webp', k:L('Simulador','Simulator'), h:L('Cardiopulmonar integrado','Integrated cardiopulmonary'), p:L('Coração e pulmão no mesmo modelo, variável por variável.','Heart and lungs in one model, variable by variable.'), url:'https://fisiologia.drmarionascimento.com.br/cardiopulmonar-integrado.html' }
   ];
-  $('#mundosGrid').innerHTML = M.map(m => { const r = U.repos[m.r]; return `<a class="mundo" href="${esc(m.url)}" target="_blank" rel="noopener" style="--c:${r.cor}">
+  $('#mundosGrid').innerHTML = M.filter(m => ['MOSAICO','Mosaico Card','A Casa da Costa'].includes(m.h)).map(m => { const r = U.repos[m.r]; return `<a class="mundo" href="${esc(m.url)}" target="_blank" rel="noopener" style="--c:${r.cor}">
     ${m.img ? `<img src="${esc(m.img)}" alt="" loading="lazy" decoding="async">` : `<img alt="" src="data:image/svg+xml;utf8,${encodeURIComponent(m.r === 8 ? capaQuiz(r.cor) : capaSVG(r.cor))}">`}
     <span class="vai">${SETA}</span><span class="mono">${esc(m.k)} · ${esc(r.nome)}</span><h4>${esc(m.h)}</h4><p>${esc(m.p)}</p></a>`; }).join('');
   renderSinais();
@@ -716,30 +772,20 @@ function conta(el){ const n = +el.dataset.conta; el.dataset.contou = '1'; if (RE
   (function f(t){ const u = Math.min(1,(t-t0)/dur), e = u < .5 ? 4*u*u*u : 1 - Math.pow(-2*u+2,3)/2; el.textContent = Math.round(n*e); if (u<1) requestAnimationFrame(f); })(t0); }
 
 /* ---------- cartões holográficos (tilt + luz) ---------- */
-function ligaHolo(){ $$('.holo').forEach(h => {
+function ligaHolo(){ if(REDUZ || matchMedia('(pointer:coarse)').matches)return; $$('.holo').forEach(h => {
   h.addEventListener('pointermove', e => { const b = h.getBoundingClientRect(), x = (e.clientX-b.left)/b.width, y = (e.clientY-b.top)/b.height;
     h.style.setProperty('--ry', ((x-.5)*10)+'deg'); h.style.setProperty('--rx', ((.5-y)*8)+'deg');
     const i = $('.holo-in',h); i.style.setProperty('--mx', (x*100)+'%'); i.style.setProperty('--my', (y*100)+'%'); });
   h.addEventListener('pointerleave', () => { h.style.setProperty('--ry','0deg'); h.style.setProperty('--rx','0deg'); });
 }); }
-function ligaMundos(){ $$('.mundo').forEach(m => {
+function ligaMundos(){ if(REDUZ || matchMedia('(pointer:coarse)').matches)return; $$('.mundo').forEach(m => {
   m.addEventListener('pointermove', e => { const b = m.getBoundingClientRect(), x = (e.clientX-b.left)/b.width-.5, y = (e.clientY-b.top)/b.height-.5;
     m.style.setProperty('--ry', (x*12)+'deg'); m.style.setProperty('--rx', (-y*10)+'deg'); });
   m.addEventListener('pointerleave', () => { m.style.setProperty('--ry','0deg'); m.style.setProperty('--rx','0deg'); });
 }); }
 
-/* ---------- manifesto: mesmo progresso por rolagem do catálogo local ---------- */
-function manifesto(){
-  const cena = $('#manifesto'), b = cena.getBoundingClientRect();
-  const alcance = Math.max(1, b.height - innerHeight);
-  const p = REDUZ ? 1 : Math.min(1, Math.max(0, -b.top / alcance));
-  const palavras = cena.querySelectorAll('.w');
-  const n = Math.floor(p * 1.25 * palavras.length);
-  palavras.forEach((w,k) => w.classList.toggle('on', k < n));
-}
-
 /* ---------- topo, progresso, nav ativa ---------- */
-const secs = ['inicio','apresentacao','numeros','frentes','telemetria','sobre'].map(id => document.getElementById(id));
+const secs = ['inicio','apresentacao','celula-viva','acesso-publico','sobre','projetos','parcerias','numeros','frentes','telemetria'].map(id => document.getElementById(id));
 function rolagem(){
   const y = scrollY, H = document.documentElement.scrollHeight - innerHeight;
   $('#topo').classList.toggle('solida', y > 40);
@@ -748,7 +794,6 @@ function rolagem(){
   ['#hudE','#hudD','#cantos'].forEach(s => $(s).style.opacity = fade);
   let at = 'inicio'; for (const s of secs) if (s && s.getBoundingClientRect().top < innerHeight*.45) at = s.id;
   $$('#nav a').forEach(a => a.classList.toggle('ativo', a.dataset.sec === at));
-  manifesto();
   U.scrollP = y / innerHeight;
   if (U.explorar && U.scrollP > .4) { document.body.classList.remove('explorando'); U.explorar = false; document.dispatchEvent(new Event('fecha-foco')); }
 }
@@ -765,20 +810,12 @@ function hora(){ $('#hudHora').textContent = new Intl.DateTimeFormat('pt-BR',{ho
 hora(); setInterval(hora, 1000);
 $('#ano').textContent = new Date().getFullYear();
 
-/* ---------- cursor ---------- */
-if (matchMedia('(hover:hover) and (pointer:fine)').matches && !REDUZ) {
-  document.body.classList.add('tem-cursor');
-  const c = $('.cursor'), d = $('.cursor-pt'); let x = innerWidth/2, y = innerHeight/2, cx = x, cy = y;
-  addEventListener('pointermove', e => { x = e.clientX; y = e.clientY; d.style.transform = `translate(${x}px,${y}px)`;
-    c.classList.toggle('alvo', !!e.target.closest('a,button,.rot') || !!U.hoverAlvo); }, { passive:true });
-  (function f(){ cx += (x-cx)*.18; cy += (y-cy)*.18; c.style.transform = `translate(${cx}px,${cy}px)`; requestAnimationFrame(f); })();
-}
-
 /* ---------- paleta de busca ---------- */
 const pal = $('#paleta'), pq = $('#pq'), pres = $('#pres'); let sel = 0, lista = [];
 const indice = [
-  ...U.repos.map((r,k) => ({ t:r.nome, s:()=>U.t(r.area), tag:'REPO', url:r.online, c:r.cor, q:norm(r.nome+' '+r.area.pt+' '+r.area.en) })),
-  ...U.itens.map(i => { const r = U.repos[i[0]]; return { t:i[1], s:()=>[r.nome, i[2], i[5]==='ef'?'EF':i[5]==='fisio'?'Fisio':''].filter(Boolean).join(' · '), tag:()=>U.tipos[i[4]][lang==='pt'?0:1], url:i[3], c:r.cor, q:norm(i[1]+' '+i[2]+' '+r.nome+' '+U.tipos[i[4]].join(' ')+' '+i[5]) }; })
+  {t:'Célula Viva · Realidade aumentada',s:()=>lang==='pt'?'Explore uma célula em 3D e RA':'Explore a cell in 3D and AR',tag:'RA / AR',url:'https://fisiologia.drmarionascimento.com.br/ra/celula/',c:'#38e1c6',q:norm('celula viva realidade aumentada RA AR 3D camera corpo humano organelas augmented reality cell')},
+  ...U.repos.map((r,k) => ({ t:r.nome, s:()=>U.t(r.area), tag:()=>lang==='pt'?'Projeto':'Project', url:r.online, c:r.cor, q:norm(r.nome+' '+r.area.pt+' '+r.area.en) })),
+  ...U.itens.map(i => { const r = U.repos[i[0]]; return { t:i[1], s:()=>[r.nome, i[2], i[5]==='ef'?'EF':i[5]==='fisio'?'Fisio':''].filter(Boolean).join(' · '), tag:()=>U.tipos[i[4]][lang==='pt'?0:1], url:i[3], c:r.cor, q:norm(i[1]+' '+i[2]+' '+r.nome+' '+U.tipos[i[4]].join(' ')+' '+i[5]+' '+(i[4]==='tutor'?'IA inteligencia artificial dúvidas ajuda AI artificial intelligence':i[4]==='escape'?'quests desafios escape room jogos':' ')) }; })
 ];
 function realce(txt, q){ if (!q) return esc(txt); const n = norm(txt), k = n.indexOf(q); return k < 0 ? esc(txt) : esc(txt.slice(0,k)) + '<mark>' + esc(txt.slice(k,k+q.length)) + '</mark>' + esc(txt.slice(k+q.length)); }
 function busca(){ const q = norm(pq.value.trim()); const tk = q.split(/\s+/).filter(Boolean);
@@ -796,7 +833,10 @@ addEventListener('keydown', e => { if ((e.ctrlKey||e.metaKey) && e.key.toLowerCa
   if (e.key === 'Escape') { fechaPal(); document.dispatchEvent(new Event('fecha-foco')); } });
 
 /* ---------- explorar ---------- */
-$('#explorar').addEventListener('click', () => { scrollTo({ top:0, behavior:'smooth' }); document.body.classList.add('explorando'); U.explorar = true; });
+$('#explorar').addEventListener('click', () => {
+  if (!U.cenaPronta || U.cenaFalhou) { document.getElementById('frentes').scrollIntoView({behavior:REDUZ?'auto':'smooth'}); return; }
+  scrollTo({ top:0, behavior:'instant' }); document.body.classList.add('explorando'); U.explorar = true;
+});
 $('#sairExplorar').addEventListener('click', () => { document.body.classList.remove('explorando'); U.explorar = false; document.dispatchEvent(new Event('fecha-foco')); });
 
 /* ---------- novidades: último commit da branch padrão de cada repositório ---------- */
@@ -878,7 +918,7 @@ $('#sairExplorar').addEventListener('click', () => { document.body.classList.rem
   function fim(){ if (feito) return; feito = true; pinta(100); $('#boot').classList.add('fim'); document.body.classList.remove('carregando'); document.body.classList.add('pronto'); rolagem(); }
   $('#bootPular').addEventListener('click', fim);
   U.bootFim = fim;
-  if (REDUZ) fim(); else setTimeout(passo, 250);
+  fim(); // Content is available immediately; the decorative universe loads independently.
   setTimeout(fim, 9000);
 })();
 
@@ -886,7 +926,7 @@ aplicaLang(lang);
 rolagem();
 
 /* atalho: clicar num repositório das frentes com Alt foca no universo */
-document.addEventListener('click', e => { const a = e.target.closest('[data-foco]'); if (a && e.altKey) { e.preventDefault(); scrollTo({top:0,behavior:'smooth'}); document.dispatchEvent(new CustomEvent('foca', { detail:+a.dataset.foco })); } });
+document.addEventListener('click', e => { const a = e.target.closest('[data-foco]'); if (a && e.altKey && U.cenaPronta && !U.cenaFalhou) { e.preventDefault(); scrollTo({top:0,behavior:'smooth'}); document.dispatchEvent(new CustomEvent('foca', { detail:+a.dataset.foco })); } });
 })();
 
 </script>
@@ -896,7 +936,7 @@ document.addEventListener('click', e => { const a = e.target.closest('[data-foco
 const U = window.U;
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const MOBILE = matchMedia('(max-width:640px)').matches;
+let MOBILE = matchMedia('(max-width:640px)').matches;
 const TOQUE = matchMedia('(pointer:coarse)').matches;
 const REDUZ = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const ORDEM = ['aula','etica','dragon','lab'];
@@ -905,19 +945,25 @@ const T_ = o => (o && typeof o === 'object') ? (U.lang === 'en' ? (o.en ?? o.pt)
 const centralDe = g => U.repos.find(r => r.grupo === g && !r.grupos && !('pai' in r));
 const linha2 = r => r.tag ? r.tag : `${r.total} ${r.total === 1 ? L_('item','item') : L_('itens','items')}${'pai' in r ? ' · ' + L_('apoio','support') : ''}`;
 const nomeLua = s => s.replace(/^MOSAICO - /, '').replace(/^A Casa da Costa: /, '');
-const falha = e => { console.warn('[universo]', e); document.documentElement.classList.add('sem-webgl'); U.cenaFalhou = true; };
+const falha = e => {
+  console.warn('[universo]', e); document.documentElement.classList.add('sem-webgl');
+  U.cenaFalhou = true; U.explorar = false; document.body.classList.remove('explorando');
+  $('#painel').classList.remove('aberto'); $('#painel').setAttribute('aria-hidden','true');
+  document.dispatchEvent(new Event('universo-indisponivel'));
+};
 
 let THREE;
 try {
   if (/[?&]lite\b/.test(location.search)) throw new Error('modo leve');
   const c = document.createElement('canvas');
-  if (!(c.getContext('webgl2') || c.getContext('webgl'))) throw new Error('WebGL indisponível');
+  if (!c.getContext('webgl2')) throw new Error('WebGL indisponível');
   THREE = await import('three');
 } catch (e) { falha(e); }
-if (THREE) iniciar();
+if (THREE) { try { iniciar(); } catch(e) { falha(e); } }
 
 function iniciar(){
 const canvas = $('#universo');
+canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); falha('contexto gráfico perdido'); });
 let renderer;
 try { renderer = new THREE.WebGLRenderer({ canvas, antialias:false, alpha:false, powerPreference:'high-performance' }); }
 catch (e) { return falha(e); }
@@ -1019,8 +1065,8 @@ function campoEstrelas(n, r0, r1, tam, naFaixa){
       gl_FragColor = vec4(mix(vC, vec3(1.), .45) * 1.3, (a + raio) * vA); }` }));
 }
 const ceus = [
-  campoEstrelas(MOBILE ? 5000 : 11000, 90, 360, 1.8, .45),
-  campoEstrelas(MOBILE ? 900 : 2200, 26, 80, 1.05, .2)
+  campoEstrelas(TOQUE ? 1500 : 11000, 90, 360, 1.8, .45),
+  campoEstrelas(TOQUE ? 300 : 2200, 26, 80, 1.05, .2)
 ];
 ceus.forEach(c => scene.add(c));
 
@@ -1030,7 +1076,7 @@ const plano = new THREE.Group(); mundo.add(plano);
 const qInicial = new THREE.Quaternion().setFromAxisAngle(V3(1, 0, 0), MOBILE ? 1.0 : 1.05);
 mundo.quaternion.copy(qInicial);
 
-const RETRATO = innerHeight > innerWidth;
+let RETRATO = innerHeight > innerWidth;
 // Sala de Aula e Dragon Games se sobrepõem numa faixa estreita: o Eita! fica dentro das duas fronteiras
 const RA = 20, RD = 32, RL = 11;
 const SIS = {
@@ -1336,7 +1382,7 @@ function distanciaFoco(raio){
 function limitaDist(d){ return THREE.MathUtils.clamp(d, 3.5, distFit * 1.9); }
 function zoom(f){ distAlvo = limitaDist(distAlvo * f); interagiu(); }
 function redimensiona(){
-  W = innerWidth; H = innerHeight; renderer.setSize(W, H, false); camera.aspect = W / H; camera.updateProjectionMatrix();
+  W = innerWidth; H = innerHeight; MOBILE = W <= 640; RETRATO = H > W; renderer.setSize(W, H, false); camera.aspect = W / H; camera.fov = MOBILE ? 60 : 46; camera.updateProjectionMatrix();
   rtCena.setSize(Math.round(W * PR), Math.round(H * PR));
   const bw = Math.max(1, Math.round(W * PR / 4)), bh = Math.max(1, Math.round(H * PR / 4)); rtA.setSize(bw, bh); rtB.setSize(bw, bh); matBlur.uniforms.uRes.value.set(bw, bh);
   const antigo = distFit; calcFit(); if (!foco && Math.abs(distAlvo - antigo) < 1e-3) distAlvo = distFit; mede();
@@ -1363,6 +1409,7 @@ function cancelaArraste(){
 }
 canvas.addEventListener('pointerdown', e => {
   if(e.pointerType==='mouse'&&e.button!==0)return;
+  if(e.pointerType!=='mouse'&&!U.explorar)return;
   limpaSelecao();
   if(e.pointerType==='mouse'||U.explorar){
     e.preventDefault();
@@ -1371,14 +1418,17 @@ canvas.addEventListener('pointerdown', e => {
   }
   ptrs.set(e.pointerId, { x:e.clientX, y:e.clientY });
   inercia.dx = inercia.dy = 0; interagiu(); arrastou = false;
-  if (ptrs.size === 1) down = { x:e.clientX, y:e.clientY, t:performance.now(), id:e.pointerId };
+  if (ptrs.size === 1) down = { x:e.clientX, y:e.clientY, t:performance.now(), id:e.pointerId, tolerance:e.pointerType==='mouse'?4:10 };
   if (ptrs.size === 2){ const [a, b] = [...ptrs.values()]; pinca0 = Math.hypot(a.x - b.x, a.y - b.y); distPinca0 = distAlvo; down = null; }
   canvas.classList.add('arrastando');
 });
 addEventListener('pointermove', e => {
   if (ptrs.has(e.pointerId)){
     const p = ptrs.get(e.pointerId); const dx = e.clientX - p.x, dy = e.clientY - p.y; p.x = e.clientX; p.y = e.clientY; interagiu();
-    if (ptrs.size === 1){ gira(dx, dy); inercia.dx = inercia.dx * .5 + dx * .5; inercia.dy = inercia.dy * .5 + dy * .5; if (Math.hypot(dx, dy) > 1) arrastou = true; }
+    if (ptrs.size === 1 && down){
+      if (Math.hypot(e.clientX-down.x,e.clientY-down.y) > down.tolerance) arrastou = true;
+      if (arrastou){ gira(dx, dy); inercia.dx = inercia.dx*.5+dx*.5; inercia.dy = inercia.dy*.5+dy*.5; }
+    }
     else if (ptrs.size === 2 && U.explorar){ const [a, b] = [...ptrs.values()]; const d = Math.hypot(a.x - b.x, a.y - b.y); if (d > 0 && pinca0 > 0) distAlvo = limitaDist(distPinca0 * pinca0 / d); }
   } else if (!TOQUE && e.target === canvas) atualizaHover(e.clientX, e.clientY);
   else if (!TOQUE && hover) atualizaHover(-1, -1);
@@ -1386,7 +1436,7 @@ addEventListener('pointermove', e => {
 function solta(e){
   if (!ptrs.has(e.pointerId)) return; ptrs.delete(e.pointerId);
   if (ptrs.size === 0){ canvas.classList.remove('arrastando');document.body.classList.remove('universe-dragging'); }
-  if (down && down.id === e.pointerId && e.type === 'pointerup' && !arrastou && performance.now() - down.t < 450 && Math.hypot(e.clientX - down.x, e.clientY - down.y) < 7) clique(e.clientX, e.clientY);
+  if (down && down.id === e.pointerId && e.type === 'pointerup' && !arrastou && performance.now() - down.t < 800 && Math.hypot(e.clientX - down.x, e.clientY - down.y) <= down.tolerance) clique(e.clientX, e.clientY);
   if (ptrs.size === 1){ down = null; inercia.dx = inercia.dy = 0; }
   if (ptrs.size === 0){down = null;limpaSelecao();}
   if(canvas.hasPointerCapture?.(e.pointerId))canvas.releasePointerCapture(e.pointerId);
@@ -1414,8 +1464,8 @@ let hover = null; const dica = $('#dicaItem');
 function sob(x, y){
   let melhor = null;
   const testa = (p, raio, extra) => { if (!p.vis) return; const d = Math.hypot(p.sx - x, p.sy - y); if (d <= Math.max(p.sr, raio) && (!melhor || p.depth < melhor.p.depth)) melhor = { p, ...extra }; };
-  itens.forEach(o => testa(o, o.lua ? 12 : TOQUE ? 16 : 10, { tipo:'item' }));
-  nos.forEach(n => testa(n, 12, { tipo:'no' }));
+  itens.forEach(o => testa(o, TOQUE ? 24 : o.lua ? 12 : 10, { tipo:'item' }));
+  nos.forEach(n => testa(n, TOQUE ? 26 : 12, { tipo:'no' }));
   return melhor;
 }
 function atualizaHover(x, y){
@@ -1473,9 +1523,12 @@ const projeta = (local, alvo) => { tmp.copy(local).applyMatrix4(plano.matrixWorl
 const fatorTela = () => (H / 2) / Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
 let primeiro = true; const pb = {};
 function quadro(now){
-  if (pausado) return;
+  if (pausado || U.cenaFalhou) return;
   requestAnimationFrame(quadro);
-  now = now || performance.now(); const dt = Math.max(0, Math.min((now - ultimo) / 1000, .05)); ultimo = Math.max(ultimo, now); t += dt; ocioso += dt;
+  now = now || performance.now();
+  if (!primeiro && !U.explorar && (U.scrollP || 0) > 1.2) { ultimo = now; camadaRot.style.visibility = 'hidden'; return; }
+  if (TOQUE && now - ultimo < 1000/30) return;
+  const dt = Math.max(0, Math.min((now - ultimo) / 1000, .05)); ultimo = Math.max(ultimo, now); t += dt; ocioso += dt;
   fpsN++; if (now - fpsT > 1000){ $('#hudFps').textContent = fpsN; fpsN = 0; fpsT = now; }
   const sp = U.scrollP || 0, heroP = Math.min(1, sp), exp = !!U.explorar;
   nos.forEach(n => { if (n.orb){ const a = n.orb.fase + t * n.orb.vel; n.pos.set(SIS[n.g].c.x + Math.cos(a) * n.orb.R, 0, SIS[n.g].c.z + Math.sin(a) * n.orb.R); } n.mesh.position.copy(n.pos); n.mesh.material.uniforms.uT.value = t; n.mesh.rotation.y = t * (n.central ? .05 : .012); });
@@ -1530,9 +1583,9 @@ function quadro(now){
   $('#hudCam').textContent = `x ${camera.position.x.toFixed(1)} · y ${camera.position.y.toFixed(1)} · z ${camera.position.z.toFixed(1)}`;
   renderer.setRenderTarget(rtCena); renderer.render(scene, camera);
   matLimiar.uniforms.t.value = rtCena.texture; passe(matLimiar, rtA);
-  for (let i = 0; i < 2; i++){ matBlur.uniforms.t.value = rtA.texture; matBlur.uniforms.uDir.value.set(1, 0); passe(matBlur, rtB); matBlur.uniforms.t.value = rtB.texture; matBlur.uniforms.uDir.value.set(0, 1); passe(matBlur, rtA); }
+  for (let i = 0; i < (TOQUE ? 1 : 2); i++){ matBlur.uniforms.t.value = rtA.texture; matBlur.uniforms.uDir.value.set(1, 0); passe(matBlur, rtB); matBlur.uniforms.t.value = rtB.texture; matBlur.uniforms.uDir.value.set(0, 1); passe(matBlur, rtA); }
   matFinal.uniforms.t.value = rtCena.texture; matFinal.uniforms.tB.value = rtA.texture; passe(matFinal, null);
-  if (primeiro){ primeiro = false; U.cenaPronta = true; }
+  if (primeiro){ primeiro = false; U.cenaPronta = true; document.dispatchEvent(new Event('universo-pronto')); }
 }
 quadro();
 }
