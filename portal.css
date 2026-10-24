@@ -103,7 +103,7 @@ html{scroll-padding-top:88px}
 .explorando .heroi{min-height:100svh}
 .explorando .heroi-txt{visibility:hidden}
 .explorando #inicio~main{visibility:hidden}
-.sem-webgl .zoom,.sem-webgl .rotulos,.sem-webgl .universe-hint{display:none!important}
+.universo-leve .zoom,.universo-leve .rotulos{display:none!important}
 .sem-webgl .fallback-ceu{background:radial-gradient(ellipse at 75% 25%,#38e1c61c,transparent 45%),radial-gradient(ellipse at 85% 65%,#a58cff18,transparent 50%),#03050a}
 @media (max-width:1180px){.marca b{font-size:.78rem}.nav a{padding-inline:7px}.topo{gap:10px}.btn kbd{display:none}.discovery-grid{gap:18px}}
 @media (max-width:1020px){
@@ -141,3 +141,33 @@ html{scroll-padding-top:88px}
  .marca>span:last-child{display:none}.acoes{gap:6px}.hero-secondary .text-button{font-size:.78rem}.heroi .cta{gap:8px}
 }
 @media (prefers-reduced-motion:reduce){.discovery-card:hover,.discovery-card:focus-within,.discovery-card:hover img{transform:none}}
+
+/* Planet navigation without a GPU; the original 3D scene takes over when ready. */
+.universe-lite{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;padding:140px 24px 88px;background:radial-gradient(ellipse at 65% 40%,#12223755,transparent 70%)}
+.universe-lite[hidden]{display:none}
+.lite-systems{width:min(850px,100%);height:min(600px,100%);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.lite-system{position:relative;min-height:0;display:grid;place-items:center}
+.lite-orbit{position:absolute;width:86%;height:68%;border:1px solid color-mix(in srgb,var(--planet) 36%,transparent);border-radius:50%;transform:rotate(-20deg);pointer-events:none}
+.lite-orbit::after{content:"";position:absolute;inset:14%;border:1px dashed color-mix(in srgb,var(--planet) 22%,transparent);border-radius:50%}
+.lite-orbit i{position:absolute;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff,var(--satellite) 30%,#07101e 85%);box-shadow:0 0 12px var(--satellite);transform:translate(-50%,-50%)}
+.lite-planet{position:relative;border:0;background:none;color:#edf5fa;padding:12px 6px;display:flex;align-items:center;flex-direction:column;gap:8px;cursor:pointer;pointer-events:auto;min-height:44px;max-width:100%;font:inherit;text-align:center;text-shadow:0 2px 8px #000}
+.lite-sphere{width:76px;height:76px;display:block;border-radius:50%;background:radial-gradient(circle at 32% 27%,#fff 0%,var(--planet) 17%,color-mix(in srgb,var(--planet) 50%,#06101a) 56%,#02050c 87%);box-shadow:inset -8px -8px 16px #0006,0 0 30px color-mix(in srgb,var(--planet) 38%,transparent);transition:transform .2s}
+.lite-planet:hover .lite-sphere,.lite-planet:focus-visible .lite-sphere{transform:scale(1.12)}
+.lite-planet:focus-visible{outline:2px solid var(--planet);outline-offset:5px;border-radius:12px}
+.lite-planet strong{font-size:1rem;max-width:24ch}.lite-planet small{font-size:.72rem;color:#b9cad7}
+.lite-caption{font-size:.78rem;color:#b9cad7;margin:22px 0 0;text-align:center}
+body:not(.explorando) .universe-lite{left:52%;opacity:.8;padding:110px 12px 120px}
+body:not(.explorando) .lite-planet{pointer-events:none}
+body:not(.explorando) .universe-lite .lite-caption,body:not(.explorando) .lite-planet small{display:none}
+body:not(.explorando) .lite-planet strong{font-size:.72rem}
+.explorando{overflow:hidden}
+@media(max-width:760px){
+ body:not(.explorando) .universe-lite{display:none}
+ .universe-lite{padding:142px 12px 90px}
+ .lite-systems{gap:18px 4px;height:min(520px,100%)}
+ .lite-sphere{width:58px;height:58px}
+ .lite-planet strong{font-size:.8rem}.lite-planet small{font-size:.63rem}
+ .lite-caption{margin-top:14px;font-size:.7rem}
+ .lite-orbit i{width:8px;height:8px}
+}
+@media(max-height:550px){.universe-lite{padding-top:120px;padding-bottom:65px}.lite-sphere{width:34px;height:34px}.lite-planet{gap:3px;padding:4px}.lite-caption,.lite-planet small{display:none}.lite-systems{gap:6px}}

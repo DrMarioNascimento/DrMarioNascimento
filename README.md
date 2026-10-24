@@ -62,3 +62,9 @@ Os recursos de saúde são educacionais e não substituem diagnóstico, prescri�
 **English:** Physiology, Ethical Cases 1 and 2, both Trolley Problem versions and the Research Labs are publicly available. Physiology Escape/Pathways require Google sign-in. Eita! is in open testing. Teacher-only activities and invitation-based rooms retain their access controls. See the availability inventory and each project's license.
 
 **Prof. Mário César Nascimento, PhD ©**
+
+### Resiliência do universo de planetas
+
+O motor Three.js 0.184.0 é servido pelo próprio portal em `assets/vendor/three/`, com a licença MIT preservada. A cena mantém o giro, o zoom e a seleção originais. Não é criado um segundo contexto WebGL apenas para testar compatibilidade.
+
+`universo-leve.js` oferece quatro planetas navegáveis com o mesmo catálogo enquanto o 3D carrega ou quando WebGL falha. Ao iniciar a cena, a navegação leve é ocultada automaticamente. `?lite` permite verificar esse caminho sem depender de uma falha de hardware. Os links de projetos e atividades vêm exclusivamente de `universo-dados.js`.

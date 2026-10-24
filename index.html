@@ -14,9 +14,8 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3CradialGradient id='g'%3E%3Cstop offset='0' stop-color='%23fff'/%3E%3Cstop offset='.35' stop-color='%2338e1c6'/%3E%3Cstop offset='1' stop-color='%2338e1c6' stop-opacity='0'/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='9' fill='%2303050a'/%3E%3Ccircle cx='16' cy='16' r='11' fill='url(%23g)'/%3E%3Cellipse cx='16' cy='16' rx='14' ry='5' fill='none' stroke='%23a58cff' stroke-width='1.2' transform='rotate(-24 16 16)'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://unpkg.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.184.0/build/three.module.js"}}</script>
+
 <style>
 :root{
   --bg:#03050a; --ink:#eef3f8; --ink2:#a9b5c2; --ink3:#66727f;
@@ -407,8 +406,9 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
 /* Public availability: readable entries on phones, using the portal's depth and palette. */
 .acesso-publico{margin-top:3rem;scroll-margin-top:6rem}.acesso-publico>h3{font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:.7rem}.acesso-publico>p{margin-bottom:1.3rem;line-height:1.7}.acessos-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}.acesso-item{min-width:0;border:1px solid rgba(165,140,255,.35);border-radius:18px;padding:1.4rem;background:linear-gradient(145deg,rgba(165,140,255,.1),rgba(15,20,34,.8));box-shadow:inset 0 1px 0 #ffffff18,0 5px 0 #080b17,0 12px 24px #0004}.acesso-item h4{font-size:1.2rem;margin:.8rem 0}.acesso-item p{line-height:1.65}.acesso-item .cta{margin-top:1rem;flex-wrap:wrap}.acesso-item .btn{white-space:normal}.acesso-reservado{margin:1.6rem 0;padding:1rem 1.2rem;border:1px solid #ffffff22;border-radius:14px;box-shadow:inset 0 1px 0 #ffffff12,0 4px 0 #080b17}.acesso-reservado summary{cursor:pointer;line-height:1.6}.acesso-reservado li{margin:.8rem 0;line-height:1.6}.acesso-reservado ul{padding-left:1.2rem}.acesso-publico a:focus-visible,.acesso-reservado summary:focus-visible{outline:3px solid #a58cff;outline-offset:4px}@media(max-width:620px){.acessos-grid{grid-template-columns:1fr}.acesso-item{padding:1.1rem}}
 </style>
-<link rel="stylesheet" href="portal.css?v=20261024-9">
-<script src="portal.js?v=20261024-2" defer></script>
+<link rel="stylesheet" href="portal.css?v=20261024-10">
+<script src="universo-leve.js?v=20261024-1" defer></script>
+<script src="portal.js?v=20261024-3" defer></script>
 <link rel="canonical" href="https://drmarionascimento.com.br/">
 </head>
 <body class="pronto">
@@ -834,7 +834,6 @@ addEventListener('keydown', e => { if ((e.ctrlKey||e.metaKey) && e.key.toLowerCa
 
 /* ---------- explorar ---------- */
 $('#explorar').addEventListener('click', () => {
-  if (!U.cenaPronta || U.cenaFalhou) { document.getElementById('frentes').scrollIntoView({behavior:REDUZ?'auto':'smooth'}); return; }
   scrollTo({ top:0, behavior:'instant' }); document.body.classList.add('explorando'); U.explorar = true;
 });
 $('#sairExplorar').addEventListener('click', () => { document.body.classList.remove('explorando'); U.explorar = false; document.dispatchEvent(new Event('fecha-foco')); });
@@ -947,7 +946,8 @@ const linha2 = r => r.tag ? r.tag : `${r.total} ${r.total === 1 ? L_('item','ite
 const nomeLua = s => s.replace(/^MOSAICO - /, '').replace(/^A Casa da Costa: /, '');
 const falha = e => {
   console.warn('[universo]', e); document.documentElement.classList.add('sem-webgl');
-  U.cenaFalhou = true; U.explorar = false; document.body.classList.remove('explorando');
+  U.cenaFalhou = true; U.cenaPronta = false;
+  document.body.classList.remove('universe-dragging');
   $('#painel').classList.remove('aberto'); $('#painel').setAttribute('aria-hidden','true');
   document.dispatchEvent(new Event('universo-indisponivel'));
 };
@@ -955,9 +955,7 @@ const falha = e => {
 let THREE;
 try {
   if (/[?&]lite\b/.test(location.search)) throw new Error('modo leve');
-  const c = document.createElement('canvas');
-  if (!c.getContext('webgl2')) throw new Error('WebGL indisponível');
-  THREE = await import('three');
+  THREE = await import('./assets/vendor/three/three.module.min.js');
 } catch (e) { falha(e); }
 if (THREE) { try { iniciar(); } catch(e) { falha(e); } }
 
@@ -965,7 +963,7 @@ function iniciar(){
 const canvas = $('#universo');
 canvas.addEventListener('webglcontextlost', e => { e.preventDefault(); falha('contexto gráfico perdido'); });
 let renderer;
-try { renderer = new THREE.WebGLRenderer({ canvas, antialias:false, alpha:false, powerPreference:'high-performance' }); }
+try { renderer = new THREE.WebGLRenderer({ canvas, antialias:false, alpha:false, powerPreference:TOQUE ? 'default' : 'high-performance' }); }
 catch (e) { return falha(e); }
 const PR = Math.min(devicePixelRatio || 1, TOQUE ? 1.5 : 2);
 renderer.setPixelRatio(PR);
@@ -1492,6 +1490,7 @@ const painel = $('#painel'), corpoP = $('#painelCorpo');
 $('#fechaPainel').addEventListener('click', desfoca);
 function explorar(){ document.body.classList.add('explorando'); U.explorar = true; }
 function focaSistema(g, soTexto){
+  if (U.cenaFalhou) return;
   const S = sistemas[g]; foco = { tipo:'sis', g }; if (!soTexto){ interagiu(); distAlvo = distanciaFoco(S.R); explorar(); }
   const mundos = nos.filter(n => n.g === g || (n.eita && n.r.grupos.includes(g)));
   mostraPainel(S.corHex, `<span class="mono">${L_('Sistema','System')} · ${mundos.length} ${L_('mundos','worlds')}</span><h3>${esc(T_(U.grupos[g]))}</h3><p class="lema">${esc(T_(U.grupos[g].sub))}</p>
@@ -1500,7 +1499,7 @@ function focaSistema(g, soTexto){
   corpoP.querySelectorAll('a[data-k]').forEach(b => b.addEventListener('click', e => { e.preventDefault(); focaNo(nos[+b.dataset.k]); }));
 }
 function focaNo(n, soTexto){
-  if (!n) return;
+  if (!n || U.cenaFalhou) return;
   foco = { tipo:'no', n }; if (!soTexto){ interagiu(); distAlvo = distanciaFoco(n.central ? SIS[n.g].R : Math.max(n.raio * 2, ...n.itens.map(o => o.R + .5))); explorar(); }
   if (n.central){ focaSistema(n.g, soTexto); return; }
   const r = n.r, sis = (r.grupos || [r.grupo]).map(g => T_(U.grupos[g])).join(' + ');
@@ -1523,6 +1522,9 @@ const projeta = (local, alvo) => { tmp.copy(local).applyMatrix4(plano.matrixWorl
 const fatorTela = () => (H / 2) / Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
 let primeiro = true; const pb = {};
 function quadro(now){
+  try { desenhaQuadro(now); } catch(e) { falha(e); }
+}
+function desenhaQuadro(now){
   if (pausado || U.cenaFalhou) return;
   requestAnimationFrame(quadro);
   now = now || performance.now();

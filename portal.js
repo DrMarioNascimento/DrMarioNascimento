@@ -53,13 +53,13 @@
   revealTarget(location.hash);
 
   function universeStatus() {
-    const failed = window.U?.cenaFalhou;
-    const ready = window.U?.cenaPronta && !failed;
     const en = document.documentElement.lang === 'en';
-    $('#explorar').textContent = ready
-      ? (en ? 'Explore the project universe ↗' : 'Explorar o universo de projetos ↗')
-      : (en ? 'Explore the complete catalog ↗' : 'Explorar o catálogo completo ↗');
-    $('.universe-hint').hidden = !ready;
+    const ready = window.U?.cenaPronta && !window.U?.cenaFalhou;
+    $('#explorar').textContent = en ? 'Explore the project universe ↗' : 'Explorar o universo de projetos ↗';
+    $('.universe-hint').hidden = false;
+    $('.universe-hint').textContent = ready
+      ? (en ? 'Drag to rotate · tap a planet to explore' : 'Arraste para girar · toque em um planeta para explorar')
+      : (en ? 'Tap a planet to discover its projects' : 'Toque em um planeta para descobrir seus projetos');
   }
   document.addEventListener('universo-indisponivel', universeStatus);
   document.addEventListener('universo-pronto', universeStatus);
