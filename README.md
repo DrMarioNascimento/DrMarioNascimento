@@ -2,77 +2,57 @@
 
 # Projetos educacionais e experiências interativas
 
-## Situação atual — 19 de outubro de 2026
+Recursos desenvolvidos pelo **Prof. Mário César Nascimento, PhD**, para aprender explorando, simulando e decidindo. O portfólio reúne Fisiologia, Ética, Metodologia da Pesquisa e jogos. O estudo de Game Design acompanha a criação dessas experiências; cada obra preserva seus créditos próprios.
 
-O portal [drmarionascimento.com.br](https://drmarionascimento.com.br/) apresenta os recursos educacionais e os projetos em desenvolvimento. O texto de apresentação acompanha a rolagem. A seção Novidades consulta commits dos projetos e dispõe de histórico salvo quando a consulta não responde; as datas representam atividade dos repositórios, não testes funcionais de todos os recursos.
+## O que está disponível — 24 de outubro de 2026
 
-Este espaço reúne projetos educacionais, simuladores e experiências interativas desenvolvidos pelo **Prof. Mário César Nascimento, PhD**, para tornar a aprendizagem mais visual, prática e envolvente por meio de recursos digitais.
+[**Abrir os recursos públicos**](https://www.drmarionascimento.com.br/#acesso-publico) · [Inventário completo e condições de acesso](DISPONIBILIDADE.md)
 
-Além da minha atuação como professor universitário, estudo **Game Design e desenvolvimento de jogos**. Os projetos apresentados aqui refletem esse percurso de formação e experimentação, unindo educação, interatividade e criação de experiências digitais.
+| Disponibilidade | Recursos |
+|---|---|
+| Público, sem cadastro | Fisiologia Interativa (EF e Fisioterapia), Casos Éticos 1, Casos Éticos 2, Dilema do Bonde (computador e celular), Laboratório do Pesquisador |
+| Público, com Google | Fisiologia em Fuga e Percursos de Fisiologia; planejamento e exportação no MOSAICO · Sala |
+| Testes abertos | Eita!: quem conduz usa qualquer conta Google; participantes entram por código |
+| Reservado ao professor | Casos Éticos 3, ainda em revisão |
+| Condução autorizada; participantes por convite | Comitê de Ética Profissional, Atividades Extras, Mosaico Card e salas on-line do MOSAICO · Sala |
+| Testes fechados | A Casa da Costa, A Manhã do Carro-Forte e O Eco do Amanhã |
+| Experimentação | Biblioteca Lab-RA; cópias de jogos conservam as restrições dos projetos de origem |
 
-**Fisiologia Interativa — aberta ao público**
+Os dois primeiros Casos Éticos e as duas versões do Bonde estão disponíveis ao público. Casos Éticos 2 reúne **13 histórias, 80 capítulos e 152 decisões**, com mapas das escolhas, reflexão e desdobramentos posteriores. O portal de Fisiologia inclui a Unidade 06 — Sistema Endócrino em EF, quatro acessos de tutoria, mapas e realidade aumentada. Fisiologia em Fuga inclui o novo quiz modular **Percursos de Fisiologia**, com 12 unidades e nove contextos.
 
-As páginas e os simuladores de Fisiologia estão disponíveis gratuitamente ao público. Os recursos são voltados especialmente a estudantes, professores, profissionais da saúde e demais pessoas interessadas em compreender o funcionamento do corpo humano.
-
-Os recursos têm finalidade exclusivamente educacional. Por meio de visualizações, simulações e atividades interativas, ajudam a compreender mecanismos fisiológicos e são aprimorados continuamente. Não substituem diagnóstico, prescrição nem orientação clínica individual.
-
-**Ética e Pesquisa — aberta ao público**
-
-Esta linha reúne materiais e atividades interativas para apoiar o ensino de Ética e Metodologia da Pesquisa. Por meio de situações-problema, reflexão crítica e discussão, os recursos estimulam a construção do conhecimento.
-
-**Jogos e experiências — em desenvolvimento e testes**
-
-Os jogos estão em diferentes etapas de desenvolvimento, teste e aperfeiçoamento e ainda não foram lançados ao público. Nesta fase, os testes são realizados internamente, sem participação externa.
-
-Enquanto os jogos estiverem em desenvolvimento, regras, interfaces e funcionalidades poderão mudar. Algumas páginas poderão apresentar demonstrações do projeto, mas isso não significa que os jogos estejam disponíveis para participação do público.
-
-Explore os projetos disponíveis e acompanhe as novidades sobre os jogos e experiências em desenvolvimento.
-
-**Prof. Mário César Nascimento. PhD ©**
-
-## Acessos oficiais de Fisiologia
-
-- **Educação Física (EF):** https://fisiologia.drmarionascimento.com.br/
-- **Fisioterapia:** https://fisiologia.drmarionascimento.com.br/fisioterapia/
+O catálogo Dragon Games também divulga o Eita! como teste aberto. A abertura de um projeto não libera automaticamente os demais. Um cadeado de um desafio de escape é parte do jogo; a restrição de entrada é descrita no inventário.
 
 ## Endereços oficiais
 
-| Projeto | Endereço |
-|---|---|
-| Portal do Prof. Mário | https://www.drmarionascimento.com.br/ |
-| Dragon Games | https://dragongames.dev.br/ |
-| Mosaico Card | https://mosaico-card.dragongames.dev.br/ |
-| A Casa da Costa | https://casa-da-costa.dragongames.dev.br/ |
-| A Manhã do Carro-Forte | https://carro-forte.dragongames.dev.br/ |
-| O Eco do Amanhã | https://eco-do-amanha.dragongames.dev.br/ |
-
-## Projetos do portfólio
-
-A presença nesta lista não altera o estágio de acesso indicado acima para os jogos.
-
-| | Projeto · Project | O que é · What it is |
-|---|---|---|
-| 🫀 | [**Fisiologia Interativa**](https://fisiologia.drmarionascimento.com.br/) | Simuladores de fisiologia humana · Human physiology simulators |
-| 🔐 | [**Fisiologia em Fuga**](https://fisiologia-em-fuga.drmarionascimento.com.br/) | Escape rooms por unidade · Unit-by-unit escape rooms |
-| ⏱️ | [**Atividades Extras**](https://atividades-extras.drmarionascimento.com.br/) | Operações de sala em equipe · Team classroom operations |
-| ⚖️ | [**Ética Interativa**](https://etica.drmarionascimento.com.br/) | Ética por cenários de decisão · Ethics through decisions |
-| 🔬 | [**Laboratório do Pesquisador**](https://laboratorio-de-pesquisa.drmarionascimento.com.br/) | Metodologia de pesquisa, mobile-first · Research methods labs |
-| 🐉 | [**Dragon Games**](https://dragongames.dev.br/) | Jogos de dedução e investigação · Deduction & investigation games |
-| 🃏 | [**Mosaico Card**](https://mosaico-card.dragongames.dev.br/) | Novo Testamento e Filmes e Séries · New Testament and Movies & Series |
-| 🥽 | [**Lab RA**](https://lab-ra.dragongames.dev.br/) | Realidade aumentada no navegador · Browser-based AR |
-| ⚔️ | [**Eita!**](https://eita.dragongames.dev.br/) | Quiz-batalha de sala · Classroom boss-battle quiz (em testes internos) |
-| 🥗 | [**NutriCiclos — sistema**](https://github.com/DrMarioNascimento/NutriCiclosSistemas) | Código do sistema de consultório · Clinic application source |
-| 🥗 | [**NutriCiclos — manual**](https://github.com/DrMarioNascimento/NutriCiclos-manual) | Manual em PDF · PDF clinic manual |
-
-
-## Ética e Pesquisa: acessos
-
-- [Ética Interativa](https://etica.drmarionascimento.com.br/)
-- [Laboratório do Pesquisador](https://laboratorio-de-pesquisa.drmarionascimento.com.br/)
 - [Fisiologia Interativa](https://fisiologia.drmarionascimento.com.br/)
+- [Casos Éticos 1](https://etica.drmarionascimento.com.br/casos-eticos/)
+- [Casos Éticos 2](https://etica.drmarionascimento.com.br/historias-eticas/)
+- [Dilema do Bonde](https://etica.drmarionascimento.com.br/dilema-bonde/)
+- [Laboratório do Pesquisador](https://laboratorio-de-pesquisa.drmarionascimento.com.br/)
+- [Fisiologia em Fuga](https://fisiologia-em-fuga.drmarionascimento.com.br/)
+- [Eita!](https://eita.drmarionascimento.com.br/)
+- [MOSAICO · Planejamento](https://mosaico-sala.web.app/planejar.html)
+- [Casos Éticos 3](https://etica.drmarionascimento.com.br/percursos-eticos/)
+- [Comitê de Ética Profissional](https://comite-etica.drmarionascimento.com.br/)
+- [Atividades Extras](https://atividades-extras.drmarionascimento.com.br/)
+- [Mosaico Card](https://mosaico-card.dragongames.dev.br/)
+- [Histórias MOSAICO](https://dragongames.dev.br/)
+- [Lab-RA](https://lab-ra.dragongames.dev.br/bancadas.html)
+- [Fisioterapia](https://fisiologia.drmarionascimento.com.br/fisioterapia/)
+- [NutriCiclos — sistema](https://github.com/DrMarioNascimento/NutriCiclosSistemas) e [manual](https://github.com/DrMarioNascimento/NutriCiclos-manual): projetos do portfólio, com condições próprias; não classificados aqui como novos testes públicos.
+
+## Manutenção do portal
+
+`index.html` e `universo-hero.html` usam a mesma fonte, `universo-dados.js`. A disponibilidade está documentada em `disponibilidade.json` e `DISPONIBILIDADE.md`; os acessos principais também ficam em HTML para funcionar sem JavaScript. Ao alterar o acesso de um projeto, atualize essas apresentações juntas.
+
+A seção Novidades consulta commits e tem histórico salvo como alternativa. Datas de commits indicam atividade do repositório, não aprovação de todos os fluxos. A conferência desta revisão inspecionou rotas e controles implementados; não repetiu login Google real nem sessões entre dispositivos.
 
 ## Autoria e condições de uso
 
-O texto de apresentação descreve o percurso do professor e não substitui os créditos de cada obra. Dragon/MOSAICO e Mosaico Card preservam a autoria conjunta de **Mário César Nascimento e Osana Melo Nascimento**. Componentes de terceiros conservam seus créditos e licenças.
+Dragon/MOSAICO e Mosaico Card preservam a autoria conjunta de **Mário César Nascimento e Osana Melo Nascimento**. Componentes de terceiros conservam seus créditos e licenças. O acesso público aos materiais educacionais não equivale a licença aberta de reutilização. Consulte [LICENSE.md](LICENSE.md) e as condições específicas de cada projeto, inclusive as permissões próprias do Eita! para uso pelos endereços oficiais.
 
-Acesso público aos materiais educacionais não equivale a licença aberta de reutilização. Consulte [LICENSE.md](LICENSE.md) e as condições específicas de cada repositório.
+Os recursos de saúde são educacionais e não substituem diagnóstico, prescrição ou orientação clínica individual.
+
+**English:** Physiology, Ethical Cases 1 and 2, both Trolley Problem versions and the Research Labs are publicly available. Physiology Escape/Pathways require Google sign-in. Eita! is in open testing. Teacher-only activities and invitation-based rooms retain their access controls. See the availability inventory and each project's license.
+
+**Prof. Mário César Nascimento, PhD ©**

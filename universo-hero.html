@@ -166,7 +166,7 @@ html.sem-webgl #universo,html.sem-webgl #rotulos,html.sem-webgl .controles,html.
 
 <section id="fallback" aria-label="Mundos"><h1>Ciência que você pode <span class="serif">tocar.</span></h1><div class="grade" id="fallbackGrade"></div></section>
 
-<script src="universo-dados.js"></script>
+<script src="universo-dados.js?v=20261024"></script>
 <script type="module">
 const U = window.U;
 const $ = s => document.querySelector(s);
@@ -174,7 +174,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const MOBILE = matchMedia('(max-width:640px)').matches;
 const TOQUE = matchMedia('(pointer:coarse)').matches;
 const REDUZ = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const ORDEM = ['aula','dragon','lab'];
+const ORDEM = ['aula','etica','dragon','lab'];
 const centralDe = g => U.repos.find(r => r.grupo === g && !r.grupos && !('pai' in r));
 const linha2 = r => r.tag ? r.tag : `${r.total} ${r.total === 1 ? 'ITEM' : 'ITENS'}${'pai' in r ? ' · APOIO' : ''}`;
 const nomeLua = s => s.replace(/^MOSAICO - /, '').replace(/^A Casa da Costa: /, '');
@@ -284,17 +284,20 @@ function campoEstrelas(n, r0, r1, tam){
 scene.add(campoEstrelas(MOBILE ? 2800 : 6000, 80, 320, 1.7));
 scene.add(campoEstrelas(MOBILE ? 500 : 1200, 22, 70, 1.0));
 
-/* ---------- mundo: três sistemas num plano ---------- */
+/* ---------- mundo: quatro sistemas num plano ---------- */
 const mundo = new THREE.Group(); scene.add(mundo);
 const plano = new THREE.Group(); mundo.add(plano);
 const qInicial = new THREE.Quaternion().setFromAxisAngle(V3(1, 0, 0), MOBILE ? 1.0 : 1.05);
 mundo.quaternion.copy(qInicial);
 
 const RETRATO = innerHeight > innerWidth;
-const RA = 12, RD = 9, RL = 4.6, DIST = 24;
-const SIS = RETRATO
-  ? { aula:{ c:V3(0, 0, -14), R:RA }, dragon:{ c:V3(0, 0, -14 + DIST), R:RD }, lab:{ c:V3(12, 0, 27), R:RL } }
-  : { aula:{ c:V3(-12, 0, -1), R:RA }, dragon:{ c:V3(-12 + DIST, 0, -1), R:RD }, lab:{ c:V3(2, 0, 22), R:RL } };
+const RA = 20, RD = 32, RL = 11, DIST = 24;
+const SIS = {
+  aula:{c:V3(-25,0,-30),R:RA},
+  etica:{c:V3(20,0,-25),R:11},
+  dragon:{c:V3(-30,0,32),R:RD},
+  lab:{c:V3(27,0,27),R:RL}
+};
 const eixo = SIS.dragon.c.clone().sub(SIS.aula.c).normalize();
 const PONTO_EITA = SIS.aula.c.clone().addScaledVector(eixo, (DIST - RD + RA) / 2);   // ponto médio da folga entre as duas fronteiras
 { // centraliza o conjunto e mede o raio envolvente
@@ -358,8 +361,12 @@ function corpo(cor, raio, uH, seed){
 }
 
 // nós = repositórios
-const ORB = { aula:[5.0, 6.3, 7.5, 8.6], dragon:[5.2], lab:[] };
-const usoOrb = { aula:0, dragon:0, lab:0 };
+const ORB = Object.fromEntries(ORDEM.map(g => {
+  const count = U.repos.filter(r => r.grupo === g && centralDe(g) !== r && !r.grupos).length;
+  const [inner,outer] = {aula:[7,10.2],etica:[4.5,8.5],dragon:[6,27],lab:[3,7]}[g];
+  return [g,Array.from({length:count},(_,i)=>count===1?inner:inner+(outer-inner)*i/(count-1))];
+}));
+const usoOrb = { aula:0, etica:0, dragon:0, lab:0 };
 const nos = U.repos.map((r, k) => {
   const cor = new THREE.Color(r.cor), raio = .45 + Math.sqrt(r.total) * .24;
   const eita = !!r.grupos, central = !eita && centralDe(r.grupo) === r;

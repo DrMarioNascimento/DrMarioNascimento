@@ -23,3 +23,13 @@ https://www.drmarionascimento.com.br/
 O portal apresenta recursos educacionais e projetos em desenvolvimento. Seus links, datas de atividade e imagens de apresentação não transferem direitos nem substituem a licença de cada projeto.
 
 Esta revisão atualiza a identificação e o escopo documental. Preserva os titulares, as permissões e as restrições existentes. Não substitui nem restringe as licenças próprias de componentes de terceiros.
+
+## Escopo e disponibilidade — 24 de outubro de 2026
+
+Portal, catálogo Universo e inventário de disponibilidade. Os links apresentam obras públicas, com login e restritas; não transferem direitos das obras relacionadas.
+
+Esta revisão documenta o escopo e a disponibilidade atuais; preserva os titulares, as permissões e as restrições existentes, inclusive os direitos e licenças próprios de terceiros. Acesso público não equivale a licença de código aberto.
+
+Inventário de acessos: https://www.drmarionascimento.com.br/#acesso-publico
+
+**English — scope and availability, October 24, 2026:** Portal, Universe catalog and availability inventory. Links do not transfer rights in the listed projects. Existing ownership, grants, restrictions and third-party terms are preserved; public access does not mean open source.

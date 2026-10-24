@@ -1,0 +1,118 @@
+{
+  "revisado_em": "2026-10-24",
+  "criterio": "Disponibilidade das entradas oficiais e controles implementados; não é certificação de funcionamento em todos os dispositivos.",
+  "recursos": [
+    {
+      "id": "fisiologia",
+      "nome": "Fisiologia Interativa",
+      "acesso": "publico",
+      "url": "https://fisiologia.drmarionascimento.com.br/",
+      "descricao_pt": "Simuladores, mapas, questões, tutores e realidade aumentada; percursos de EF e Fisioterapia.",
+      "descricao_en": "Simulators, maps, questions, tutors and AR for Physical Education and Physiotherapy."
+    },
+    {
+      "id": "casos-1",
+      "nome": "Casos Éticos 1",
+      "acesso": "publico",
+      "url": "https://etica.drmarionascimento.com.br/casos-eticos/",
+      "descricao_pt": "56 casos para investigar decisões, responsabilidades e consequências.",
+      "descricao_en": "56 cases to investigate decisions, responsibilities and consequences."
+    },
+    {
+      "id": "casos-2",
+      "nome": "Casos Éticos 2",
+      "acesso": "publico",
+      "url": "https://etica.drmarionascimento.com.br/historias-eticas/",
+      "descricao_pt": "13 histórias, mapas das escolhas por capítulo e desdobramentos na vida dos personagens.",
+      "descricao_en": "13 stories, chapter decision maps and later developments in the characters’ lives."
+    },
+    {
+      "id": "bonde",
+      "nome": "Dilema do Bonde",
+      "acesso": "publico",
+      "url": "https://etica.drmarionascimento.com.br/dilema-bonde/",
+      "descricao_pt": "Versões para computador e celular abertas ao público.",
+      "descricao_en": "Desktop and mobile versions available to the public."
+    },
+    {
+      "id": "pesquisa",
+      "nome": "Laboratório do Pesquisador",
+      "acesso": "publico",
+      "url": "https://laboratorio-de-pesquisa.drmarionascimento.com.br/",
+      "descricao_pt": "Delineamentos de pesquisa e instrumentos de coleta; estudo individual sem cadastro.",
+      "descricao_en": "Research designs and data collection instruments; individual study without registration."
+    },
+    {
+      "id": "fuga",
+      "nome": "Fisiologia em Fuga",
+      "acesso": "google",
+      "url": "https://fisiologia-em-fuga.drmarionascimento.com.br/",
+      "descricao_pt": "Escape rooms e Percursos de Fisiologia: entrada com qualquer conta Google.",
+      "descricao_en": "Escape rooms and Physiology Pathways: sign in with any Google account."
+    },
+    {
+      "id": "eita",
+      "nome": "Eita!",
+      "acesso": "testes-abertos",
+      "url": "https://eita.drmarionascimento.com.br/",
+      "descricao_pt": "Quiz em aliança em testes abertos. Quem conduz entra com Google; participantes usam o código da sala.",
+      "descricao_en": "Alliance quiz in open testing. Hosts sign in with Google; participants use the room code."
+    },
+    {
+      "id": "mosaico-planejar",
+      "nome": "MOSAICO · Planejamento",
+      "acesso": "google",
+      "url": "https://mosaico-sala.web.app/planejar.html",
+      "descricao_pt": "Montagem e exportação de atividades com Google. Biblioteca e condução de salas continuam restritas.",
+      "descricao_en": "Create and export activities with Google. The library and online hosting remain restricted."
+    },
+    {
+      "id": "casos-3",
+      "nome": "Casos Éticos 3",
+      "acesso": "professor",
+      "url": "https://etica.drmarionascimento.com.br/percursos-eticos/",
+      "descricao_pt": "Revisão do professor; conta Google autorizada.",
+      "descricao_en": "Teacher review; authorized Google account."
+    },
+    {
+      "id": "comite",
+      "nome": "Comitê de Ética Profissional",
+      "acesso": "convite",
+      "url": "https://comite-etica.drmarionascimento.com.br/",
+      "descricao_pt": "Professor autorizado cria a sala; turma entra por código ou QR.",
+      "descricao_en": "An authorized teacher creates the room; the class joins by code or QR."
+    },
+    {
+      "id": "extras",
+      "nome": "Atividades Extras",
+      "acesso": "convite",
+      "url": "https://atividades-extras.drmarionascimento.com.br/",
+      "descricao_pt": "Sete laboratórios de Fisiologia; condução autorizada e equipes por código de sala.",
+      "descricao_en": "Seven physiology labs; authorized hosts and teams joining with a room code."
+    },
+    {
+      "id": "mosaico-card",
+      "nome": "Mosaico Card",
+      "acesso": "convite",
+      "url": "https://mosaico-card.dragongames.dev.br/",
+      "descricao_pt": "Novo Testamento e Filmes e Séries em testes fechados; salas criadas por contas autorizadas.",
+      "descricao_en": "New Testament and Movies & Series in closed testing; rooms created by authorized accounts."
+    },
+    {
+      "id": "mosaico-historias",
+      "nome": "Histórias MOSAICO",
+      "acesso": "fechado",
+      "url": "https://dragongames.dev.br/",
+      "descricao_pt": "A Casa da Costa, A Manhã do Carro-Forte e O Eco do Amanhã permanecem em testes fechados.",
+      "descricao_en": "A Casa da Costa, A Manhã do Carro-Forte and O Eco do Amanhã remain in closed testing."
+    },
+    {
+      "id": "lab-ra",
+      "nome": "Lab-RA",
+      "acesso": "experimental",
+      "url": "https://lab-ra.dragongames.dev.br/bancadas.html",
+      "descricao_pt": "Biblioteca de experimentação. Para Fisiologia pública, prefira o portal de origem; cópias de jogos mantêm suas restrições.",
+      "descricao_en": "Experimental library. Use the original portal for public physiology resources; game copies retain their restrictions."
+    }
+  ]
+}
