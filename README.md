@@ -45,7 +45,7 @@ O catálogo Dragon Games também divulga o Eita! como teste aberto. A abertura d
 
 A página inicial apresenta o autor e três frentes — Fisiologia, Ética e formação em pesquisa, Dragon Games — antes do convite à Célula Viva em RA. O catálogo público usa capas e descrições da experiência; os requisitos de Google e convite permanecem identificados. A biografia completa aparece depois das experiências, seguida dos jogos em desenvolvimento e dos caminhos para parcerias.
 
-`portal.css` e `portal.js` cuidam da apresentação, menu móvel e filtros progressivos. As atividades ficam em HTML e continuam acessíveis sem JavaScript. O universo 3D é opcional: sem WebGL2, durante o carregamento ou após perda de contexto, o botão leva ao catálogo. No celular, há atalhos diretos, tolerância maior para toques, ajuste de câmera após rotação e menor custo de renderização. O canvas deixa de renderizar quando fica fora da área inicial da página.
+`portal.css` e `portal.js` cuidam da apresentação, menu móvel e filtros progressivos. As atividades ficam em HTML e continuam acessíveis sem JavaScript. O universo 3D é opcional: sem WebGL2, durante o carregamento ou após perda de contexto, os quatro sistemas e seus planetas continuam navegáveis em uma versão leve. No celular, há atalhos diretos, tolerância maior para toques, ajuste de câmera após rotação e menor custo de renderização. O canvas deixa de renderizar quando fica fora da área inicial da página.
 
 As novas ilustrações estão documentadas em [assets/cards/README.md](assets/cards/README.md). Ao revisar a página, conferir PT/EN, navegação por teclado, filtros e links para cards ocultos, menu em 360–760 px, modo `?lite=1`, rotação do celular e os controles do universo. A câmera e a RA precisam de validação em aparelhos compatíveis; uma prévia no navegador não substitui esse teste.
 
@@ -68,3 +68,5 @@ Os recursos de saúde são educacionais e não substituem diagnóstico, prescri�
 O motor Three.js 0.184.0 é servido pelo próprio portal em `assets/vendor/three/`, com a licença MIT preservada. A cena mantém o giro, o zoom e a seleção originais. Não é criado um segundo contexto WebGL apenas para testar compatibilidade.
 
 `universo-leve.js` oferece quatro planetas navegáveis com o mesmo catálogo enquanto o 3D carrega ou quando WebGL falha. Ao iniciar a cena, a navegação leve é ocultada automaticamente. `?lite` permite verificar esse caminho sem depender de uma falha de hardware. Os links de projetos e atividades vêm exclusivamente de `universo-dados.js`.
+
+Todos os astros menores da navegação leve são botões com área de toque de 44 px. Na cena 3D, o disco de um planeta ou lua tem prioridade sobre as partículas de atividades; áreas de toque ampliadas usam proximidade na tela.

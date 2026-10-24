@@ -149,7 +149,12 @@ html{scroll-padding-top:88px}
 .lite-system{position:relative;min-height:0;display:grid;place-items:center}
 .lite-orbit{position:absolute;width:86%;height:68%;border:1px solid color-mix(in srgb,var(--planet) 36%,transparent);border-radius:50%;transform:rotate(-20deg);pointer-events:none}
 .lite-orbit::after{content:"";position:absolute;inset:14%;border:1px dashed color-mix(in srgb,var(--planet) 22%,transparent);border-radius:50%}
-.lite-orbit i{position:absolute;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff,var(--satellite) 30%,#07101e 85%);box-shadow:0 0 12px var(--satellite);transform:translate(-50%,-50%)}
+.lite-satellite{position:absolute;width:44px;height:44px;padding:0;border:0;background:none;transform:translate(-50%,-50%) rotate(20deg);pointer-events:auto;cursor:pointer;z-index:2;display:grid;place-items:center;border-radius:50%}
+.lite-satellite>span:first-child{width:16px;height:16px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#fff,var(--satellite) 30%,#07101e 85%);box-shadow:0 0 12px var(--satellite);transition:transform .2s}
+.lite-satellite:hover>span:first-child,.lite-satellite:focus-visible>span:first-child{transform:scale(1.35)}
+.lite-satellite:focus-visible{outline:2px solid var(--satellite);outline-offset:2px}
+.satellite-name{position:absolute;bottom:43px;left:50%;transform:translateX(-50%);width:max-content;max-width:145px;padding:5px 8px;border-radius:6px;background:#07121ff5;color:#fff;font-size:.7rem;line-height:1.3;opacity:0;pointer-events:none}
+.lite-satellite:hover .satellite-name,.lite-satellite:focus-visible .satellite-name{opacity:1}
 .lite-planet{position:relative;border:0;background:none;color:#edf5fa;padding:12px 6px;display:flex;align-items:center;flex-direction:column;gap:8px;cursor:pointer;pointer-events:auto;min-height:44px;max-width:100%;font:inherit;text-align:center;text-shadow:0 2px 8px #000}
 .lite-sphere{width:76px;height:76px;display:block;border-radius:50%;background:radial-gradient(circle at 32% 27%,#fff 0%,var(--planet) 17%,color-mix(in srgb,var(--planet) 50%,#06101a) 56%,#02050c 87%);box-shadow:inset -8px -8px 16px #0006,0 0 30px color-mix(in srgb,var(--planet) 38%,transparent);transition:transform .2s}
 .lite-planet:hover .lite-sphere,.lite-planet:focus-visible .lite-sphere{transform:scale(1.12)}
@@ -168,6 +173,9 @@ body:not(.explorando) .lite-planet strong{font-size:.72rem}
  .lite-sphere{width:58px;height:58px}
  .lite-planet strong{font-size:.8rem}.lite-planet small{font-size:.63rem}
  .lite-caption{margin-top:14px;font-size:.7rem}
- .lite-orbit i{width:8px;height:8px}
+ .lite-satellite>span:first-child{width:12px;height:12px}
 }
 @media(max-height:550px){.universe-lite{padding-top:120px;padding-bottom:65px}.lite-sphere{width:34px;height:34px}.lite-planet{gap:3px;padding:4px}.lite-caption,.lite-planet small{display:none}.lite-systems{gap:6px}}
+
+body:not(.explorando) .lite-satellite{pointer-events:none}
+html:has(body.explorando){overflow:hidden}

@@ -23,10 +23,14 @@
       const r = central(g);
       const satellites = U.repos.filter(p => (p.grupo === g || p.grupos?.includes(g)) && p !== r);
       return `<div class="lite-system" style="--planet:${esc(r.cor)}">
-        <div class="lite-orbit" aria-hidden="true">${satellites.map((p, i) => `<i style="left:${50 + 49 * Math.cos(i * 2 * Math.PI / satellites.length)}%;top:${50 + 49 * Math.sin(i * 2 * Math.PI / satellites.length)}%;--satellite:${esc(p.cor)}"></i>`).join('')}</div>
+        <div class="lite-orbit">${satellites.map((p, i) => `<button type="button" class="lite-satellite" data-planet="${U.repos.indexOf(p)}" aria-label="${esc(p.nome)}" title="${esc(p.nome)}" style="left:${50 + 49 * Math.cos(i * 2 * Math.PI / satellites.length)}%;top:${50 + 49 * Math.sin(i * 2 * Math.PI / satellites.length)}%;--satellite:${esc(p.cor)}"><span aria-hidden="true"></span><span class="satellite-name">${esc(p.nome)}</span></button>`).join('')}</div>
         <button class="lite-planet" type="button" data-group="${g}" aria-label="${esc(text(U.grupos[g]))}"><span class="lite-sphere" aria-hidden="true"></span><strong>${esc(text(U.grupos[g]))}</strong><small>${say('Explorar projetos', 'Explore projects')} ↗</small></button>
       </div>`;
     }).join('')}</div><p class="lite-caption">${say('Toque em um planeta para explorar.', 'Tap a planet to explore.')}</p>`;
+    root.querySelectorAll('[data-planet]').forEach(button => button.addEventListener('click', () => {
+      returnFocus = button;
+      openRepo(+button.dataset.planet);
+    }));
     root.querySelectorAll('[data-group]').forEach(button => button.addEventListener('click', () => {
       returnFocus = button;
       openGroup(button.dataset.group);
