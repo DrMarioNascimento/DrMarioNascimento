@@ -181,3 +181,5 @@ body:not(.explorando) .lite-satellite{pointer-events:none}
 html:has(body.explorando){overflow:hidden}
 
 body.past-universe-hero:not(.explorando) .universe-lite{visibility:hidden}
+
+.painel:not(.aberto){pointer-events:none}
