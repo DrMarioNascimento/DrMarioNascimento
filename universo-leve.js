@@ -26,7 +26,7 @@
         <div class="lite-orbit">${satellites.map((p, i) => `<button type="button" class="lite-satellite" data-planet="${U.repos.indexOf(p)}" aria-label="${esc(p.nome)}" title="${esc(p.nome)}" style="left:${50 + 49 * Math.cos(i * 2 * Math.PI / satellites.length)}%;top:${50 + 49 * Math.sin(i * 2 * Math.PI / satellites.length)}%;--satellite:${esc(p.cor)}"><span aria-hidden="true"></span><span class="satellite-name">${esc(p.nome)}</span></button>`).join('')}</div>
         <button class="lite-planet" type="button" data-group="${g}" aria-label="${esc(text(U.grupos[g]))}"><span class="lite-sphere" aria-hidden="true"></span><strong>${esc(text(U.grupos[g]))}</strong><small>${say('Explorar projetos', 'Explore projects')} ↗</small></button>
       </div>`;
-    }).join('')}</div><p class="lite-caption">${say('Toque em um planeta para explorar.', 'Tap a planet to explore.')}</p>`;
+    }).join('')}</div><p class="lite-caption">${say('Toque em um planeta para explorar. Role ou clique em Início para sair.', 'Tap a planet to explore. Scroll or choose Home to leave.')}</p>`;
     root.querySelectorAll('[data-planet]').forEach(button => button.addEventListener('click', () => {
       returnFocus = button;
       openRepo(+button.dataset.planet);

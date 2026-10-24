@@ -3,6 +3,36 @@
   'use strict';
   const $ = s => document.querySelector(s);
   const top = $('#topo'), menu = $('#menuToggle');
+  const exploring = () => document.body.classList.contains('explorando');
+  const leaveUniverse = () => { if (exploring()) $('#sairExplorar').click(); };
+  const insideOverlay = target => target.closest('#painel, .paleta, .zoom, .topo');
+  // Returning to #inicio must exit even when the document is already at y=0.
+  document.addEventListener('click', e => {
+    if (e.target.closest('#topo a[href^="#"]')) leaveUniverse();
+  });
+  document.addEventListener('wheel', e => {
+    if (!exploring() || !e.deltaY || e.ctrlKey || insideOverlay(e.target)) return;
+    e.preventDefault(); e.stopPropagation();
+    leaveUniverse();
+    const distance = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? innerHeight : 1);
+    scrollBy({top:distance, behavior:'instant'});
+  }, {capture:true, passive:false});
+  // On the lightweight map, vertical swipes resume page scrolling.
+  // In 3D, keep the existing drag-to-rotate and pinch gestures.
+  let swipe = null;
+  document.addEventListener('touchstart', e => {
+    swipe = exploring() && document.documentElement.classList.contains('universo-leve') && e.touches.length === 1 && !insideOverlay(e.target)
+      ? {x:e.touches[0].clientX, y:e.touches[0].clientY} : null;
+  }, {passive:true});
+  document.addEventListener('touchmove', e => {
+    if (!swipe || e.touches.length !== 1) {swipe = null; return;}
+    const dy = swipe.y-e.touches[0].clientY, dx = swipe.x-e.touches[0].clientX;
+    if (Math.abs(dy) < 32 || Math.abs(dy) <= Math.abs(dx)*1.3) return;
+    e.preventDefault(); e.stopPropagation(); swipe = null;
+    leaveUniverse(); scrollBy({top:dy, behavior:'instant'});
+  }, {capture:true, passive:false});
+  document.addEventListener('touchend', () => {swipe = null;}, {passive:true});
+  document.addEventListener('touchcancel', () => {swipe = null;}, {passive:true});
   function closeMenu(restoreFocus = false) {
     top.classList.remove('menu-open'); menu.setAttribute('aria-expanded', 'false');
     if (restoreFocus) menu.focus();
@@ -58,8 +88,8 @@
     $('#explorar').textContent = en ? 'Explore the project universe ↗' : 'Explorar o universo de projetos ↗';
     $('.universe-hint').hidden = false;
     $('.universe-hint').textContent = ready
-      ? (en ? 'Drag to rotate · tap a planet to explore' : 'Arraste para girar · toque em um planeta para explorar')
-      : (en ? 'Tap a planet to discover its projects' : 'Toque em um planeta para descobrir seus projetos');
+      ? (en ? 'Drag to rotate · scroll or choose Home to leave' : 'Arraste para girar · role ou clique em Início para sair')
+      : (en ? 'Tap a planet · scroll or choose Home to leave' : 'Toque em um planeta · role ou clique em Início para sair');
   }
   document.addEventListener('universo-indisponivel', universeStatus);
   document.addEventListener('universo-pronto', universeStatus);

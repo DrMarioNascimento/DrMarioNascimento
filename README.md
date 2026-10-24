@@ -70,3 +70,5 @@ O motor Three.js 0.184.0 é servido pelo próprio portal em `assets/vendor/three
 `universo-leve.js` oferece quatro planetas navegáveis com o mesmo catálogo enquanto o 3D carrega ou quando WebGL falha. Ao iniciar a cena, a navegação leve é ocultada automaticamente. `?lite` permite verificar esse caminho sem depender de uma falha de hardware. Os links de projetos e atividades vêm exclusivamente de `universo-dados.js`.
 
 Todos os astros menores da navegação leve são botões com área de toque de 44 px. Na cena 3D, o disco de um planeta ou lua tem prioridade sobre as partículas de atividades; áreas de toque ampliadas usam proximidade na tela.
+
+Saída do universo: botão Voltar ao início, Esc, links de seção do cabeçalho (inclusive Início) ou rolagem fora do painel. Na versão leve, deslizar verticalmente no celular também sai. A rolagem dentro dos detalhes continua normal; no 3D, arrastar e pinçar mantêm seus controles originais.
