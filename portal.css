@@ -65,8 +65,7 @@ html{scroll-padding-top:88px}
 #exp-simuladores .discovery-art img{position:absolute;top:0;left:0;width:100%;height:155%;object-fit:contain;object-position:center top;mix-blend-mode:screen}
 #exp-simuladores:hover .discovery-art img,#exp-tutores:hover .discovery-art img{transform:none}
 #exp-pesquisa .discovery-art img{object-position:center 55%}
-#exp-mosaico .discovery-art>img:first-child{object-position:center center}
-#exp-mosaico .discovery-art .mosaico-emblem{position:absolute;top:-4%;left:50%;width:42%;max-width:180px;height:auto;object-fit:contain;transform:translateX(-50%);z-index:1;pointer-events:none}
+#exp-mosaico .discovery-art img{object-position:center 25%}
 .discovery-body{position:relative;display:flex;flex-direction:column;flex:1;margin-top:-25px;padding:0 25px 25px;z-index:1}
 .discovery-body .eyebrow{color:var(--c);font-size:.62rem;margin-bottom:12px;letter-spacing:.09em}
 .discovery-body h3{font:500 clamp(1.4rem,2.1vw,1.85rem)/1.12 var(--f-disp);letter-spacing:-.025em;margin:0 0 15px;max-width:20ch}
