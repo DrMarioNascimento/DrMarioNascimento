@@ -3,6 +3,9 @@
   'use strict';
   const $ = s => document.querySelector(s);
   const top = $('#topo'), menu = $('#menuToggle');
+  const updateUniverseBackdrop = () => document.body.classList.toggle('past-universe-hero', scrollY > $('#inicio').offsetHeight / 2);
+  addEventListener('scroll', updateUniverseBackdrop, {passive:true});
+  updateUniverseBackdrop();
   const exploring = () => document.body.classList.contains('explorando');
   const leaveUniverse = () => { if (exploring()) $('#sairExplorar').click(); };
   const insideOverlay = target => target.closest('#painel, .paleta, .zoom, .topo');

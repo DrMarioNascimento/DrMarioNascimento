@@ -179,3 +179,5 @@ body:not(.explorando) .lite-planet strong{font-size:.72rem}
 
 body:not(.explorando) .lite-satellite{pointer-events:none}
 html:has(body.explorando){overflow:hidden}
+
+body.past-universe-hero:not(.explorando) .universe-lite{visibility:hidden}
