@@ -192,3 +192,9 @@ body.past-universe-hero:not(.explorando) .universe-lite{visibility:hidden}
 .explorando .rotulos{z-index:8}
 .rot.central-target{padding:0;border:0;border-radius:50%;cursor:pointer;min-width:44px;min-height:44px;transition:none}
 .rot.central-target:focus-visible{outline:2px solid var(--c);outline-offset:4px}
+
+/* One continuous sky beneath every section, including the WebGL fallback.
+   Static decorative SVG: no extra WebGL context, animation loop or hit target. */
+.ceu-continuo{position:fixed;inset:0;z-index:0;pointer-events:none;background:#03050a url("assets/ceu-continuo.svg") repeat;background-size:1600px 1000px}
+body:not(.explorando) #universo{-webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 calc(100% - 72px),transparent 100%);mask-image:linear-gradient(to bottom,#000 0%,#000 calc(100% - 72px),transparent 100%)}
+@media(max-width:760px){.ceu-continuo{background-size:1100px 688px}}
