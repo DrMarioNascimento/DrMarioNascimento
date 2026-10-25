@@ -132,3 +132,26 @@ test('3D drawing buffer stays bounded after a large desktop display or phone res
     assert.equal(h.U.cenaPronta,true);assert.equal(h.warnings.length,0);
   }
 });
+
+
+test('Tall desktop: all four 3D discs stay inside the hero and open their own system',async()=>{
+  const h=harness();
+  Object.defineProperty(h.$('#inicio'),'offsetHeight',{get:()=>720});
+  h.env.innerWidth=1440;h.env.innerHeight=1800;
+  await h.load3D();h.tick(80);
+  assert.equal(h.$('#universo').style.height,'720px');
+  for(const group of ['aula','etica','dragon','lab']){
+    const target=h.$('.central-target[data-group="'+group+'"]');
+    assert(target);assert.equal(target.style.pointerEvents,'auto');
+    const [x,y]=target.style.transform.match(/-?[\d.]+/g).map(Number);
+    const size=parseFloat(target.style.height);
+    assert(y>=0 && y+size<=720,group+' is covered by content below the hero');
+    assert(x>=0 && x+size<=1440,group+' is outside the window');
+    target.click();h.tick(10);
+    assert.equal(h.$('#painelCorpo h3').textContent,h.U.grupos[group].pt);
+    assert.equal(h.$('#universo').style.height,'1800px');
+    h.$('#nav a[href="#inicio"]').click();h.tick(80);
+    assert.equal(h.$('#universo').style.height,'720px');
+    assert.equal(h.U.explorar,false);
+  }
+});

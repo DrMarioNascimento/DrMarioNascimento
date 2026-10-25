@@ -406,7 +406,7 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
 /* Public availability: readable entries on phones, using the portal's depth and palette. */
 .acesso-publico{margin-top:3rem;scroll-margin-top:6rem}.acesso-publico>h3{font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:.7rem}.acesso-publico>p{margin-bottom:1.3rem;line-height:1.7}.acessos-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}.acesso-item{min-width:0;border:1px solid rgba(165,140,255,.35);border-radius:18px;padding:1.4rem;background:linear-gradient(145deg,rgba(165,140,255,.1),rgba(15,20,34,.8));box-shadow:inset 0 1px 0 #ffffff18,0 5px 0 #080b17,0 12px 24px #0004}.acesso-item h4{font-size:1.2rem;margin:.8rem 0}.acesso-item p{line-height:1.65}.acesso-item .cta{margin-top:1rem;flex-wrap:wrap}.acesso-item .btn{white-space:normal}.acesso-reservado{margin:1.6rem 0;padding:1rem 1.2rem;border:1px solid #ffffff22;border-radius:14px;box-shadow:inset 0 1px 0 #ffffff12,0 4px 0 #080b17}.acesso-reservado summary{cursor:pointer;line-height:1.6}.acesso-reservado li{margin:.8rem 0;line-height:1.6}.acesso-reservado ul{padding-left:1.2rem}.acesso-publico a:focus-visible,.acesso-reservado summary:focus-visible{outline:3px solid #a58cff;outline-offset:4px}@media(max-width:620px){.acessos-grid{grid-template-columns:1fr}.acesso-item{padding:1.1rem}}
 </style>
-<link rel="stylesheet" href="portal.css?v=20261024-14">
+<link rel="stylesheet" href="portal.css?v=20261024-15">
 <script src="universo-leve.js?v=20261024-4" defer></script>
 <script src="portal.js?v=20261024-6" defer></script>
 <link rel="canonical" href="https://drmarionascimento.com.br/">
@@ -645,6 +645,16 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
   const U = window.U || (window.U = {});
   const body = document.body, panel = document.getElementById('painel');
   const emit = name => document.dispatchEvent(new Event(name));
+  // Keep both maps inside the actual introduction, including tall desktop windows.
+  const hero = document.getElementById('inicio');
+  const measureHero = () => {
+    const height = hero?.offsetHeight;
+    if (height) document.documentElement.style.setProperty('--universe-hero-height', height + 'px');
+    emit('universo-layout');
+  };
+  if (typeof ResizeObserver !== 'undefined' && hero) new ResizeObserver(measureHero).observe(hero);
+  addEventListener('resize', measureHero);
+  measureHero();
   U.entrarUniverso = () => {
     scrollTo({top:0, behavior:'instant'});
     U.scrollP = 0; U.explorar = true;
@@ -1278,6 +1288,10 @@ nos.forEach(n => {
   el.addEventListener('click',e=>{if(!e.target.closest('a'))focaNo(n);});
   el.addEventListener('keydown',e=>{if(e.target===el&&(e.key==='Enter'||e.key===' ')){e.preventDefault();focaNo(n);}});
   el.addEventListener('pointerenter', () => el.classList.add('hover')); el.addEventListener('pointerleave', () => el.classList.remove('hover'));
+  if (n.central) {
+    el.classList.add('central-target'); el.dataset.group = n.g;
+    el.innerHTML = '<span class="sr">' + esc(n.r.nome) + '</span>';
+  }
   n.rot = criaRot(el, { tipo:'no', pri: n.central ? 1 : n.eita ? 2 : 3, n });
 });
 itens.filter(o => o.lua).forEach(o => {
@@ -1290,7 +1304,7 @@ itens.filter(o => o.lua).forEach(o => {
 });
 function textos(){
   ORDEM.forEach(g => sistemas[g].rot.el.textContent = T_(U.grupos[g]));
-  nos.forEach(n => n.rot.el.querySelector('small').textContent = linha2(n.r));
+  nos.forEach(n => { const small = n.rot.el.querySelector('small'); if (small) small.textContent = linha2(n.r); });
   itens.filter(o => o.lua).forEach(o => o.rot.el.querySelector('small').textContent = '');
   rotulos.forEach(L => L.el.querySelectorAll('a.ir').forEach(a => a.title = L_('Abrir direto', 'Open directly')));
   mede();
@@ -1392,6 +1406,7 @@ function colocaRotulos(){
   const ordem = rotulos.slice().sort((a, b) => a.pri - b.pri || a.depth - b.depth);
   const colocados = [];
   for (const L of ordem){
+    if (L.n?.central) continue; // Disc targets follow their projected sphere exactly.
     if (!L.vis || !L.w){ L.el.style.opacity = 0; L.el.style.pointerEvents = 'none'; continue; }
     if (!L.w) mede();
     const tent = L.anchors?.length ? L.anchors.map(p => [p.x - L.w / 2, p.y - L.h / 2]) : L.tipo === 'sis' ? [[L.x - L.w / 2, L.y - L.h]] : [[L.x - L.w / 2, L.y + L.off], [L.x - L.w / 2, L.y - L.off - L.h]];
@@ -1418,7 +1433,8 @@ function distanciaFoco(raio){
 function limitaDist(d){ return THREE.MathUtils.clamp(d, 3.5, distFit * 1.9); }
 function zoom(f){ distAlvo = limitaDist(distAlvo * f); interagiu(); }
 function redimensiona(){
-  W = innerWidth; H = innerHeight; MOBILE = W <= 640; RETRATO = H > W;
+  W = innerWidth; H = !U.explorar && W > 760 ? Math.min(innerHeight, $('#inicio').offsetHeight || innerHeight) : innerHeight; MOBILE = W <= 640; RETRATO = H > W;
+  canvas.style.height = H + 'px';
   PR = pixelRatio(); renderer.setPixelRatio(PR);
   scene.traverse(o => { if (o.material?.uniforms?.uPx) o.material.uniforms.uPx.value = PR; });
   renderer.setSize(W, H, false); camera.aspect = W / H; camera.fov = MOBILE ? 60 : 46; camera.updateProjectionMatrix();
@@ -1427,6 +1443,9 @@ function redimensiona(){
   const antigo = distFit; calcFit(); if (!foco && Math.abs(distAlvo - antigo) < 1e-3) distAlvo = distFit; mede();
 }
 addEventListener('resize', redimensiona);
+document.addEventListener('universo-layout', redimensiona);
+document.addEventListener('universo-entrar', redimensiona);
+document.addEventListener('universo-sair', redimensiona);
 redimensiona(); distAlvo = distFit; cam.dist = distFit * 1.35;
 
 /* ---------- interação: trackball com inércia, zoom, pinça ---------- */
@@ -1634,6 +1653,14 @@ function desenhaQuadro(now){
   nos.forEach(n => {
     const dc = projeta(n.pos, n); n.sr = n.raio / dc * ft;
     const L = n.rot; L.vis = !n.central && n.vis && n.sr > 1.5;
+    if (n.central) {
+      const size = Math.max(44, n.sr * 2);
+      L.el.style.width = L.el.style.height = size + 'px';
+      L.el.style.transform = `translate(${n.sx-size/2}px,${n.sy-size/2}px)`;
+      L.el.style.opacity = n.vis && rotVis ? '1' : '0';
+      L.el.style.pointerEvents = n.vis && rotVis ? 'auto' : 'none';
+      L.el.style.visibility = n.vis && rotVis ? 'visible' : 'hidden';
+    }
     L.x = n.sx; L.y = n.sy; L.off = n.sr * 1.2 + 8; L.depth = n.depth; L.anchors = null;
     if(n.orb){ L.vis=false; atualizaTextoOrbital(n); }
   });

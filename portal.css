@@ -183,3 +183,12 @@ html:has(body.explorando){overflow:hidden}
 body.past-universe-hero:not(.explorando) .universe-lite{visibility:hidden}
 
 .painel:not(.aberto){pointer-events:none}
+
+/* A fixed full-window map must not extend under the following content. */
+@media(min-width:761px){
+ body:not(.explorando) .universe-lite{bottom:auto;height:min(100svh,var(--universe-hero-height,720px));padding-bottom:36px}
+}
+.explorando .universe-lite,.explorando #universo{z-index:7}
+.explorando .rotulos{z-index:8}
+.rot.central-target{padding:0;border:0;border-radius:50%;cursor:pointer;min-width:44px;min-height:44px;transition:none}
+.rot.central-target:focus-visible{outline:2px solid var(--c);outline-offset:4px}
