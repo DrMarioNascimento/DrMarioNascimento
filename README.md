@@ -4,14 +4,15 @@
 
 Recursos desenvolvidos pelo **Prof. Mário César Nascimento, PhD**, para aprender explorando, simulando e decidindo. O portfólio reúne Fisiologia, Ética, Metodologia da Pesquisa e jogos. O estudo de Game Design acompanha a criação dessas experiências; cada obra preserva seus créditos próprios.
 
-## O que está disponível — 24 de outubro de 2026
+## O que está disponível — 25 de outubro de 2026
 
 [**Abrir os recursos públicos**](https://www.drmarionascimento.com.br/#acesso-publico) · [Inventário completo e condições de acesso](DISPONIBILIDADE.md)
 
 | Disponibilidade | Recursos |
 |---|---|
-| Público, sem cadastro | Fisiologia Interativa (EF e Fisioterapia), Fisiologia em Fuga (escapes separados EF/Fisio e Percursos compartilhados), Casos Éticos 1, Casos Éticos 2, Dilema do Bonde (computador e celular), Laboratório do Pesquisador |
-| Público, com Google | planejamento e exportação no MOSAICO · Sala |
+| Público, sem cadastro | Fisiologia Interativa (EF e Fisioterapia), Casos Éticos 1 e 2, Dilema do Bonde (computador e celular), Laboratório do Pesquisador |
+| **Testes públicos, sem Google** | **Fisiologia em Fuga:** escape rooms separados por Educação Física e Fisioterapia e **Percursos de Fisiologia** compartilhados pelos dois cursos |
+| Público, com Google | Planejamento e exportação no MOSAICO · Sala |
 | Testes abertos | Eita!: quem conduz usa qualquer conta Google; participantes entram por código |
 | Reservado ao professor | Casos Éticos 3, ainda em revisão |
 | Condução autorizada; participantes por convite | Comitê de Ética Profissional, Atividades Extras, Mosaico Card e salas on-line do MOSAICO · Sala |
@@ -20,7 +21,7 @@ Recursos desenvolvidos pelo **Prof. Mário César Nascimento, PhD**, para aprend
 
 Os dois primeiros Casos Éticos e as duas versões do Bonde estão disponíveis ao público. Casos Éticos 2 reúne **13 histórias, 80 capítulos e 152 decisões**, com mapas das escolhas, reflexão e desdobramentos posteriores. O portal de Fisiologia inclui a Unidade 06 — Sistema Endócrino em EF, quatro acessos de tutoria, mapas e realidade aumentada. Fisiologia em Fuga (pública, sem Google) inclui o novo quiz modular **Percursos de Fisiologia**, com 12 unidades e nove contextos.
 
-O catálogo Dragon Games também divulga o Eita! como teste aberto. A abertura de um projeto não libera automaticamente os demais. Um cadeado de um desafio de escape é parte do jogo; a restrição de entrada é descrita no inventário.
+O catálogo Dragon Games também divulga o Eita! como teste aberto. A abertura de um projeto não libera automaticamente os demais. Atividades Extras destina-se à condução docente: professores autorizados entram com Google e alunos usam código/QR. As regras para agentes constam de [AGENTS.md](AGENTS.md). Um cadeado de um desafio de escape é parte do jogo; a restrição de entrada é descrita no inventário.
 
 ## Endereços oficiais
 
