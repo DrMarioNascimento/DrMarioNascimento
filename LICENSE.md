@@ -10,7 +10,7 @@ Componentes de terceiros conservam seus autores e instrumentos próprios. A visi
 
 Identificação e contato: [DrMarioNascimento](https://github.com/DrMarioNascimento).
 
-Revisão documental: 19 de outubro de 2026.
+Revisão documental: 25 de outubro de 2026.
 
 ## Endereço de apresentação — 14 de outubro de 2026
 
@@ -33,3 +33,16 @@ Esta revisão documenta o escopo e a disponibilidade atuais; preserva os titular
 Inventário de acessos: https://www.drmarionascimento.com.br/#acesso-publico
 
 **English — scope and availability, October 24, 2026:** Portal, Universe catalog and availability inventory. Links do not transfer rights in the listed projects. Existing ownership, grants, restrictions and third-party terms are preserved; public access does not mean open source.
+
+## Esclarecimento de finalidade e acesso — 25 de outubro de 2026
+
+A organização do [README](README.md) diferencia finalidade pedagógica, disponibilidade para testes e funções de condução docente. **Essas classificações não são concessões de licença.**
+
+- **Fisiologia em Fuga:** as salas de escape de Educação Física e Fisioterapia são distintas; Percursos de Fisiologia é compartilhado por ambos. As experiências estão abertas a testes públicos, sem login Google.
+- **Atividades Extras:** a criação e a administração das sessões destinam-se a professores com autenticação Google e autorização próprias; estudantes podem participar por código/QR da sala.
+- **Outros projetos:** acesso público, teste aberto, uso por convite e teste fechado mantêm seus significados documentados no inventário. Esses estados de acesso não alteram titulares, direitos, restrições de reprodução ou licenças específicas.
+- **Autoria:** permanecem preservadas a autoria conjunta e as condições próprias dos projetos vinculados, bem como os direitos e as licenças dos componentes de terceiros.
+
+Este registro atualiza exclusivamente a descrição documental e **não modifica, amplia ou revoga as permissões existentes**. Consulte [DISPONIBILIDADE.md](DISPONIBILIDADE.md) para o inventário operacional.
+
+**English — October 25, 2026:** Intended audience, public testing status and teacher access controls are separate from copyright permissions. Physical Education and Physiotherapy escape rooms remain distinct, shared Physiology Pathways are publicly testable without Google sign-in, and teacher-hosted Extra Activities retain authorized Google access for instructors and code/QR participation for students. No existing rights or licenses are changed.
