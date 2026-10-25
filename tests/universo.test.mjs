@@ -10,7 +10,7 @@ const controls = html.match(/<script id="universe-controls">([\s\S]*?)<\/script>
 
 function harness({mobile=false, reduced=false}={}) {
   const {window} = parseHTML(html), document = window.document;
-  let now=100, hidden=false, frameNumber=0, renders=0;
+  let now=100, hidden=false, frameNumber=0, renders=0, renderPR=1, renderPixels=0;
   const queue = new Map(), warnings=[];
   const ctx2d = new Proxy({}, {get:(t,k)=>t[k]??(()=>{}),set:(t,k,v)=>(t[k]=v,true)});
   window.HTMLCanvasElement.prototype.getContext=()=>ctx2d;
@@ -19,7 +19,7 @@ function harness({mobile=false, reduced=false}={}) {
   let mainScene;
   class Renderer {
     capabilities={isWebGL2:true,getMaxAnisotropy:()=>4};extensions={has:()=>true};
-    setPixelRatio(){}setClearColor(){}setSize(){}setRenderTarget(){}
+    setPixelRatio(pr){renderPR=pr;}setClearColor(){}setSize(w,h){renderPixels=w*h*renderPR*renderPR;}setRenderTarget(){}
     render(scene){renders++;if(scene.children.length>2)mainScene=scene;}
   }
   const env={window,document,console:{...console,warn:(...args)=>warnings.push(args)},
@@ -44,7 +44,7 @@ function harness({mobile=false, reduced=false}={}) {
   };
   const planetPositions=()=>{const positions=[];mainScene?.traverse(o=>{if(o.isMesh&&o.material.uniforms?.uSeed)positions.push(o.position.toArray());});return JSON.stringify(positions);};
   return {window,document,U:window.U,env,tick,fire,hide,loadLite,loadPortal,load3D,warnings,planetPositions,
-    pending:()=>queue.size,renders:()=>renders,$:s=>document.querySelector(s)};
+    pending:()=>queue.size,renders:()=>renders,pixels:()=>renderPixels,$:s=>document.querySelector(s)};
 }
 
 test('Home directly clears inconsistent exploration/drag/panel state, without optional scripts',()=>{
@@ -121,4 +121,14 @@ test('Wheel exits the universe, panel scrolling stays inside it, Escape and Home
   h.$('.lite-satellite').click();h.fire(h.$('#painelCorpo'),'wheel',{deltaY:100,deltaMode:0});assert.equal(h.U.explorar,true);
   h.fire(h.document,'keydown',{key:'Escape'});assert.equal(h.U.explorar,false);
   h.$('#explorar').click();h.$('#nav a[href="#inicio"]').click();assert.equal(h.U.explorar,false);
+});
+
+test('3D drawing buffer stays bounded after a large desktop display or phone resize',async()=>{
+  for(const mobile of [false,true]){
+    const h=harness({mobile});await h.load3D();
+    h.env.innerWidth=3840;h.env.innerHeight=2160;h.env.devicePixelRatio=2;
+    h.fire(h.window,'resize');h.tick(3);
+    assert(h.pixels() <= (mobile?1500000:3000000)+1);
+    assert.equal(h.U.cenaPronta,true);assert.equal(h.warnings.length,0);
+  }
 });
