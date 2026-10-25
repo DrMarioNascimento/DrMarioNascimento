@@ -847,7 +847,7 @@ window.U = {
     [
       1,
       "A Célula Sitiada",
-      "Público com Google · Fisiologia celular, transporte de substâncias e potenciais de ação",
+      "Público sem login · Fisiologia celular, transporte de substâncias e potenciais de ação",
       "https://fisiologia-em-fuga.drmarionascimento.com.br/#/escape/ef/celular",
       "escape",
       "ef"
@@ -855,7 +855,7 @@ window.U = {
     [
       1,
       "O Músculo em Silêncio",
-      "Público com Google · Excitabilidade e sistema muscular",
+      "Público sem login · Excitabilidade e sistema muscular",
       "https://fisiologia-em-fuga.drmarionascimento.com.br/#/escape/ef/muscular",
       "escape",
       "ef"
@@ -863,7 +863,7 @@ window.U = {
     [
       1,
       "O Osso que Se Reconstrói",
-      "Público com Google · Sistema osteoarticular",
+      "Público sem login · Sistema osteoarticular",
       "https://fisiologia-em-fuga.drmarionascimento.com.br/#/escape/ef/osteoarticular",
       "escape",
       "ef"
@@ -871,7 +871,7 @@ window.U = {
     [
       1,
       "A Prova do Débito",
-      "Público com Google · Sistema cardiovascular",
+      "Público sem login · Sistema cardiovascular",
       "https://fisiologia-em-fuga.drmarionascimento.com.br/#/escape/ef/cardiovascular",
       "escape",
       "ef"
@@ -879,7 +879,7 @@ window.U = {
     [
       1,
       "O Fôlego Perdido",
-      "Público com Google · Sistema respiratório",
+      "Público sem login · Sistema respiratório",
       "https://fisiologia-em-fuga.drmarionascimento.com.br/#/escape/ef/respiratorio",
       "escape",
       "ef"
@@ -887,7 +887,7 @@ window.U = {
     [
       1,
       "A Marcha do Oxigênio",
-      "Público com Google · Integração cardiorrespiratória",
+      "Público sem login · Integração cardiorrespiratória",
       "https://fisiologia-em-fuga.drmarionascimento.com.br/#/escape/ef/integracao",
       "escape",
       "ef"
@@ -895,7 +895,7 @@ window.U = {
     [
       1,
       "Operação Protocolo Eferente",
-      "Público com Google · Revisão livre",
+      "Público sem login · Revisão livre",
       "https://fisiologia-em-fuga.drmarionascimento.com.br/#/escape/ef/protocolo-eferente",
       "escape",
       "ef"
@@ -903,7 +903,7 @@ window.U = {
     [
       1,
       "A Célula Sitiada",
-      "Público com Google · Fisiologia celular, transporte de substâncias e potenciais de ação",
+      "Público sem login · Fisiologia celular, transporte de substâncias e potenciais de ação",
       "https://fisiologia-em-fuga.drmarionascimento.com.br/#/escape/fisio/celular",
       "escape",
       "fisio"
@@ -911,7 +911,7 @@ window.U = {
     [
       1,
       "O Músculo em Silêncio",
-      "Público com Google · Excitabilidade e sistema muscular",
+      "Público sem login · Excitabilidade e sistema muscular",
       "https://fisiologia-em-fuga.drmarionascimento.com.br/#/escape/fisio/muscular",
       "escape",
       "fisio"
@@ -919,7 +919,7 @@ window.U = {
     [
       1,
       "O Desafio da Mudança Postural",
-      "Público com Google · Sistema cardiovascular",
+      "Público sem login · Sistema cardiovascular",
       "https://fisiologia-em-fuga.drmarionascimento.com.br/#/escape/fisio/cardiovascular",
       "escape",
       "fisio"
@@ -927,7 +927,7 @@ window.U = {
     [
       1,
       "O Fôlego Perdido",
-      "Público com Google · Sistema respiratório",
+      "Público sem login · Sistema respiratório",
       "https://fisiologia-em-fuga.drmarionascimento.com.br/#/escape/fisio/respiratorio",
       "escape",
       "fisio"
@@ -935,7 +935,7 @@ window.U = {
     [
       1,
       "A Marcha do Oxigênio",
-      "Público com Google · Integração cardiorrespiratória",
+      "Público sem login · Integração cardiorrespiratória",
       "https://fisiologia-em-fuga.drmarionascimento.com.br/#/escape/fisio/integracao",
       "escape",
       "fisio"
@@ -943,7 +943,7 @@ window.U = {
     [
       1,
       "Operação Protocolo Eferente",
-      "Público com Google · Revisão livre",
+      "Público sem login · Revisão livre",
       "https://fisiologia-em-fuga.drmarionascimento.com.br/#/escape/fisio/protocolo-eferente",
       "escape",
       "fisio"
@@ -1119,7 +1119,7 @@ window.U = {
     [
       1,
       "Percursos de Fisiologia",
-      "Público com Google · 12 unidades e nove contextos",
+      "Público sem login · 12 unidades e nove contextos",
       "https://fisiologia-em-fuga.drmarionascimento.com.br/percursos/",
       "experiencia",
       ""
