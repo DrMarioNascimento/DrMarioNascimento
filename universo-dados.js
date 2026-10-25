@@ -38,8 +38,8 @@ window.U = {
         "en": "Crack the locks before time runs out."
       },
       "desc": {
-        "pt": "Escape rooms e Percursos de Fisiologia com entrada por qualquer conta Google.",
-        "en": "Escape rooms and Physiology Pathways with any Google account."
+        "pt": "Salas de escape separadas para EF e Fisioterapia e Percursos de Fisiologia para ambos; acesso público sem Google.",
+        "en": "Separate Physical Education and Physiotherapy escape rooms and shared Pathways; public access without Google."
       },
       "online": "https://fisiologia-em-fuga.drmarionascimento.com.br/",
       "github": "https://github.com/DrMarioNascimento/fisiologia-em-fuga",
