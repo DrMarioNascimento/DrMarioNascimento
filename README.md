@@ -72,3 +72,9 @@ O motor Three.js 0.184.0 é servido pelo próprio portal em `assets/vendor/three
 Todos os astros menores da navegação leve são botões com área de toque de 44 px. Na cena 3D, o disco de um planeta ou lua tem prioridade sobre as partículas de atividades; áreas de toque ampliadas usam proximidade na tela.
 
 Saída do universo: botão Voltar ao início, Esc, links de seção do cabeçalho (inclusive Início) ou rolagem fora do painel. Na versão leve, deslizar verticalmente no celular também sai. A rolagem dentro dos detalhes continua normal; no 3D, arrastar e pinçar mantêm seus controles originais.
+
+### Verificação de regressão do universo
+
+Os controles essenciais ficam no bloco `#universe-controls` do HTML, antes dos recursos opcionais. Início encerra diretamente a exploração, fecha detalhes, solta o arraste e retorna ao topo mesmo se o estado visual estiver inconsistente. A versão leve aceita cliques também na apresentação e anima as órbitas quando a preferência por movimento reduzido não está ativa. Os dois renderizadores retomam o ciclo ao voltar à aba; o 3D também trata a restauração do contexto gráfico.
+
+Para repetir os testes: `cd tests && npm install && npm test`. A suíte cobre entradas/saídas repetidas, todos os planetas leves, cliques na apresentação, movimento, suspensão/retomada, perda/restauração de contexto e saída por Início/Esc/rolagem. A cena Three.js é executada com um renderer simulado; a suíte verifica estado, posições e agendamento, não a renderização GPU. A conferência visual continua necessária em navegador com WebGL.

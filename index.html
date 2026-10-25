@@ -406,9 +406,9 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
 /* Public availability: readable entries on phones, using the portal's depth and palette. */
 .acesso-publico{margin-top:3rem;scroll-margin-top:6rem}.acesso-publico>h3{font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:.7rem}.acesso-publico>p{margin-bottom:1.3rem;line-height:1.7}.acessos-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}.acesso-item{min-width:0;border:1px solid rgba(165,140,255,.35);border-radius:18px;padding:1.4rem;background:linear-gradient(145deg,rgba(165,140,255,.1),rgba(15,20,34,.8));box-shadow:inset 0 1px 0 #ffffff18,0 5px 0 #080b17,0 12px 24px #0004}.acesso-item h4{font-size:1.2rem;margin:.8rem 0}.acesso-item p{line-height:1.65}.acesso-item .cta{margin-top:1rem;flex-wrap:wrap}.acesso-item .btn{white-space:normal}.acesso-reservado{margin:1.6rem 0;padding:1rem 1.2rem;border:1px solid #ffffff22;border-radius:14px;box-shadow:inset 0 1px 0 #ffffff12,0 4px 0 #080b17}.acesso-reservado summary{cursor:pointer;line-height:1.6}.acesso-reservado li{margin:.8rem 0;line-height:1.6}.acesso-reservado ul{padding-left:1.2rem}.acesso-publico a:focus-visible,.acesso-reservado summary:focus-visible{outline:3px solid #a58cff;outline-offset:4px}@media(max-width:620px){.acessos-grid{grid-template-columns:1fr}.acesso-item{padding:1.1rem}}
 </style>
-<link rel="stylesheet" href="portal.css?v=20261024-13">
-<script src="universo-leve.js?v=20261024-3" defer></script>
-<script src="portal.js?v=20261024-5" defer></script>
+<link rel="stylesheet" href="portal.css?v=20261024-14">
+<script src="universo-leve.js?v=20261024-4" defer></script>
+<script src="portal.js?v=20261024-6" defer></script>
 <link rel="canonical" href="https://drmarionascimento.com.br/">
 </head>
 <body class="pronto">
@@ -639,6 +639,45 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
 </div>
 
 <script src="universo-dados.js?v=20261024-portal"></script>
+<script id="universe-controls">
+/* The core enter/leave controls run before optional UI and both renderers. */
+(() => {
+  const U = window.U || (window.U = {});
+  const body = document.body, panel = document.getElementById('painel');
+  const emit = name => document.dispatchEvent(new Event(name));
+  U.entrarUniverso = () => {
+    scrollTo({top:0, behavior:'instant'});
+    U.scrollP = 0; U.explorar = true;
+    body.classList.remove('past-universe-hero');
+    body.classList.add('explorando');
+    document.getElementById('explorar')?.setAttribute('aria-expanded','true');
+    emit('universo-entrar');
+  };
+  U.sairUniverso = (toTop = false) => {
+    U.explorar = false; U.hoverAlvo = false;
+    body.classList.remove('explorando','universe-dragging');
+    document.documentElement.classList.remove('explorando');
+    document.getElementById('universo')?.classList.remove('arrastando','alvo');
+    panel?.classList.remove('aberto'); panel?.setAttribute('aria-hidden','true');
+    document.getElementById('dicaItem')?.classList.remove('on');
+    document.getElementById('explorar')?.setAttribute('aria-expanded','false');
+    emit('fecha-foco'); emit('universo-sair');
+    if (toTop) { U.scrollP = 0; body.classList.remove('past-universe-hero'); scrollTo({top:0,behavior:'instant'}); }
+  };
+  document.getElementById('explorar')?.addEventListener('click', U.entrarUniverso);
+  document.getElementById('sairExplorar')?.addEventListener('click', () => U.sairUniverso(true));
+  document.addEventListener('click', e => {
+    const link = e.target.closest?.('#topo a[href^="#"]');
+    if (link) U.sairUniverso(link.getAttribute('href') === '#inicio');
+  }, true);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && (U.explorar || body.classList.contains('explorando'))) {
+      U.sairUniverso(true); document.getElementById('explorar')?.focus({preventScroll:true});
+    }
+  });
+})();
+</script>
+
 
 <script>
 /* ===================== interface (sem dependências) ===================== */
@@ -795,7 +834,7 @@ function rolagem(){
   let at = 'inicio'; for (const s of secs) if (s && s.getBoundingClientRect().top < innerHeight*.45) at = s.id;
   $$('#nav a').forEach(a => a.classList.toggle('ativo', a.dataset.sec === at));
   U.scrollP = y / innerHeight;
-  if (U.explorar && U.scrollP > .4) { document.body.classList.remove('explorando'); U.explorar = false; document.dispatchEvent(new Event('fecha-foco')); }
+  if (U.explorar && U.scrollP > .4) U.sairUniverso();
 }
 let rolagemPendente = false;
 addEventListener('scroll', () => {
@@ -833,10 +872,8 @@ addEventListener('keydown', e => { if ((e.ctrlKey||e.metaKey) && e.key.toLowerCa
   if (e.key === 'Escape') { fechaPal(); document.dispatchEvent(new Event('fecha-foco')); } });
 
 /* ---------- explorar ---------- */
-$('#explorar').addEventListener('click', () => {
-  scrollTo({ top:0, behavior:'instant' }); document.body.classList.add('explorando'); U.explorar = true;
-});
-$('#sairExplorar').addEventListener('click', () => { document.body.classList.remove('explorando'); U.explorar = false; document.dispatchEvent(new Event('fecha-foco')); });
+// Entry and exit are owned by #universe-controls, independently of this UI.
+
 
 /* ---------- novidades: último commit da branch padrão de cada repositório ---------- */
 (function(){
@@ -1452,7 +1489,7 @@ canvas.addEventListener('dblclick', () => { if (hover && hover.tipo === 'no') ab
 $('#zoomMais').addEventListener('click', () => zoom(.78));
 $('#zoomMenos').addEventListener('click', () => zoom(1.28));
 $('#zoomCentro').addEventListener('click', recentra);
-$('#sairExplorar').addEventListener('click', recentra);
+document.addEventListener('universo-sair', () => { cancelaArraste(); recentra(); atualizaHover(-1,-1); });
 addEventListener('keydown', e => { if (!U.explorar) return; if (e.key === '+' || e.key === '=') zoom(.8); if (e.key === '-') zoom(1.25); });
 document.addEventListener('fecha-foco', desfoca);
 document.addEventListener('foca', e => focaNo(nos[e.detail]));
@@ -1493,7 +1530,7 @@ function abre(url){ window.open(url, '_blank', 'noopener'); }
 /* ---------- foco: sistema / planeta (usa o painel da página) ---------- */
 const painel = $('#painel'), corpoP = $('#painelCorpo');
 $('#fechaPainel').addEventListener('click', desfoca);
-function explorar(){ document.body.classList.add('explorando'); U.explorar = true; }
+function explorar(){ U.entrarUniverso(); }
 function focaSistema(g, soTexto){
   if (U.cenaFalhou) return;
   const S = sistemas[g]; foco = { tipo:'sis', g }; if (!soTexto){ interagiu(); distAlvo = distanciaFoco(S.R); explorar(); }
@@ -1520,18 +1557,34 @@ function desfoca(){ if (!foco) return; foco = null; painel.classList.remove('abe
 function recentra(){ desfoca(); distAlvo = distFit; recentrando = true; inercia.dx = inercia.dy = 0; ocioso = 0; }
 
 /* ---------- laço ---------- */
-let t = 0, pausado = false, ultimo = performance.now(), fpsN = 0, fpsT = ultimo;
-document.addEventListener('visibilitychange', () => { pausado = document.hidden; if (!pausado){ ultimo = performance.now(); requestAnimationFrame(quadro); } });
+let t = 0, pausado = document.hidden, ultimo = performance.now(), fpsN = 0, fpsT = ultimo, frameId = null;
+function agendaQuadro(){ if (frameId === null && !pausado && !U.cenaFalhou) frameId = requestAnimationFrame(quadro); }
+function retoma(){
+  pausado = document.hidden;
+  if (frameId !== null) cancelAnimationFrame(frameId);
+  frameId = null; ultimo = performance.now();
+  agendaQuadro();
+}
+document.addEventListener('visibilitychange', retoma);
+addEventListener('pageshow', retoma);
+addEventListener('focus', retoma);
+document.addEventListener('universo-entrar', retoma);
+canvas.addEventListener('webglcontextrestored', () => {
+  U.cenaFalhou = false; U.cenaPronta = false; primeiro = true;
+  document.documentElement.classList.remove('sem-webgl');
+  try { redimensiona(); retoma(); } catch(e) { falha(e); }
+});
 const projeta = (local, alvo) => { tmp.copy(local).applyMatrix4(plano.matrixWorld); const dc = tmp.distanceTo(camera.position); tmp.project(camera);
   alvo.sx = (tmp.x * .5 + .5) * W; alvo.sy = (-tmp.y * .5 + .5) * H; alvo.depth = tmp.z; alvo.vis = tmp.z < 1 && alvo.sx > -80 && alvo.sx < W + 80 && alvo.sy > -80 && alvo.sy < H + 80; return dc; };
 const fatorTela = () => (H / 2) / Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2);
 let primeiro = true; const pb = {};
 function quadro(now){
+  frameId = null;
   try { desenhaQuadro(now); } catch(e) { falha(e); }
+  agendaQuadro();
 }
 function desenhaQuadro(now){
   if (pausado || U.cenaFalhou) return;
-  requestAnimationFrame(quadro);
   now = now || performance.now();
   if (!primeiro && !U.explorar && (U.scrollP || 0) > 1.2) { ultimo = now; camadaRot.style.visibility = 'hidden'; return; }
   if (TOQUE && now - ultimo < 1000/30) return;
@@ -1594,7 +1647,7 @@ function desenhaQuadro(now){
   matFinal.uniforms.t.value = rtCena.texture; matFinal.uniforms.tB.value = rtA.texture; passe(matFinal, null);
   if (primeiro){ primeiro = false; U.cenaPronta = true; document.dispatchEvent(new Event('universo-pronto')); }
 }
-quadro();
+agendaQuadro();
 }
 </script>
 </body>

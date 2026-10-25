@@ -162,7 +162,7 @@ html{scroll-padding-top:88px}
 .lite-planet strong{font-size:1rem;max-width:24ch}.lite-planet small{font-size:.72rem;color:#b9cad7}
 .lite-caption{font-size:.78rem;color:#b9cad7;margin:22px 0 0;text-align:center}
 body:not(.explorando) .universe-lite{left:52%;opacity:.8;padding:110px 12px 120px}
-body:not(.explorando) .lite-planet{pointer-events:none}
+
 body:not(.explorando) .universe-lite .lite-caption,body:not(.explorando) .lite-planet small{display:none}
 body:not(.explorando) .lite-planet strong{font-size:.72rem}
 .explorando{overflow:hidden}
@@ -177,7 +177,7 @@ body:not(.explorando) .lite-planet strong{font-size:.72rem}
 }
 @media(max-height:550px){.universe-lite{padding-top:120px;padding-bottom:65px}.lite-sphere{width:34px;height:34px}.lite-planet{gap:3px;padding:4px}.lite-caption,.lite-planet small{display:none}.lite-systems{gap:6px}}
 
-body:not(.explorando) .lite-satellite{pointer-events:none}
+
 html:has(body.explorando){overflow:hidden}
 
 body.past-universe-hero:not(.explorando) .universe-lite{visibility:hidden}

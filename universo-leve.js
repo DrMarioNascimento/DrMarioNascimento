@@ -16,6 +16,29 @@
   const panel = $('#painel'), content = $('#painelCorpo');
   let selected = null, returnFocus = null;
   const active = () => !U.cenaPronta || U.cenaFalhou;
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  let orbiters = [], frameId = null, lastFrame = 0, elapsed = 0;
+  function animate(now) {
+    frameId = null;
+    if (!active() || root.hidden || document.hidden || reducedMotion.matches || (!U.explorar && document.body.classList.contains('past-universe-hero'))) return;
+    if (!lastFrame) lastFrame = now;
+    const dt = Math.min(.06, Math.max(0, (now-lastFrame)/1000));
+    if (now-lastFrame >= 1000/30) {
+      lastFrame = now; elapsed += dt;
+      orbiters.forEach(orbiter => {
+        if (orbiter.held) return;
+        orbiter.angle += dt * .12;
+        orbiter.button.style.left = (50 + 49*Math.cos(orbiter.angle)) + '%';
+        orbiter.button.style.top = (50 + 49*Math.sin(orbiter.angle)) + '%';
+      });
+    }
+    frameId = requestAnimationFrame(animate);
+  }
+  function resume() {
+    if (frameId !== null) cancelAnimationFrame(frameId);
+    frameId = null; lastFrame = 0;
+    if (active() && !reducedMotion.matches && !document.hidden) frameId = requestAnimationFrame(animate);
+  }
 
   function render() {
     root.setAttribute('aria-label', say('Universo de projetos', 'Project universe'));
@@ -35,11 +58,22 @@
       returnFocus = button;
       openGroup(button.dataset.group);
     }));
+    orbiters = [];
+    root.querySelectorAll('.lite-orbit').forEach(orbit => {
+      const buttons = [...orbit.querySelectorAll('.lite-satellite')];
+      buttons.forEach((button, i) => {
+        const orbiter = {button, angle:i*2*Math.PI/buttons.length + elapsed*.12, held:false};
+        button.addEventListener('pointerenter', () => {orbiter.held = true;});
+        button.addEventListener('pointerleave', () => {orbiter.held = false;});
+        button.addEventListener('focus', () => {orbiter.held = true;});
+        button.addEventListener('blur', () => {orbiter.held = false;});
+        orbiters.push(orbiter);
+      });
+    });
+    resume();
   }
   function show(color, html, moveFocus) {
-    scrollTo({top:0, behavior:'instant'});
-    U.explorar = true;
-    document.body.classList.add('explorando');
+    U.entrarUniverso();
     panel.style.setProperty('--c', color);
     content.innerHTML = html;
     panel.classList.add('aberto');
@@ -75,6 +109,7 @@
     document.documentElement.classList.toggle('universo-leve', enabled);
     root.hidden = !enabled;
     if (!enabled) close();
+    resume();
   }
   $('#fechaPainel').addEventListener('click', close);
   document.addEventListener('fecha-foco', close);
@@ -86,8 +121,12 @@
     if (selected?.g) openGroup(selected.g, false);
     else if (selected) openRepo(selected.k, false);
   });
-  new MutationObserver(() => {root.inert = !U.explorar;}).observe(document.body, {attributes:true, attributeFilter:['class']});
-  root.inert = !U.explorar;
+  document.addEventListener('visibilitychange', resume);
+  document.addEventListener('universo-entrar', resume);
+  addEventListener('pageshow', resume);
+  addEventListener('focus', resume);
+  reducedMotion.addEventListener('change', resume);
+  new MutationObserver(resume).observe(document.body, {attributes:true, attributeFilter:['class']});
   render();
   sync();
 })();

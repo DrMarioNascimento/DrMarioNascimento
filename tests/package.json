@@ -1,0 +1,7 @@
+{
+  "name": "portal-universe-regression-tests",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test universo.test.mjs" },
+  "devDependencies": { "linkedom": "0.18.14", "three": "0.184.0" }
+}

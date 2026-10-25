@@ -7,12 +7,8 @@
   addEventListener('scroll', updateUniverseBackdrop, {passive:true});
   updateUniverseBackdrop();
   const exploring = () => document.body.classList.contains('explorando');
-  const leaveUniverse = () => { if (exploring()) $('#sairExplorar').click(); };
+  const leaveUniverse = () => window.U?.sairUniverso?.();
   const insideOverlay = target => target.closest('#painel, .paleta, .zoom, .topo');
-  // Returning to #inicio must exit even when the document is already at y=0.
-  document.addEventListener('click', e => {
-    if (e.target.closest('#topo a[href^="#"]')) leaveUniverse();
-  });
   document.addEventListener('wheel', e => {
     if (!exploring() || !e.deltaY || e.ctrlKey || insideOverlay(e.target)) return;
     e.preventDefault(); e.stopPropagation();
@@ -51,7 +47,7 @@
     if (e.key === 'Escape') {
       if (menu.getAttribute('aria-expanded') === 'true') closeMenu(true);
       if (document.body.classList.contains('explorando')) {
-        $('#sairExplorar').click(); $('#explorar').focus();
+        window.U?.sairUniverso?.(true); $('#explorar').focus();
       }
     }
   });
