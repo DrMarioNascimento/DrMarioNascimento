@@ -1,6 +1,6 @@
 # Disponibilidade dos projetos
 
-Revisão: **24 de outubro de 2026**.
+Revisão: **25 de outubro de 2026**.
 
 [Ver os acessos na página do autor](https://www.drmarionascimento.com.br/#acesso-publico).
 
@@ -13,12 +13,12 @@ Um link público de apresentação não libera uma atividade protegida. Login Go
 | [Casos Éticos 2](https://etica.drmarionascimento.com.br/historias-eticas/) | Público · sem cadastro | 13 histórias, mapas das escolhas por capítulo e desdobramentos na vida dos personagens. |
 | [Dilema do Bonde](https://etica.drmarionascimento.com.br/dilema-bonde/) | Público · sem cadastro | Versões para computador e celular abertas ao público. |
 | [Laboratório do Pesquisador](https://laboratorio-de-pesquisa.drmarionascimento.com.br/) | Público · sem cadastro | Delineamentos de pesquisa e instrumentos de coleta; estudo individual sem cadastro. |
-| [Fisiologia em Fuga](https://fisiologia-em-fuga.drmarionascimento.com.br/) | Público · com Google | Escape rooms e Percursos de Fisiologia: entrada com qualquer conta Google. |
+| [Fisiologia em Fuga](https://fisiologia-em-fuga.drmarionascimento.com.br/) | Público · sem cadastro | Escape rooms separados de Educação Física e Fisioterapia; Percursos de Fisiologia para ambos os cursos. Testes públicos sem Google. |
 | [Eita!](https://eita.drmarionascimento.com.br/) | Testes abertos | Quiz em aliança em testes abertos. Quem conduz entra com Google; participantes usam o código da sala. |
 | [MOSAICO · Planejamento](https://mosaico-sala.web.app/planejar.html) | Público · com Google | Montagem e exportação de atividades com Google. Biblioteca e condução de salas continuam restritas. |
 | [Casos Éticos 3](https://etica.drmarionascimento.com.br/percursos-eticos/) | Reservado ao professor | Revisão do professor; conta Google autorizada. |
 | [Comitê de Ética Profissional](https://comite-etica.drmarionascimento.com.br/) | Participação por convite | Professor autorizado cria a sala; turma entra por código ou QR. |
-| [Atividades Extras](https://atividades-extras.drmarionascimento.com.br/) | Participação por convite | Sete laboratórios de Fisiologia; condução autorizada e equipes por código de sala. |
+| [Atividades Extras](https://atividades-extras.drmarionascimento.com.br/) | Professor autorizado com Google; alunos por código/QR | Sete laboratórios de Fisiologia; condução docente protegida, participação por código/QR. |
 | [Mosaico Card](https://mosaico-card.dragongames.dev.br/) | Participação por convite | Novo Testamento e Filmes e Séries em testes fechados; salas criadas por contas autorizadas. |
 | [Histórias MOSAICO](https://dragongames.dev.br/) | Testes fechados | A Casa da Costa, A Manhã do Carro-Forte e O Eco do Amanhã permanecem em testes fechados. |
 | [Lab-RA](https://lab-ra.dragongames.dev.br/bancadas.html) | Experimentação | Biblioteca de experimentação. Para Fisiologia pública, prefira o portal de origem; cópias de jogos mantêm suas restrições. |
