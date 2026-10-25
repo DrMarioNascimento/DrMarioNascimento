@@ -406,7 +406,7 @@ mark{background:color-mix(in oklab,var(--acc) 40%,transparent);color:inherit;bor
 /* Public availability: readable entries on phones, using the portal's depth and palette. */
 .acesso-publico{margin-top:3rem;scroll-margin-top:6rem}.acesso-publico>h3{font-size:clamp(1.6rem,3vw,2.4rem);margin-bottom:.7rem}.acesso-publico>p{margin-bottom:1.3rem;line-height:1.7}.acessos-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.2rem}.acesso-item{min-width:0;border:1px solid rgba(165,140,255,.35);border-radius:18px;padding:1.4rem;background:linear-gradient(145deg,rgba(165,140,255,.1),rgba(15,20,34,.8));box-shadow:inset 0 1px 0 #ffffff18,0 5px 0 #080b17,0 12px 24px #0004}.acesso-item h4{font-size:1.2rem;margin:.8rem 0}.acesso-item p{line-height:1.65}.acesso-item .cta{margin-top:1rem;flex-wrap:wrap}.acesso-item .btn{white-space:normal}.acesso-reservado{margin:1.6rem 0;padding:1rem 1.2rem;border:1px solid #ffffff22;border-radius:14px;box-shadow:inset 0 1px 0 #ffffff12,0 4px 0 #080b17}.acesso-reservado summary{cursor:pointer;line-height:1.6}.acesso-reservado li{margin:.8rem 0;line-height:1.6}.acesso-reservado ul{padding-left:1.2rem}.acesso-publico a:focus-visible,.acesso-reservado summary:focus-visible{outline:3px solid #a58cff;outline-offset:4px}@media(max-width:620px){.acessos-grid{grid-template-columns:1fr}.acesso-item{padding:1.1rem}}
 </style>
-<link rel="stylesheet" href="portal.css?v=20261024-16">
+<link rel="stylesheet" href="portal.css?v=20261025-fluid">
 <script src="universo-leve.js?v=20261024-4" defer></script>
 <script src="portal.js?v=20261024-6" defer></script>
 <link rel="canonical" href="https://drmarionascimento.com.br/">
@@ -1425,6 +1425,32 @@ function calcFit(){
   const hv = THREE.MathUtils.degToRad(camera.fov) / 2, hh = Math.atan(Math.tan(hv) * camera.aspect);
   distFit = (RAIO_ENV * (RETRATO ? 1.0 : .9)) / Math.sin(Math.min(hv, hh)) + 2;
 }
+// Fit the real orbital outlines inside the space beside the introduction.
+// Off-centre perspective includes depth, so Lab-RA and Dragon cannot slip below it.
+const heroPoints = ORDEM.flatMap(g => Array.from({length:48},(_,i)=>{
+ const a=i*Math.PI*2/48,S=SIS[g],r=S.R*1.08+1;
+ return V3(S.c.x+Math.cos(a)*r,0,S.c.z+Math.sin(a)*r);
+}));
+const heroWorld = heroPoints.map(()=>V3());
+let heroFrame={left:W*.51,right:W-24,top:112,bottom:H-56};
+function measureHeroFrame(){
+ const rect=$('.heroi-txt').getBoundingClientRect();
+ const gutter=Math.max(18,Math.min(W*.04,140));
+ const textRight=rect.right || W*.46;
+ heroFrame={left:Math.max(W*.50,textRight+24),right:W-gutter,top:112,bottom:H-56};
+}
+function fitHero(){
+ const f=heroFrame,tx=Math.tan(THREE.MathUtils.degToRad(camera.fov)/2)*camera.aspect,ty=tx/camera.aspect;
+ const l=2*f.left/W-1,r=2*f.right/W-1,b=1-2*f.bottom/H,u=1-2*f.top/H;
+ const nx=(l+r)/2,ny=(b+u)/2,hx=Math.max(.05,(r-l)/2),hy=Math.max(.05,(u-b)/2);
+ let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
+ heroPoints.forEach((p,i)=>{const v=heroWorld[i].copy(p).applyMatrix4(plano.matrixWorld);minX=Math.min(minX,v.x);maxX=Math.max(maxX,v.x);minY=Math.min(minY,v.y);maxY=Math.max(maxY,v.y);});
+ const cx=(minX+maxX)/2,cy=(minY+maxY)/2;let distance=1;
+ heroWorld.forEach(p=>{const x=(p.x-cx)/tx,y=(p.y-cy)/ty;
+  distance=Math.max(distance,(x+r*p.z)/hx,(-x-l*p.z)/hx,(y+u*p.z)/hy,(-y-b*p.z)/hy,p.z+1);
+ });
+ return {distance,target:V3(cx-nx*distance*tx,cy-ny*distance*ty,0)};
+}
 function distanciaFoco(raio){
   const hv = THREE.MathUtils.degToRad(camera.fov)/2;
   const util = MOBILE ? 1 : .62;
@@ -1441,6 +1467,7 @@ function redimensiona(){
   renderer.setSize(W, H, false); camera.aspect = W / H; camera.fov = MOBILE ? 60 : 46; camera.updateProjectionMatrix();
   rtCena.setSize(Math.round(W * PR), Math.round(H * PR));
   const bw = Math.max(1, Math.round(W * PR / 4)), bh = Math.max(1, Math.round(H * PR / 4)); rtA.setSize(bw, bh); rtB.setSize(bw, bh); matBlur.uniforms.uRes.value.set(bw, bh);
+  measureHeroFrame();
   const antigo = distFit; calcFit(); if (!foco && Math.abs(distAlvo - antigo) < 1e-3) distAlvo = distFit; mede();
 }
 addEventListener('resize', redimensiona);
@@ -1614,7 +1641,7 @@ function desenhaQuadro(now){
   if (TOQUE && now - ultimo < 1000/30) return;
   const dt = Math.max(0, Math.min((now - ultimo) / 1000, .05)); ultimo = Math.max(ultimo, now); t += dt; ocioso += dt;
   fpsN++; if (now - fpsT > 1000){ $('#hudFps').textContent = fpsN; fpsN = 0; fpsT = now; }
-  const sp = U.scrollP || 0, heroP = Math.min(1, sp), exp = !!U.explorar;
+  const sp = U.scrollP || 0, exp = !!U.explorar;
   nos.forEach(n => { if (n.orb){ const a = n.orb.fase + t * n.orb.vel; n.pos.set(SIS[n.g].c.x + Math.cos(a) * n.orb.R, 0, SIS[n.g].c.z + Math.sin(a) * n.orb.R); } n.mesh.position.copy(n.pos); n.mesh.material.uniforms.uT.value = t; n.mesh.rotation.y = t * (n.central ? .05 : .012); });
   itens.forEach((o, i) => { const a = o.fase + t * o.vel; const x = Math.cos(a) * o.R, s = Math.sin(a) * o.R;
     o.pos.set(o.n.pos.x + x, s * Math.sin(o.incl), o.n.pos.z + s * Math.cos(o.incl));
@@ -1639,9 +1666,9 @@ function desenhaQuadro(now){
   if (foco && !MOBILE) alvoDesejado.x += larguraVista * ((W - painel.getBoundingClientRect().left) / W) / 2;
   let dAlvo = distAlvo;
   if (!exp && !foco){
-    if (!MOBILE) { dAlvo = distFit * 1.5; alvoDesejado.x -= 2 * dAlvo * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) * camera.aspect * .25; }
+    if (W > 760) { const fit=fitHero();dAlvo=fit.distance;alvoDesejado.copy(fit.target); }
     else { dAlvo = distFit * .92; alvoDesejado.y -= dAlvo * .26; }
-    dAlvo *= 1 + heroP * .25;
+    // Keep the same scale while scrolling out of the hero.
   }
   const k = 1 - Math.exp(-dt * 3.2);
   cam.alvo.lerp(alvoDesejado, k); cam.dist += (dAlvo - cam.dist) * k;

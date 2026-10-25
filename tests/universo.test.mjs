@@ -155,3 +155,29 @@ test('Tall desktop: all four 3D discs stay inside the hero and open their own sy
     assert.equal(h.U.explorar,false);
   }
 });
+
+
+test('Responsive hero fills its planet area without covering text or losing any central target',async()=>{
+ for(const [width,height,heroHeight] of [[1024,768,650],[1440,900,756],[1920,1080,907],[3440,1440,1080],[1440,1800,1080]]){
+  const h=harness();h.env.innerWidth=width;h.env.innerHeight=height;
+  Object.defineProperty(h.$('#inicio'),'offsetHeight',{get:()=>heroHeight});
+  h.$('.heroi-txt').getBoundingClientRect=()=>({right:width*.46,left:width*.04,top:112,height:480});
+  await h.load3D();h.tick(100);
+  const centres=[];
+  for(const group of ['aula','etica','dragon','lab']){
+   const target=h.$('.central-target[data-group="'+group+'"]');
+   const [x,y]=target.style.transform.match(/-?[\d.]+/g).map(Number),size=parseFloat(target.style.height);
+   assert.equal(target.style.pointerEvents,'auto');
+   assert(x>=width*.46 && x+size<=width,`${width}: ${group} overlaps text or window edge`);
+   assert(y>=76 && y+size<=heroHeight-24,`${width}: ${group} leaves hero`);
+   centres.push(y+size/2);
+  }
+  assert(Math.max(...centres)-Math.min(...centres)>Math.min(heroHeight-168,width*.46)*.38,`${width}: planets occupy too little of their available area`);
+  const before=h.$('.central-target[data-group="dragon"]').style.transform;
+  h.U.scrollP=.3;h.tick(50);
+  const after=h.$('.central-target[data-group="dragon"]').style.transform;
+  const coordinates=s=>s.match(/-?[\d.]+/g).map(Number);
+  assert(coordinates(before).every((value,i)=>Math.abs(value-coordinates(after)[i])<.1),'Scrolling must not shrink planets');
+  assert.equal(h.warnings.length,0);
+ }
+});
