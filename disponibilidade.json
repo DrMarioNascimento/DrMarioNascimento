@@ -1,5 +1,5 @@
 {
-  "revisado_em": "2026-10-24",
+  "revisado_em": "2026-10-25",
   "criterio": "Disponibilidade das entradas oficiais e controles implementados; não é certificação de funcionamento em todos os dispositivos.",
   "recursos": [
     {
@@ -45,10 +45,10 @@
     {
       "id": "fuga",
       "nome": "Fisiologia em Fuga",
-      "acesso": "google",
+      "acesso": "publico",
       "url": "https://fisiologia-em-fuga.drmarionascimento.com.br/",
-      "descricao_pt": "Escape rooms e Percursos de Fisiologia: entrada com qualquer conta Google.",
-      "descricao_en": "Escape rooms and Physiology Pathways: sign in with any Google account."
+      "descricao_pt": "Escape rooms separados de EF e Fisioterapia; Percursos de Fisiologia para ambos os cursos. Testes públicos sem Google.",
+      "descricao_en": "Separate Physical Education and Physiotherapy escape rooms, shared Physiology Pathways. Open testing without Google sign-in."
     },
     {
       "id": "eita",
@@ -87,8 +87,8 @@
       "nome": "Atividades Extras",
       "acesso": "convite",
       "url": "https://atividades-extras.drmarionascimento.com.br/",
-      "descricao_pt": "Sete laboratórios de Fisiologia; condução autorizada e equipes por código de sala.",
-      "descricao_en": "Seven physiology labs; authorized hosts and teams joining with a room code."
+      "descricao_pt": "Atividades de condução docente com Google autorizado; alunos participam por código/QR.",
+      "descricao_en": "Authorized Google sign-in for teachers; students join by room code/QR."
     },
     {
       "id": "mosaico-card",
