@@ -51,6 +51,14 @@
       "descricao_en": "Separate Physical Education and Physiotherapy escape rooms, shared Physiology Pathways. Open testing without Google sign-in."
     },
     {
+      "id": "percursos-fisiologia",
+      "nome": "Percursos de Fisiologia",
+      "acesso": "publico",
+      "url": "https://fisiologia-em-fuga.drmarionascimento.com.br/percursos/",
+      "descricao_pt": "Atividade compartilhada de Educação Física e Fisioterapia, com 12 unidades e nove contextos. Testes públicos sem cadastro nem login Google.",
+      "descricao_en": "Shared Physical Education and Physiotherapy activity with 12 units and nine scenarios. Open public testing without Google sign-in."
+    },
+    {
       "id": "eita",
       "nome": "Eita!",
       "acesso": "testes-abertos",
