@@ -27,7 +27,7 @@ Um link público de apresentação não libera uma atividade protegida. Login Go
 
 - [Fisioterapia](https://fisiologia.drmarionascimento.com.br/fisioterapia/).
 - [Bonde para celular](https://etica.drmarionascimento.com.br/dilema-bonde-mobile/).
-- [Percursos de Fisiologia](https://fisiologia-em-fuga.drmarionascimento.com.br/percursos/).
+- [Percursos de Fisiologia](https://fisiologia-em-fuga.drmarionascimento.com.br/percursos/) — **testes públicos sem login Google**, para **Educação Física e Fisioterapia**, com 12 unidades selecionáveis, nove contextos, síntese e exportação/impressão. Todos os contextos são acessíveis aos dois cursos; não há divisão de acesso por curso.
 - [Mosaico Card: Novo Testamento](https://mosaico-card.dragongames.dev.br/novo-testamento/) e [Filmes e Séries](https://mosaico-card.dragongames.dev.br/filmes-e-series/) — condução restrita.
 
 ## Escopo da conferência
