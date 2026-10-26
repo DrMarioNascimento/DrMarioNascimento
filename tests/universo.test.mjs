@@ -5,7 +5,7 @@ import {test} from 'node:test';
 import {parseHTML} from 'linkedom';
 import * as Three from 'three';
 const read = name => fs.readFileSync(new URL('../'+name, import.meta.url),'utf8');
-const html = read('index.html');
+const html = read('universo.html');   // o universo 3D completo; a index.html é o portal
 const controls = html.match(/<script id="universe-controls">([\s\S]*?)<\/script>/)[1];
 
 function harness({mobile=false, reduced=false}={}) {
