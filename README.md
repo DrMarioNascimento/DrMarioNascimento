@@ -1,8 +1,14 @@
 <a href="https://www.drmarionascimento.com.br/"><img src="./banner.svg" alt="Prof. Mário César Nascimento, PhD — universo interativo" width="100%"></a>
 
-# Projetos educacionais e experiências interativas
+# Tecnologias educacionais, jogos digitais e experiências interativas
 
-Recursos desenvolvidos pelo **Prof. Mário César Nascimento, PhD**, para aprender explorando, simulando e decidindo. O portfólio reúne Fisiologia, Ética, Metodologia da Pesquisa e jogos. O estudo de Game Design acompanha a criação dessas experiências; cada obra preserva seus créditos próprios.
+**Prof. Mário César Nascimento, PhD — professor universitário, designer e desenvolvedor de tecnologias educacionais e jogos digitais.**
+
+Minha atuação integra conhecimento científico, **tecnologia educacional (EdTech)**, **design de aprendizagem** e **desenvolvimento assistido por inteligência artificial**. Crio plataformas, simuladores, tutores e experiências em 3D e realidade aumentada para explorar Fisiologia Humana, Ética e Metodologia da Pesquisa.
+
+Conduzo a concepção dos projetos, a definição de conteúdos e regras, a orientação da implementação e a revisão da experiência de uso. Na **Dragon Games**, projeto criado com **Osana Melo Nascimento**, desenvolvo jogos de dedução, investigação e tomada de decisão para aprendizagem e entretenimento. Cada obra preserva seus créditos próprios.
+
+**English — professional profile:** University professor, designer and developer of educational technologies and digital games. My work combines scientific knowledge, learning design and AI-assisted development to create platforms, simulators, tutors, 3D and augmented reality experiences, and games for learning and entertainment. Dragon Games was created with Osana Melo Nascimento; each project retains its own credits.
 
 ## Guia do portfólio — 25 de outubro de 2026
 
@@ -78,7 +84,7 @@ Os materiais de saúde têm finalidade didática, não constituem diagnóstico, 
 
 ## Manutenção do portal
 
-A página inicial apresenta o autor e três frentes — Fisiologia, Ética e formação em pesquisa, Dragon Games — antes do convite à Célula Viva em RA. O catálogo público usa capas e descrições da experiência; os requisitos de Google e convite permanecem identificados. A biografia completa aparece depois das experiências, seguida dos jogos em desenvolvimento e dos caminhos para parcerias.
+A página inicial apresenta o autor e três frentes — Fisiologia, Ética e formação em pesquisa, Dragon Games — antes do convite à Célula Viva em RA. O catálogo público usa capas e descrições da experiência; os requisitos de Google e convite permanecem identificados. A biografia completa aparece depois das experiências, seguida dos jogos em desenvolvimento e dos caminhos para parcerias. A apresentação profissional combina docência universitária, design e desenvolvimento de tecnologias educacionais e jogos digitais, com uma síntese na abertura e a descrição do processo assistido por IA em Quem sou. As versões em português e inglês mantêm o mesmo sentido.
 
 `portal.css` e `portal.js` cuidam da apresentação, menu móvel e filtros progressivos. As atividades ficam em HTML e continuam acessíveis sem JavaScript. O universo 3D é opcional: sem WebGL2, durante o carregamento ou após perda de contexto, os quatro sistemas e seus planetas continuam navegáveis em uma versão leve. No celular, há atalhos diretos, tolerância maior para toques, ajuste de câmera após rotação e menor custo de renderização. O canvas deixa de renderizar quando fica fora da área inicial da página.
 
