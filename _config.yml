@@ -1,0 +1,16 @@
+# GitHub Pages: o que fica no repositório mas não vai ao ar.
+# Versões anteriores (_SUBSTITUIDO_), cópias .bak, documentos de projeto, testes e imagens soltas.
+exclude:
+  - "*_SUBSTITUIDO_*"
+  - "**/*_SUBSTITUIDO_*"
+  - "*.bak*"
+  - AGENTS.md
+  - README.md
+  - DISPONIBILIDADE.md
+  - assets/cards/README.md
+  - tests/
+  - f-d-1.png
+  - frentes.png
+  - r-2.png
+  - r-3.png
+  - assets/avatar-prof-mario.png
