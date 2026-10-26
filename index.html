@@ -88,8 +88,8 @@ svg.seta{flex:none}
 .secao h2{margin:8px 0 12px;font-family:var(--disp);font-weight:600;font-size:clamp(30px,4vw,48px);line-height:1.1}
 .secao h2 .serif{color:var(--ink2)}
 .secao>.intro{margin:0 0 32px;max-width:640px;color:var(--ink2)}
-.cartoes{display:flex;flex-wrap:wrap;gap:18px}
-.cartao{flex:1 1 270px;min-width:0;display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:#0a111a;border:1px solid rgba(255,255,255,.1);color:var(--ink);text-decoration:none;transition:transform .15s,border-color .15s}
+.cartoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.cartao{min-width:0;display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:#0a111a;border:1px solid rgba(255,255,255,.1);color:var(--ink);text-decoration:none;transition:transform .15s,border-color .15s}
 .cartao:hover{color:var(--ink);transform:translateY(-3px);border-color:rgba(255,255,255,.28)}
 .cartao img{width:100%;aspect-ratio:3/2;object-fit:cover}
 .cartao .corpo{padding:18px 20px 22px;display:flex;flex-direction:column;gap:6px}
@@ -97,8 +97,19 @@ svg.seta{flex:none}
 .cartao .titulo{font-family:var(--disp);font-size:22px;font-weight:600}
 .cartao .texto{color:var(--ink2);font-size:15px}
 
+.cursos{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.cursos a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:12px;border:1px solid rgba(56,225,198,.45);background:#0f1a24;color:var(--ink);text-decoration:none;font-weight:600;font-size:15px}
+.cursos a:hover{border-color:var(--acc);color:var(--ink)}
+.universo-cartao{display:flex;flex-wrap:wrap;align-items:stretch;border-radius:24px;overflow:hidden;background:#070b14;border:1px solid rgba(78,169,255,.3);color:var(--ink);text-decoration:none;transition:border-color .15s}
+.universo-cartao:hover{color:var(--ink);border-color:rgba(78,169,255,.7)}
+.universo-cartao img{flex:1 1 420px;min-width:0;aspect-ratio:3/2;object-fit:cover}
+.universo-cartao .corpo{flex:1 1 360px;min-width:0;padding:28px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.universo-cartao .titulo{font-family:var(--disp);font-size:32px;font-weight:600;line-height:1.15}
+.universo-cartao .texto{color:var(--ink2)}
+.universo-cartao .ligacao{color:var(--acc)}
+
 /* bancada */
-.bancada{display:flex;flex-wrap:wrap;gap:32px;align-items:stretch;padding-top:40px;padding-bottom:96px}
+.bancada{display:flex;flex-wrap:wrap;gap:32px;align-items:stretch;padding-top:40px;padding-bottom:32px}
 .bancada>div{flex:1 1 420px;min-width:0;border-radius:24px}
 .lab{overflow:hidden;background:#0a0f1c;border:1px solid rgba(78,169,255,.3);display:flex;flex-direction:column}
 .lab img{width:100%;aspect-ratio:16/9;object-fit:cover}
@@ -140,8 +151,10 @@ svg.seta{flex:none}
 .rodape nav{display:flex;flex-wrap:wrap;gap:0 18px}.rodape a{color:var(--ink2);display:inline-block;padding:12px 0}
 
 @media (max-width:640px){
-  .marca span{font-size:15px}
-  .menu{gap:2px 14px;font-size:14px}
+  .marca span{display:none}
+  .topo{flex-wrap:nowrap}
+  .menu{flex-wrap:nowrap;gap:8px}
+  .menu>a:not(.pilula){display:none}
   .menu .pilula{padding:0 14px}
   .heroi{padding-top:28px}
   .heroi .lead{font-size:17px}
@@ -224,10 +237,11 @@ svg.seta{flex:none}
   <h2 data-en-html="The classroom &lt;span class=&quot;serif&quot;&gt;you can carry in your pocket.&lt;/span&gt;">A sala de aula <span class="serif">que dá para levar no bolso.</span></h2>
   <p class="intro" data-en="Simulators, cases and challenges from my courses. They open on a phone, with nothing to install.">Simuladores, casos e desafios das minhas disciplinas. Abrem no celular, sem instalar nada.</p>
   <div class="cartoes">
-    <a class="cartao" href="https://fisiologia.drmarionascimento.com.br/">
+    <div class="cartao">
       <img src="assets/cards/cardiopulmonar-paisagem.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
-      <span class="corpo"><span class="mono" style="color:#38e1c6" data-en="57 experiences">57 experiências</span><span class="titulo" data-en="Interactive Physiology">Fisiologia Interativa</span><span class="texto" data-en="Simulators and tutors for Physical Education and Physiotherapy.">Simuladores e tutores para Educação Física e Fisioterapia.</span></span>
-    </a>
+      <span class="corpo"><span class="mono" style="color:#38e1c6" data-en="57 experiences">57 experiências</span><span class="titulo" data-en="Interactive Physiology">Fisiologia Interativa</span><span class="texto" data-en="Simulators and tutors. Choose your course:">Simuladores e tutores. Escolha o seu curso:</span>
+        <span class="cursos"><a href="https://fisiologia.drmarionascimento.com.br/" data-en="Physical Education">Educação Física</a><a href="https://fisiologia.drmarionascimento.com.br/fisioterapia/" data-en="Physiotherapy">Fisioterapia</a></span></span>
+    </div>
     <a class="cartao" href="https://fisiologia-em-fuga.drmarionascimento.com.br/">
       <img src="assets/cards/fisiologia-em-fuga-paisagem.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
       <span class="corpo"><span class="mono" style="color:#f5b544" data-en="14 escape rooms">14 salas de escape</span><span class="titulo" data-en="Physiology on the Run">Fisiologia em Fuga</span><span class="texto" data-en="Open the locks before time runs out.">Abra os cadeados antes do tempo acabar.</span></span>
@@ -239,6 +253,10 @@ svg.seta{flex:none}
     <a class="cartao" href="https://laboratorio-de-pesquisa.drmarionascimento.com.br/" style="background:#0d0b1a">
       <img src="assets/cards/pesquisa-investigacao.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
       <span class="corpo"><span class="mono" style="color:#c3f26a" data-en="research by doing">pesquisa fazendo</span><span class="titulo" data-en="The Researcher's Lab">Laboratório do Pesquisador</span><span class="texto" data-en="Learning methodology by choosing the study design.">Aprender metodologia escolhendo o delineamento.</span></span>
+    </a>
+    <a class="cartao" href="https://mosaico-sala.web.app/">
+      <img src="assets/cards/mosaico-sala-telao.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
+      <span class="corpo"><span class="mono" style="color:#ff8a5c" data-en="with the whole class">com a turma toda</span><span class="titulo">MOSAICO · Sala</span><span class="texto" data-en="Each group holds a piece of the answer. The class joins with the code shown on the screen.">Cada grupo tem um pedaço da resposta. A turma entra com o código que aparece no telão.</span></span>
     </a>
   </div>
 </section>
@@ -252,18 +270,28 @@ svg.seta{flex:none}
       <p data-en="Augmented reality, 3D models and everything still being tested before it becomes a class or a game.">Realidade aumentada, modelos 3D e tudo o que ainda está sendo testado antes de virar aula ou jogo.</p>
       <div style="display:flex;flex-wrap:wrap;gap:4px 24px">
         <a class="ligacao" href="https://lab-ra.dragongames.dev.br/"><span data-en="Enter the AR Lab">Entrar no Lab RA</span><svg class="seta" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-        <a class="ligacao" href="universo.html"><span data-en="Explore the 3D universe of projects">Explorar o universo 3D de projetos</span><svg class="seta" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </div>
   <div class="agora">
     <p class="mono" data-en="What I'm working on now">Agora estou mexendo em</p>
     <ul>
-      <li><span class="linha"><span class="nome">MOSAICO · Sala</span><span class="selo" style="border-color:rgba(56,225,198,.5);color:#38e1c6" data-en="in progress">em construção</span></span><span class="desc" data-en="Activities where each group holds a piece of the answer, run from the teacher's phone.">Atividades em que cada grupo tem um pedaço da resposta, conduzidas pelo celular do professor.</span></li>
       <li><span class="linha"><span class="nome" data-en="Ethics Committee">Comitê de Ética</span><span class="selo" style="border-color:rgba(165,140,255,.55);color:#b9a6ff" data-en="in progress">em construção</span></span><span class="desc" data-en="Investigating an ethics case piece by piece, with the class acting as the council.">Apurar um caso ético por fragmentos, com a turma no papel de conselho.</span></li>
       <li><span class="linha"><span class="nome" data-en="The Echo of Tomorrow">O Eco do Amanhã</span><span class="selo" style="border-color:rgba(224,177,58,.55);color:#f3d078" data-en="in progress">em construção</span></span><span class="desc" data-en="A science-fiction case with a tower in augmented reality.">Um caso de ficção científica com uma torre em realidade aumentada.</span></li>
     </ul>
   </div>
+</section>
+
+<section class="wrap" style="padding-bottom:96px" aria-labelledby="universo-titulo">
+  <a class="universo-cartao" href="universo.html">
+    <img src="assets/cards/universo-3d.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
+    <span class="corpo">
+      <span class="mono" style="color:#4ea9ff" data-en="Every project, in orbit">Todos os projetos, em órbita</span>
+      <span class="titulo" id="universo-titulo" data-en="The 3D universe">O universo 3D</span>
+      <span class="texto" data-en="The full map: each front is a planet and each experience a satellite. Spin it, zoom in and open any of them.">O mapa completo: cada frente é um planeta e cada experiência, um satélite. Gire, aproxime e abra qualquer uma.</span>
+      <span class="ligacao"><span data-en="Explore the universe">Explorar o universo</span><svg class="seta" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </span>
+  </a>
 </section>
 
 <section id="portal" class="portal">
