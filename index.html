@@ -159,7 +159,19 @@ svg.seta{flex:none}
 @keyframes suga{0%{transform:scale(1);opacity:0;border-color:#f5b544}15%{opacity:.5}70%{border-color:#ff6a18}100%{transform:scale(.14);opacity:0;border-color:#ff6a18}}
 .boca-aneis::after{content:"";position:absolute;left:-90px;top:-45px;width:180px;height:90px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,106,24,.28),rgba(255,106,24,0) 70%)}
 @media (prefers-reduced-motion:reduce){.boca-aneis i{animation-play-state:paused}}
-.passagem{position:fixed;inset:0;z-index:9999;pointer-events:none;background:radial-gradient(circle at var(--x,50%) var(--y,50%),#fff4cf 0,#f5b544 8%,#ff6a18 18%,#1a0d05 42%,#050302 70%);clip-path:circle(0 at var(--x,50%) var(--y,50%));animation:passagem .75s cubic-bezier(.6,0,.4,1) forwards}
+html.travessia{background:#020203;overflow:hidden}
+body.espiral{animation:espiral .8s cubic-bezier(.55,0,.85,.35) forwards;pointer-events:none}
+@keyframes espiral{to{transform:rotate(600deg) scale(0);filter:brightness(1.4) blur(1px)}}
+.vortice{position:fixed;z-index:9998;pointer-events:none;left:var(--x,50%);top:var(--y,50%);width:260vmax;height:260vmax;margin:-130vmax 0 0 -130vmax;border-radius:50%;
+  background:
+    radial-gradient(circle,#000 0,#020604 4%,#0d2a14 9%,rgba(13,42,20,0) 16%),
+    repeating-radial-gradient(circle,rgba(255,190,90,.0) 0 6px,rgba(255,170,60,.55) 7px,rgba(255,106,24,.25) 9px,rgba(0,0,0,0) 12px),
+    repeating-conic-gradient(from 0deg,rgba(255,220,150,.12) 0 3deg,rgba(0,0,0,0) 3deg 11deg),
+    radial-gradient(circle,rgba(0,0,0,0) 10%,rgba(245,150,40,.55) 22%,rgba(160,40,8,.45) 34%,rgba(5,3,2,.96) 52%);
+  -webkit-mask-image:radial-gradient(circle,#000 30%,transparent 52%);mask-image:radial-gradient(circle,#000 30%,transparent 52%);
+  opacity:0;animation:vortice 1.15s cubic-bezier(.4,0,.6,1) forwards}
+@keyframes vortice{0%{opacity:0;transform:rotate(0) scale(1.6)}35%{opacity:1}100%{opacity:1;transform:rotate(-540deg) scale(.55)}}
+.passagem{position:fixed;inset:0;z-index:9999;pointer-events:none;background:radial-gradient(circle at var(--x,50%) var(--y,50%),#fff4cf 0,#f5b544 8%,#ff6a18 18%,#1a0d05 42%,#050302 70%);clip-path:circle(0 at var(--x,50%) var(--y,50%));animation:passagem .55s cubic-bezier(.5,0,.3,1) .8s forwards}
 @keyframes passagem{to{clip-path:circle(150% at var(--x,50%) var(--y,50%))}}
 .atravessar:hover{color:#1a1206;transform:translateY(-2px)}.atravessar:active{transform:translateY(3px)}
 .pecas{flex:1 1 360px;min-width:0;display:flex;justify-content:center;gap:14px;align-items:flex-end}
@@ -377,15 +389,24 @@ svg.seta{flex:none}
   b.addEventListener('click', function (ev) {
     if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button) return;
     ev.preventDefault();
-    var r = b.getBoundingClientRect(), d = document.createElement('div');
+    var r = b.getBoundingClientRect(), d = document.createElement('div'),
+        cx = r.left + r.width / 2, cy = r.top + r.height / 2;
     d.className = 'passagem';
-    d.style.setProperty('--x', (r.left + r.width / 2) + 'px');
-    d.style.setProperty('--y', (r.top + r.height / 2) + 'px');
-    document.body.appendChild(d);
-    setTimeout(function () { location.href = b.href; }, 720);
-    setTimeout(function () { d.remove(); }, 3000);
+    d.style.setProperty('--x', cx + 'px');
+    d.style.setProperty('--y', cy + 'px');
+    document.body.style.transformOrigin = (cx + window.scrollX) + 'px ' + (cy + window.scrollY) + 'px';
+    document.documentElement.classList.add('travessia');
+    document.body.classList.add('espiral');
+    var v = document.createElement('div');
+    v.className = 'vortice';
+    v.style.setProperty('--x', cx + 'px');
+    v.style.setProperty('--y', cy + 'px');
+    document.documentElement.appendChild(v);
+    document.documentElement.appendChild(d);
+    setTimeout(function () { location.href = b.href; }, 1320);
+    setTimeout(function () { d.remove(); v.remove(); }, 3000);
   });
-  window.addEventListener('pageshow', function () { document.querySelectorAll('.passagem').forEach(function (n) { n.remove(); }); });
+  window.addEventListener('pageshow', function () { document.querySelectorAll('.passagem,.vortice').forEach(function (n) { n.remove(); }); document.body.classList.remove('espiral'); document.body.style.transformOrigin = ''; document.documentElement.classList.remove('travessia'); });
 })();
 </script>
 <script>
