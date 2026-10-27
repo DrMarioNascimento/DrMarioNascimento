@@ -146,6 +146,12 @@ svg.seta{flex:none}
 .portal .slogan{margin:0 0 18px;font-size:clamp(22px,2.4vw,30px);font-weight:500;color:#f4ead0}
 .portal .desc{margin:0 0 34px;max-width:540px;color:#c9bba3;font-size:18px}
 .atravessar{display:inline-flex;align-items:center;gap:12px;min-height:60px;padding:0 30px;border-radius:12px;background:linear-gradient(180deg,var(--gold2),var(--gold));color:#1a1206;text-decoration:none;font:700 16px var(--mono);letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 1px rgba(255,255,255,.45),0 5px 0 var(--lip),0 14px 30px rgba(255,106,24,.25);transition:transform .12s}
+.boca{position:relative;display:inline-block;isolation:isolate}
+.boca-aneis{position:absolute;left:50%;top:50%;width:0;height:0;z-index:-1;pointer-events:none}
+.boca-aneis i{position:absolute;left:-200px;top:-100px;width:400px;height:200px;border-radius:50%;border:2px solid #f5b544;box-shadow:0 0 18px rgba(245,181,68,.18);opacity:0;animation:suga 20s cubic-bezier(.3,.45,.6,1) infinite}
+@keyframes suga{0%{transform:scale(1);opacity:0;border-color:#f5b544}15%{opacity:.5}70%{border-color:#ff6a18}100%{transform:scale(.14);opacity:0;border-color:#ff6a18}}
+.boca-aneis::after{content:"";position:absolute;left:-90px;top:-45px;width:180px;height:90px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,106,24,.28),rgba(255,106,24,0) 70%)}
+@media (prefers-reduced-motion:reduce){.boca-aneis i{animation-play-state:paused}}
 .atravessar:hover{color:#1a1206;transform:translateY(-2px)}.atravessar:active{transform:translateY(3px)}
 .pecas{flex:1 1 360px;min-width:0;display:flex;justify-content:center;gap:14px;align-items:flex-end}
 .pecas img{width:30%;max-width:140px;aspect-ratio:2/3;object-fit:cover;border-radius:8px;border:3px solid var(--gold);box-shadow:0 18px 30px rgba(0,0,0,.6)}
@@ -171,6 +177,7 @@ svg.seta{flex:none}
   .porta{padding:0 16px;font-size:15px}
   .portal{padding:80px 20px 90px}
   .atravessar{width:100%;justify-content:center}
+  .boca{display:block}.boca-aneis i{left:-170px;width:340px;top:-85px;height:170px}
 }
 @media (max-width:380px){.porta{flex:1 1 100%;justify-content:center}}
 </style>
@@ -304,7 +311,7 @@ svg.seta{flex:none}
       <h2>Dragon Games</h2>
       <p class="slogan" data-en="Nobody has all the facts.">Ninguém tem todos os fatos.</p>
       <p class="desc" data-en="Group deduction games: one big screen, everyone's phone and a truth split into pieces. From here on, the tone changes.">Jogos de dedução em grupo: um telão, os celulares de todos e uma verdade dividida em pedaços. Daqui para a frente, o tom muda.</p>
-      <a class="atravessar" href="https://dragongames.dev.br/"><span data-en="Cross over">Atravessar</span><svg class="seta" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <div class="boca"><div class="boca-aneis" aria-hidden="true"><i style="animation-delay:-0.0s"></i><i style="animation-delay:-2.5s"></i><i style="animation-delay:-5.0s"></i><i style="animation-delay:-7.5s"></i><i style="animation-delay:-10.0s"></i><i style="animation-delay:-12.5s"></i><i style="animation-delay:-15.0s"></i><i style="animation-delay:-17.5s"></i></div><a class="atravessar" href="https://dragongames.dev.br/"><span data-en="Cross over">Atravessar</span><svg class="seta" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
     </div>
     <div class="pecas" aria-hidden="true">
       <img src="assets/portal/caso-farol.webp" alt="" width="280" height="420" loading="lazy">
