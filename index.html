@@ -62,6 +62,13 @@ svg.seta{flex:none}
 .portas{position:relative;z-index:3;margin-top:34px;display:flex;flex-wrap:wrap;gap:12px}
 .porta{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 20px;border-radius:14px;text-decoration:none;font-weight:600;font-size:16px;white-space:nowrap}
 .porta-sala{background:#0f1a24;border:1px solid rgba(56,225,198,.45);color:var(--ink)}.porta-sala:hover{color:var(--ink);border-color:var(--acc)}
+.heroi .quem{margin:30px 0 0;color:var(--ink2);font-size:12px}.quem+.portas{margin-top:12px}
+.atalho-dragon{position:relative;z-index:3;display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:10px;color:var(--gold2);font-weight:600;text-decoration:none}.atalho-dragon:hover{color:#ffe7a3}
+.perfil-lista{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:0;padding:0;list-style:none}
+.perfil-lista a{display:flex;flex-direction:column;gap:6px;height:100%;padding:20px;border-radius:18px;background:#0a111a;border:1px solid rgba(255,255,255,.1);color:var(--ink);text-decoration:none;transition:border-color .15s,transform .15s}
+.perfil-lista a:hover{border-color:rgba(56,225,198,.5);transform:translateY(-2px);color:var(--ink)}
+.perfil-lista b{font-size:18px}.perfil-lista span{color:var(--ink2);font-size:15px;line-height:1.5}.perfil-lista small{margin-top:auto;padding-top:8px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+.perfil-email{margin:22px 0 0;color:var(--ink2)}
 .porta-dragon{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#1a1206;font-weight:700}.porta-dragon:hover{color:#1a1206;filter:brightness(1.06)}
 
 /* túnel */
@@ -189,8 +196,9 @@ svg.seta{flex:none}
   <a class="marca" href="#inicio"><img src="assets/avatar-mini.webp" alt="" width="44" height="44"><span>Mário César Nascimento</span></a>
   <nav class="menu" aria-label="Seções" data-en-label="Sections">
     <a href="#sala" data-en="Classroom">Sala de aula</a>
+    <a href="#professor" data-en="Teachers">Professores</a>
     <a href="#bancada" data-en="Workbench">Bancada</a>
-    <a href="#contato" data-en="Contact">Contato</a>
+    <a href="#parcerias" data-en="Partnerships">Parcerias</a>
     <a class="pilula" href="#portal">Dragon Games <svg class="seta" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     <button class="idioma" type="button" id="idioma" aria-label="Read in English" data-en-label="Ler em português">EN</button>
   </nav>
@@ -202,10 +210,13 @@ svg.seta{flex:none}
     <p class="mono" data-en="Prof. Mário César Nascimento, PhD · personal universe">Prof. Mário César Nascimento, PhD · universo pessoal</p>
     <h1 data-en-html="Physiology to explore.&lt;br&gt;Ethics to decide.&lt;br&gt;&lt;span class=&quot;serif&quot;&gt;Games to discover.&lt;/span&gt;">Fisiologia para explorar.<br>Ética para decidir.<br><span class="serif">Jogos para descobrir.</span></h1>
     <p class="lead" data-en="I am a university professor, designer and developer of educational technologies and digital games. I combine science, learning and artificial intelligence to create experiences of discovery. This is my personal universe.">Sou professor universitário, designer e desenvolvedor de tecnologias educacionais e jogos digitais. Integro ciência, aprendizagem e inteligência artificial para criar experiências de descobertas. Este é o meu universo pessoal.</p>
+    <p class="quem mono" data-en="Who is visiting?">Quem está chegando?</p>
     <div class="portas">
-      <a class="porta porta-sala" href="#sala"><svg class="seta" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38e1c6" stroke-width="2" aria-hidden="true"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c0 1 2.5 3 5 3s5-2 5-3v-4.5"/></svg><span data-en="Stay in the classroom">Ficar na sala de aula</span></a>
-      <a class="porta porta-dragon" href="#portal"><span data-en="Enter Dragon Games">Entrar na Dragon Games</span><svg class="seta" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="porta porta-sala" href="#sala"><svg class="seta" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38e1c6" stroke-width="2" aria-hidden="true"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c0 1 2.5 3 5 3s5-2 5-3v-4.5"/></svg><span data-en="I'm a student">Sou estudante</span></a>
+      <a class="porta porta-sala" href="#professor"><svg class="seta" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4ea9ff" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span data-en="I'm a teacher">Sou professor</span></a>
+      <a class="porta porta-sala" href="#parcerias"><svg class="seta" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f3d078" stroke-width="2" aria-hidden="true"><path d="M8 12l3 3 5-6"/><circle cx="12" cy="12" r="9"/></svg><span data-en="I want to partner">Quero fazer parceria</span></a>
     </div>
+    <a class="atalho-dragon" href="#portal"><span data-en="Or cross over to Dragon Games">Ou atravesse para a Dragon Games</span><svg class="seta" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
   </div>
   <div class="tunel-caixa">
     <div class="tunel">
@@ -271,6 +282,19 @@ svg.seta{flex:none}
   </div>
 </section>
 
+<section id="professor" class="wrap secao">
+  <p class="mono" style="color:#4ea9ff" data-en="For teachers">Para professores</p>
+  <h2 data-en-html="Take it to &lt;span class=&quot;serif&quot;&gt;your class.&lt;/span&gt;">Para levar <span class="serif">para a sua aula.</span></h2>
+  <p class="intro" data-en="Everything opens in the browser. Show it on the TV and the students follow on their own phones.">Tudo abre no navegador. Projete na TV e a turma acompanha no próprio celular.</p>
+  <ul class="perfil-lista">
+    <li><a href="https://mosaico-sala.web.app/"><b>MOSAICO · Sala</b><span data-en="A case for the whole class: each group holds part of the answer. You prepare the lesson and run it from your phone.">Um caso para a turma inteira: cada grupo tem um pedaço da resposta. Você prepara a aula e conduz pelo celular.</span><small data-en="Prepare a lesson">Preparar uma aula →</small></a></li>
+    <li><a href="https://fisiologia.drmarionascimento.com.br/"><b data-en="Physiology simulators">Simuladores de Fisiologia</b><span data-en="Show the mechanism on the big screen, change the variables and discuss with the class.">Mostre o mecanismo na tela grande, mude as variáveis e discuta com a turma.</span><small data-en="Open the simulators">Abrir os simuladores →</small></a></li>
+    <li><a href="https://etica.drmarionascimento.com.br/"><b data-en="Ethics cases">Casos de Ética</b><span data-en="Dilemmas and cases to debate in groups, with the class deciding together.">Dilemas e casos para debater em grupo, com a turma decidindo junto.</span><small data-en="See the cases">Ver os casos →</small></a></li>
+    <li><a href="https://laboratorio-de-pesquisa.drmarionascimento.com.br/"><b data-en="Researcher's Lab">Laboratório do Pesquisador</b><span data-en="Teach research methods by having students choose the study design.">Ensine metodologia fazendo o aluno escolher o delineamento.</span><small data-en="Open the lab">Abrir o laboratório →</small></a></li>
+  </ul>
+  <p class="perfil-email"><span data-en="Want to use it with your class and need help?">Quer usar com a sua turma e precisa de ajuda?</span> <a href="mailto:contato@drmarionascimento.com.br?subject=Uso%20em%20aula">contato@drmarionascimento.com.br</a></p>
+</section>
+
 <section id="bancada" class="wrap bancada">
   <div class="lab">
     <img src="assets/cards/lab-ra-paisagem.webp" alt="" width="960" height="540" loading="lazy" decoding="async">
@@ -304,13 +328,23 @@ svg.seta{flex:none}
   </a>
 </section>
 
+<section id="parcerias" class="wrap secao" style="padding-bottom:72px">
+  <p class="mono" style="color:#f3d078" data-en="Partnerships">Parcerias</p>
+  <h2 data-en-html="Let's build &lt;span class=&quot;serif&quot;&gt;something together.&lt;/span&gt;">Vamos fazer <span class="serif">algo junto.</span></h2>
+  <ul class="perfil-lista">
+    <li><a href="mailto:contato@drmarionascimento.com.br?subject=Parceria%20em%20ensino%20e%20pesquisa"><b data-en="Teaching and research">Ensino e pesquisa</b><span data-en="Studies, courses and academic collaborations in physiology, ethics and research training.">Estudos, cursos e colaborações acadêmicas em Fisiologia, Ética e formação em pesquisa.</span><small data-en="Write to me">Escrever →</small></a></li>
+    <li><a href="mailto:contato@drmarionascimento.com.br?subject=Parceria%20em%20tecnologia%20educacional"><b data-en="Educational technology">Tecnologia educacional</b><span data-en="Simulators and classroom tools for your institution or course.">Simuladores e ferramentas de sala de aula para a sua instituição ou curso.</span><small data-en="Write to me">Escrever →</small></a></li>
+    <li><a href="https://dragongames.dev.br/#parcerias"><b>Dragon Games</b><span data-en="Games for schools, events, companies and studios.">Jogos para escolas, eventos, empresas e estúdios.</span><small data-en="See the partnerships">Ver as parcerias →</small></a></li>
+  </ul>
+</section>
+
 <section id="portal" class="portal">
   <div class="portal-dentro">
     <div class="portal-texto">
       <div class="brasao"><img src="assets/portal/dragon-mark.webp" alt="" width="56" height="56" loading="lazy"><p class="mono" data-en="On the other side of the portal">Do outro lado do portal</p></div>
       <h2>Dragon Games</h2>
       <p class="slogan" data-en="Nobody has all the facts.">Ninguém tem todos os fatos.</p>
-      <p class="desc" data-en="Group deduction games: one big screen, everyone's phone and a truth split into pieces. From here on, the tone changes.">Jogos de dedução em grupo: um telão, os celulares de todos e uma verdade dividida em pedaços. Daqui para a frente, o tom muda.</p>
+      <p class="desc" data-en="Group deduction games: everyone's phone, a TV if you like, and a truth split into pieces. From here on, the tone changes.">Jogos de dedução em grupo: os celulares de todos, uma TV se quiser, e uma verdade dividida em pedaços. Daqui para a frente, o tom muda.</p>
       <div class="boca"><div class="boca-aneis" aria-hidden="true"><i style="animation-delay:-0.0s"></i><i style="animation-delay:-2.5s"></i><i style="animation-delay:-5.0s"></i><i style="animation-delay:-7.5s"></i><i style="animation-delay:-10.0s"></i><i style="animation-delay:-12.5s"></i><i style="animation-delay:-15.0s"></i><i style="animation-delay:-17.5s"></i></div><a class="atravessar" href="https://dragongames.dev.br/"><span data-en="Cross over">Atravessar</span><svg class="seta" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
     </div>
     <div class="pecas" aria-hidden="true">
