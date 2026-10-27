@@ -160,18 +160,13 @@ svg.seta{flex:none}
 .boca-aneis::after{content:"";position:absolute;left:-90px;top:-45px;width:180px;height:90px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,106,24,.28),rgba(255,106,24,0) 70%)}
 @media (prefers-reduced-motion:reduce){.boca-aneis i{animation-play-state:paused}}
 html.travessia{background:#020203;overflow:hidden}
-body.espiral{animation:espiral .8s cubic-bezier(.55,0,.85,.35) forwards;pointer-events:none}
-@keyframes espiral{to{transform:rotate(600deg) scale(0);filter:brightness(1.4) blur(1px)}}
-.vortice{position:fixed;z-index:9998;pointer-events:none;left:var(--x,50%);top:var(--y,50%);width:260vmax;height:260vmax;margin:-130vmax 0 0 -130vmax;border-radius:50%;
-  background:
-    radial-gradient(circle,#000 0,#020604 4%,#0d2a14 9%,rgba(13,42,20,0) 16%),
-    repeating-radial-gradient(circle,rgba(255,190,90,.0) 0 6px,rgba(255,170,60,.55) 7px,rgba(255,106,24,.25) 9px,rgba(0,0,0,0) 12px),
-    repeating-conic-gradient(from 0deg,rgba(255,220,150,.12) 0 3deg,rgba(0,0,0,0) 3deg 11deg),
-    radial-gradient(circle,rgba(0,0,0,0) 10%,rgba(245,150,40,.55) 22%,rgba(160,40,8,.45) 34%,rgba(5,3,2,.96) 52%);
-  -webkit-mask-image:radial-gradient(circle,#000 30%,transparent 52%);mask-image:radial-gradient(circle,#000 30%,transparent 52%);
-  opacity:0;animation:vortice 1.15s cubic-bezier(.4,0,.6,1) forwards}
-@keyframes vortice{0%{opacity:0;transform:rotate(0) scale(1.6)}35%{opacity:1}100%{opacity:1;transform:rotate(-540deg) scale(.55)}}
-.passagem{position:fixed;inset:0;z-index:9999;pointer-events:none;background:radial-gradient(circle at var(--x,50%) var(--y,50%),#fff4cf 0,#f5b544 8%,#ff6a18 18%,#1a0d05 42%,#050302 70%);clip-path:circle(0 at var(--x,50%) var(--y,50%));animation:passagem .55s cubic-bezier(.5,0,.3,1) .8s forwards}
+body.ondula{animation:ondula 1s cubic-bezier(.3,0,.5,1) forwards;pointer-events:none}
+@keyframes ondula{0%{transform:scale(1)}14%{transform:scale(.975)}28%{transform:scale(1.012)}42%{transform:scale(.982)}56%{transform:scale(1.006)}70%{transform:scale(.99);filter:brightness(1)}100%{transform:scale(.99);filter:brightness(.35)}}
+.onda{position:fixed;z-index:9998;pointer-events:none;left:var(--x,50%);top:var(--y,50%);width:170vmax;height:170vmax;margin:-85vmax 0 0 -85vmax;border-radius:50%;will-change:transform,opacity;
+  background:radial-gradient(circle,rgba(255,255,255,0) 62%,rgba(255,231,163,.0) 64%,rgba(255,214,120,.55) 66.5%,rgba(255,255,255,.75) 67.2%,rgba(255,150,50,.45) 68.5%,rgba(56,225,198,.18) 70.5%,rgba(0,0,0,0) 73%);
+  transform:scale(0);opacity:0;animation:onda 1.05s cubic-bezier(.2,.6,.35,1) forwards}
+@keyframes onda{0%{transform:scale(0);opacity:0}8%{opacity:1}100%{transform:scale(1);opacity:0}}
+.passagem{position:fixed;inset:0;z-index:9999;pointer-events:none;background:radial-gradient(circle at var(--x,50%) var(--y,50%),#fff4cf 0,#f5b544 8%,#ff6a18 18%,#1a0d05 42%,#050302 70%);clip-path:circle(0 at var(--x,50%) var(--y,50%));animation:passagem .5s cubic-bezier(.5,0,.3,1) .78s forwards}
 @keyframes passagem{to{clip-path:circle(150% at var(--x,50%) var(--y,50%))}}
 .atravessar:hover{color:#1a1206;transform:translateY(-2px)}.atravessar:active{transform:translateY(3px)}
 .pecas{flex:1 1 360px;min-width:0;display:flex;justify-content:center;gap:14px;align-items:flex-end}
@@ -382,7 +377,7 @@ body.espiral{animation:espiral .8s cubic-bezier(.55,0,.85,.35) forwards;pointer-
 </footer>
 
 <script>
-// Travessia: ao clicar em Atravessar, o túnel engole a tela antes de abrir a Dragon Games.
+// Travessia: ao clicar em Atravessar, ondas saem do botão (como a Ondulação do PowerPoint) e a luz abre a Dragon Games.
 (function () {
   var b = document.querySelector('.atravessar');
   if (!b || !window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -396,17 +391,22 @@ body.espiral{animation:espiral .8s cubic-bezier(.55,0,.85,.35) forwards;pointer-
     d.style.setProperty('--y', cy + 'px');
     document.body.style.transformOrigin = (cx + window.scrollX) + 'px ' + (cy + window.scrollY) + 'px';
     document.documentElement.classList.add('travessia');
-    document.body.classList.add('espiral');
-    var v = document.createElement('div');
-    v.className = 'vortice';
-    v.style.setProperty('--x', cx + 'px');
-    v.style.setProperty('--y', cy + 'px');
-    document.documentElement.appendChild(v);
+    document.body.classList.add('ondula');
+    var ondas = [];
+    [0, 140, 280, 420].forEach(function (atraso) {
+      var o = document.createElement('div');
+      o.className = 'onda';
+      o.style.setProperty('--x', cx + 'px');
+      o.style.setProperty('--y', cy + 'px');
+      o.style.animationDelay = atraso + 'ms';
+      document.documentElement.appendChild(o);
+      ondas.push(o);
+    });
     document.documentElement.appendChild(d);
-    setTimeout(function () { location.href = b.href; }, 1320);
-    setTimeout(function () { d.remove(); v.remove(); }, 3000);
+    setTimeout(function () { location.href = b.href; }, 1250);
+    setTimeout(function () { d.remove(); ondas.forEach(function (o) { o.remove(); }); }, 3000);
   });
-  window.addEventListener('pageshow', function () { document.querySelectorAll('.passagem,.vortice').forEach(function (n) { n.remove(); }); document.body.classList.remove('espiral'); document.body.style.transformOrigin = ''; document.documentElement.classList.remove('travessia'); });
+  window.addEventListener('pageshow', function () { document.querySelectorAll('.passagem,.onda').forEach(function (n) { n.remove(); }); document.body.classList.remove('ondula'); document.body.style.transformOrigin = ''; document.documentElement.classList.remove('travessia'); });
 })();
 </script>
 <script>
