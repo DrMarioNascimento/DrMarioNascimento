@@ -67,7 +67,7 @@ svg.seta{flex:none}
 /* túnel */
 .tunel-caixa{flex:1 1 400px;min-width:0;display:flex;justify-content:center;padding-top:8px}
 .tunel{position:relative;width:440px;height:470px;flex:none}
-.tunel-camada{position:absolute;inset:0;-webkit-mask-image:radial-gradient(circle at 46% 52%,#000 40%,transparent 70%);mask-image:radial-gradient(circle at 46% 52%,#000 40%,transparent 70%)}
+.tunel-camada{position:absolute;inset:0;-webkit-mask-image:radial-gradient(circle at 46% 52%,#000 46%,transparent 66%);mask-image:radial-gradient(circle at 46% 52%,#000 46%,transparent 66%)}
 .tunel-fundo{position:absolute;inset:0;background:radial-gradient(circle at 73% 36%,#000 0,#03060c 9%,#071520 24%,rgba(7,21,32,.5) 42%,rgba(3,5,10,0) 64%)}
 .tunel-luz{position:absolute;left:322px;top:169px;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:radial-gradient(circle,#ffe7a3 0,#f5b544 35%,rgba(245,181,68,0) 72%);box-shadow:0 0 34px 10px rgba(245,181,68,.28);animation:pulsar 6s ease-in-out infinite}
 @keyframes pulsar{50%{transform:scale(1.25);opacity:.8}}
@@ -76,8 +76,8 @@ svg.seta{flex:none}
   0%{transform:translate(122px,-81px) scale(.025);opacity:0;border-color:#a58cff}
   10%{opacity:.55}
   55%{border-color:#4ea9ff}
-  85%{opacity:.85}
-  100%{transform:translate(0,0) scale(1.12);opacity:0;border-color:#38e1c6}}
+  72%{opacity:.85}
+  88%,100%{transform:translate(0,0) scale(.96);opacity:0;border-color:#38e1c6}}
 .mergulho{position:absolute;border-radius:50%;animation:mergulho 22s cubic-bezier(.3,0,.6,1) infinite}
 @keyframes mergulho{0%{transform:translate(0,0) scale(1);opacity:0}8%{opacity:1}80%{opacity:.9}100%{transform:translate(var(--dx),var(--dy)) scale(.08);opacity:0}}
 .piso{position:absolute;left:4px;top:430px;width:250px;height:34px;border-radius:50%;border:2px solid rgba(56,225,198,.55);background:radial-gradient(ellipse,rgba(56,225,198,.22),rgba(56,225,198,0) 70%);box-shadow:0 0 26px rgba(56,225,198,.25)}
