@@ -69,6 +69,18 @@ svg.seta{flex:none}
 .perfil-lista a:hover{border-color:rgba(56,225,198,.5);transform:translateY(-2px);color:var(--ink)}
 .perfil-lista b{font-size:18px}.perfil-lista span{color:var(--ink2);font-size:15px;line-height:1.5}.perfil-lista small{margin-top:auto;padding-top:8px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
 .perfil-email{margin:22px 0 0;color:var(--ink2)}
+.celula{display:flex;flex-wrap:wrap;align-items:center;gap:24px 40px;margin-top:40px;padding:28px;border-radius:24px;background:linear-gradient(160deg,#0a1a1c,#07101a 60%,#060a12);border:1px solid rgba(56,225,198,.3)}
+.celula-texto{flex:1 1 360px;min-width:0}
+.celula-texto .mono{margin:0;font-size:12px}
+.celula-texto h3{margin:10px 0 12px;font-family:var(--disp);font-weight:600;font-size:clamp(26px,3.2vw,38px);line-height:1.12}
+.celula-texto h3 .serif{color:var(--ink2)}
+.celula-texto>p{color:var(--ink2);margin:0 0 14px;text-wrap:pretty}
+.celula-desafio{padding:12px 14px;border-left:3px solid var(--acc);background:rgba(56,225,198,.07);border-radius:0 10px 10px 0}
+.celula-desafio strong{color:var(--ink)}
+.celula-nota{display:block;margin-top:10px;color:var(--ink3,#8a97a8);font-size:13px}
+.celula-visual{flex:1 1 380px;min-width:0;margin:0}
+.celula-visual svg{display:block;width:100%;height:auto;aspect-ratio:3/2;border-radius:16px}
+@media (max-width:640px){.celula{padding:20px}.celula-visual{order:-1}}
 .porta-dragon{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#1a1206;font-weight:700}.porta-dragon:hover{color:#1a1206;filter:brightness(1.06)}
 
 /* túnel */
@@ -291,6 +303,17 @@ body.avanca{animation:avanca .7s cubic-bezier(.45,0,.75,.4) forwards;pointer-eve
       <img src="assets/cards/mosaico-sala-telao.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
       <span class="corpo"><span class="mono" style="color:#ff8a5c" data-en="with the whole class">com a turma toda</span><span class="titulo">MOSAICO · Sala</span><span class="texto" data-en="Each group holds a piece of the answer. The class joins with the code shown on the screen.">Cada grupo tem um pedaço da resposta. A turma entra com o código que aparece no telão.</span></span>
     </a>
+  </div>
+  <div class="celula" id="celula-viva">
+    <div class="celula-texto">
+      <p class="mono" style="color:#38e1c6" data-en="Your first invitation · Living Cell">Seu primeiro convite · Célula Viva</p>
+      <h3 data-en-html="A human cell, &lt;span class=&quot;serif&quot;&gt;right in front of you.&lt;/span&gt;">Uma célula do corpo humano, <span class="serif">bem na sua frente.</span></h3>
+      <p data-en="Use your phone's camera to place a cell model in the space around you. Move closer, look at it from different angles and discover its structures in augmented reality.">Use a câmera do celular para colocar um modelo de célula no ambiente ao seu redor. Aproxime-se, observe de diferentes ângulos e descubra suas estruturas em realidade aumentada.</p>
+      <p class="celula-desafio"><span aria-hidden="true">◎</span> <span data-en-html="&lt;strong&gt;A first discovery:&lt;/strong&gt; find the nucleus and look at what surrounds it."><strong>Uma descoberta para começar:</strong> encontre o núcleo e observe o que existe ao redor dele.</span></p>
+      <a class="porta porta-sala" href="https://fisiologia.drmarionascimento.com.br/ra/celula/"><span data-en="Explore the cell in AR">Explorar a célula em RA</span><svg class="seta" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <small class="celula-nota" data-en="On a computer, explore the 3D model. AR requires a compatible phone.">No computador, explore o modelo em 3D. A RA depende da compatibilidade do celular.</small>
+    </div>
+    <figure class="celula-visual"><svg class="cell-composition" viewBox="0 0 1536 1024" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="cell-art-title"><title id="cell-art-title" >Celular mostrando a captura real da Célula Viva fornecida pelo autor</title><image href="assets/cards/celula-celular-base.webp" width="1536" height="1024"/><defs><clipPath id="cell-phone-screen"><path d="M 852 80 L 890 79 Q 890 110 919 110 L 1058 108 Q 1083 108 1086 77 L 1116 76 Q 1166 76 1167 124 L 1194 790 Q 1197 846 1145 849 L 838 842 Q 789 840 792 789 L 806 128 Q 807 83 852 80 Z"/></clipPath><filter id="cell-contact-shadow" x="-30%" y="-100%" width="160%" height="300%"><feGaussianBlur stdDeviation="12"/></filter></defs><g clip-path="url(#cell-phone-screen)"><ellipse cx="995" cy="649" rx="126" ry="21" fill="#101018" opacity=".28" filter="url(#cell-contact-shadow)"/><svg x="809" y="300" width="370" height="390" viewBox="255 115 1498 1158" preserveAspectRatio="xMidYMid meet"><image href="assets/cards/celula-captura-leve.webp" width="2047" height="1292"/></svg></g></svg></figure>
   </div>
 </section>
 
