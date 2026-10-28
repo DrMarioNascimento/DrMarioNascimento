@@ -69,6 +69,11 @@ svg.seta{flex:none}
 .perfil-lista a:hover{border-color:rgba(56,225,198,.5);transform:translateY(-2px);color:var(--ink)}
 .perfil-lista b{font-size:18px}.perfil-lista span{color:var(--ink2);font-size:15px;line-height:1.5}.perfil-lista small{margin-top:auto;padding-top:8px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
 .perfil-email{margin:22px 0 0;color:var(--ink2)}
+.levar{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-top:22px}.levar .perfil-email{margin:0;flex:1 1 280px}
+.qr{flex:none;display:flex;flex-direction:column;align-items:center;gap:10px;margin:0}
+.qr img{width:132px;height:132px;border-radius:10px;border:3px solid var(--acc);box-shadow:0 0 0 1px rgba(255,255,255,.08),0 10px 30px -12px rgba(56,225,198,.55)}
+.qr figcaption{max-width:12.5rem;font:500 12px/1.45 var(--mono);color:var(--ink2);text-align:center;text-wrap:balance}
+@media (max-width:640px){.levar{justify-content:center}.qr img{width:112px;height:112px}}
 .celula{display:flex;flex-wrap:wrap;align-items:center;gap:24px 40px;margin-top:40px;padding:28px;border-radius:24px;background:linear-gradient(160deg,#0a1a1c,#07101a 60%,#060a12);border:1px solid rgba(56,225,198,.3)}
 .celula-texto{flex:1 1 360px;min-width:0}
 .celula-texto .mono{margin:0;font-size:12px}
@@ -327,7 +332,10 @@ body.avanca{animation:avanca .7s cubic-bezier(.45,0,.75,.4) forwards;pointer-eve
     <li><a href="https://etica.drmarionascimento.com.br/"><b data-en="Ethics cases">Casos de Ética</b><span data-en="Dilemmas and cases to debate in groups, with the class deciding together.">Dilemas e casos para debater em grupo, com a turma decidindo junto.</span><small data-en="See the cases">Ver os casos →</small></a></li>
     <li><a href="https://laboratorio-de-pesquisa.drmarionascimento.com.br/"><b data-en="Researcher's Lab">Laboratório do Pesquisador</b><span data-en="Teach research methods by having students choose the study design.">Ensine metodologia fazendo o aluno escolher o delineamento.</span><small data-en="Open the lab">Abrir o laboratório →</small></a></li>
   </ul>
-  <p class="perfil-email"><span data-en="Want to use it with your class and need help?">Quer usar com a sua turma e precisa de ajuda?</span> <a href="mailto:contato@drmarionascimento.com.br?subject=Uso%20em%20aula">contato@drmarionascimento.com.br</a></p>
+  <div class="levar">
+    <p class="perfil-email"><span data-en="Want to use it with your class and need help?">Quer usar com a sua turma e precisa de ajuda?</span> <a href="mailto:contato@drmarionascimento.com.br?subject=Uso%20em%20aula">contato@drmarionascimento.com.br</a></p>
+    <figure class="qr"><img src="assets/qr-drmarionascimento.svg" alt="QR Code que abre drmarionascimento.com.br" data-en-alt="QR code that opens drmarionascimento.com.br" width="132" height="132" loading="lazy" decoding="async"><figcaption data-en="This QR opens this page. Show it on the TV and the class gets here without typing.">Este QR abre esta página. Mostre na TV e a turma chega aqui sem digitar.</figcaption></figure>
+  </div>
 </section>
 
 <section id="bancada" class="wrap bancada">
@@ -394,7 +402,7 @@ body.avanca{animation:avanca .7s cubic-bezier(.45,0,.75,.4) forwards;pointer-eve
 <footer id="contato" class="contato">
   <div class="dentro">
     <p class="pergunta" data-en="Want to swap ideas or build something together?">Quer trocar ideia ou montar algo junto?</p>
-    <p class="email"><span data-en="Write to me:">Me escreve:</span> <a href="mailto:contato@dragongames.dev.br">contato@dragongames.dev.br</a></p>
+    <p class="email"><span data-en="Write to me:">Me escreve:</span> <a href="mailto:contato@drmarionascimento.com.br">contato@drmarionascimento.com.br</a></p>
   </div>
   <div class="rodape">
     <span><span>© <span id="ano">2026</span> Prof. Mário César Nascimento, PhD</span> · <span data-en="AI-assisted development">desenvolvimento assistido por IA</span></span>

@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#03050a">
+<title>Universo pessoal | Prof. Mário César Nascimento, PhD</title>
+<meta name="description" content="Professor universitário, designer e desenvolvedor de tecnologias educacionais e jogos digitais. O portal entre a sala de aula (Fisiologia, Ética e Pesquisa) e a Dragon Games.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Universo pessoal | Prof. Mário César Nascimento, PhD">
+<meta property="og:description" content="Da sala de aula ao mundo dos jogos: simuladores, casos, a bancada de testes e a Dragon Games.">
+<meta property="og:image" content="https://drmarionascimento.com.br/assets/og-prof-mario.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Prof. Mário César Nascimento, PhD: simuladores, casos e jogos para ensinar Fisiologia, Ética e Pesquisa.">
+<meta property="og:url" content="https://drmarionascimento.com.br/">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:site_name" content="Prof. Mário César Nascimento, PhD">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://drmarionascimento.com.br/assets/og-prof-mario.jpg">
+<link rel="canonical" href="https://drmarionascimento.com.br/">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Mário César Nascimento","honorificPrefix":"Prof.","honorificSuffix":"PhD","jobTitle":"Professor universitário","description":"Professor universitário de Fisiologia, Ética e formação em pesquisa; designer e desenvolvedor de tecnologias educacionais e jogos digitais.","url":"https://drmarionascimento.com.br/","image":"https://drmarionascimento.com.br/assets/avatar-prof-mario.webp","email":"mailto:contato@drmarionascimento.com.br","sameAs":["https://github.com/DrMarioNascimento","https://dragongames.dev.br/","https://fisiologia.drmarionascimento.com.br/","https://etica.drmarionascimento.com.br/"],"knowsAbout":["Fisiologia humana","Fisiologia do exercício","Ética profissional","Metodologia de pesquisa","Tecnologias educacionais","Jogos educacionais"]}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Cinzel:wght@700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#03050a;--ink:#eef3f8;--ink2:#a9b5c2;--ink3:#7d8995;--acc:#38e1c6;--vio:#a58cff;--azul:#4ea9ff;--fogo:#ff5a2c;--ouro:#f5b544;--gold:#e0b13a;--gold2:#f3d078;--lip:#7a4e0e;--max:1240px;
+  --disp:"Space Grotesk",system-ui,sans-serif;--serif:"Instrument Serif",Georgia,serif;--mono:"JetBrains Mono",ui-monospace,monospace;--cinzel:Cinzel,"Times New Roman",serif}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:17px;line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:var(--acc)}a:hover{color:#8ff3e2}
+img{display:block;max-width:100%;height:auto}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:8px}
+.pular{position:absolute;left:-999px;top:8px;z-index:50;background:var(--acc);color:#001;padding:10px 14px;border-radius:8px}.pular:focus{left:8px}
+.wrap{max-width:var(--max);margin:0 auto;padding-left:24px;padding-right:24px}
+.mono{font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+.serif{font-family:var(--serif);font-style:italic;font-weight:400}
+svg.seta{flex:none}
+
+/* topo */
+.topo{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 16px;padding-top:20px;padding-bottom:20px}
+.marca{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.marca img{width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:top;background:#0d1422;border:1px solid rgba(255,255,255,.15)}
+.marca span{font-family:var(--disp);font-weight:600;font-size:17px}
+.menu{display:flex;flex-wrap:wrap;align-items:center;gap:4px 20px;font-size:15px}
+.menu a{color:var(--ink2);text-decoration:none;padding:10px 0}.menu a:hover{color:var(--ink)}
+.menu .pilula{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--gold);color:var(--gold2);font-weight:600}
+.idioma{min-height:44px;min-width:44px;padding:0 12px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:transparent;color:var(--ink2);font:600 13px var(--mono);cursor:pointer}
+
+/* herói */
+.heroi{display:flex;flex-wrap:wrap;align-items:center;gap:40px 48px;padding-top:48px;padding-bottom:40px}
+.heroi-texto{flex:999 1 560px;min-width:0}
+.heroi .mono{margin:0 0 18px;color:var(--acc)}
+.heroi h1{margin:0;font-family:var(--disp);font-weight:600;font-size:clamp(40px,6vw,72px);line-height:1.02;letter-spacing:-.02em}
+.heroi h1 .serif{color:var(--ouro)}
+.heroi .lead{margin:28px 0 0;max-width:620px;font-size:19px;color:var(--ink2)}
+.portas{position:relative;z-index:3;margin-top:34px;display:flex;flex-wrap:wrap;gap:12px}
+.porta{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 20px;border-radius:14px;text-decoration:none;font-weight:600;font-size:16px;white-space:nowrap}
+.porta-sala{background:#0f1a24;border:1px solid rgba(56,225,198,.45);color:var(--ink)}.porta-sala:hover{color:var(--ink);border-color:var(--acc)}
+.heroi .quem{margin:30px 0 0;color:var(--ink2);font-size:12px}.quem+.portas{margin-top:12px}
+.atalho-dragon{position:relative;z-index:3;display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-top:10px;color:var(--gold2);font-weight:600;text-decoration:none}.atalho-dragon:hover{color:#ffe7a3}
+.perfil-lista{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:0;padding:0;list-style:none}
+.perfil-lista a{display:flex;flex-direction:column;gap:6px;height:100%;padding:20px;border-radius:18px;background:#0a111a;border:1px solid rgba(255,255,255,.1);color:var(--ink);text-decoration:none;transition:border-color .15s,transform .15s}
+.perfil-lista a:hover{border-color:rgba(56,225,198,.5);transform:translateY(-2px);color:var(--ink)}
+.perfil-lista b{font-size:18px}.perfil-lista span{color:var(--ink2);font-size:15px;line-height:1.5}.perfil-lista small{margin-top:auto;padding-top:8px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+.perfil-email{margin:22px 0 0;color:var(--ink2)}
+.celula{display:flex;flex-wrap:wrap;align-items:center;gap:24px 40px;margin-top:40px;padding:28px;border-radius:24px;background:linear-gradient(160deg,#0a1a1c,#07101a 60%,#060a12);border:1px solid rgba(56,225,198,.3)}
+.celula-texto{flex:1 1 360px;min-width:0}
+.celula-texto .mono{margin:0;font-size:12px}
+.celula-texto h3{margin:10px 0 12px;font-family:var(--disp);font-weight:600;font-size:clamp(26px,3.2vw,38px);line-height:1.12}
+.celula-texto h3 .serif{color:var(--ink2)}
+.celula-texto>p{color:var(--ink2);margin:0 0 14px;text-wrap:pretty}
+.celula-desafio{padding:12px 14px;border-left:3px solid var(--acc);background:rgba(56,225,198,.07);border-radius:0 10px 10px 0}
+.celula-desafio strong{color:var(--ink)}
+.celula-nota{display:block;margin-top:10px;color:var(--ink3,#8a97a8);font-size:13px}
+.celula-visual{flex:1 1 380px;min-width:0;margin:0}
+.celula-visual svg{display:block;width:100%;height:auto;aspect-ratio:3/2;border-radius:16px}
+@media (max-width:640px){.celula{padding:20px}.celula-visual{order:-1}}
+.porta-dragon{background:linear-gradient(180deg,var(--gold2),var(--gold));color:#1a1206;font-weight:700}.porta-dragon:hover{color:#1a1206;filter:brightness(1.06)}
+
+/* túnel */
+.tunel-caixa{flex:1 1 400px;min-width:0;display:flex;justify-content:center;padding-top:8px}
+.tunel{position:relative;width:440px;height:470px;flex:none}
+.tunel-camada{position:absolute;inset:0;-webkit-mask-image:radial-gradient(circle at 46% 52%,#000 46%,transparent 66%);mask-image:radial-gradient(circle at 46% 52%,#000 46%,transparent 66%)}
+.tunel-fundo{position:absolute;inset:0;background:radial-gradient(circle at 73% 36%,#000 0,#03060c 9%,#071520 24%,rgba(7,21,32,.5) 42%,rgba(3,5,10,0) 64%)}
+.tunel-luz{position:absolute;left:322px;top:169px;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:radial-gradient(circle,#ffe7a3 0,#f5b544 35%,rgba(245,181,68,0) 72%);box-shadow:0 0 34px 10px rgba(245,181,68,.28);animation:pulsar 6s ease-in-out infinite}
+@keyframes pulsar{50%{transform:scale(1.25);opacity:.8}}
+.anel{position:absolute;left:200px;top:250px;width:600px;height:600px;margin:-300px 0 0 -300px;border-radius:50%;border:3.5px solid #38e1c6;box-shadow:0 0 30px rgba(56,225,198,.22),inset 0 0 22px rgba(56,225,198,.1);opacity:0;animation:viagem 48s cubic-bezier(.7,0,.95,.55) infinite;will-change:transform,opacity}
+@keyframes viagem{
+  0%{transform:translate(122px,-81px) scale(.025);opacity:0;border-color:#a58cff}
+  10%{opacity:.55}
+  55%{border-color:#4ea9ff}
+  72%{opacity:.85}
+  88%,100%{transform:translate(0,0) scale(.96);opacity:0;border-color:#38e1c6}}
+.mergulho{position:absolute;border-radius:50%;animation:mergulho 22s cubic-bezier(.3,0,.6,1) infinite}
+@keyframes mergulho{0%{transform:translate(0,0) scale(1);opacity:0}8%{opacity:1}80%{opacity:.9}100%{transform:translate(var(--dx),var(--dy)) scale(.08);opacity:0}}
+.piso{position:absolute;left:4px;top:430px;width:250px;height:34px;border-radius:50%;border:2px solid rgba(56,225,198,.55);background:radial-gradient(ellipse,rgba(56,225,198,.22),rgba(56,225,198,0) 70%);box-shadow:0 0 26px rgba(56,225,198,.25)}
+@media (prefers-reduced-motion:reduce){.anel,.mergulho,.tunel-luz{animation-play-state:paused}html{scroll-behavior:auto}}
+.tunel .avatar{position:absolute;left:28px;top:96px;height:350px;width:auto;max-width:none;filter:drop-shadow(0 18px 24px rgba(0,0,0,.6))}
+
+/* mapa da travessia */
+.mapa{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:14px}
+.mapa li{flex:1 1 260px;min-width:0;padding:22px;border-radius:18px;border:1px solid}
+.mapa .mono{margin:0;font-size:12px;letter-spacing:.14em}
+.mapa .nome{margin:8px 0 4px;font-family:var(--disp);font-size:22px;font-weight:600}
+.mapa .desc{margin:0;color:var(--ink2);font-size:15px}
+
+/* secções */
+.secao{padding-top:72px;padding-bottom:24px}
+.secao>.mono{margin:0}
+.secao h2{margin:8px 0 12px;font-family:var(--disp);font-weight:600;font-size:clamp(30px,4vw,48px);line-height:1.1}
+.secao h2 .serif{color:var(--ink2)}
+.secao>.intro{margin:0 0 32px;max-width:640px;color:var(--ink2)}
+.cartoes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.cartao{min-width:0;display:flex;flex-direction:column;border-radius:20px;overflow:hidden;background:#0a111a;border:1px solid rgba(255,255,255,.1);color:var(--ink);text-decoration:none;transition:transform .15s,border-color .15s}
+.cartao:hover{color:var(--ink);transform:translateY(-3px);border-color:rgba(255,255,255,.28)}
+.cartao img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.cartao .corpo{padding:18px 20px 22px;display:flex;flex-direction:column;gap:6px}
+.cartao .mono{font-size:12px;letter-spacing:.12em}
+.cartao .titulo{font-family:var(--disp);font-size:22px;font-weight:600}
+.cartao .texto{color:var(--ink2);font-size:15px}
+
+.cursos{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.cursos a{display:inline-flex;align-items:center;min-height:44px;padding:0 14px;border-radius:12px;border:1px solid rgba(56,225,198,.45);background:#0f1a24;color:var(--ink);text-decoration:none;font-weight:600;font-size:15px}
+.cursos a:hover{border-color:var(--acc);color:var(--ink)}
+.universo-cartao{display:flex;flex-wrap:wrap;align-items:stretch;border-radius:24px;overflow:hidden;background:#070b14;border:1px solid rgba(78,169,255,.3);color:var(--ink);text-decoration:none;transition:border-color .15s}
+.universo-cartao:hover{color:var(--ink);border-color:rgba(78,169,255,.7)}
+.universo-cartao img{flex:1 1 420px;min-width:0;aspect-ratio:3/2;object-fit:cover}
+.universo-cartao .corpo{flex:1 1 360px;min-width:0;padding:28px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.universo-cartao .titulo{font-family:var(--disp);font-size:32px;font-weight:600;line-height:1.15}
+.universo-cartao .texto{color:var(--ink2)}
+.universo-cartao .ligacao{color:var(--acc)}
+
+/* bancada */
+.bancada{display:flex;flex-wrap:wrap;gap:32px;align-items:stretch;padding-top:40px;padding-bottom:32px}
+.bancada>div{flex:1 1 420px;min-width:0;border-radius:24px}
+.lab{overflow:hidden;background:#0a0f1c;border:1px solid rgba(78,169,255,.3);display:flex;flex-direction:column}
+.lab img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.lab .corpo{padding:24px 26px 28px}
+.lab h2{margin:8px 0 10px;font-family:var(--disp);font-weight:600;font-size:32px;line-height:1.15}
+.lab p{margin:0 0 14px;color:var(--ink2)}
+.ligacao{display:inline-flex;align-items:center;gap:8px;min-height:44px;font-weight:600;text-decoration:none}
+.agora{padding:28px;background:#070b12;border:1px solid rgba(255,255,255,.1)}
+.agora .mono{margin:0;color:var(--ink2)}
+.agora ul{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:14px}
+.agora li{padding:16px 18px;border-radius:16px;background:#0d1422;display:flex;flex-direction:column;gap:4px}
+.agora .linha{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.agora .nome{font-family:var(--disp);font-size:19px;font-weight:600}
+.agora .selo{font:500 11px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid}
+.agora .desc{color:var(--ink2);font-size:15px}
+
+/* portal */
+.portal{position:relative;padding:110px 24px 120px;background:radial-gradient(900px 480px at 50% 0%,#3a1408 0%,transparent 65%),linear-gradient(180deg,#03050a 0%,#0b0705 30%,#070605 100%);border-top:1px solid rgba(224,177,58,.25)}
+.portal-dentro{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:48px}
+.portal-texto{flex:999 1 460px;min-width:0}
+.portal .brasao{display:flex;align-items:center;gap:14px}
+.portal .brasao img{width:56px;height:56px;border-radius:50%;box-shadow:0 0 0 1px rgba(224,177,58,.4),0 5px 0 var(--lip)}
+.portal .brasao .mono{margin:0;color:var(--gold);letter-spacing:.18em}
+.portal h2{margin:22px 0 8px;font-family:var(--cinzel);font-weight:800;font-size:clamp(40px,6vw,76px);line-height:1;letter-spacing:.08em;color:var(--gold2)}
+.portal .slogan{margin:0 0 18px;font-size:clamp(22px,2.4vw,30px);font-weight:500;color:#f4ead0}
+.portal .desc{margin:0 0 34px;max-width:540px;color:#c9bba3;font-size:18px}
+.atravessar{display:inline-flex;align-items:center;gap:12px;min-height:60px;padding:0 30px;border-radius:12px;background:linear-gradient(180deg,var(--gold2),var(--gold));color:#1a1206;text-decoration:none;font:700 16px var(--mono);letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 1px rgba(255,255,255,.45),0 5px 0 var(--lip),0 14px 30px rgba(255,106,24,.25);transition:transform .12s}
+.boca{position:relative;display:inline-block;isolation:isolate}
+.boca-aneis{position:absolute;left:50%;top:50%;width:0;height:0;z-index:-1;pointer-events:none}
+.boca-aneis i{position:absolute;left:-200px;top:-100px;width:400px;height:200px;border-radius:50%;border:2px solid #f5b544;box-shadow:0 0 18px rgba(245,181,68,.18);opacity:0;animation:suga 20s cubic-bezier(.3,.45,.6,1) infinite}
+@keyframes suga{0%{transform:scale(1);opacity:0;border-color:#f5b544}15%{opacity:.5}70%{border-color:#ff6a18}100%{transform:scale(.14);opacity:0;border-color:#ff6a18}}
+.boca-aneis::after{content:"";position:absolute;left:-90px;top:-45px;width:180px;height:90px;border-radius:50%;background:radial-gradient(ellipse,rgba(255,106,24,.28),rgba(255,106,24,0) 70%)}
+@media (prefers-reduced-motion:reduce){.boca-aneis i{animation-play-state:paused}}
+html.travessia{background:#020203;overflow:hidden}
+body.avanca{animation:avanca .7s cubic-bezier(.45,0,.75,.4) forwards;pointer-events:none}
+@keyframes avanca{to{transform:scale(1.14);opacity:0}}
+.viagem{position:fixed;inset:0;z-index:9998;pointer-events:none;overflow:hidden;opacity:0;background:radial-gradient(circle at 50% 46%,#000 0,#03060c 10%,#071520 28%,#03050a 60%);animation:viagem-entra .55s ease-out .1s forwards}
+@keyframes viagem-entra{to{opacity:1}}
+.viagem i{position:absolute;left:50%;top:46%;width:130vmax;height:130vmax;margin:-65vmax 0 0 -65vmax;border-radius:50%;border:3px solid #38e1c6;opacity:0;animation:viagem-anel 1.25s cubic-bezier(.62,0,.92,.55) infinite;will-change:transform,opacity}
+@keyframes viagem-anel{0%{transform:scale(.02);opacity:0;border-color:#a58cff}14%{opacity:.7}55%{border-color:#38e1c6}82%{opacity:.85;border-color:#f5b544}100%{transform:scale(1.25);opacity:0;border-color:#f5b544}}
+.viagem .fim{position:absolute;left:50%;top:46%;width:60vmax;height:60vmax;margin:-30vmax 0 0 -30vmax;border-radius:50%;background:radial-gradient(circle,rgba(255,231,163,.95) 0,rgba(245,181,68,.6) 18%,rgba(255,106,24,.25) 40%,rgba(255,106,24,0) 70%);transform:scale(.08);opacity:.7;animation:viagem-fim 1.1s cubic-bezier(.5,0,.3,1) .45s forwards}
+@keyframes viagem-fim{to{transform:scale(2.4);opacity:.85}}
+.viagem .chegada{position:absolute;inset:0;background:#070605 url(assets/portal/dragon-chegada-pc.webp) center top/cover no-repeat;opacity:0;transform:scale(1.06);animation:viagem-chega .6s ease-in-out 1.05s forwards}
+@media (max-aspect-ratio:1/1){.viagem .chegada{background-image:url(assets/portal/dragon-chegada-cel.webp)}}
+@keyframes viagem-chega{to{opacity:1;transform:scale(1)}}
+.atravessar:hover{color:#1a1206;transform:translateY(-2px)}.atravessar:active{transform:translateY(3px)}
+.pecas{flex:1 1 360px;min-width:0;display:flex;justify-content:center;gap:14px;align-items:flex-end}
+.pecas img{width:30%;max-width:140px;aspect-ratio:2/3;object-fit:cover;border-radius:8px;border:3px solid var(--gold);box-shadow:0 18px 30px rgba(0,0,0,.6)}
+.pecas img:nth-child(1){transform:rotate(-6deg)}.pecas img:nth-child(2){transform:translateY(-24px)}.pecas img:nth-child(3){transform:rotate(6deg)}
+
+/* contato e rodapé */
+.contato{background:#070605;padding:72px 24px 40px;border-top:1px solid rgba(255,255,255,.06)}
+.contato .dentro{max-width:1100px;margin:0 auto}
+.contato .pergunta{margin:0 0 10px;font-family:var(--disp);font-size:clamp(24px,3vw,34px);font-weight:600}
+.contato .email{margin:0;font-size:19px;color:var(--ink2)}.contato .email a{font-weight:600;white-space:nowrap;display:inline-block;padding:10px 0}
+.rodape{max-width:1100px;margin:64px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:14px;color:var(--ink3)}
+.rodape nav{display:flex;flex-wrap:wrap;gap:0 18px}.rodape a{color:var(--ink2);display:inline-block;padding:12px 0}
+
+@media (max-width:640px){
+  .tunel{transform:scale(.8);transform-origin:top center;margin-bottom:-94px}
+  .marca span{display:none}
+  .topo{flex-wrap:nowrap;position:sticky;top:0;z-index:30;padding-top:10px;padding-bottom:10px;background:rgba(3,5,10,.86);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+  .menu{flex-wrap:nowrap;gap:8px}
+  .menu>a:not(.pilula){display:none}
+  .menu .pilula{padding:0 14px}
+  .heroi{padding-top:28px}
+  .heroi .lead{font-size:17px}
+  .porta{padding:0 16px;font-size:15px}
+  .portal{padding:80px 20px 90px}
+  .atravessar{width:100%;justify-content:center}
+  .boca{display:block}.boca-aneis i{left:-170px;width:340px;top:-85px;height:170px}
+}
+@media (max-width:380px){.porta{flex:1 1 100%;justify-content:center}}
+</style>
+</head>
+<body>
+<a class="pular" href="#sala" data-en="Skip to content">Pular para o conteúdo</a>
+
+<header class="wrap topo">
+  <a class="marca" href="#inicio"><img src="assets/avatar-mini.webp" alt="" width="44" height="44"><span>Mário César Nascimento</span></a>
+  <nav class="menu" aria-label="Seções" data-en-label="Sections">
+    <a href="#sala" data-en="Classroom">Sala de aula</a>
+    <a href="#professor" data-en="Teachers">Professores</a>
+    <a href="#bancada" data-en="Workbench">Bancada</a>
+    <a href="#parcerias" data-en="Partnerships">Parcerias</a>
+    <a class="pilula" href="#portal">Dragon Games <svg class="seta" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    <button class="idioma" type="button" id="idioma" aria-label="Read in English" data-en-label="Ler em português">EN</button>
+  </nav>
+</header>
+
+<main>
+<section id="inicio" class="wrap heroi">
+  <div class="heroi-texto">
+    <p class="mono" data-en="Prof. Mário César Nascimento, PhD · personal universe">Prof. Mário César Nascimento, PhD · universo pessoal</p>
+    <h1 data-en-html="Physiology to explore.&lt;br&gt;Ethics to decide.&lt;br&gt;&lt;span class=&quot;serif&quot;&gt;Games to discover.&lt;/span&gt;">Fisiologia para explorar.<br>Ética para decidir.<br><span class="serif">Jogos para descobrir.</span></h1>
+    <p class="lead" data-en="I am a university professor, designer and developer of educational technologies and digital games. I combine science, learning and artificial intelligence to create experiences of discovery. This is my personal universe.">Sou professor universitário, designer e desenvolvedor de tecnologias educacionais e jogos digitais. Integro ciência, aprendizagem e inteligência artificial para criar experiências de descobertas. Este é o meu universo pessoal.</p>
+    <p class="quem mono" data-en="Who is visiting?">Quem está chegando?</p>
+    <div class="portas">
+      <a class="porta porta-sala" href="#sala"><svg class="seta" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38e1c6" stroke-width="2" aria-hidden="true"><path d="M3 10l9-6 9 6-9 6-9-6z"/><path d="M7 12.5V17c0 1 2.5 3 5 3s5-2 5-3v-4.5"/></svg><span data-en="I'm a student">Sou estudante</span></a>
+      <a class="porta porta-sala" href="#professor"><svg class="seta" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4ea9ff" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span data-en="I'm a teacher">Sou professor</span></a>
+      <a class="porta porta-sala" href="#parcerias"><svg class="seta" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f3d078" stroke-width="2" aria-hidden="true"><path d="M8 12l3 3 5-6"/><circle cx="12" cy="12" r="9"/></svg><span data-en="I want to partner">Quero fazer parceria</span></a>
+    </div>
+    <a class="atalho-dragon" href="#portal"><span data-en="Or cross over to Dragon Games">Ou atravesse para a Dragon Games</span><svg class="seta" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  </div>
+  <div class="tunel-caixa">
+    <div class="tunel">
+      <div class="tunel-camada" aria-hidden="true">
+      <div class="tunel-fundo" aria-hidden="true"></div>
+      <div aria-hidden="true"><div class="anel" style="animation-delay:-0.00s"></div><div class="anel" style="animation-delay:-2.67s"></div><div class="anel" style="animation-delay:-5.33s"></div><div class="anel" style="animation-delay:-8.00s"></div><div class="anel" style="animation-delay:-10.67s"></div><div class="anel" style="animation-delay:-13.33s"></div><div class="anel" style="animation-delay:-16.00s"></div><div class="anel" style="animation-delay:-18.67s"></div><div class="anel" style="animation-delay:-21.33s"></div><div class="anel" style="animation-delay:-24.00s"></div><div class="anel" style="animation-delay:-26.67s"></div><div class="anel" style="animation-delay:-29.33s"></div><div class="anel" style="animation-delay:-32.00s"></div><div class="anel" style="animation-delay:-34.67s"></div><div class="anel" style="animation-delay:-37.33s"></div><div class="anel" style="animation-delay:-40.00s"></div><div class="anel" style="animation-delay:-42.67s"></div><div class="anel" style="animation-delay:-45.33s"></div></div>
+      <div class="tunel-luz" aria-hidden="true"></div>
+      <div aria-hidden="true"><span class="mergulho" style="left:40px;top:150px;width:14px;height:14px;background:#38e1c6;box-shadow:0 0 12px #38e1c6;--dx:282px;--dy:19px;animation-delay:-0s"></span><span class="mergulho" style="left:300px;top:360px;width:10px;height:10px;background:#a58cff;box-shadow:0 0 12px #a58cff;--dx:22px;--dy:-191px;animation-delay:-7s"></span><span class="mergulho" style="left:150px;top:60px;width:8px;height:8px;background:#ff5a2c;box-shadow:0 0 12px #ff5a2c;--dx:172px;--dy:109px;animation-delay:-14s"></span><span class="mergulho" style="left:380px;top:280px;width:9px;height:9px;background:#4ea9ff;box-shadow:0 0 12px #4ea9ff;--dx:-58px;--dy:-111px;animation-delay:-18s"></span></div>
+      </div>
+      <div class="piso" aria-hidden="true"></div>
+      <img class="avatar" src="assets/avatar-prof-mario.webp" alt="Avatar do Prof. Mário" data-en-alt="Prof. Mário's avatar" width="229" height="350" fetchpriority="high">
+    </div>
+  </div>
+</section>
+
+<section class="wrap" aria-label="Como este universo se organiza" data-en-label="How this universe is organised" style="padding-top:24px;padding-bottom:24px">
+  <ol class="mapa">
+    <li style="background:#0a111a;border-color:rgba(56,225,198,.3)">
+      <p class="mono" style="color:#38e1c6" data-en="01 · this side">01 · deste lado</p>
+      <p class="nome" data-en="Classroom">Sala de aula</p>
+      <p class="desc" data-en="Physiology, Ethics and Research, open to study and experiment.">Fisiologia, Ética e Pesquisa, abertos para estudar e experimentar.</p>
+    </li>
+    <li style="background:#0a0f1c;border-color:rgba(78,169,255,.3)">
+      <p class="mono" style="color:#4ea9ff" data-en="02 · in between">02 · no meio</p>
+      <p class="nome" data-en="Workbench">Bancada</p>
+      <p class="desc" data-en="Where I test augmented reality, 3D and ideas before they reach a class or a game.">Onde testo realidade aumentada, 3D e ideias antes de irem para a aula ou para o jogo.</p>
+    </li>
+    <li style="background:#140c08;border-color:rgba(224,177,58,.45)">
+      <p class="mono" style="color:#f3d078" data-en="03 · the other side">03 · do outro lado</p>
+      <p class="nome" style="font-family:var(--cinzel);font-weight:700;color:#f3d078">Dragon Games</p>
+      <p class="desc" style="color:#c9bba3" data-en="The world of deduction games, created with Osana.">O mundo dos jogos de dedução, criado com a Osana.</p>
+    </li>
+  </ol>
+</section>
+
+<section id="sala" class="wrap secao">
+  <span id="acesso-publico" aria-hidden="true"></span>
+  <p class="mono" style="color:#38e1c6" data-en="This side of the portal">Deste lado do portal</p>
+  <h2 data-en-html="The classroom &lt;span class=&quot;serif&quot;&gt;you can carry in your pocket.&lt;/span&gt;">A sala de aula <span class="serif">que dá para levar no bolso.</span></h2>
+  <p class="intro" data-en="Simulators, cases and challenges from my courses. They open on a phone, with nothing to install.">Simuladores, casos e desafios das minhas disciplinas. Abrem no celular, sem instalar nada.</p>
+  <div class="cartoes">
+    <div class="cartao">
+      <img src="assets/cards/cardiopulmonar-paisagem.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
+      <span class="corpo"><span class="mono" style="color:#38e1c6" data-en="57 experiences">57 experiências</span><span class="titulo" data-en="Interactive Physiology">Fisiologia Interativa</span><span class="texto" data-en="Simulators and tutors. Choose your course:">Simuladores e tutores. Escolha o seu curso:</span>
+        <span class="cursos"><a href="https://fisiologia.drmarionascimento.com.br/" data-en="Physical Education">Educação Física</a><a href="https://fisiologia.drmarionascimento.com.br/fisioterapia/" data-en="Physiotherapy">Fisioterapia</a></span></span>
+    </div>
+    <a class="cartao" href="https://fisiologia-em-fuga.drmarionascimento.com.br/">
+      <img src="assets/cards/fisiologia-em-fuga-paisagem.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
+      <span class="corpo"><span class="mono" style="color:#f5b544" data-en="14 escape rooms">14 salas de escape</span><span class="titulo" data-en="Physiology on the Run">Fisiologia em Fuga</span><span class="texto" data-en="Open the locks before time runs out.">Abra os cadeados antes do tempo acabar.</span></span>
+    </a>
+    <a class="cartao" href="https://etica.drmarionascimento.com.br/" style="background:#0d0b1a">
+      <img src="assets/cards/dilema-bonde.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
+      <span class="corpo"><span class="mono" style="color:#a58cff" data-en="cases and dilemmas">casos e dilemas</span><span class="titulo" data-en="Interactive Ethics">Ética Interativa</span><span class="texto" data-en="Ethical Cases and the Trolley Dilemma to think through decisions.">Casos Éticos e o Dilema do Bonde para pensar decisões.</span></span>
+    </a>
+    <a class="cartao" href="https://laboratorio-de-pesquisa.drmarionascimento.com.br/" style="background:#0d0b1a">
+      <img src="assets/cards/pesquisa-investigacao.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
+      <span class="corpo"><span class="mono" style="color:#c3f26a" data-en="research by doing">pesquisa fazendo</span><span class="titulo" data-en="The Researcher's Lab">Laboratório do Pesquisador</span><span class="texto" data-en="Learning methodology by choosing the study design.">Aprender metodologia escolhendo o delineamento.</span></span>
+    </a>
+    <a class="cartao" href="https://mosaico-sala.web.app/">
+      <img src="assets/cards/mosaico-sala-telao.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
+      <span class="corpo"><span class="mono" style="color:#ff8a5c" data-en="with the whole class">com a turma toda</span><span class="titulo">MOSAICO · Sala</span><span class="texto" data-en="Each group holds a piece of the answer. The class joins with the code shown on the screen.">Cada grupo tem um pedaço da resposta. A turma entra com o código que aparece no telão.</span></span>
+    </a>
+  </div>
+  <div class="celula" id="celula-viva">
+    <div class="celula-texto">
+      <p class="mono" style="color:#38e1c6" data-en="Your first invitation · Living Cell">Seu primeiro convite · Célula Viva</p>
+      <h3 data-en-html="A human cell, &lt;span class=&quot;serif&quot;&gt;right in front of you.&lt;/span&gt;">Uma célula do corpo humano, <span class="serif">bem na sua frente.</span></h3>
+      <p data-en="Use your phone's camera to place a cell model in the space around you. Move closer, look at it from different angles and discover its structures in augmented reality.">Use a câmera do celular para colocar um modelo de célula no ambiente ao seu redor. Aproxime-se, observe de diferentes ângulos e descubra suas estruturas em realidade aumentada.</p>
+      <p class="celula-desafio"><span aria-hidden="true">◎</span> <span data-en-html="&lt;strong&gt;A first discovery:&lt;/strong&gt; find the nucleus and look at what surrounds it."><strong>Uma descoberta para começar:</strong> encontre o núcleo e observe o que existe ao redor dele.</span></p>
+      <a class="porta porta-sala" href="https://fisiologia.drmarionascimento.com.br/ra/celula/"><span data-en="Explore the cell in AR">Explorar a célula em RA</span><svg class="seta" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <small class="celula-nota" data-en="On a computer, explore the 3D model. AR requires a compatible phone.">No computador, explore o modelo em 3D. A RA depende da compatibilidade do celular.</small>
+    </div>
+    <figure class="celula-visual"><svg class="cell-composition" viewBox="0 0 1536 1024" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="cell-art-title"><title id="cell-art-title" >Celular mostrando a captura real da Célula Viva fornecida pelo autor</title><image href="assets/cards/celula-celular-base.webp" width="1536" height="1024"/><defs><clipPath id="cell-phone-screen"><path d="M 852 80 L 890 79 Q 890 110 919 110 L 1058 108 Q 1083 108 1086 77 L 1116 76 Q 1166 76 1167 124 L 1194 790 Q 1197 846 1145 849 L 838 842 Q 789 840 792 789 L 806 128 Q 807 83 852 80 Z"/></clipPath><filter id="cell-contact-shadow" x="-30%" y="-100%" width="160%" height="300%"><feGaussianBlur stdDeviation="12"/></filter></defs><g clip-path="url(#cell-phone-screen)"><ellipse cx="995" cy="649" rx="126" ry="21" fill="#101018" opacity=".28" filter="url(#cell-contact-shadow)"/><svg x="809" y="300" width="370" height="390" viewBox="255 115 1498 1158" preserveAspectRatio="xMidYMid meet"><image href="assets/cards/celula-captura-leve.webp" width="2047" height="1292"/></svg></g></svg></figure>
+  </div>
+</section>
+
+<section id="professor" class="wrap secao">
+  <p class="mono" style="color:#4ea9ff" data-en="For teachers">Para professores</p>
+  <h2 data-en-html="Take it to &lt;span class=&quot;serif&quot;&gt;your class.&lt;/span&gt;">Para levar <span class="serif">para a sua aula.</span></h2>
+  <p class="intro" data-en="Everything opens in the browser. Show it on the TV and the students follow on their own phones.">Tudo abre no navegador. Projete na TV e a turma acompanha no próprio celular.</p>
+  <ul class="perfil-lista">
+    <li><a href="https://mosaico-sala.web.app/"><b>MOSAICO · Sala</b><span data-en="A case for the whole class: each group holds part of the answer. You prepare the lesson and run it from your phone.">Um caso para a turma inteira: cada grupo tem um pedaço da resposta. Você prepara a aula e conduz pelo celular.</span><small data-en="Prepare a lesson">Preparar uma aula →</small></a></li>
+    <li><a href="https://fisiologia.drmarionascimento.com.br/"><b data-en="Physiology simulators">Simuladores de Fisiologia</b><span data-en="Show the mechanism on the big screen, change the variables and discuss with the class.">Mostre o mecanismo na tela grande, mude as variáveis e discuta com a turma.</span><small data-en="Open the simulators">Abrir os simuladores →</small></a></li>
+    <li><a href="https://etica.drmarionascimento.com.br/"><b data-en="Ethics cases">Casos de Ética</b><span data-en="Dilemmas and cases to debate in groups, with the class deciding together.">Dilemas e casos para debater em grupo, com a turma decidindo junto.</span><small data-en="See the cases">Ver os casos →</small></a></li>
+    <li><a href="https://laboratorio-de-pesquisa.drmarionascimento.com.br/"><b data-en="Researcher's Lab">Laboratório do Pesquisador</b><span data-en="Teach research methods by having students choose the study design.">Ensine metodologia fazendo o aluno escolher o delineamento.</span><small data-en="Open the lab">Abrir o laboratório →</small></a></li>
+  </ul>
+  <p class="perfil-email"><span data-en="Want to use it with your class and need help?">Quer usar com a sua turma e precisa de ajuda?</span> <a href="mailto:contato@drmarionascimento.com.br?subject=Uso%20em%20aula">contato@drmarionascimento.com.br</a></p>
+</section>
+
+<section id="bancada" class="wrap bancada">
+  <div class="lab">
+    <img src="assets/cards/lab-ra-paisagem.webp" alt="" width="960" height="540" loading="lazy" decoding="async">
+    <div class="corpo">
+      <p class="mono" style="margin:0;color:#4ea9ff" data-en="Halfway there">No meio do caminho</p>
+      <h2 data-en="The workbench">A bancada</h2>
+      <p data-en="Augmented reality, 3D models and everything still being tested before it becomes a class or a game.">Realidade aumentada, modelos 3D e tudo o que ainda está sendo testado antes de virar aula ou jogo.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:4px 24px">
+        <a class="ligacao" href="https://lab-ra.dragongames.dev.br/"><span data-en="Enter the AR Lab">Entrar no Lab RA</span><svg class="seta" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+  </div>
+  <div class="agora">
+    <p class="mono" data-en="What I'm working on now">Agora estou mexendo em</p>
+    <ul>
+      <li><span class="linha"><span class="nome" data-en="Ethics Committee">Comitê de Ética</span><span class="selo" style="border-color:rgba(165,140,255,.55);color:#b9a6ff" data-en="in progress">em construção</span></span><span class="desc" data-en="Investigating an ethics case piece by piece, with the class acting as the council.">Apurar um caso ético por fragmentos, com a turma no papel de conselho.</span></li>
+      <li><span class="linha"><span class="nome" data-en="The Echo of Tomorrow">O Eco do Amanhã</span><span class="selo" style="border-color:rgba(224,177,58,.55);color:#f3d078" data-en="in progress">em construção</span></span><span class="desc" data-en="A science-fiction case with a tower in augmented reality.">Um caso de ficção científica com uma torre em realidade aumentada.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="wrap" style="padding-bottom:96px" aria-labelledby="universo-titulo">
+  <a class="universo-cartao" href="universo.html">
+    <img src="assets/cards/universo-3d.webp" alt="" width="960" height="640" loading="lazy" decoding="async">
+    <span class="corpo">
+      <span class="mono" style="color:#4ea9ff" data-en="Every project, in orbit">Todos os projetos, em órbita</span>
+      <span class="titulo" id="universo-titulo" data-en="The 3D universe">O universo 3D</span>
+      <span class="texto" data-en="The full map: each front is a planet and each experience a satellite. Spin it, zoom in and open any of them.">O mapa completo: cada frente é um planeta e cada experiência, um satélite. Gire, aproxime e abra qualquer uma.</span>
+      <span class="ligacao"><span data-en="Explore the universe">Explorar o universo</span><svg class="seta" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </span>
+  </a>
+</section>
+
+<section id="parcerias" class="wrap secao" style="padding-bottom:72px">
+  <p class="mono" style="color:#f3d078" data-en="Partnerships">Parcerias</p>
+  <h2 data-en-html="Let's build &lt;span class=&quot;serif&quot;&gt;something together.&lt;/span&gt;">Vamos fazer <span class="serif">algo junto.</span></h2>
+  <ul class="perfil-lista">
+    <li><a href="mailto:contato@drmarionascimento.com.br?subject=Parceria%20em%20ensino%20e%20pesquisa"><b data-en="Teaching and research">Ensino e pesquisa</b><span data-en="Studies, courses and academic collaborations in physiology, ethics and research training.">Estudos, cursos e colaborações acadêmicas em Fisiologia, Ética e formação em pesquisa.</span><small data-en="Write to me">Escrever →</small></a></li>
+    <li><a href="mailto:contato@drmarionascimento.com.br?subject=Parceria%20em%20tecnologia%20educacional"><b data-en="Educational technology">Tecnologia educacional</b><span data-en="Simulators and classroom tools for your institution or course.">Simuladores e ferramentas de sala de aula para a sua instituição ou curso.</span><small data-en="Write to me">Escrever →</small></a></li>
+    <li><a href="https://dragongames.dev.br/#parcerias"><b>Dragon Games</b><span data-en="Games for schools, events, companies and studios.">Jogos para escolas, eventos, empresas e estúdios.</span><small data-en="See the partnerships">Ver as parcerias →</small></a></li>
+  </ul>
+</section>
+
+<section id="portal" class="portal">
+  <div class="portal-dentro">
+    <div class="portal-texto">
+      <div class="brasao"><img src="assets/portal/dragon-mark.webp" alt="" width="56" height="56" loading="lazy"><p class="mono" data-en="On the other side of the portal">Do outro lado do portal</p></div>
+      <h2>Dragon Games</h2>
+      <p class="slogan" data-en="Nobody has all the facts.">Ninguém tem todos os fatos.</p>
+      <p class="desc" data-en="Group deduction games: everyone's phone, a TV if you like, and a truth split into pieces. From here on, the tone changes.">Jogos de dedução em grupo: os celulares de todos, uma TV se quiser, e uma verdade dividida em pedaços. Daqui para a frente, o tom muda.</p>
+      <div class="boca"><div class="boca-aneis" aria-hidden="true"><i style="animation-delay:-0.0s"></i><i style="animation-delay:-2.5s"></i><i style="animation-delay:-5.0s"></i><i style="animation-delay:-7.5s"></i><i style="animation-delay:-10.0s"></i><i style="animation-delay:-12.5s"></i><i style="animation-delay:-15.0s"></i><i style="animation-delay:-17.5s"></i></div><a class="atravessar" href="https://dragongames.dev.br/"><span data-en="Cross over">Atravessar</span><svg class="seta" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+    <div class="pecas" aria-hidden="true">
+      <img src="assets/portal/caso-farol.webp" alt="" width="280" height="420" loading="lazy">
+      <img src="assets/portal/caso-malote.webp" alt="" width="280" height="420" loading="lazy">
+      <img src="assets/portal/caso-subsolo.webp" alt="" width="280" height="420" loading="lazy">
+    </div>
+  </div>
+</section>
+</main>
+
+<footer id="contato" class="contato">
+  <div class="dentro">
+    <p class="pergunta" data-en="Want to swap ideas or build something together?">Quer trocar ideia ou montar algo junto?</p>
+    <p class="email"><span data-en="Write to me:">Me escreve:</span> <a href="mailto:contato@dragongames.dev.br">contato@dragongames.dev.br</a></p>
+  </div>
+  <div class="rodape">
+    <span><span>© <span id="ano">2026</span> Prof. Mário César Nascimento, PhD</span> · <span data-en="AI-assisted development">desenvolvimento assistido por IA</span></span>
+    <nav aria-label="Rodapé" data-en-label="Footer"><a href="#sala" data-en="Back to the classroom">Voltar para a sala de aula</a><a href="universo.html" data-en="3D universe">Universo 3D</a><a href="https://github.com/DrMarioNascimento">GitHub</a></nav>
+  </div>
+</footer>
+
+<script>
+// Travessia: ao clicar em Atravessar, a página avança para dentro do mesmo túnel do topo; no fim dele, a luz dourada abre a Dragon Games.
+(function () {
+  var b = document.querySelector('.atravessar');
+  if (!b || !window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var sec = document.getElementById('portal');
+  if (sec && 'IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      if (!es.some(function (e) { return e.isIntersecting; })) return;
+      io.disconnect();
+      new Image().src = 'assets/portal/dragon-chegada-' + (innerWidth <= innerHeight ? 'cel' : 'pc') + '.webp';
+    }, { rootMargin: '400px' });
+    io.observe(sec);
+  }
+  b.addEventListener('click', function (ev) {
+    if (ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button) return;
+    ev.preventDefault();
+    var r = b.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2,
+        v = document.createElement('div'), html = '';
+    for (var i = 0; i < 12; i++) html += '<i style="animation-delay:-' + (i * 1.25 / 12).toFixed(3) + 's"></i>';
+    v.className = 'viagem';
+    v.innerHTML = html + '<span class="fim"></span><span class="chegada"></span>';
+    document.body.style.transformOrigin = (cx + window.scrollX) + 'px ' + (cy + window.scrollY) + 'px';
+    document.documentElement.classList.add('travessia');
+    document.body.classList.add('avanca');
+    document.documentElement.appendChild(v);
+    setTimeout(function () { location.href = b.href; }, 1680);
+    setTimeout(function () { v.remove(); }, 4000);
+  });
+  window.addEventListener('pageshow', function () { document.querySelectorAll('.viagem').forEach(function (n) { n.remove(); }); document.body.classList.remove('avanca'); document.body.style.transformOrigin = ''; document.documentElement.classList.remove('travessia'); });
+})();
+</script>
+<script>
+// Idioma: português por padrão; inglês para navegador em inglês, ?lang=en ou o botão EN (a escolha fica guardada).
+(function () {
+  var pt = new Map(), btn = document.getElementById('idioma');
+  function guardado() { try { return localStorage.getItem('idioma'); } catch (e) { return null; } }
+  function guardar(v) { try { localStorage.setItem('idioma', v); } catch (e) {} }
+  function aplicar(lang) {
+    var en = lang === 'en';
+    document.documentElement.lang = en ? 'en' : 'pt-BR';
+    document.querySelectorAll('[data-en],[data-en-html],[data-en-label],[data-en-alt]').forEach(function (el) {
+      if (!pt.has(el)) pt.set(el, { t: el.textContent, h: el.innerHTML, l: el.getAttribute('aria-label'), a: el.getAttribute('alt') });
+      var o = pt.get(el);
+      if (el.hasAttribute('data-en-html')) el.innerHTML = en ? el.getAttribute('data-en-html') : o.h;
+      else if (el.hasAttribute('data-en')) el.textContent = en ? el.getAttribute('data-en') : o.t;
+      if (el.hasAttribute('data-en-label')) el.setAttribute('aria-label', en ? el.getAttribute('data-en-label') : o.l);
+      if (el.hasAttribute('data-en-alt')) el.setAttribute('alt', en ? el.getAttribute('data-en-alt') : o.a);
+    });
+    btn.textContent = en ? 'PT' : 'EN';
+  }
+  var q = new URLSearchParams(location.search).get('lang');
+  var lang = q === 'en' || q === 'pt' ? q : guardado() || ((navigator.language || 'pt').toLowerCase().indexOf('en') === 0 ? 'en' : 'pt');
+  if (lang === 'en') aplicar('en');
+  btn.addEventListener('click', function () { lang = lang === 'en' ? 'pt' : 'en'; guardar(lang); aplicar(lang); });
+  document.getElementById('ano').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
