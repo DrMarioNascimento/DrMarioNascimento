@@ -24,6 +24,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Mário César Nascimento","honorificPrefix":"Prof.","honorificSuffix":"PhD","jobTitle":"Professor universitário","description":"Professor universitário de Fisiologia, Ética e formação em pesquisa; designer e desenvolvedor de tecnologias educacionais e jogos digitais.","url":"https://drmarionascimento.com.br/","image":"https://drmarionascimento.com.br/assets/avatar-prof-mario.webp","email":"mailto:contato@drmarionascimento.com.br","sameAs":["https://github.com/DrMarioNascimento","https://dragongames.dev.br/","https://fisiologia.drmarionascimento.com.br/","https://etica.drmarionascimento.com.br/"],"knowsAbout":["Fisiologia humana","Fisiologia do exercício","Ética profissional","Metodologia de pesquisa","Tecnologias educacionais","Jogos educacionais"]}</script>
+<script>
+// Chegada pelo túnel vindo da Dragon Games (?via=dragon): a página nasce coberta pela mesma luz em que a Dragon terminou e ela se dissolve.
+(function(){try{var u=new URL(location.href);if(u.searchParams.get('via')!=='dragon')return;u.searchParams.delete('via');history.replaceState(null,'',u.pathname+u.search+u.hash);if(!window.matchMedia||!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.classList.add('chega-dragon');}catch(e){}})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&family=Cinzel:wght@700;800&display=swap" rel="stylesheet">
@@ -185,9 +189,12 @@ body.avanca{animation:avanca .7s cubic-bezier(.45,0,.75,.4) forwards;pointer-eve
 @keyframes viagem-anel{0%{transform:scale(.02);opacity:0;border-color:#a58cff}14%{opacity:.7}55%{border-color:#38e1c6}82%{opacity:.85;border-color:#f5b544}100%{transform:scale(1.25);opacity:0;border-color:#f5b544}}
 .viagem .fim{position:absolute;left:50%;top:46%;width:60vmax;height:60vmax;margin:-30vmax 0 0 -30vmax;border-radius:50%;background:radial-gradient(circle,rgba(255,231,163,.95) 0,rgba(245,181,68,.6) 18%,rgba(255,106,24,.25) 40%,rgba(255,106,24,0) 70%);transform:scale(.08);opacity:.7;animation:viagem-fim 1.1s cubic-bezier(.5,0,.3,1) .45s forwards}
 @keyframes viagem-fim{to{transform:scale(2.4);opacity:.85}}
-.viagem .chegada{position:absolute;inset:0;background:#070605 url(assets/portal/dragon-chegada-pc.webp) center top/cover no-repeat;opacity:0;transform:scale(1.06);animation:viagem-chega .6s ease-in-out 1.05s forwards}
-@media (max-aspect-ratio:1/1){.viagem .chegada{background-image:url(assets/portal/dragon-chegada-cel.webp)}}
-@keyframes viagem-chega{to{opacity:1;transform:scale(1)}}
+/* último quadro da ida: a mesma luz com que a Dragon Games abre (?via=portal) */
+.viagem .luz{position:absolute;inset:0;background:radial-gradient(circle at 50% 46%,rgba(255,231,163,.95) 0,rgba(245,181,68,.75) 12vmax,rgba(255,106,24,.35) 30vmax,rgba(7,6,5,0) 60vmax),#070605;opacity:0;animation:viagem-luz .5s ease-in 1.15s forwards}
+@keyframes viagem-luz{to{opacity:1}}
+/* volta da Dragon: começa na luz verde-água em que a Dragon terminou e revela a página como ela é */
+html.chega-dragon body::after{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;background:radial-gradient(circle at 50% 46%,rgba(220,255,248,.95) 0,rgba(56,225,198,.72) 12vmax,rgba(78,169,255,.3) 30vmax,rgba(3,5,10,0) 60vmax),#03050a;animation:chega-luz 1.1s cubic-bezier(.3,.55,.35,1) .1s both}
+@keyframes chega-luz{from{opacity:1}to{opacity:0}}
 .atravessar:hover{color:#1a1206;transform:translateY(-2px)}.atravessar:active{transform:translateY(3px)}
 .pecas{flex:1 1 360px;min-width:0;display:flex;justify-content:center;gap:14px;align-items:flex-end}
 .pecas img{width:30%;max-width:140px;aspect-ratio:2/3;object-fit:cover;border-radius:8px;border:3px solid var(--gold);box-shadow:0 18px 30px rgba(0,0,0,.6)}
@@ -411,16 +418,19 @@ body.avanca{animation:avanca .7s cubic-bezier(.45,0,.75,.4) forwards;pointer-eve
 </footer>
 
 <script>
+// Chegada vinda da Dragon: tira a luz depois que ela se dissolveu.
+if (document.documentElement.classList.contains('chega-dragon')) setTimeout(function () { document.documentElement.classList.remove('chega-dragon'); }, 1400);
 // Travessia: ao clicar em Atravessar, a página avança para dentro do mesmo túnel do topo; no fim dele, a luz dourada abre a Dragon Games.
 (function () {
   var b = document.querySelector('.atravessar');
   if (!b || !window.matchMedia || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var destino = 'https://dragongames.dev.br/?via=portal';
   var sec = document.getElementById('portal');
   if (sec && 'IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (es) {
       if (!es.some(function (e) { return e.isIntersecting; })) return;
       io.disconnect();
-      new Image().src = 'assets/portal/dragon-chegada-' + (innerWidth <= innerHeight ? 'cel' : 'pc') + '.webp';
+      var l = document.createElement('link'); l.rel = 'prefetch'; l.href = destino; document.head.appendChild(l);
     }, { rootMargin: '400px' });
     io.observe(sec);
   }
@@ -431,12 +441,12 @@ body.avanca{animation:avanca .7s cubic-bezier(.45,0,.75,.4) forwards;pointer-eve
         v = document.createElement('div'), html = '';
     for (var i = 0; i < 12; i++) html += '<i style="animation-delay:-' + (i * 1.25 / 12).toFixed(3) + 's"></i>';
     v.className = 'viagem';
-    v.innerHTML = html + '<span class="fim"></span><span class="chegada"></span>';
+    v.innerHTML = html + '<span class="fim"></span><span class="luz"></span>';
     document.body.style.transformOrigin = (cx + window.scrollX) + 'px ' + (cy + window.scrollY) + 'px';
     document.documentElement.classList.add('travessia');
     document.body.classList.add('avanca');
     document.documentElement.appendChild(v);
-    setTimeout(function () { location.href = b.href; }, 1680);
+    setTimeout(function () { location.href = destino; }, 1680);
     setTimeout(function () { v.remove(); }, 4000);
   });
   window.addEventListener('pageshow', function () { document.querySelectorAll('.viagem').forEach(function (n) { n.remove(); }); document.body.classList.remove('avanca'); document.body.style.transformOrigin = ''; document.documentElement.classList.remove('travessia'); });
