@@ -1,4 +1,4 @@
-/* Fonte única do catálogo do portal e da página Universo. Revisão: 2026-10-24. */
+/* Fonte única do catálogo do portal e da página Universo. Revisão: 2026-10-31. */
 window.U = {
   "repos": [
     {
@@ -6,7 +6,7 @@ window.U = {
       "nome": "Fisiologia Interativa",
       "cor": "#38e1c6",
       "grupo": "aula",
-      "total": 57,
+      "total": 63,
       "area": {
         "pt": "Fisiologia Humana · EF e Fisioterapia",
         "en": "Human Physiology · PE & Physiotherapy"
@@ -161,7 +161,7 @@ window.U = {
       "nome": "Lab RA",
       "cor": "#4ea9ff",
       "grupo": "lab",
-      "total": 9,
+      "total": 43,
       "area": {
         "pt": "Realidade aumentada e técnicas em teste",
         "en": "Augmented reality & techniques under test"
@@ -313,6 +313,28 @@ window.U = {
       },
       "online": "https://mosaico-sala.web.app/",
       "github": "https://github.com/DrMarioNascimento/mosaico-sala"
+    },
+    {
+      "id": "comite-etica-profissional",
+      "nome": "Comitê de Ética",
+      "grupo": "etica",
+      "pai": 9,
+      "total": 1,
+      "cor": "#e673a0",
+      "area": {
+        "pt": "Deliberação ética · condução autorizada",
+        "en": "Ethical deliberation · authorised hosting"
+      },
+      "lema": {
+        "pt": "Deliberar não é achar resposta automática.",
+        "en": "Deliberating is not finding an automatic answer."
+      },
+      "desc": {
+        "pt": "Simulação de apuração ética por fragmentos: cada pessoa encaminha o que viu, os grupos fecham consenso e o conselho decide diante da turma. Professor autorizado abre a sala; a turma entra por código ou QR.",
+        "en": "An ethics inquiry played out in fragments: each person reports what they saw, groups reach consensus and the council decides in front of the class. An authorised teacher opens the room; the class joins by code or QR."
+      },
+      "online": "https://comite-etica.drmarionascimento.com.br/",
+      "github": "https://github.com/DrMarioNascimento/Comite-Etica-Profissional"
     }
   ],
   "grupos": {
@@ -1210,6 +1232,334 @@ window.U = {
       "Fisiologia · bancada experimental",
       "https://lab-ra.dragongames.dev.br/biblioteca/fisiologia/pleura/",
       "bancada",
+      ""
+    ],
+    [
+      0,
+      "Hipotálamo, hipófise e eixos endócrinos",
+      "Sistema Endócrino",
+      "https://fisiologia.drmarionascimento.com.br/endocrino/index.html",
+      "simulador",
+      "ef"
+    ],
+    [
+      0,
+      "Ciclo menstrual e controle hormonal",
+      "Sistema Endócrino",
+      "https://fisiologia.drmarionascimento.com.br/endocrino/ciclo/index.html?modo=ciclo",
+      "simulador",
+      "ef"
+    ],
+    [
+      0,
+      "Gestação, parto e puerpério",
+      "Sistema Endócrino",
+      "https://fisiologia.drmarionascimento.com.br/endocrino/ciclo/index.html?modo=gestacao",
+      "simulador",
+      "ef"
+    ],
+    [
+      0,
+      "Perimenopausa, menopausa e pós-menopausa",
+      "Sistema Endócrino",
+      "https://fisiologia.drmarionascimento.com.br/endocrino/menopausa/index.html",
+      "simulador",
+      "ef"
+    ],
+    [
+      0,
+      "Tireoide: hormônios, tempo e feedback",
+      "Módulo de aprofundamento",
+      "https://fisiologia.drmarionascimento.com.br/endocrino/thyroid.html",
+      "aprofundamento",
+      "ef"
+    ],
+    [
+      0,
+      "Cortisol: estresse, sono e exercício",
+      "Módulo de aprofundamento",
+      "https://fisiologia.drmarionascimento.com.br/endocrino/cortisol.html",
+      "aprofundamento",
+      "ef"
+    ],
+    [
+      7,
+      "A maquete — visualização livre",
+      "Dragon · A Casa da Costa — A Mesa",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/visualizador.html?id=casa-mesa-maquete",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "A maquete",
+      "Dragon · A Casa da Costa — A Mesa",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/casa-da-costa/a-mesa/AC-maquete.html?demo=solo",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "A escrivaninha",
+      "Dragon · A Casa da Costa — A Mesa",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/casa-da-costa/a-mesa/AC-escrivaninha.html?demo=solo",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Os papéis",
+      "Dragon · A Casa da Costa — A Mesa",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/casa-da-costa/a-mesa/AC-papeis.html?demo=solo",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "O percurso",
+      "Dragon · A Casa da Costa — A Mesa",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/casa-da-costa/a-mesa/AC-percurso.html?demo=solo",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Prólogo: A maquete",
+      "Dragon · A Casa da Costa — O Impostor",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/casa-da-costa/o-impostor/maquete/?demo=solo",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 1: O aparador",
+      "Dragon · A Casa da Costa — O Impostor",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/casa-da-costa/o-impostor/bandeja.html",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 2: A escrivaninha",
+      "Dragon · A Casa da Costa — O Impostor",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/casa-da-costa/o-impostor/escrivaninha.html",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 3: O relógio",
+      "Dragon · A Casa da Costa — O Impostor",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/casa-da-costa/o-impostor/relogio.html",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 4: O jardim interno",
+      "Dragon · A Casa da Costa — O Impostor",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/casa-da-costa/o-impostor/jardim.html",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 5: O farol",
+      "Dragon · A Casa da Costa — O Impostor",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/casa-da-costa/o-impostor/farol.html?codigo=1234",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 6: O quarto do jasmim",
+      "Dragon · A Casa da Costa — O Impostor",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/casa-da-costa/o-impostor/quarto.html",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "A janela do norte",
+      "Dragon · A Manhã do Carro-Forte — A Mesa",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/a-manha-do-carro-forte/a-mesa/janela-do-norte.html",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "O vidro embaçado",
+      "Dragon · A Manhã do Carro-Forte — A Mesa",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/a-manha-do-carro-forte/a-mesa/vidro-embacado.html",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "A sala às escuras",
+      "Dragon · A Manhã do Carro-Forte — A Mesa",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/a-manha-do-carro-forte/a-mesa/sala-as-escuras.html",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Fragmentos em dupla",
+      "Dragon · A Manhã do Carro-Forte — A Mesa",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/a-manha-do-carro-forte/a-mesa/fragmentos-em-dupla.html",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Prólogo: Agência 0688 — maquete e peças",
+      "Dragon · A Manhã do Carro-Forte — O Impostor",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/a-manha-do-carro-forte/o-impostor/estudo.html",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 1: O malote murcho",
+      "Dragon · A Manhã do Carro-Forte — O Impostor",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/a-manha-do-carro-forte/o-impostor/estudo.html?peca=c1",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 2: O rádio reserva",
+      "Dragon · A Manhã do Carro-Forte — O Impostor",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/a-manha-do-carro-forte/o-impostor/estudo.html?peca=c2",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 3: A impressora de etiquetas",
+      "Dragon · A Manhã do Carro-Forte — O Impostor",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/a-manha-do-carro-forte/o-impostor/estudo.html?peca=c3",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 4: O armário de vestígios",
+      "Dragon · A Manhã do Carro-Forte — O Impostor",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/a-manha-do-carro-forte/o-impostor/estudo.html?peca=c4",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 5: A balança de custódia",
+      "Dragon · A Manhã do Carro-Forte — O Impostor",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/a-manha-do-carro-forte/o-impostor/estudo.html?peca=c5",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 6: A noite de onze dias antes",
+      "Dragon · A Manhã do Carro-Forte — O Impostor",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/a-manha-do-carro-forte/o-impostor/estudo.html?peca=c6",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 7: A escrivaninha das quinze versões",
+      "Dragon · A Manhã do Carro-Forte — O Impostor",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/a-manha-do-carro-forte/o-impostor/estudo.html?peca=c7",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Prólogo: A planta da torre",
+      "Dragon · O Eco do Amanhã — VestChip",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/o-eco-do-amanha/o-impostor/planta-estudo.html",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Prólogo: Torre de Continuidade — andares e peças",
+      "Dragon · O Eco do Amanhã — VestChip",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/jogos/o-eco-do-amanha/o-impostor/estudo.html",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 1: A escrivaninha do gabinete",
+      "Dragon · O Eco do Amanhã — VestChip",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/visualizador.html?id=vestchip-c1",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 2: O fichário de consentimentos",
+      "Dragon · O Eco do Amanhã — VestChip",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/visualizador.html?id=vestchip-c2",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 3: O cofre de índices e a balança",
+      "Dragon · O Eco do Amanhã — VestChip",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/visualizador.html?id=vestchip-c3",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 4: O armário de serviço e a planta antiga",
+      "Dragon · O Eco do Amanhã — VestChip",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/visualizador.html?id=vestchip-c4",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 5: O quadro elétrico do subsolo",
+      "Dragon · O Eco do Amanhã — VestChip",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/visualizador.html?id=vestchip-c5",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 6: O relógio de custódia",
+      "Dragon · O Eco do Amanhã — VestChip",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/visualizador.html?id=vestchip-c6",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 7: O notebook e o pendrive",
+      "Dragon · O Eco do Amanhã — VestChip",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/visualizador.html?id=vestchip-c7",
+      "bancada",
+      ""
+    ],
+    [
+      7,
+      "Capítulo 8: A cortiça e as alavancas",
+      "Dragon · O Eco do Amanhã — VestChip",
+      "https://lab-ra.dragongames.dev.br/biblioteca/dragon/visualizador.html?id=vestchip-c8",
+      "bancada",
+      ""
+    ],
+    [
+      14,
+      "Sala do Comitê",
+      "Professor autorizado abre a sala · turma por código ou QR",
+      "https://comite-etica.drmarionascimento.com.br/",
+      "experiencia",
       ""
     ]
   ],
