@@ -21,7 +21,7 @@ Um link público de apresentação não libera uma atividade protegida. Login Go
 | [Atividades Extras](https://atividades-extras.drmarionascimento.com.br/) | Professor autorizado com Google; alunos por código/QR | Sete laboratórios de Fisiologia; condução docente protegida, participação por código/QR. |
 | [Mosaico Card](https://mosaico-card.dragongames.dev.br/) | Participação por convite | Novo Testamento e Filmes e Séries em testes fechados; salas criadas por contas autorizadas. |
 | [Histórias MOSAICO](https://dragongames.dev.br/) | Testes fechados | A Casa da Costa, A Manhã do Carro-Forte e O Eco do Amanhã permanecem em testes fechados. |
-| [Lab-RA](https://lab-ra.dragongames.dev.br/bancadas.html) | Experimentação | Biblioteca de experimentação. Para Fisiologia pública, prefira o portal de origem; cópias de jogos mantêm suas restrições. |
+| [Lab-RA](https://lab-ra.dragongames.dev.br/bancadas.html) | Experimentação | Bancada pessoal do autor para testar propostas, sem destinação ao público. Para Fisiologia pública, prefira o portal de origem; cópias de jogos mantêm suas restrições. |
 
 ## Acessos complementares
 
