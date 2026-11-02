@@ -67,7 +67,8 @@ test('Home directly clears inconsistent exploration/drag/panel state, without op
 test('Every lightweight planet is clickable from the hero and across repeated entry/Home cycles',()=>{
   const h=harness();h.loadLite();
   assert.equal(h.$('.universe-lite').hasAttribute('inert'),false);
-  assert.equal(h.document.querySelectorAll('.lite-satellite').length,10);
+  // O catálogo atual inclui Atividades Extras como 11º satélite.
+  assert.equal(h.document.querySelectorAll('.lite-satellite').length,11);
   for(let round=0;round<3;round++){
     for(const button of h.document.querySelectorAll('.lite-satellite')){
       button.click();
