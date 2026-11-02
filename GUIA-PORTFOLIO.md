@@ -25,7 +25,6 @@ Este portfólio reúne **recursos de estudo individual**, **experiências aberta
 | **Metodologia da Pesquisa** | [Laboratório do Pesquisador](https://laboratorio-de-pesquisa.drmarionascimento.com.br/) | Delineamentos e instrumentos de pesquisa |
 | **Jogos e experiências coletivas** | [Eita!](https://eita.dragongames.dev.br/), [MOSAICO · Sala](https://mosaico-sala.web.app/planejar.html), [Mosaico Card](https://mosaico-card.dragongames.dev.br/) e [Dragon Games](https://dragongames.dev.br/) | Aprendizagem por desafios, investigação, cooperação e tomada de decisões |
 | **Ferramentas de aula** | [Atividades Extras](https://atividades-extras.drmarionascimento.com.br/) | Professor organiza, configura e acompanha atividades com sua turma |
-| **Experimentação técnica** | [Lab-RA](https://lab-ra.dragongames.dev.br/bancadas.html) | Protótipos e experiências em realidade aumentada, respeitando as condições de cada projeto |
 | **Projetos relacionados** | [NutriCiclos — sistema](https://github.com/DrMarioNascimento/NutriCiclosSistemas) e [manual](https://github.com/DrMarioNascimento/NutriCiclos-manual) | Frente independente, com direitos e disponibilidade próprios |
 
 ### 2. Recursos destinados aos cursos
@@ -69,7 +68,7 @@ Este portfólio reúne **recursos de estudo individual**, **experiências aberta
 
 - **Histórias MOSAICO / Dragon Games:** *A Casa da Costa*, *A Manhã do Carro-Forte* e *O Eco do Amanhã* permanecem classificados como testes fechados.
 - **Mosaico Card:** as modalidades Novo Testamento e Filmes e Séries mantêm acesso restrito conforme o regime de salas.
-- **Lab-RA:** biblioteca experimental; a disponibilidade de uma cópia não amplia os direitos ou permissões do projeto de origem.
+- **Lab-RA:** bancada pessoal do autor para testar propostas, fora do catálogo de experiências destinadas ao público; a disponibilidade de uma cópia não amplia os direitos ou permissões do projeto de origem.
 - **NutriCiclos:** sistema e manual são projetos relacionados, sem classificação automática como testes públicos neste catálogo.
 
 ### 6. Autoria, alcance e acompanhamento

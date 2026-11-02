@@ -119,8 +119,8 @@
       "nome": "Lab-RA",
       "acesso": "experimental",
       "url": "https://lab-ra.dragongames.dev.br/bancadas.html",
-      "descricao_pt": "Biblioteca de experimentação. Para Fisiologia pública, prefira o portal de origem; cópias de jogos mantêm suas restrições.",
-      "descricao_en": "Experimental library. Use the original portal for public physiology resources; game copies retain their restrictions."
+      "descricao_pt": "Bancada pessoal do autor para testar propostas, sem destinação ao público. Para Fisiologia pública, prefira o portal de origem; cópias de jogos mantêm suas restrições.",
+      "descricao_en": "Personal workbench for the author to test proposals, not intended for the public. Use the original portal for public physiology resources; game copies retain their restrictions."
     }
   ]
 }
