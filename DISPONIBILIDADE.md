@@ -14,7 +14,7 @@ Um link público de apresentação não libera uma atividade protegida. Login Go
 | [Dilema do Bonde](https://etica.drmarionascimento.com.br/dilema-bonde/) | Público · sem cadastro | Versões para computador e celular abertas ao público. |
 | [Laboratório do Pesquisador](https://laboratorio-de-pesquisa.drmarionascimento.com.br/) | Público · sem cadastro | Delineamentos de pesquisa e instrumentos de coleta; estudo individual sem cadastro. |
 | [Fisiologia em Fuga](https://fisiologia-em-fuga.drmarionascimento.com.br/) | Público · sem cadastro | Escape rooms separados de Educação Física e Fisioterapia; Percursos de Fisiologia para ambos os cursos. Testes públicos sem Google. |
-| [Eita!](https://eita.drmarionascimento.com.br/) | Testes abertos | Quiz em aliança em testes abertos. Quem conduz entra com Google; participantes usam o código da sala. |
+| [Eita!](https://eita.dragongames.dev.br/) | Testes abertos | Quiz em aliança em testes abertos. Quem conduz entra com Google; participantes usam o código da sala. |
 | [MOSAICO · Planejamento](https://mosaico-sala.web.app/planejar.html) | Público · com Google | Montagem e exportação de atividades com Google. Biblioteca e condução de salas continuam restritas. |
 | [Casos Éticos 3](https://etica.drmarionascimento.com.br/percursos-eticos/) | Reservado ao professor | Revisão do professor; conta Google autorizada. |
 | [Comitê de Ética Profissional](https://comite-etica.drmarionascimento.com.br/) | Participação por convite | Professor autorizado cria a sala; turma entra por código ou QR. |
