@@ -1,5 +1,5 @@
 {
-  "revisado_em": "2026-10-25",
+  "revisado_em": "2026-11-17",
   "criterio": "Disponibilidade das entradas oficiais e controles implementados; não é certificação de funcionamento em todos os dispositivos.",
   "recursos": [
     {
@@ -13,26 +13,34 @@
     {
       "id": "casos-1",
       "nome": "Casos Éticos 1",
-      "acesso": "publico",
+      "acesso": "testes-abertos",
       "url": "https://etica.drmarionascimento.com.br/casos-eticos/",
-      "descricao_pt": "56 casos para investigar decisões, responsabilidades e consequências.",
-      "descricao_en": "56 cases to investigate decisions, responsibilities and consequences."
+      "descricao_pt": "56 casos para investigar decisões, responsabilidades e consequências. Em testes abertos, sem cadastro.",
+      "descricao_en": "56 cases to investigate decisions, responsibilities and consequences. Open testing, no registration."
     },
     {
       "id": "casos-2",
       "nome": "Casos Éticos 2",
-      "acesso": "publico",
+      "acesso": "testes-abertos",
       "url": "https://etica.drmarionascimento.com.br/historias-eticas/",
-      "descricao_pt": "13 histórias, mapas das escolhas por capítulo e desdobramentos na vida dos personagens.",
-      "descricao_en": "13 stories, chapter decision maps and later developments in the characters’ lives."
+      "descricao_pt": "13 histórias, mapas das escolhas por capítulo e desdobramentos na vida dos personagens. Em testes abertos, sem cadastro.",
+      "descricao_en": "13 stories, chapter decision maps and later developments in the characters’ lives. Open testing, no registration."
     },
     {
       "id": "bonde",
       "nome": "Dilema do Bonde",
-      "acesso": "publico",
+      "acesso": "testes-abertos",
       "url": "https://etica.drmarionascimento.com.br/dilema-bonde/",
-      "descricao_pt": "Versões para computador e celular abertas ao público.",
-      "descricao_en": "Desktop and mobile versions available to the public."
+      "descricao_pt": "Versões para computador, celular, 3D e realidade aumentada. Em testes abertos, sem cadastro.",
+      "descricao_en": "Desktop, mobile, 3D and augmented reality versions. Open testing, no registration."
+    },
+    {
+      "id": "vila-etica",
+      "nome": "Mosaico Vila Ética",
+      "acesso": "testes-abertos",
+      "url": "https://etica.drmarionascimento.com.br/mosaico-vila-etica/",
+      "descricao_pt": "Jogo em turma: todos formam uma vila e cada grupo, uma família. Em testes abertos, sem cadastro.",
+      "descricao_en": "Class game: everyone forms a village and each group is a family. Open testing, no registration."
     },
     {
       "id": "pesquisa",

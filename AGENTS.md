@@ -5,8 +5,9 @@ Antes de atualizar o catálogo, README, universo de planetas ou inventário de a
 ## Recursos em testes públicos
 - **Fisiologia em Fuga:** https://fisiologia-em-fuga.drmarionascimento.com.br/ — público, SEM senha e SEM login Google. Escape rooms para **Educação Física** e **Fisioterapia** são percursos distintos; NÃO misturar casos, unidades e links de retorno.
 - **Percursos de Fisiologia:** https://fisiologia-em-fuga.drmarionascimento.com.br/percursos/ — público, sem login, comum aos **dois cursos**.
+- **Ética (desde 17/11/2026):** Casos Éticos 1, Casos Éticos 2 (Histórias Éticas), Dilema do Bonde (PC, Smartphone, 3D e RA) e Mosaico Vila Ética estão em **testes abertos**, sem senha e sem login.
 - **Eita!:** teste aberto. A condução e o ingresso dos participantes têm papéis distintos: Google para quem conduz; código para participantes.
-- Outros recursos públicos (simuladores da Fisiologia Interativa, tutores, Casos Éticos 1 e 2, Bonde e Laboratório do Pesquisador) preservam o acesso indicado no inventário.
+- Outros recursos públicos (simuladores da Fisiologia Interativa, tutores e Laboratório do Pesquisador) preservam o acesso indicado no inventário.
 
 ## Recursos de condução restrita
 - **Atividades Extras:** https://atividades-extras.drmarionascimento.com.br/ — projeto **para o professor conduzir atividades em sala**. Funções docentes exigem autenticação Google **e autorização**; alunos participam apenas por código/QR, sem acesso ao painel docente.

@@ -1,6 +1,6 @@
 # Disponibilidade dos projetos
 
-Revisão: **25 de outubro de 2026**.
+Revisão: **17 de novembro de 2026**.
 
 [Ver os acessos na página do autor](https://www.drmarionascimento.com.br/#acesso-publico).
 
@@ -9,9 +9,10 @@ Um link público de apresentação não libera uma atividade protegida. Login Go
 | Recurso | Disponibilidade | O que está disponível |
 |---|---|---|
 | [Fisiologia Interativa](https://fisiologia.drmarionascimento.com.br/) | Público · sem cadastro | Simuladores, mapas, questões, tutores e realidade aumentada; percursos de EF e Fisioterapia. |
-| [Casos Éticos 1](https://etica.drmarionascimento.com.br/casos-eticos/) | Público · sem cadastro | 56 casos para investigar decisões, responsabilidades e consequências. |
-| [Casos Éticos 2](https://etica.drmarionascimento.com.br/historias-eticas/) | Público · sem cadastro | 13 histórias, mapas das escolhas por capítulo e desdobramentos na vida dos personagens. |
-| [Dilema do Bonde](https://etica.drmarionascimento.com.br/dilema-bonde/) | Público · sem cadastro | Versões para computador e celular abertas ao público. |
+| [Casos Éticos 1](https://etica.drmarionascimento.com.br/casos-eticos/) | Testes abertos · sem cadastro | 56 casos para investigar decisões, responsabilidades e consequências. |
+| [Casos Éticos 2](https://etica.drmarionascimento.com.br/historias-eticas/) | Testes abertos · sem cadastro | 13 histórias, mapas das escolhas por capítulo e desdobramentos na vida dos personagens. |
+| [Dilema do Bonde](https://etica.drmarionascimento.com.br/dilema-bonde/) | Testes abertos · sem cadastro | Versões para computador, celular, 3D e realidade aumentada. |
+| [Mosaico Vila Ética](https://etica.drmarionascimento.com.br/mosaico-vila-etica/) | Testes abertos · sem cadastro | Jogo em turma: todos formam uma vila e cada grupo, uma família. |
 | [Laboratório do Pesquisador](https://laboratorio-de-pesquisa.drmarionascimento.com.br/) | Público · sem cadastro | Delineamentos de pesquisa e instrumentos de coleta; estudo individual sem cadastro. |
 | [Fisiologia em Fuga](https://fisiologia-em-fuga.drmarionascimento.com.br/) | Público · sem cadastro | Escape rooms separados de Educação Física e Fisioterapia; Percursos de Fisiologia para ambos os cursos. Testes públicos sem Google. |
 | [Eita!](https://eita.dragongames.dev.br/) | Testes abertos | Quiz em aliança em testes abertos. Quem conduz entra com Google; participantes usam o código da sala. |

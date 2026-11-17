@@ -11,7 +11,7 @@ Sou **Mário César Nascimento, PhD**, professor universitário, designer e dese
 | Experiência | O que você faz | Como começar |
 |---|---|---|
 | [Fisiologia Interativa](https://fisiologia.drmarionascimento.com.br/) | Muda variáveis e observa mecanismos fisiológicos. | Estudo público, sem cadastro; EF e Fisioterapia têm percursos próprios. |
-| [Ética Interativa](https://etica.drmarionascimento.com.br/) | Investiga casos e argumenta sobre escolhas e consequências. | Casos 1 e 2 e Bonde são públicos; áreas docentes mantêm suas restrições. |
+| [Ética Interativa](https://etica.drmarionascimento.com.br/) | Investiga casos e argumenta sobre escolhas e consequências. | Casos 1 e 2, Bonde e Mosaico Vila Ética em testes abertos, sem cadastro; áreas docentes mantêm suas restrições. |
 | [Laboratório do Pesquisador](https://laboratorio-de-pesquisa.drmarionascimento.com.br/) | Escolhe delineamentos e instrumentos de pesquisa. | Laboratórios públicos, sem cadastro. |
 | [Mosaico Sala](https://mosaico-sala.web.app/) | Prepara atividades em que a turma reúne partes da resposta. | Demonstração sem cadastro; professor e participantes têm entradas próprias. |
 | [Eita!](https://eita.dragongames.dev.br/) | Coopera em um quiz para enfrentar o chefão. | Testes abertos: Google para quem conduz e código para participantes. |

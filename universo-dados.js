@@ -82,8 +82,8 @@ window.U = {
         "en": "Reflection, decision and responsibility."
       },
       "desc": {
-        "pt": "Casos Éticos 1 e 2 e Bonde abertos; Casos 3 em revisão docente e Comitê por convite.",
-        "en": "Ethical Cases 1 and 2 and Trolley Problem are open; Cases 3 is teacher-only and the Committee is invitation-based."
+        "pt": "Casos Éticos 1 e 2, Bonde e Mosaico Vila Ética em testes abertos; Casos 3 em revisão docente e Comitê por convite.",
+        "en": "Ethical Cases 1 and 2, Trolley Problem and Mosaico Vila Ética are in open testing; Cases 3 is teacher-only and the Committee is invitation-based."
       },
       "online": "https://etica.drmarionascimento.com.br/",
       "github": "https://github.com/DrMarioNascimento/Etica",
@@ -1029,7 +1029,7 @@ window.U = {
     [
       3,
       "Casos Éticos 1",
-      "Público · 56 casos e consequências",
+      "Testes abertos · 56 casos e consequências",
       "https://etica.drmarionascimento.com.br/casos-eticos/index.html",
       "experiencia",
       ""
@@ -1037,7 +1037,7 @@ window.U = {
     [
       3,
       "Dilema do Bonde",
-      "Público · dilemas e correntes éticas",
+      "Testes abertos · dilemas e correntes éticas",
       "https://etica.drmarionascimento.com.br/dilema-bonde/index.html",
       "experiencia",
       ""
@@ -1045,7 +1045,7 @@ window.U = {
     [
       3,
       "Dilema do Bonde — Smartphone",
-      "Público · dilemas e correntes éticas",
+      "Testes abertos · dilemas e correntes éticas",
       "https://etica.drmarionascimento.com.br/dilema-bonde-mobile/index.html",
       "experiencia",
       ""
@@ -1117,8 +1117,16 @@ window.U = {
     [
       3,
       "Casos Éticos 2",
-      "Público · 13 histórias, mapas das escolhas e epílogos",
+      "Testes abertos · 13 histórias, mapas das escolhas e epílogos",
       "https://etica.drmarionascimento.com.br/historias-eticas/",
+      "experiencia",
+      ""
+    ],
+    [
+      3,
+      "Mosaico Vila Ética",
+      "Testes abertos · jogo em turma: vila, famílias e bem comum",
+      "https://etica.drmarionascimento.com.br/mosaico-vila-etica/",
       "experiencia",
       ""
     ],
