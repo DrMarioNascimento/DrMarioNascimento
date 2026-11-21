@@ -207,6 +207,11 @@ html.chega-dragon body::after{content:"";position:fixed;inset:0;z-index:9999;poi
 .contato .dentro{max-width:1100px;margin:0 auto}
 .contato .pergunta{margin:0 0 10px;font-family:var(--disp);font-size:clamp(24px,3vw,34px);font-weight:600}
 .contato .email{margin:0;font-size:19px;color:var(--ink2)}.contato .email a{font-weight:600;white-space:nowrap;display:inline-block;padding:10px 0}
+.contato .comunidade{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.ico-3d{display:inline-block;flex:0 0 auto;transition:transform .16s}.ico-3d img{display:block;width:72px;height:72px;filter:drop-shadow(0 8px 10px rgba(0,0,0,.5))}
+.ico-3d:hover{transform:translateY(-3px)}.ico-3d:active{transform:translateY(3px) scale(.97)}.ico-3d:focus-visible{outline:3px solid var(--gold2);outline-offset:4px;border-radius:16px}
+.contato .email{display:flex;align-items:center;gap:14px}.contato .email>span{min-width:0}.contato .email a{white-space:normal;overflow-wrap:anywhere}.contato .comunidade>div{flex:1 1 180px;min-width:0}.ico-3d-img{display:block;width:48px;height:48px;flex:0 0 auto;filter:drop-shadow(0 6px 8px rgba(0,0,0,.5))}
+@media (prefers-reduced-motion:reduce){.ico-3d{transition:none}}
 .contato .comunidade{margin:26px 0 0}
 .contato .comunidade p{margin:0 0 14px;font-size:17px;color:var(--ink2)}
 .btn-discord{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:12px;border:0;text-decoration:none;font:700 14px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#fff;background:linear-gradient(180deg,#6d79ff,#5865f2);box-shadow:inset 0 1px rgba(255,255,255,.35),0 5px 0 #353ea6,0 12px 22px rgba(0,0,0,.45);transition:transform .16s,box-shadow .16s}
@@ -420,10 +425,13 @@ html.chega-dragon body::after{content:"";position:fixed;inset:0;z-index:9999;poi
 <footer id="contato" class="contato">
   <div class="dentro">
     <p class="pergunta" data-en="Want to swap ideas or build something together?">Quer trocar ideia ou montar algo junto?</p>
-    <p class="email"><span data-en="Write to me:">Me escreve:</span> <a href="mailto:contato@drmarionascimento.com.br">contato@drmarionascimento.com.br</a></p>
+    <p class="email"><img class="ico-3d-img" src="assets/portal/icone-email.webp" alt="" width="48" height="48" loading="lazy"><span><span data-en="Write to me:">Me escreve:</span> <a href="mailto:contato@drmarionascimento.com.br">contato@drmarionascimento.com.br</a></span></p>
     <div class="comunidade">
-      <p data-en="Or come chat with the community on Discord.">Ou venha conversar com a comunidade no Discord.</p>
-      <a class="btn-discord" href="https://discord.gg/JKSrfqGX2u" target="_blank" rel="noopener noreferrer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9 11h.01M12 11h.01M15 11h.01"/></svg><span data-en="Join Discord">Entrar no Discord</span></a>
+      <a class="ico-3d" href="https://discord.gg/JKSrfqGX2u" target="_blank" rel="noopener noreferrer" aria-label="Entrar no Discord" data-en-label="Join Discord"><img src="assets/portal/icone-discord.webp" alt="" width="72" height="72" loading="lazy"></a>
+      <div>
+        <p data-en="Or come chat with the community on Discord.">Ou venha conversar com a comunidade no Discord.</p>
+        <a class="btn-discord" href="https://discord.gg/JKSrfqGX2u" target="_blank" rel="noopener noreferrer"><span data-en="Join Discord">Entrar no Discord</span></a>
+      </div>
     </div>
   </div>
   <div class="rodape">
